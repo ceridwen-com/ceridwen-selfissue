@@ -338,6 +338,8 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
         throw ex;
       } catch (ConnectionFailure ex) {
         response = null;
+      } catch (Exception ex) {
+        logger.error("Unexpected exception during SIP", ex);
       }
       this.disconnect();
       SelfIssueClient.LeaveCriticalSection();
