@@ -445,6 +445,8 @@ public class BookPanel extends SelfIssuePanel implements SecurityListener {
     this.BookField.setText("");
     this.BookField.requestFocus();
     ResetTimer.start();
+    handler.securityDevice.stop();
+    handler.securityDevice.start(this);
   }
 
   String demangleDate(String date) {
