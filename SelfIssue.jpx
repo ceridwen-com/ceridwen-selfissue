@@ -134,6 +134,10 @@
   <property category="sys" name="WorkingDirectory" value="."/>
   <property category="sys" name="ant.usehostjdk" value="0"/>
   <property category="sys" name="ant.useprojectlibraries" value="1"/>
+  <property category="team" name="ignorePath.0" value="SelfIssue.bpgr.local"/>
+  <property category="team" name="ignorePath.1" value="ceridwen-selfIssue.jar"/>
+  <property category="team" name="ignorePath.2" value="bak"/>
+  <property category="team" name="ignorePath.3" value="classes"/>
   <node name="ceridwen-selfissue" type="Archive">
     <property category="archiving" name="archiverClass" value="com.borland.jbuilder.wizard.archive.ApplicationArchiver"/>
     <property category="archiving" name="contentRules.1" value="I:**/*.*"/>
@@ -146,4 +150,6 @@
     <property category="archiving" name="targetPath" value="ceridwen-selfIssue.jar"/>
     <property category="archiving" name="usingRules" value="1"/>
   </node>
+  <file path="src/com/ceridwen/circulation/security/SecurityDevice.num"/>
+  <file path="src/com/ceridwen/selfissue/client/SelfIssueClient.num"/>
 </project>
