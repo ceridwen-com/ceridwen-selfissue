@@ -11,6 +11,7 @@ import java.util.Vector;
 import java.io.*;
 import java.util.*;
 import com.ceridwen.circulation.security.*;
+import java.net.*;
 
 /**
  * <p>Title: RTSI</p>
@@ -175,7 +176,20 @@ public class SelfIssueClient extends Thread {
     frame.setVisible(true);
   }
   //Main method
+
+  static ServerSocket SingleInstance = null;
+  static final int SOCKET_PORT = 61432;
+
   public static void main(String[] args) {
+      try {
+        SingleInstance = new ServerSocket(SOCKET_PORT);
+      }
+      catch (IOException ex) {
+        ErrorDialog err = new ErrorDialog("SelfIssue Client is already running");
+        err.show();
+        Runtime.getRuntime().halt(200);
+      }
+
     /**@todo: Read configuration
      *
      */

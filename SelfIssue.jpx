@@ -147,7 +147,7 @@
     <property category="archiving" name="manifestMainClass" value="com.ceridwen.selfissue.client.SelfIssueClient"/>
     <property category="archiving" name="obfuscator" value="RetroGuard for J2ME"/>
     <property category="archiving" name="targetCompressed" value="1"/>
-    <property category="archiving" name="targetPath" value="ceridwen-selfIssue.jar"/>
+    <property category="archiving" name="targetPath" value="ceridwen-selfissue.jar"/>
     <property category="archiving" name="usingRules" value="1"/>
   </node>
   <file path="src/com/ceridwen/circulation/security/SecurityDevice.num"/>

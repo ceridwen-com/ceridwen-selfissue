@@ -4,4 +4,5 @@
   <project path="../Utlilities/Utilities.jpx"/>
   <project path="../Circulation/Circulation.jpx"/>
   <project path="SelfIssue.jpx"/>
+  <project path="../Intellident/Intellident.jpx"/>
 </projectgroup>
