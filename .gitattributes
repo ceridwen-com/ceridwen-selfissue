@@ -1,6 +1,7 @@
 * text=auto !eol
 /SelfIssue.bpgr -text
 /SelfIssue.jpx -text
+/ceridwen-selfIssue.jar -text
 src/com/ceridwen/circulation/security/FailureException.java -text
 src/com/ceridwen/circulation/security/SecurityDevice.java -text
 src/com/ceridwen/circulation/security/SecurityDevice.num -text
