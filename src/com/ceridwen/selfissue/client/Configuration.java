@@ -26,17 +26,21 @@ public class Configuration {
 
   }
 
+  private static void fatal(Throwable e, String msg) {
+    System.err.print("FATAL: " + msg);
+    System.out.println("**FATAL SHUTDOWN - INVALID CONFIGURATION***");
+    ErrorDialog dlg = new ErrorDialog(e, msg);
+    dlg.show();
+    Runtime.getRuntime().halt(200);
+  }
+
   private static synchronized DocumentBuilder getDocumentBuilder() {
 
     DocumentBuilder builder = null;
     try {
       builder = factory.newDocumentBuilder();
     } catch (ParserConfigurationException e) {
-      String message = "DOMFactory, static initialization: Parser with specified options cannot be built!";
-      System.err.print("FATAL: " + message +
-                       " Could not initialize DOMFactory.");
-      System.out.println("**FATAL SHUTDOWN - INVALID CONFIGURATION***");
-      Runtime.getRuntime().halt(200);
+      fatal(e, "DOMFactory, static initialization: Parser with specified options cannot be built!");
     }
 
     return builder;
@@ -49,6 +53,7 @@ public class Configuration {
     try {
       nodeList = xPathAPI.selectNodeList(node, xPath);
     } catch (javax.xml.transform.TransformerException e) {
+      fatal(e, "Could not select valid nodes");
       System.exit(200);
     }
     return nodeList;
@@ -61,8 +66,7 @@ public class Configuration {
     try {
       selection = xPathAPI.selectSingleNode(node, xPath);
     } catch (javax.xml.transform.TransformerException e) {
-      System.out.println("**   FATAL SHUTDOWN - INVALID CONFIGURATION   ***");
-      Runtime.getRuntime().halt(200);
+      fatal(e, "Could not select valid node");
     }
     return selection;
   }
@@ -137,9 +141,7 @@ public class Configuration {
 
       return propValue;
     } catch (Exception ex) {
-      ex.printStackTrace();
-      System.out.println("**   FATAL SHUTDOWN - INVALID CONFIGURATION   **");
-      Runtime.getRuntime().halt(200);
+      fatal(ex, "Could not retrieve property value");
       return null;
     }
   }
@@ -154,9 +156,7 @@ public class Configuration {
 
       return value;
     } catch (Exception ex) {
-      ex.printStackTrace();
-      System.out.println("**   FATAL SHUTDOWN - INVALID CONFIGURATION   **");
-      Runtime.getRuntime().halt(200);
+      fatal(ex, "Could not retrieve property values");
       return null;
     }
 
@@ -172,9 +172,7 @@ public class Configuration {
 
       return propValue;
     } catch (Exception ex) {
-      ex.printStackTrace();
-      System.out.println("**   FATAL SHUTDOWN - INVALID CONFIGURATION   **");
-      Runtime.getRuntime().halt(200);
+      fatal(ex, "Could not retrieve property sub-value");
       return null;
     }
   }

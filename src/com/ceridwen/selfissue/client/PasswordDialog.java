@@ -60,6 +60,8 @@ public class PasswordDialog extends JDialog {
     panel1.add(jPasswordField1,  BorderLayout.CENTER);
     panel1.add(jLabel1, BorderLayout.NORTH);
 
+    this.pack();
+
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     Dimension frameSize = this.getSize();
     if (frameSize.height > screenSize.height) {
