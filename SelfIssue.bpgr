@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Project Group-->
+<projectgroup>
+  <project path="../Utlilities/Utilities.jpx"/>
+  <project path="../Circulation/Circulation.jpx"/>
+  <project path="SelfIssue.jpx"/>
+</projectgroup>
