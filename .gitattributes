@@ -1,0 +1,23 @@
+* text=auto !eol
+src/com/ceridwen/selfissue/EncodePassword.java -text
+src/com/ceridwen/selfissue/client/BookPanel.java -text
+src/com/ceridwen/selfissue/client/CirculationHandler.java -text
+src/com/ceridwen/selfissue/client/Configuration.java -text
+src/com/ceridwen/selfissue/client/PasswordDialog.java -text
+src/com/ceridwen/selfissue/client/PatronPanel.java -text
+src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
+src/com/ceridwen/selfissue/client/SelfIssueClient.num -text
+src/com/ceridwen/selfissue/client/SelfIssueFrame.java -text
+src/com/ceridwen/selfissue/client/SelfIssuePanel.java -text
+src/com/ceridwen/selfissue/client/SelfIssuePanelEvent.java -text
+src/com/ceridwen/selfissue/client/SelfIssuePanelListener.java -text
+src/com/ceridwen/selfissue/client/log/MailLogger.java -text
+src/com/ceridwen/selfissue/client/log/OnlineLog.java -text
+src/com/ceridwen/selfissue/client/log/OnlineLogDevice.java -text
+src/com/ceridwen/selfissue/client/log/OnlineLogEvent.java -text
+src/com/ceridwen/selfissue/client/log/OnlineLogLogger.java -text
+src/com/ceridwen/selfissue/client/log/OnlineLogManager.java -text
+src/com/ceridwen/selfissue/client/nulldevices/OnlineLogLogger.java -text
+src/com/ceridwen/selfissue/client/nulldevices/SecurityDevice.java -text
+src/com/ceridwen/selfissue/client/spooler/OfflineSpooler.java -text
+src/com/ceridwen/selfissue/client/spooler/OfflineSpoolerDevice.java -text
