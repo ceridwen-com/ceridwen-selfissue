@@ -154,6 +154,7 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
     initiateOfflineSpooler();
     initiateSecurityDevice();
     initiateOnlineLoggers();
+    conn = SelfIssueClient.ConfigureConnection();
   }
 
   public String stripHtml(String data) {
@@ -197,7 +198,6 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
   }
 
   private boolean connect() {
-    conn = SelfIssueClient.ConfigureConnection();
     return conn.connect();
   }
 
