@@ -223,6 +223,7 @@ public class SelfIssueFrame extends JFrame {
   void ResetTimer_actionPerformed(ActionEvent e) {
     ResetTimer.stop();
     setPatronPanel();
+    this.handler.securityDevice.stop();
     ResetTimer.start();
   }
 

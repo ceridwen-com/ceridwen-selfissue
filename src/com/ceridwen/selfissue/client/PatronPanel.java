@@ -145,6 +145,7 @@ public class PatronPanel extends SelfIssuePanel {
     PatronInformationResponse response = null;
     try {
       ResetTimer.stop();
+      request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
       request.setPatronIdentifier(this.PatronField.getText().trim());
       if (request.getPatronIdentifier().length() < 1) {
         this.PatronField.setText("");
@@ -354,7 +355,7 @@ public class PatronPanel extends SelfIssuePanel {
           if (retryItemWhenError) data.append("ItemRetry|");
           if (allowRenews) data.append("Renews|");
           data.append("\r\n");
-          data.append("Spooler: " + handler.spool.size() + "\r\n");
+          data.append("Spooler: " + handler.spoolSize() + "\r\n");
           data.append("Memory (Max, VM, Free): " + Runtime.getRuntime().maxMemory()/(1024*1024) + "MB, ");
           data.append(Runtime.getRuntime().totalMemory()/(1024*1024) + "MB, ");
           data.append(Runtime.getRuntime().freeMemory()/(1024*1024) + "MB\r\n");

@@ -280,11 +280,12 @@ public class BookPanel extends SelfIssuePanel implements SecurityListener {
     String finalStatusText = "";
     try {
       ResetTimer.stop();
+      request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
       request.setPatronIdentifier(this.PatronID);
       request.setItemIdentifier(this.BookField.getText().trim());
       request.setRenewalPolicy(new Boolean(allowRenews || trustMode));
+      request.setTransactionDate(new Date());
       if (trustMode) {
-        request.setTransactionDate(new Date());
         request.setNoBlock(new Boolean(useNoBlock));
       }
       if (request.getItemIdentifier().length() < 1 ||
@@ -313,7 +314,7 @@ public class BookPanel extends SelfIssuePanel implements SecurityListener {
           // Network failing so cache request and fake positive response
           request.setTransactionDate(new Date());
           request.setNoBlock(new Boolean(useNoBlock));
-          handler.spool.add(request);
+          handler.spool(request);
           response = new CheckOutResponse();
           response.setItemIdentifier(request.getItemIdentifier());
           response.setTitleIdentifier(request.getItemIdentifier());
@@ -445,8 +446,6 @@ public class BookPanel extends SelfIssuePanel implements SecurityListener {
     this.BookField.setText("");
     this.BookField.requestFocus();
     ResetTimer.start();
-    handler.securityDevice.stop();
-    handler.securityDevice.start(this);
   }
 
   String demangleDate(String date) {

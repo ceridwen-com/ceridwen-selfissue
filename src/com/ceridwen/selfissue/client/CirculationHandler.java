@@ -78,15 +78,12 @@ class PrintItem implements Printable {
     }
 }
 
-
-
-
 public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
 
   private static Log logger = LogFactory.getLog(CirculationHandler.class);
 
   Connection conn;
-  public OfflineSpooler spool;
+  private OfflineSpooler spool;
   public OnlineLogManager log ;
   public SecurityDevice securityDevice;
 
@@ -198,27 +195,59 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
   }
 
   private boolean connect() {
-    return conn.connect();
+    SelfIssueClient.EnterCriticalSection();
+    boolean result = conn.connect();
+    if (!result) {
+      SelfIssueClient.LeaveCriticalSection();
+    }
+    return result;
   }
 
   private void disconnect() {
     conn.disconnect();
+    SelfIssueClient.LeaveCriticalSection();
+  }
+
+  public void spool(Message msg) {
+    this.spool.add(new OfflineSpoolObject(msg));
+  }
+
+  public int spoolSize() {
+    return this.spool.size();
   }
 
   public boolean process(Object o) {
-    Message request;
+    OfflineSpoolObject obj;
     if (o == null) {
       logger.error("Null spool object");
       return true; //Whatever it is in the spool it isn't valid so delete
     }
-
     try {
-      request = (Message) o;
-    } catch (Exception ex) {
+      obj = (OfflineSpoolObject) o;
+    }
+    catch (Exception ex) {
       logger.error("Invalid spool object: " + o);
       return true; //Whatever it is in the spool it isn't valid so delete
     }
+    if (obj.getMessage() == null) {
+      logger.error("Null spool object message: ");
+      return true; //Whatever it is in the spool it isn't valid so delete
+    }
+    if (obj.isAboutToExpire()) {
+      //            logger.error("Item stored in spooler expired: " + request);
+      log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "",
+                      "Cached item expired", obj.getMessage(), null);
+      return true;
+    }
+    if (obj.isAboutToStale()) {
+  //            logger.warn("Item stored in spooler overdue: " + request);
+      log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "",
+                      "Aged cached item warning", obj.getMessage(), null);
+    }
+    return processMessage(obj.getMessage());
+  }
 
+  public boolean processMessage(Message request) {
     if (request.getClass() == CheckOut.class) {
       if (((CheckOut)request).getPatronIdentifier() == null) {
         logger.error("Null patron identifier in spool: " + request);
@@ -236,25 +265,10 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
       response = unprotectedSend(request);
     } catch (RetriesExceeded ex) {
       logger.fatal("Invalid spool message: " + request);
-      return true; //whatever is in the spool isn't valid so delete
+      return false;
     }
 
     if (response == null) {
-      if (request instanceof CheckOut) {
-        if (((CheckOut)request).getTransactionDate() != null) {
-          Date transactionDate = ((CheckOut)request).getTransactionDate();
-          Date currentDate = new Date();
-          long age = (currentDate.getTime() - transactionDate.getTime())/(60*60*1000);
-          if (age > Configuration.getIntProperty("Systems/Spooler/OverdueAgeWarn")) {
-//            logger.warn("Item stored in spooler overdue: " + request);
-            log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "", "Aged cached item warning", request, response);
-          } else if (age > Configuration.getIntProperty("Systems/Spooler/OverdueAgeExpire")) {
-//            logger.error("Item stored in spooler expired: " + request);
-            log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "Cached item expired", request, response);
-            return true;
-          }
-        }
-      }
       return false;
     }
 
@@ -294,10 +308,8 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
     }
 
     Message response = null;
-    SelfIssueClient.EnterCriticalSection();
 
     if (!this.connect()) {
-      SelfIssueClient.LeaveCriticalSection();
       return null;
     }
 
@@ -309,23 +321,19 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
         ACSStatus ascstatus = (ACSStatus) conn.send(scstatus);
         if (ascstatus == null) {
           this.disconnect();
-          SelfIssueClient.LeaveCriticalSection();
           return null;
         }
         if (! ( (ascstatus.isCheckOutOk() != null) ?
                ascstatus.isCheckOutOk().booleanValue() : false)) {
           this.disconnect();
-          SelfIssueClient.LeaveCriticalSection();
           return null;
         }
       } catch (RetriesExceeded ex) {
         this.disconnect();
         logger.error("Repeated retries on status request: " + request);
-        SelfIssueClient.LeaveCriticalSection();
         throw ex;
       } catch (Exception ex) {
         this.disconnect();
-        SelfIssueClient.LeaveCriticalSection();
         return null;
       }
 
@@ -334,15 +342,14 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
       } catch (RetriesExceeded ex) {
         this.disconnect();
         logger.error("Repeated retries on request: " + request);
-        SelfIssueClient.LeaveCriticalSection();
         throw ex;
       } catch (ConnectionFailure ex) {
         response = null;
       } catch (Exception ex) {
+        response = null;
         logger.error("Unexpected exception during SIP", ex);
       }
       this.disconnect();
-      SelfIssueClient.LeaveCriticalSection();
     }
     if (response != null) {
       log.recordEvent(OnlineLogEvent.STATUS_NOTIFICATION, "", "", request, response);
