@@ -28,5 +28,6 @@ src/com/ceridwen/selfissue/client/log/OnlineLogLogger.java -text
 src/com/ceridwen/selfissue/client/log/OnlineLogManager.java -text
 src/com/ceridwen/selfissue/client/nulldevices/OnlineLogLogger.java -text
 src/com/ceridwen/selfissue/client/nulldevices/SecurityDevice.java -text
+src/com/ceridwen/selfissue/client/spooler/OfflineSpoolObject.java -text
 src/com/ceridwen/selfissue/client/spooler/OfflineSpooler.java -text
 src/com/ceridwen/selfissue/client/spooler/OfflineSpoolerDevice.java -text

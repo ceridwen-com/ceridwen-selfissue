@@ -22,6 +22,6 @@ import com.ceridwen.circulation.SIP.messages.*;
  */
 
 public interface OfflineSpooler {
-  void add(Message m);
+  void add(OfflineSpoolObject m);
   int size();
 }

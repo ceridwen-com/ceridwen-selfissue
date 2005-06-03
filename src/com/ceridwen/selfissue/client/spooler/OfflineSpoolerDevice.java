@@ -21,7 +21,7 @@ public class OfflineSpoolerDevice implements OfflineSpooler {
     spool = new Spooler(new PersistentQueue(file), processor, period);
   }
 
-  public void add(Message m) {
+  public void add(OfflineSpoolObject m) {
     spool.add(m);
   }
   public int size() {
