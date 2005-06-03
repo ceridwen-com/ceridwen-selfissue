@@ -17,9 +17,9 @@ public class OnlineLogManager implements OnlineLog {
 
   public void recordEvent(int level, String library, String addInfo, Message request,
                           Message response) {
-    Enumeration enum = loggers.elements();
-    while (enum.hasMoreElements()) {
-      ((OnlineLog)enum.nextElement()).recordEvent(level, library, addInfo, request, response);
+    Enumeration enumerate = loggers.elements();
+    while (enumerate.hasMoreElements()) {
+      ((OnlineLog)enumerate.nextElement()).recordEvent(level, library, addInfo, request, response);
     }
   }
 }
