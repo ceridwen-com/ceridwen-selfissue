@@ -1,6 +1,6 @@
 package com.ceridwen.selfissue.client.spooler;
 
-import com.ceridwen.circulation.SIP.messages.Message;
+import java.io.File;
 
 /**
  * <p>Title: RTSI</p>
@@ -10,9 +10,9 @@ import com.ceridwen.circulation.SIP.messages.Message;
  * @author Matthew J. Dovey
  * @version 2.0
  */
-
-import com.ceridwen.util.*;
-import java.io.*;
+import com.ceridwen.util.PersistentQueue;
+import com.ceridwen.util.Spooler;
+import com.ceridwen.util.SpoolerProcessor;
 
 public class OfflineSpoolerDevice implements OfflineSpooler {
   private Spooler spool;
@@ -29,5 +29,6 @@ public class OfflineSpoolerDevice implements OfflineSpooler {
   }
   protected void finalize() throws java.lang.Throwable {
     spool.cancelScheduler();
+    super.finalize();
   }
 }

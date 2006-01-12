@@ -1,8 +1,10 @@
 package com.ceridwen.selfissue.client.log;
 
-import com.ceridwen.util.*;
-import com.ceridwen.circulation.SIP.messages.*;
-import java.io.*;
+import java.io.File;
+
+import com.ceridwen.circulation.SIP.messages.Message;
+import com.ceridwen.util.PersistentQueue;
+import com.ceridwen.util.Spooler;
 
 /**
  * <p>Title: RTSI</p>
@@ -41,5 +43,6 @@ public class OnlineLogDevice implements OnlineLog {
   }
   protected void finalize() throws java.lang.Throwable {
     spool.cancelScheduler();
+    super.finalize();
   }
 }

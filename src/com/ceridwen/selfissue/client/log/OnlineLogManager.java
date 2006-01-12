@@ -1,10 +1,12 @@
 package com.ceridwen.selfissue.client.log;
 
+import java.util.Enumeration;
+import java.util.Vector;
+
 import com.ceridwen.circulation.SIP.messages.Message;
-import java.util.*;
 
 public class OnlineLogManager implements OnlineLog {
-  Vector loggers = new Vector();
+  private Vector loggers = new Vector();
 
 
   public void addOnlineLogger(OnlineLog logger) {

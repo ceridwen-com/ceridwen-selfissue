@@ -28,12 +28,11 @@ public abstract class SecurityDevice {
   public abstract void init();
   public abstract void start(SecurityListener listener);
   public abstract void stop();
+  public abstract void reset();
+  public abstract void pause();
+  public abstract void resume();
   public abstract void deinit();
   public abstract void lock() throws TimeoutException, FailureException;
   public abstract void unlock() throws TimeoutException, FailureException;
   public abstract boolean isLocked() throws TimeoutException, FailureException;
-
-  static {
-    com.ceridwen.util.versioning.ComponentRegistry.registerComponent(SecurityDevice.class);
-  }
 }

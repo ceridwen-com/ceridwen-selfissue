@@ -10,7 +10,6 @@ package com.ceridwen.selfissue.client.log;
  */
 
 import com.ceridwen.circulation.SIP.messages.Message;
-import com.ceridwen.util.*;
 
 public interface OnlineLog {
   void recordEvent(int level, String library, String addInfo, Message request, Message response);

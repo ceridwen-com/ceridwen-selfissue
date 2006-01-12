@@ -1,6 +1,5 @@
 package com.ceridwen.selfissue;
-import java.rmi.dgc.VMID;
-import com.ceridwen.selfissue.client.Configuration;
+import com.ceridwen.selfissue.client.config.Configuration;
 
 /**
  * <p>Title: RTSI</p>
@@ -16,7 +15,11 @@ public class EncodePassword {
   }
   public static void main(String[] args) {
     String enc = Configuration.Encrypt(args[0]);
-    System.out.println(enc);
+    if (enc != null && enc.length() > 0) {
+      System.out.println(enc);
+    } else {
+      System.out.println("Usage: encode <password>");
+    }
     Configuration.Decrypt(enc);
   }
 

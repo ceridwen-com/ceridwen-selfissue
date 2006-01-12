@@ -1,7 +1,6 @@
 package com.ceridwen.selfissue.client.nulldevices;
 
-import com.ceridwen.circulation.SIP.messages.*;
-import com.ceridwen.selfissue.client.log.*;
+import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
 
 /**

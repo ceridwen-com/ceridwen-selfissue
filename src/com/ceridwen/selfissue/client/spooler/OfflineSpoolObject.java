@@ -1,10 +1,12 @@
 package com.ceridwen.selfissue.client.spooler;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Date;
 
-import com.ceridwen.circulation.SIP.messages.*;
-import com.ceridwen.selfissue.client.*;
+import com.ceridwen.circulation.SIP.messages.Message;
+import com.ceridwen.selfissue.client.config.Configuration;
 
 public class OfflineSpoolObject implements java.io.Serializable {
     public Date added = new Date();

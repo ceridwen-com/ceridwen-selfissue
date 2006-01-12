@@ -9,8 +9,12 @@ package com.ceridwen.selfissue.client.log;
  * @version 2.0
  */
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import com.ceridwen.circulation.SIP.messages.Message;
-import java.io.*;
 
 public class OnlineLogEvent implements Serializable {
   public static final int STATUS_CHECKOUTSUCCESS = 0x0001;
@@ -20,6 +24,12 @@ public class OnlineLogEvent implements Serializable {
   public static final int STATUS_NOTIFICATION = 0x0010;
   public static final int STATUS_UNLOCKFAILURE = 0x0020;
   public static final int STATUS_CANCELCHECKOUTFAILURE = 0x0040;
+  public static final int STATUS_UNLOCKSUCCESS = 0x0080;
+  public static final int STATUS_CHECKINSUCCESS = 0x0100;
+  public static final int STATUS_CHECKINFAILURE = 0x0200;
+  public static final int STATUS_CHECKINPENDING = 0x0400;
+  public static final int STATUS_LOCKFAILURE = 0x0800;
+  public static final int STATUS_LOCKSUCCESS = 0x1000;
 
   private String source;
   private String library;

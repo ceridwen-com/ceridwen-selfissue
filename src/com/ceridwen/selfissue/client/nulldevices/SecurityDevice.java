@@ -1,6 +1,8 @@
 package com.ceridwen.selfissue.client.nulldevices;
 
-import com.ceridwen.circulation.security.*;
+import com.ceridwen.circulation.security.FailureException;
+import com.ceridwen.circulation.security.SecurityListener;
+import com.ceridwen.circulation.security.TimeoutException;
 
 /**
  * <p>Title: RTSI</p>
@@ -29,7 +31,6 @@ public class SecurityDevice extends com.ceridwen.circulation.security.SecurityDe
    *
    * @throws Exception
    * @return boolean
-   * @todo Implement this com.ceridwen.circulation.security.SecurityDevice method
    */
   public boolean isLocked() throws TimeoutException, FailureException {
     return false;
@@ -65,4 +66,14 @@ public class SecurityDevice extends com.ceridwen.circulation.security.SecurityDe
    */
   public void start(SecurityListener listener) {
   }
+
+  public void reset() {
+  }
+
+  public void pause() {
+  }
+
+  public void resume() {
+  }
+
 }

@@ -1,12 +1,8 @@
 package com.ceridwen.selfissue.client.log;
-import com.ceridwen.selfissue.client.Configuration;
-import org.w3c.dom.*;
-import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
-import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
-import com.ceridwen.circulation.SIP.messages.CheckInResponse;
-import com.ceridwen.circulation.SIP.messages.CheckOut;
-import com.ceridwen.circulation.SIP.messages.PatronInformation;
-import com.ceridwen.circulation.SIP.messages.CheckIn;
+import org.w3c.dom.Node;
+
+import com.ceridwen.circulation.SIP.messages.*;
+import com.ceridwen.selfissue.client.config.Configuration;
 
 /**
  * <p>Title: RTSI</p>
@@ -18,7 +14,7 @@ import com.ceridwen.circulation.SIP.messages.CheckIn;
  */
 
 public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProcessor {
-  int eventMask;
+  protected int eventMask;
 
   public boolean process(Object o) {
     try {
@@ -65,7 +61,7 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
     return "Self Issue Report: " + ( (subjectType == null) ? "" : subjectType);
   }
 
-  public String getMessage(OnlineLogEvent event) {
+  protected MessageComponents getMessageComponents(OnlineLogEvent event) {
     String patronId = null;
     String itemId = null;
     String addInfo = null;
@@ -115,9 +111,14 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
     if (addInfo == null) {
       addInfo = event.getAddInfo();
     }
-    return "Action: " + ( (type == null) ? "Unknown" : type) + "\r\n" +
-        "Patron: " + ( (patronId == null) ? "Unknown" : patronId) + "\r\n" +
-        "Item: " + ( (itemId == null) ? "Unknown" : itemId) + "\r\n" +
-        ( (addInfo == null) ? "" : "Additional Information: " + addInfo) + "\r\n";
+    return new MessageComponents(patronId, itemId, addInfo, type);
+  }
+
+  public String getMessage(OnlineLogEvent event) {
+    MessageComponents msg = this.getMessageComponents(event);
+    return "Action: " + msg.type + "\r\n" +
+        "Patron: " + msg.patronId + "\r\n" +
+        "Item: " + msg.itemId + "\r\n" +
+        ( (msg.addInfo == null) ? "" : "Additional Information: " + msg.addInfo) + "\r\n";
   }
 }

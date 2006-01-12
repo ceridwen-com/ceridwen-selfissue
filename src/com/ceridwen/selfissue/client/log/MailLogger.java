@@ -1,16 +1,11 @@
 package com.ceridwen.selfissue.client.log;
 
-import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
-import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
-import com.ceridwen.circulation.SIP.messages.CheckOut;
-import com.ceridwen.circulation.SIP.messages.PatronInformation;
-import org.apache.commons.net.smtp.SMTPClient;
-import com.ceridwen.selfissue.client.*;
-import java.util.*;
 import java.text.SimpleDateFormat;
+
+import org.apache.commons.net.smtp.SMTPClient;
 import org.w3c.dom.Node;
-import com.ceridwen.circulation.SIP.messages.CheckInResponse;
-import com.ceridwen.circulation.SIP.messages.CheckIn;
+
+import com.ceridwen.selfissue.client.config.Configuration;
 
 public class MailLogger extends OnlineLogLogger {
   protected String relay;
