@@ -1,0 +1,19 @@
+[PropertyInfo]
+reportCancelCheckoutFailure,boolean,false,false, , ,false, 
+reportCheckinFailure,boolean,false,false, , ,false, 
+reportCheckinPending,boolean,false,false, , ,false, 
+reportCheckinSuccess,boolean,false,false, , ,false, 
+reportCheckoutFailure,boolean,false,false, , ,false, 
+reportCheckoutPending,boolean,false,false, , ,false, 
+reportCheckoutSuccess,boolean,false,false, , ,false, 
+reportLockFailure,boolean,false,false, , ,false, 
+reportLockSuccess,boolean,false,false, , ,false, 
+reportManualCheckout,boolean,false,false, , ,false, 
+reportNotification,boolean,false,false, , ,false, 
+reportUnlockFailure,boolean,false,false, , ,false, 
+reportUnlockSuccess,boolean,false,false, , ,false, 
+[IconNames]
+
+
+
+
