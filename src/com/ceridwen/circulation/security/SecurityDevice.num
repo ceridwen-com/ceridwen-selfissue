@@ -1,8 +1,8 @@
 #Contents updated by BuildNumberOT
-#Wed Dec 21 10:19:29 GMT 2005
-version=2.10.1236
-date=Wed Dec 21 10\:19\:29 GMT 2005
+#Sat Feb 18 20:05:08 GMT 2006
+version=2.10.1355
 name=Circulation Security Device Module
+date=Sat Feb 18 20\:05\:08 GMT 2006
 author=Matthew J. Dovey
-epoch=1135160369562
-build=1236
+epoch=1140293108000
+build=1355
