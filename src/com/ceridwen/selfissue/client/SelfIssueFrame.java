@@ -75,7 +75,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     log.error("RTSI Start Up:- Spooled: " + handler.getSpoolSize());
 
     try {
-      Object management = Class.forName("com.ceridwen.selfissue.client.SelfIssueFrameMBInit").getConstructor(new Class[]{SelfIssueFrame.class}).newInstance(new Object[]{this});
+//      Object management = 
+      Class.forName("com.ceridwen.selfissue.client.SelfIssueFrameMBInit").getConstructor(new Class[]{SelfIssueFrame.class}).newInstance(new Object[]{this});
     } catch (Exception ex) {
       log.warn("Could not initialise SelfIssueFrame management", ex);
     } catch (java.lang.NoClassDefFoundError ex) {

@@ -130,7 +130,7 @@ public class CheckInPanelFocusTraversalPolicy
   private JButton CheckinButton = new JButton();
   private FlowLayout DataFlowLayout = new FlowLayout();
   private javax.swing.Timer ResetTimer;
-  private String lastEnteredId = "";
+//  private String lastEnteredId = "";
   private String lastCheckedInId = "";
   private JScrollPane CheckInScrollPane = new JScrollPane();
 //  JTextArea CheckoutText = new JTextArea();
@@ -384,7 +384,7 @@ public class CheckInPanelFocusTraversalPolicy
       log.fatal("Checkin failure: " + ex.getMessage() + " - " +
                 ex.getStackTrace());
     }
-    lastEnteredId = new String(request.getItemIdentifier());
+//    lastEnteredId = new String(request.getItemIdentifier());
     this.StatusText.setText(finalStatusText);
     this.BookField.setText("");
     this.BookField.requestFocus();

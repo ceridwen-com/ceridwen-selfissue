@@ -107,7 +107,6 @@ public class SelfIssueClient extends Thread {
   }
   //Main method
 
-  private static ServerSocket SingleInstance = null;
   private static final int SOCKET_PORT = 61432;
 
   public void run() {
@@ -228,7 +227,7 @@ public class SelfIssueClient extends Thread {
 
   public static void main(String[] args) {
       try {
-        SingleInstance = new ServerSocket(SOCKET_PORT);
+        new ServerSocket(SOCKET_PORT);
       }
       catch (IOException ex) {
         ErrorDialog err = new ErrorDialog("SelfIssue Client is already running");
