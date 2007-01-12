@@ -10,7 +10,11 @@ import javax.swing.JTextArea;
 
 public class ErrorDialog
     extends JDialog {
-  private JPanel panel1 = new JPanel();
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private JPanel panel1 = new JPanel();
   private BorderLayout borderLayout1 = new BorderLayout();
   private JButton closeButton = new JButton();
   private JTextArea errorMessage = new JTextArea();

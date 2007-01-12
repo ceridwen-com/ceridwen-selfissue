@@ -32,7 +32,12 @@ import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
 
 public class CheckInPanel extends SelfIssuePanel implements SecurityListener {
-  public class CheckInPanelFocusTraversalPolicy
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public class CheckInPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
        public Component getComponentAfter(Container focusCycleRoot,
@@ -73,12 +78,32 @@ public class CheckInPanel extends SelfIssuePanel implements SecurityListener {
    }
 
   static class CheckinConnectionFailed extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
   static class CheckinFailed extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
   static class LockFailed extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
   static class InvalidItemBarcode extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
 
   private static Log log = LogFactory.getLog(CheckInPanel.class);

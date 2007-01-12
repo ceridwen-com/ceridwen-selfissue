@@ -22,7 +22,11 @@ import javax.swing.JPasswordField;
  */
 
 public class PasswordDialog extends JDialog {
-  private JPanel panel1 = new JPanel();
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private JPanel panel1 = new JPanel();
   private BorderLayout borderLayout1 = new BorderLayout();
   private JButton jButton1 = new JButton();
   private JPasswordField jPasswordField1 = new JPasswordField();

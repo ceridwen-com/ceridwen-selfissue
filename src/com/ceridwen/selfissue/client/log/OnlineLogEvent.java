@@ -17,7 +17,11 @@ import java.io.Serializable;
 import com.ceridwen.circulation.SIP.messages.Message;
 
 public class OnlineLogEvent implements Serializable {
-  public static final int STATUS_CHECKOUTSUCCESS = 0x0001;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+public static final int STATUS_CHECKOUTSUCCESS = 0x0001;
   public static final int STATUS_CHECKOUTFAILURE = 0x0002;
   public static final int STATUS_CHECKOUTPENDING = 0x0004;
   public static final int STATUS_MANUALCHECKOUT = 0x0008;

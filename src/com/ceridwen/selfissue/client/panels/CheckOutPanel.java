@@ -35,7 +35,12 @@ import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
 
 public class CheckOutPanel extends SelfIssuePanel implements SecurityListener {
-  public class CheckOutPanelFocusTraversalPolicy
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+public class CheckOutPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
        public Component getComponentAfter(Container focusCycleRoot,
@@ -77,25 +82,55 @@ public class CheckOutPanel extends SelfIssuePanel implements SecurityListener {
 
    static class CheckinConnectionFailed extends Exception
    {
-     public CheckinConnectionFailed(String message)
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public CheckinConnectionFailed(String message)
      {
        super(message);
      }
    }
    static class CheckoutConnectionFailed extends Exception
    {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
    }
    static class CheckoutFailed extends Exception
    {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
    }
    static class UnlockFailed extends Exception
    {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
    }
    static class InvalidItemBarcode extends Exception
    {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
    }
    static class RepeatedOrTooShortItemId extends Exception
    {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
    }
 
    private static Log log = LogFactory.getLog(CheckOutPanel.class);

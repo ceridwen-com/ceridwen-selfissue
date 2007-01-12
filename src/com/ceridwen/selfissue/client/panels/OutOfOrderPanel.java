@@ -20,7 +20,11 @@ import javax.swing.SwingConstants;
  */
 public class OutOfOrderPanel extends SelfIssuePanel
 {
-  private BorderLayout borderLayout1 = new BorderLayout();
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private BorderLayout borderLayout1 = new BorderLayout();
   private JLabel jLabel1 = new JLabel();
   public OutOfOrderPanel()
   {

@@ -10,4 +10,9 @@
 package com.ceridwen.circulation.security;
 
 public class FailureException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 }

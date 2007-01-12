@@ -13,7 +13,11 @@ import java.util.EventObject;
 import com.ceridwen.circulation.SIP.messages.Message;
 
 public class SelfIssuePanelEvent extends EventObject {
-  public Message request;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+public Message request;
   public Message response;
   public Class nextPanel;
 

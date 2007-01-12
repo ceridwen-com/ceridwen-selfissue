@@ -30,7 +30,11 @@ import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 
 
 public class PatronPanel extends SelfIssuePanel {
-  public class PatronPanelFocusTraversalPolicy
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+public class PatronPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
        public Component getComponentAfter(Container focusCycleRoot,
@@ -72,14 +76,39 @@ public class PatronPanel extends SelfIssuePanel {
 
 
   static class PatronConnectionFailed extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
   static class PatronBlocked extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
   static class InvalidPatron extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
   static class InvalidPatronBarcode extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
   static class PatronIdTooShort extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
   }
 
 

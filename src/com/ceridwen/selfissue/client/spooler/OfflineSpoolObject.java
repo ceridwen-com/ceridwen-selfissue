@@ -9,7 +9,11 @@ import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.selfissue.client.config.Configuration;
 
 public class OfflineSpoolObject implements java.io.Serializable {
-    public Date added = new Date();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public Date added = new Date();
     public boolean expired = false;
     public boolean stale = false;
     public Message message;

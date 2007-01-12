@@ -36,7 +36,12 @@ import com.ceridwen.util.versioning.ComponentRegistry;
 
 public class SelfIssueFrame extends JFrame implements SelfIssueFrameMBean
 {
-  private static Log log = LogFactory.getLog(SelfIssueFrame.class);
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
   private JPanel MainPane;
   private BorderLayout MainBorderLayout = new BorderLayout();

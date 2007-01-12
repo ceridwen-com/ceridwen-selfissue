@@ -21,7 +21,12 @@ import com.ceridwen.selfissue.client.config.Configuration;
  */
 
 public class SelfIssuePanel extends JPanel {
-  private static Log log = LogFactory.getLog(SelfIssuePanel.class);
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+private static Log log = LogFactory.getLog(SelfIssuePanel.class);
 
   public static final boolean trustMode = Configuration.getBoolProperty("Modes/TrustMode");
   public static final boolean allowOffline = Configuration.getBoolProperty("Modes/AllowOffline");
