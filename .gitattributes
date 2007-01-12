@@ -1,4 +1,6 @@
 * text=auto !eol
+/.classpath -text
+/.project -text
 /SelfIssue.bpgr -text
 /SelfIssue.jpx -text
 /ceridwen-selfIssue.jar -text
