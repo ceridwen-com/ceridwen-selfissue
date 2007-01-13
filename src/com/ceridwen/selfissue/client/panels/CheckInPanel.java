@@ -150,7 +150,7 @@ public class CheckInPanelFocusTraversalPolicy
       jbInit();
       ResetTimer.restart();
       enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
-      handler.securityDevice.start(this);
+      handler.startSecurityDevice(this);
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -263,12 +263,12 @@ public class CheckInPanelFocusTraversalPolicy
   }
 
   void NextButton_actionPerformed(ActionEvent e) {
-    handler.securityDevice.stop();
+    handler.stopSecurityDevice();
     this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 
   void ResetButton_actionPerformed(ActionEvent e) {
-    handler.securityDevice.stop();
+    handler.stopSecurityDevice();
     this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 
@@ -324,11 +324,11 @@ public class CheckInPanelFocusTraversalPolicy
       if (! ( (response.getOk() != null) ? response.getOk().booleanValue() : false)) {
         throw new CheckinFailed();
       } else {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKINSUCCESS, "", "", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKINSUCCESS, "", "", request, response);
       }
 
       try {
-        handler.securityDevice.lock();
+        handler.lockItem();
       }
       catch (TimeoutException ex) {
           throw new LockFailed();
@@ -346,18 +346,18 @@ public class CheckInPanelFocusTraversalPolicy
             response.getScreenMessage() : ""}));
         lastCheckedInId = new String(request.getItemIdentifier());
    } catch (InvalidItemBarcode ex) {
-     handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", request, response);
+     handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", request, response);
      this.PlaySound("InvalidItemBarcode");
      finalStatusText = Configuration.getMessage("InvalidItemBarcode",
                                                 new String[] {});
     } catch (CheckinConnectionFailed ex) {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Network Connection Failure", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Network Connection Failure", request, response);
         this.PlaySound("CheckinNetworkError");
         this.appendCheckinText(Configuration.getMessage(
             "CheckinNetworkError", new String[] {
             request.getItemIdentifier()}));
     } catch (CheckinFailed ex) {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Server refused checkout", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Server refused checkout", request, response);
         this.PlaySound("CheckinFailedError");
         this.appendCheckinText(Configuration.getMessage(
             "CheckinFailedError",
@@ -367,15 +367,15 @@ public class CheckInPanelFocusTraversalPolicy
             response.getItemIdentifier(), (response.getScreenMessage() != null) ?
             response.getScreenMessage() : ""}));
     } catch (LockFailed ex) {
-        handler.securityDevice.reset();
-        handler.log.recordEvent(OnlineLogEvent.STATUS_LOCKFAILURE,"", "", request, response);
+        handler.resetSecurityDevice();
+        handler.recordEvent(OnlineLogEvent.STATUS_LOCKFAILURE,"", "", request, response);
         this.PlaySound("LockFailedError");
         this.appendCheckinText(Configuration.getMessage("LockFailedError",
             new String[] { (response.getTitleIdentifier().length() != 0) ?
             response.getTitleIdentifier() :
             response.getItemIdentifier()}));
     } catch (Exception ex) {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Unexpected checkin error!", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Unexpected checkin error!", request, response);
         this.PlaySound("UnexpectedCheckinError");
         this.appendCheckinText(Configuration.getMessage(
             "UnexpectedCheckinError", new String[] {
@@ -413,7 +413,7 @@ public class CheckInPanelFocusTraversalPolicy
   }
 
   protected void finalize() throws java.lang.Throwable {
-    handler.securityDevice.stop();
+    handler.stopSecurityDevice();
     super.finalize();
   }
 

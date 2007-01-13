@@ -406,16 +406,16 @@ public class CheckOutPanelFocusTraversalPolicy
             (!retryItemWhenError ||
              request.getItemIdentifier().equals(lastEnteredId))) {
           // System checkout failed so report to tracking log and proceed as per success
-          handler.log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", request, response);
+          handler.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", request, response);
         } else {
           throw new CheckoutFailed();
         }
       } else {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", "", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", "", request, response);
       }
 
       try {
-        handler.securityDevice.unlock();
+        handler.unlockItem();
       }
       catch (TimeoutException ex) {
           throw new UnlockFailed();
@@ -428,7 +428,7 @@ public class CheckOutPanelFocusTraversalPolicy
    } catch (RepeatedOrTooShortItemId ex) {
      // don't need to do anything for this - just let if fall through
    } catch (InvalidItemBarcode ex) {
-     handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", request, response);
+     handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", request, response);
      this.PlaySound("InvalidItemBarcode");
      finalStatusText = Configuration.getMessage("InvalidItemBarcode",
                                                 new String[] {});
@@ -437,7 +437,7 @@ public class CheckOutPanelFocusTraversalPolicy
         this.PlaySound("CheckoutRetry");
         finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
       } else {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Network Connection Failure", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Network Connection Failure", request, response);
         this.PlaySound("CheckoutNetworkError");
         this.appendCheckoutText(Configuration.getMessage(
             "CheckoutNetworkError", new String[] {
@@ -448,7 +448,7 @@ public class CheckOutPanelFocusTraversalPolicy
         this.PlaySound("CheckoutRetry");
         finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
       } else {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Server refused checkout", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Server refused checkout", request, response);
         this.PlaySound("CheckoutFailedError");
         this.appendCheckoutText(Configuration.getMessage(
             "CheckoutFailedError",
@@ -461,7 +461,7 @@ public class CheckOutPanelFocusTraversalPolicy
     } catch (UnlockFailed ex) {
       CheckInResponse checkinr = null;
       try {
-        handler.securityDevice.reset();
+        handler.resetSecurityDevice();
         CheckIn checkin = new CheckIn();
         checkin.setItemIdentifier(request.getItemIdentifier());
         checkin.setCancel(new Boolean(true));
@@ -474,14 +474,14 @@ public class CheckOutPanelFocusTraversalPolicy
                                             checkinr.getScreenMessage() :
                                             "No message");
         }
-        handler.log.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE,"", "", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE,"", "", request, response);
         this.PlaySound("UnlockFailedError");
         this.appendCheckoutText(Configuration.getMessage("UnlockFailedError",
             new String[] { (response.getTitleIdentifier().length() != 0) ?
             response.getTitleIdentifier() :
             response.getItemIdentifier()}));
       } catch (Exception ex1) {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE,"", "", request, checkinr);
+        handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE,"", "", request, checkinr);
         if (suppressSecurityFailureMessages) {
           reportSuccess(request, response);
         } else {
@@ -500,7 +500,7 @@ public class CheckOutPanelFocusTraversalPolicy
         this.PlaySound("CheckoutRetry");
         finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
       } else {
-        handler.log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Unexpected checkout error!", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Unexpected checkout error!", request, response);
         this.PlaySound("UnexpectedCheckoutError");
         this.appendCheckoutText(Configuration.getMessage(
             "UnexpectedCheckoutError", new String[] {
@@ -572,24 +572,24 @@ public class CheckOutPanelFocusTraversalPolicy
   }
 
   private void startSecurity() {
-    handler.securityDevice.init();
-    handler.securityDevice.start(this);
+    handler.initSecurityDevice();
+    handler.startSecurityDevice(this);
   }
 
   private void resetSecurity() {
-    handler.securityDevice.reset();
+    handler.resetSecurityDevice();
   }
   private void pauseSecurity() {
-    handler.securityDevice.pause();
+    handler.pauseSecurityDevice();
   }
 
   private void resumeSecurity() {
-    handler.securityDevice.resume();
+    handler.resumeSecurityDevice();
   }
 
   private void stopSecurity() {
-    handler.securityDevice.stop();
-    handler.securityDevice.deinit();
+    handler.stopSecurityDevice();
+    handler.deinitSecurityDevice();
   }
 
   protected void finalize() throws java.lang.Throwable {

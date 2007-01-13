@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
+import com.ceridwen.selfissue.client.core.CirculationHandlerImpl;
 import com.ceridwen.selfissue.client.panels.*;
 import com.ceridwen.util.versioning.ComponentRegistry;
 
@@ -66,7 +67,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   private JLabel LibraryText = new JLabel();
   private BorderLayout TitleTextBorderLayout = new BorderLayout();
 
-  private CirculationHandler handler = new CirculationHandler();
+  private CirculationHandler handler = new CirculationHandlerImpl();
   private Border border2;
 
   //Construct the frame
@@ -224,8 +225,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     }
 
     if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-      this.handler.securityDevice.stop();
-      this.handler.securityDevice.deinit();
+      this.handler.stopSecurityDevice();
+      this.handler.deinitSecurityDevice();
       System.exit(0);
     }
   }
@@ -308,22 +309,22 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   void ResetTimer_actionPerformed(ActionEvent e)
   {
     ResetTimer.stop();
-    this.handler.securityDevice.stop();
-    this.handler.securityDevice.deinit();
+    this.handler.stopSecurityDevice();
+    this.handler.deinitSecurityDevice();
     setPatronPanel();
     ResetTimer.start();
   }
 
   public String getSecurityDevice() {
-    return handler.securityDevice.getClass().getCanonicalName();
+    return handler.getSecurityDeviceClass().getCanonicalName();
   }
   public String getLoggingDevice() {
     return handler.getSpoolerClass().getCanonicalName();
   }
   public void terminateSelfIssue()
   {
-    this.handler.securityDevice.stop();
-    this.handler.securityDevice.deinit();
+    this.handler.stopSecurityDevice();
+    this.handler.deinitSecurityDevice();
     System.exit(0);
   }
   public String checkConfiguration(String key) {
@@ -346,7 +347,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   }
   public void resetSecurity()
   {
-    this.handler.securityDevice.reset();
+    this.handler.resetSecurityDevice();
   }
   public int getSpoolSize()
   {
@@ -372,9 +373,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   }
   public void resetSystem()
   {
-    this.handler.securityDevice.stop();
-    this.handler.securityDevice.deinit();
-    handler = new CirculationHandler();
+    this.handler.stopSecurityDevice();
+    this.handler.deinitSecurityDevice();
+    handler = new CirculationHandlerImpl();
     this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 }
