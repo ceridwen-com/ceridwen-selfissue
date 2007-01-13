@@ -224,13 +224,13 @@ public class CirculationHandler implements com.ceridwen.util.SpoolerProcessor {
     }
     if (obj.isAboutToExpire()) {
       //            logger.error("Item stored in spooler expired: " + request);
-      log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "",
+      log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "Time of original transaction: " + obj.getAdded().toLocaleString(),
                       "Cached item expired", obj.getMessage(), null);
       return true;
     }
     if (obj.isAboutToStale()) {
   //            logger.warn("Item stored in spooler overdue: " + request);
-      log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "",
+      log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "Time of original transaction: " + obj.getAdded().toLocaleString(),
                       "Aged cached item warning", obj.getMessage(), null);
     }
     return processMessage(obj.getMessage());

@@ -111,12 +111,13 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
     if (addInfo == null) {
       addInfo = event.getAddInfo();
     }
-    return new MessageComponents(patronId, itemId, addInfo, type);
+    return new MessageComponents(patronId, itemId, addInfo, type, null);
   }
 
   public String getMessage(OnlineLogEvent event) {
     MessageComponents msg = this.getMessageComponents(event);
-    return "Action: " + msg.type + "\r\n" +
+    return "Date:" + msg.datestamp + "\r\n" +
+        "Action: " + msg.type + "\r\n" +
         "Patron: " + msg.patronId + "\r\n" +
         "Item: " + msg.itemId + "\r\n" +
         ( (msg.addInfo == null) ? "" : "Additional Information: " + msg.addInfo) + "\r\n";
