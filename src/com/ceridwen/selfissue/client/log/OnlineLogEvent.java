@@ -20,7 +20,15 @@ public class OnlineLogEvent implements Serializable {
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5908469584597004531L;
+/**
+	 * 
+	 */
+	
 public static final int STATUS_CHECKOUTSUCCESS = 0x0001;
   public static final int STATUS_CHECKOUTFAILURE = 0x0002;
   public static final int STATUS_CHECKOUTPENDING = 0x0004;

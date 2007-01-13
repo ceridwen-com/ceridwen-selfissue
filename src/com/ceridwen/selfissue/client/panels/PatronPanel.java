@@ -33,7 +33,15 @@ public class PatronPanel extends SelfIssuePanel {
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7765316012028983494L;
+/**
+	 * 
+	 */
+	
 public class PatronPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
@@ -80,35 +88,85 @@ public class PatronPanelFocusTraversalPolicy
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1425736249516562467L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
   static class PatronBlocked extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6370764466269991288L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
   static class InvalidPatron extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -5900996233221963525L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
   static class InvalidPatronBarcode extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7260107670696287289L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
   static class PatronIdTooShort extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9200672214377501836L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
 
 

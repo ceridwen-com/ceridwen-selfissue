@@ -25,7 +25,15 @@ public class PasswordDialog extends JDialog {
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2725392047240858969L;
+/**
+	 * 
+	 */
+	
 private JPanel panel1 = new JPanel();
   private BorderLayout borderLayout1 = new BorderLayout();
   private JButton jButton1 = new JButton();

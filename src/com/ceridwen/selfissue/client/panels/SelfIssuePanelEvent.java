@@ -16,7 +16,15 @@ public class SelfIssuePanelEvent extends EventObject {
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6743577454537349756L;
+/**
+	 * 
+	 */
+	
 public Message request;
   public Message response;
   public Class nextPanel;

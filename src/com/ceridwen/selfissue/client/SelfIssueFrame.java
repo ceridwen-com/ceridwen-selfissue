@@ -40,7 +40,17 @@ public class SelfIssueFrame extends JFrame implements SelfIssueFrameMBean
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2192523113945844754L;
+
+/**
+	 * 
+	 */
+	
 
 private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 

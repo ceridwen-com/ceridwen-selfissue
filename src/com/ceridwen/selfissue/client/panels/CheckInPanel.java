@@ -35,7 +35,17 @@ public class CheckInPanel extends SelfIssuePanel implements SecurityListener {
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7067920005564294837L;
+
+/**
+	 * 
+	 */
+	
 
 public class CheckInPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
@@ -82,28 +92,68 @@ public class CheckInPanelFocusTraversalPolicy
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4810801364830454236L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
   static class CheckinFailed extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4361861311241698925L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
   static class LockFailed extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8668156526646532613L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
   static class InvalidItemBarcode extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -171902407687933826L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
   }
 
   private static Log log = LogFactory.getLog(CheckInPanel.class);

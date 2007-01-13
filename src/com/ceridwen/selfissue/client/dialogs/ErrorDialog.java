@@ -13,7 +13,15 @@ public class ErrorDialog
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6474958525441134339L;
+/**
+	 * 
+	 */
+	
 private JPanel panel1 = new JPanel();
   private BorderLayout borderLayout1 = new BorderLayout();
   private JButton closeButton = new JButton();

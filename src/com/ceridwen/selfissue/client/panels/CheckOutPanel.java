@@ -38,7 +38,17 @@ public class CheckOutPanel extends SelfIssuePanel implements SecurityListener {
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2719843299250704940L;
+
+/**
+	 * 
+	 */
+	
 
 public class CheckOutPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
@@ -85,7 +95,17 @@ public class CheckOutPanelFocusTraversalPolicy
      /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9174095569381531669L;
+
+	/**
+	 * 
+	 */
+	
 
 	public CheckinConnectionFailed(String message)
      {
@@ -98,7 +118,17 @@ public class CheckOutPanelFocusTraversalPolicy
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 938940430814523317L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
    }
    static class CheckoutFailed extends Exception
    {
@@ -106,7 +136,17 @@ public class CheckOutPanelFocusTraversalPolicy
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7053811637076480863L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
    }
    static class UnlockFailed extends Exception
    {
@@ -114,7 +154,17 @@ public class CheckOutPanelFocusTraversalPolicy
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4113648518632457004L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
    }
    static class InvalidItemBarcode extends Exception
    {
@@ -122,7 +172,17 @@ public class CheckOutPanelFocusTraversalPolicy
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8746850315375610829L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
    }
    static class RepeatedOrTooShortItemId extends Exception
    {
@@ -130,7 +190,17 @@ public class CheckOutPanelFocusTraversalPolicy
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -621647592912309839L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
    }
 
    private static Log log = LogFactory.getLog(CheckOutPanel.class);

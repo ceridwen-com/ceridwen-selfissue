@@ -23,7 +23,15 @@ public class OutOfOrderPanel extends SelfIssuePanel
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4410821939255496775L;
+/**
+	 * 
+	 */
+	
 private BorderLayout borderLayout1 = new BorderLayout();
   private JLabel jLabel1 = new JLabel();
   public OutOfOrderPanel()

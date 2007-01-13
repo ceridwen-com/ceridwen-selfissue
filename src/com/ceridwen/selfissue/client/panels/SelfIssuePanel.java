@@ -24,7 +24,17 @@ public class SelfIssuePanel extends JPanel {
   /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9031892895576984908L;
+
+/**
+	 * 
+	 */
+	
 
 private static Log log = LogFactory.getLog(SelfIssuePanel.class);
 
