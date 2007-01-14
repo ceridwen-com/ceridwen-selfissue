@@ -1,6 +1,7 @@
 package com.ceridwen.selfissue.client.log;
 
 import java.io.File;
+import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.util.PersistentQueue;
@@ -24,9 +25,10 @@ public class OnlineLogDevice implements OnlineLog {
     spool = new Spooler(new PersistentQueue(file), this.processor, period);
   }
 
-  public void recordEvent(int level, String library, String addInfo, Message request, Message response) {
+  public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response) {
     OnlineLogEvent ev = new OnlineLogEvent();
     ev.setLevel(level);
+    ev.setOriginalTransactionTime(originalTransactionTime);
     ev.setLibrary(library);
     ev.setRequest(request);
     ev.setResponse(response);

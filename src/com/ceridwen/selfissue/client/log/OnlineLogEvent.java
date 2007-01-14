@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
 
@@ -46,6 +47,7 @@ public static final int STATUS_CHECKOUTSUCCESS = 0x0001;
   private String source;
   private String library;
   private String TimeStamp;
+  private Date originalTransactionTime;
   private Message request;
   private Message response;
   private boolean actionRequired;
@@ -60,7 +62,13 @@ public static final int STATUS_CHECKOUTSUCCESS = 0x0001;
   public String getLibrary() {
     return library;
   }
-  public Message getRequest() {
+  public Date getOriginalTransactionTime() {
+	return originalTransactionTime;
+}
+public void setOriginalTransactionTime(Date originalTransactionDate) {
+	this.originalTransactionTime = originalTransactionDate;
+}
+public Message getRequest() {
     return request;
   }
   public Message getResponse() {

@@ -1,5 +1,7 @@
 package com.ceridwen.selfissue.client.core;
 
+import java.util.Date;
+
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.security.FailureException;
 import com.ceridwen.circulation.security.SecurityListener;
@@ -28,7 +30,7 @@ public interface CirculationHandler {
 	public abstract void lockItem() throws TimeoutException, FailureException;
 	public abstract void unlockItem() throws TimeoutException, FailureException;
 
-	void recordEvent(int level, String library, String addInfo, Message request, Message response);
+	void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response);
 }
 
 /**

@@ -1,5 +1,6 @@
 package com.ceridwen.selfissue.client.log;
 
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -17,11 +18,11 @@ public class OnlineLogManager implements OnlineLog {
     loggers.remove(logger);
   }
 
-  public void recordEvent(int level, String library, String addInfo, Message request,
+  public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request,
                           Message response) {
     Enumeration enumerate = loggers.elements();
     while (enumerate.hasMoreElements()) {
-      ((OnlineLog)enumerate.nextElement()).recordEvent(level, library, addInfo, request, response);
+      ((OnlineLog)enumerate.nextElement()).recordEvent(level, library, addInfo, originalTransactionTime, request, response);
     }
   }
 }

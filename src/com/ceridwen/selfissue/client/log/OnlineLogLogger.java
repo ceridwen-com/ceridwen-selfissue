@@ -34,39 +34,45 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
 
   public abstract boolean log(OnlineLogEvent event);
 
+  public String getSubjectType(OnlineLogEvent event) {
+	  if (event.getLevel() == OnlineLogEvent.STATUS_MANUALCHECKOUT) {
+	    return "Manual Intervention Required (action required)";
+	  }
+	  else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTFAILURE) {
+		return "Checkout Failure Notification (no action required)";
+	  }
+	  else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTSUCCESS) {
+		return "Checkout Success Notification (no action required)";
+	  }
+	  else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTPENDING) {
+		return "Checkout Pending Notification (no action required)";
+	  }
+	  else if (event.getLevel() == OnlineLogEvent.STATUS_NOTIFICATION) {
+	    return  "Notification (no action required)";
+	  }
+	  else if (event.getLevel() == OnlineLogEvent.STATUS_UNLOCKFAILURE) {
+		return "Unlock Failure (action may be required)";
+	  }
+	  else if (event.getLevel() == OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE) {
+		return "Cancel Checkout Failure (action may be required)";
+	  }
+	  return null;
+  }
+  
   public String getSubject(OnlineLogEvent event) {
-    String subjectType = null;
-    if (event.getLevel() == OnlineLogEvent.STATUS_MANUALCHECKOUT) {
-      subjectType = "Manual Intervention Required (action required)";
-    }
-    else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTFAILURE) {
-      subjectType = "Checkout Failure Notification (no action required)";
-    }
-    else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTSUCCESS) {
-      subjectType = "Checkout Success Notification (no action required)";
-    }
-    else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTPENDING) {
-      subjectType = "Checkout Pending Notification (no action required)";
-    }
-    else if (event.getLevel() == OnlineLogEvent.STATUS_NOTIFICATION) {
-      subjectType = "Notification (no action required)";
-    }
-    else if (event.getLevel() == OnlineLogEvent.STATUS_UNLOCKFAILURE) {
-      subjectType = "Unlock Failure (action may be required)";
-    }
-    else if (event.getLevel() == OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE) {
-      subjectType = "Cancel Checkout Failure (action may be required)";
-    }
-
+    String subjectType = this.getSubjectType(event);
     return "Self Issue Report: " + ( (subjectType == null) ? "" : subjectType);
   }
 
   protected MessageComponents getMessageComponents(OnlineLogEvent event) {
-    String patronId = null;
+    String subjectType = null;
+	String patronId = null;
     String itemId = null;
     String addInfo = null;
     String type = null;
 
+    subjectType = this.getSubjectType(event);
+    
     if (event.getResponse() != null) {
       if (event.getResponse() instanceof CheckOutResponse) {
         patronId = ( (CheckOutResponse) event.getResponse()).
@@ -111,13 +117,15 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
     if (addInfo == null) {
       addInfo = event.getAddInfo();
     }
-    return new MessageComponents(patronId, itemId, addInfo, type, null);
+    return new MessageComponents(patronId, itemId, addInfo, type, subjectType, event.getOriginalTransactionTime().toLocaleString(), null);
   }
 
   public String getMessage(OnlineLogEvent event) {
     MessageComponents msg = this.getMessageComponents(event);
-    return "Date:" + msg.datestamp + "\r\n" +
+    return 
+        "Type: " + msg.subjectType + "\r\n" +
         "Action: " + msg.type + "\r\n" +
+        "Transaction Time:" + msg.originalTransactionTime + "\r\n" +
         "Patron: " + msg.patronId + "\r\n" +
         "Item: " + msg.itemId + "\r\n" +
         ( (msg.addInfo == null) ? "" : "Additional Information: " + msg.addInfo) + "\r\n";

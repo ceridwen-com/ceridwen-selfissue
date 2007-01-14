@@ -476,12 +476,12 @@ public class CheckOutPanelFocusTraversalPolicy
             (!retryItemWhenError ||
              request.getItemIdentifier().equals(lastEnteredId))) {
           // System checkout failed so report to tracking log and proceed as per success
-          handler.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", request, response);
+          handler.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
         } else {
           throw new CheckoutFailed();
         }
       } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", "", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", "", new Date(), request, response);
       }
 
       try {
@@ -498,7 +498,7 @@ public class CheckOutPanelFocusTraversalPolicy
    } catch (RepeatedOrTooShortItemId ex) {
      // don't need to do anything for this - just let if fall through
    } catch (InvalidItemBarcode ex) {
-     handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", request, response);
+     handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", new Date(), request, response);
      this.PlaySound("InvalidItemBarcode");
      finalStatusText = Configuration.getMessage("InvalidItemBarcode",
                                                 new String[] {});
@@ -507,7 +507,7 @@ public class CheckOutPanelFocusTraversalPolicy
         this.PlaySound("CheckoutRetry");
         finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
       } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Network Connection Failure", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Network Connection Failure", new Date(), request, response);
         this.PlaySound("CheckoutNetworkError");
         this.appendCheckoutText(Configuration.getMessage(
             "CheckoutNetworkError", new String[] {
@@ -518,7 +518,7 @@ public class CheckOutPanelFocusTraversalPolicy
         this.PlaySound("CheckoutRetry");
         finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
       } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Server refused checkout", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Server refused checkout", new Date(), request, response);
         this.PlaySound("CheckoutFailedError");
         this.appendCheckoutText(Configuration.getMessage(
             "CheckoutFailedError",
@@ -544,14 +544,14 @@ public class CheckOutPanelFocusTraversalPolicy
                                             checkinr.getScreenMessage() :
                                             "No message");
         }
-        handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE,"", "", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE,"", "", new Date(), request, response);
         this.PlaySound("UnlockFailedError");
         this.appendCheckoutText(Configuration.getMessage("UnlockFailedError",
             new String[] { (response.getTitleIdentifier().length() != 0) ?
             response.getTitleIdentifier() :
             response.getItemIdentifier()}));
       } catch (Exception ex1) {
-        handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE,"", "", request, checkinr);
+        handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE,"", "", new Date(), request, checkinr);
         if (suppressSecurityFailureMessages) {
           reportSuccess(request, response);
         } else {
@@ -570,7 +570,7 @@ public class CheckOutPanelFocusTraversalPolicy
         this.PlaySound("CheckoutRetry");
         finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
       } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Unexpected checkout error!", request, response);
+        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Unexpected checkout error!", new Date(), request, response);
         this.PlaySound("UnexpectedCheckoutError");
         this.appendCheckoutText(Configuration.getMessage(
             "UnexpectedCheckoutError", new String[] {

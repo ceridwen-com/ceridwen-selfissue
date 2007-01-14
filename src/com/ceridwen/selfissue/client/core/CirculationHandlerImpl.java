@@ -2,6 +2,7 @@ package com.ceridwen.selfissue.client.core;
 
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
+import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -239,14 +240,14 @@ public int getSpoolSize() {
     }
     if (obj.isAboutToExpire()) {
       //            logger.error("Item stored in spooler expired: " + request);
-      log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "Time of original transaction: " + obj.getAdded().toLocaleString(),
-                      "Cached item expired", obj.getMessage(), null);
+      log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "",
+                      "Cached item expired", obj.getAdded(), obj.getMessage(), null);
       return true;
     }
     if (obj.isAboutToStale()) {
   //            logger.warn("Item stored in spooler overdue: " + request);
-      log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "Time of original transaction: " + obj.getAdded().toLocaleString(),
-                      "Aged cached item warning", obj.getMessage(), null);
+      log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "",
+                      "Aged cached item warning", obj.getAdded(), obj.getMessage(), null);
     }
     return processMessage(obj.getMessage());
   }
@@ -282,7 +283,7 @@ public boolean processMessage(Message request) {
     if (response.getClass() == CheckOutResponse.class) {
       CheckOutResponse checkout = (CheckOutResponse) response;
       if (! ( (checkout.getOk() != null) ? checkout.getOk().booleanValue() : false)) {
-        this.log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", request, response);
+        this.log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
       }
     } else {
       logger.error("Unexpected Checkout response: " + request + ", " + response);
@@ -364,7 +365,7 @@ public Message send(Message request) {
       }
     }
     if (response != null) {
-      log.recordEvent(OnlineLogEvent.STATUS_NOTIFICATION, "", "", request, response);
+      log.recordEvent(OnlineLogEvent.STATUS_NOTIFICATION, "", "", new Date(), request, response);
     }
 
     return response;
@@ -470,9 +471,9 @@ public String checkStatus(int statusCode)
   }
 
   public void recordEvent(int level, String library, String addInfo,
-                          Message request, Message response)
+                          Date originalTransactionTime, Message request, Message response)
   {
-    this.log.recordEvent(level, library, addInfo, request, response);
+    this.log.recordEvent(level, library, addInfo, originalTransactionTime, request, response);
   }
 }
 

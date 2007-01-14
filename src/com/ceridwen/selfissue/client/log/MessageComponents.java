@@ -9,14 +9,18 @@ class MessageComponents
   public String addInfo = null;
   public String type = null;
   public String datestamp = null;
+  public String originalTransactionTime = null;
+  public String subjectType = null;
 
   public MessageComponents(String patronId, String itemId, String addInfo,
-                           String type, String datestamp)
+                           String subjectType, String type, String originalTransactionTime, String datestamp)
   {
     this.patronId = (patronId == null) ? "Unknown" : patronId;
     this.itemId = (itemId == null) ? "Unknown" : itemId;
     this.addInfo = addInfo;
     this.type = (type == null) ? "Unknown" : type;
+    this.subjectType = (subjectType == null) ? "Unknown" : subjectType;
+    this.originalTransactionTime = (originalTransactionTime == null)? "Unknown" : originalTransactionTime;
     this.datestamp = (datestamp == null) ?  new Date().toLocaleString() : datestamp;
   }
 }

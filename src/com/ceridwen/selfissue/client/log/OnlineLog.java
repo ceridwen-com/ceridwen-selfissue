@@ -9,8 +9,10 @@ package com.ceridwen.selfissue.client.log;
  * @version 2.0
  */
 
+import java.util.Date;
+
 import com.ceridwen.circulation.SIP.messages.Message;
 
 public interface OnlineLog {
-  void recordEvent(int level, String library, String addInfo, Message request, Message response);
+  void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response);
 }
