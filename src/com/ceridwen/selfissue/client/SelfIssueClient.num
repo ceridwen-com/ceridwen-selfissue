@@ -1,8 +1,8 @@
-#Contents updated by BuildNumberOT
-#Wed Dec 21 10:19:29 GMT 2005
-version=2.20.1566
+#Build Number: src/com/ceridwen/selfissue/client/SelfIssueClient.num
+#Tue Jan 16 10:53:54 GMT 2007
+version=2.20
 name=Self Issue
-date=Wed Dec 21 10\:19\:29 GMT 2005
+date=Tue Jan 16 10\:53\:54 GMT 2007
 author=Matthew J. Dovey
 epoch=1135160369578
-build=1566
+build=1592
