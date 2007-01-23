@@ -1,5 +1,6 @@
 * text=auto !eol
 /.classpath -text
+.externalToolBuilders/Buildnum.launch -text
 /.project -text
 /SelfIssue.bpgr -text
 /SelfIssue.jpx -text
