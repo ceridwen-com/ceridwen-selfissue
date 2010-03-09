@@ -35,22 +35,22 @@ import com.ceridwen.selfissue.client.core.CirculationHandlerImpl;
 import com.ceridwen.selfissue.client.panels.*;
 import com.ceridwen.util.versioning.ComponentRegistry;
 
-public class SelfIssueFrame extends JFrame implements SelfIssueFrameMBean
+public class SelfIssueFrame extends JFrame
 {
   /**
-	 * 
+	 *
 	 */
-	
+
 
 /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2192523113945844754L;
 
 /**
-	 * 
+	 *
 	 */
-	
+
 
 private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
@@ -85,14 +85,6 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   {
     log.error("RTSI Start Up:- Spooled: " + handler.getSpoolSize());
 
-    try {
-//      Object management = 
-      Class.forName("com.ceridwen.selfissue.client.SelfIssueFrameMBInit").getConstructor(new Class[]{SelfIssueFrame.class}).newInstance(new Object[]{this});
-    } catch (Exception ex) {
-      log.warn("Could not initialise SelfIssueFrame management", ex);
-    } catch (java.lang.NoClassDefFoundError ex) {
-      log.warn("Could not initialise SelfIssueFrame management", ex);
-    }
 
 //    backgroundTasks.scheduleAtFixedRate(logger, (long)10000, (long)10000);
 //    backgroundTasks.scheduleAtFixedRate(handler, (long)10000, (long)10000);
@@ -111,7 +103,6 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
       }
       );
       MainPanel = new PatronPanel(handler, ResetTimer);
-//      MainPanel = new BookPanel(handler, "2103655", "Matthew", "test", ResetTimer);
       jbInit();
     } catch (Exception e) {
       e.printStackTrace();

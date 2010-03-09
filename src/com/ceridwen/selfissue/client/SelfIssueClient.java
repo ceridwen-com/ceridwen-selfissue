@@ -15,9 +15,6 @@ import com.ceridwen.circulation.SIP.transport.SocketConnection;
 import com.ceridwen.circulation.SIP.transport.TelnetConnection;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.dialogs.ErrorDialog;
-import java.net.URLConnection;
-import java.net.InetAddress;
-import java.net.*;
 
 /**
  * <p>Title: RTSI</p>
@@ -159,72 +156,6 @@ public class SelfIssueClient extends Thread {
     }
   }
 
-  public static void register() {
-    String name="";
-    String jmx="";
-    String address = "";
-    String hostname = "unknown";
-
-    try {
-      hostname = java.net.InetAddress.getLocalHost().getCanonicalHostName();
-    } catch (Exception ex) {
-    }
-
-    InetAddress addr = null;
-    try {
-      addr = InetAddress.getLocalHost();
-      byte[] ip = addr.getAddress();
-      for (int i = 0; i < ip.length; i++) {
-        address += Integer.toString((int)(ip[i] & 0x00ff));
-        if (i < (ip.length-1)) {
-          address += ".";
-        }
-      }
-    } catch (UnknownHostException ex1) {
-    }
-    String port = System.getProperty("com.sun.management.jmxremote.port");
-    jmx = "service:jmx:rmi:///jndi/rmi://" + address + ":" + port + "/jmxrmi";
-    name = Configuration.getProperty("UI/SelfIssue/LibraryText_Text") + " (" + hostname + ")";
-
-    try {
-      jmx = URLEncoder.encode(jmx, "UTF-8");
-      name = URLEncoder.encode(name, "UTF-8");
-      URLConnection c = new java.net.URL("http://127.0.0.1:8080/mobimon/MMServlet?register=" + name + "&jmx=" + jmx).openConnection();
-        c.connect();
-        c.getContent();
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    } catch (IllegalArgumentException ille) {
-      ille.printStackTrace();
-    } finally {
-    }
-}
-
-  public static void deregister() {
-    String name="";
-    String hostname = "unknown";
-
-    try {
-      hostname = java.net.InetAddress.getLocalHost().getCanonicalHostName();
-    } catch (Exception ex) {
-    }
-
-    name = Configuration.getProperty("UI/SelfIssue/LibraryText_Text") + " (" + hostname + ")";
-
-    try {
-      name = URLEncoder.encode(name, "UTF-8");
-      URLConnection c = new java.net.URL("http://127.0.0.1:8080/mobimon/MMServlet?deregister=" + name).openConnection();
-        c.connect();
-        c.getContent();
-    } catch (IOException ex) {
-      ex.printStackTrace();
-    } catch (IllegalArgumentException ille) {
-      ille.printStackTrace();
-    } finally {
-    }
-}
-
-
   public static void main(String[] args) {
       try {
         new ServerSocket(SOCKET_PORT);
@@ -234,8 +165,6 @@ public class SelfIssueClient extends Thread {
         err.setVisible(true);
         Runtime.getRuntime().halt(200);
       }
-
-    register();
 
     java.util.logging.Handler handler = new com.ceridwen.util.logging.SMTPLogHandler(
       Configuration.getProperty("Logging/SMTPHandler/smtpServer"),
@@ -261,14 +190,6 @@ public class SelfIssueClient extends Thread {
       handler.setLevel(java.util.logging.Level.OFF);
     }
     java.util.logging.LogManager.getLogManager().getLogger("").addHandler(handler);
-
-    try {
-      java.util.logging.LogManager.getLogManager().getLogger("").addHandler((java.util.logging.Handler)Class.forName("com.ceridwen.util.logging.JMXLogHandler").newInstance());
-    } catch (Exception ex) {
-      log.warn("Could not initialise logging management", ex);
-    } catch (java.lang.NoClassDefFoundError ex) {
-      log.warn("Could not initialise logging management", ex);
-    }
 
     Runtime.getRuntime().addShutdownHook(new ShutdownThread());
 

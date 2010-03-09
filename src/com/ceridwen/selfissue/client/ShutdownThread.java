@@ -66,7 +66,6 @@ public class ShutdownThread extends Thread {
 
   public void run() {
     log.error("Shutting Down Self Issue Terminal");
-    SelfIssueClient.deregister();
     shutdownSecurityDevice();
     System.out.println("Shutting Down Self Issue Terminal...");
     this.sendShutdownStatus();
