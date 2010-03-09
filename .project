@@ -28,11 +28,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.jem.beaninfo.BeanInfoNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Suspended Root</name>
-			<type>2</type>
-			<locationURI>SuspendedRootVariable</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

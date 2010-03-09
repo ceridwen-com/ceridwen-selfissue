@@ -2,10 +2,7 @@
 /.classpath -text
 .externalToolBuilders/Buildnum.launch -text
 /.project -text
-/SelfIssue.bpgr -text
-/SelfIssue.jpx -text
 /buildnum.xml -text
-/ceridwen-selfIssue.jar -text
 lib/xalan-j_2_7_0/licenses/BCEL.LICENSE.txt -text
 lib/xalan-j_2_7_0/licenses/LICENSE-SAX.html -text
 lib/xalan-j_2_7_0/licenses/LICENSE.DOM-documentation.html -text
