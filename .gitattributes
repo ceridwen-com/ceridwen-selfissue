@@ -1,9 +1,9 @@
 * text=auto !eol
 /.classpath -text
+.externalToolBuilders/Build[!!-~]Distribution.launch -text svneol=unset#text/plain
 .externalToolBuilders/Buildnum.launch -text
 /.project -text
 /SelfIssue-package.xml -text svneol=unset#text/plain
-/SelfIssue-resources.jardesc -text svneol=unset#text/plain
 /buildnum.xml -text
 lib/xalan-j_2_7_0/licenses/BCEL.LICENSE.txt -text
 lib/xalan-j_2_7_0/licenses/LICENSE-SAX.html -text
@@ -28,6 +28,7 @@ lib/xalan-j_2_7_0/xercesImpl.README.txt -text
 lib/xalan-j_2_7_0/xercesImpl.jar -text
 lib/xalan-j_2_7_0/xml-apis.README.txt -text
 lib/xalan-j_2_7_0/xml-apis.jar -text
+/selfissue.jnlp -text
 src/com/ceridwen/circulation/security/FailureException.java -text
 src/com/ceridwen/circulation/security/SecurityDevice.java -text
 src/com/ceridwen/circulation/security/SecurityDevice.num -text

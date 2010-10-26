@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <jnlp spec="1.0+" codebase="http://www.ceridwen.com/sitest/" href="selfissue.jnlp">
+
+  <information>
+
+    <title>Self Issue</title>
+
+    <vendor>www.ceridwen.com</vendor>
+
+    <homepage href="http://www.ceridwen.com" />
+
+    <offline-allowed />
+
+  </information>
+
+  <security>
+
+    <all-permissions/>
+  </security>
+  <resources>
+
+    <j2se version="1.4+" />
+
+    <jar href="SelfIssue.jar"/>
+
+    <jar href="lib/ceridwen-circulation.jar"/>
+
+    <jar href="lib/ceridwen-utilities.jar"/>
+
+    <jar href="lib/commons-beanutils-bean-collections.jar"/>
+    <jar href="lib/commons-beanutils-core.jar"/>
+
+    <jar href="lib/commons-beanutils.jar"/>
+
+    <jar href="lib/commons-logging-1.1.jar"/>
+
+    <jar href="lib/commons-logging-adapters-1.1.jar"/>
+
+    <jar href="lib/commons-logging-api-1.1.jar"/>
+
+    <jar href="lib/commons-net-1.4.1.jar"/>
+
+    <jar href="lib/serializer.jar"/>
+
+    <jar href="lib/xalan.jar"/>
+
+    <jar href="lib/xercesImpl.jar"/>
+
+    <jar href="lib/xml-apis.jar"/>
+  </resources>
+
+  <application-desc main-class="com.ceridwen.selfissue.client.SelfIssueClient" />
+
+</jnlp>
