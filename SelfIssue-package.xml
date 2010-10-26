@@ -3,36 +3,39 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <target name="create_run_jar">
-        <jar destfile="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/SelfIssue.jar">
+        <delete dir="dist/lib"/>
+        <delete dir="dist/res"/>
+    	<delete>
+    		<fileset dir="dist" includes="**"/>
+    	</delete>
+        <mkdir dir="dist/lib"/>
+        <mkdir dir="dist/res"/>
+        <copy todir="dist/res">
+            <fileset dir="res"/>
+        </copy>
+        <jar destfile="dist/SelfIssue.jar">
             <manifest>
                 <attribute name="Main-Class" value="com.ceridwen.selfissue.client.SelfIssueClient"/>
                 <attribute name="Class-Path" value=". lib/ceridwen-circulation.jar lib/ceridwen-utilities.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/commons-net-2.0.jar lib/commons-net-ftp-2.0.jar lib/commons-beanutils-bean-collections-1.8.3.jar lib/commons-beanutils-core-1.8.3.jar lib/commons-beanutils-1.8.3.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar"/>
             </manifest>
-            <fileset dir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/bin" excludes="com/ceridwen/selfissue/client/config/config.* uk/**" />
+            <fileset dir="bin" excludes="com/ceridwen/selfissue/client/config/config.* uk/**" />
         </jar>
-        <delete dir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <mkdir dir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <delete dir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/res"/>
-        <mkdir dir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/res"/>
-        <copy todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/res">
-            <fileset dir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/res"/>
-        </copy>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Circulation/bin/ceridwen-circulation.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Utilities/bin/ceridwen-utilities.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Utilities/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Utilities/lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Utilities/lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Utilities/lib/commons-net-2.0/commons-net-2.0.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Utilities/lib/commons-net-2.0/commons-net-ftp-2.0.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-core-1.8.3.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-1.8.3.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/xalan-j_2_7_1/xml-apis.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/xalan-j_2_7_1/serializer.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/xalan-j_2_7_1/xercesImpl.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/xalan-j_2_7_1/xalan.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/netx-0.5/netx-no-debug.jar" tofile="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/netx.jar"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/selfissue.jnlp" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/"/>
-        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/Invocation.txt" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/"/>
+        <copy file="../Circulation/bin/ceridwen-circulation.jar" todir="dist/lib"/>
+        <copy file="../Utilities/bin/ceridwen-utilities.jar" todir="dist/lib"/>
+        <copy file="../Utilities/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar" todir="dist/lib"/>
+        <copy file="../Utilities/lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar" todir="dist/lib"/>
+        <copy file="../Utilities/lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar" todir="dist/lib"/>
+        <copy file="../Utilities/lib/commons-net-2.0/commons-net-2.0.jar" todir="dist/lib"/>
+        <copy file="../Utilities/lib/commons-net-2.0/commons-net-ftp-2.0.jar" todir="dist/lib"/>
+        <copy file="../Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar" todir="dist/lib"/>
+        <copy file="../Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-core-1.8.3.jar" todir="dist/lib"/>
+        <copy file="../Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-1.8.3.jar" todir="dist/lib"/>
+        <copy file="lib/xalan-j_2_7_1/xml-apis.jar" todir="dist/lib"/>
+        <copy file="lib/xalan-j_2_7_1/serializer.jar" todir="dist/lib"/>
+        <copy file="lib/xalan-j_2_7_1/xercesImpl.jar" todir="dist/lib"/>
+        <copy file="lib/xalan-j_2_7_1/xalan.jar" todir="dist/lib"/>
+        <copy file="lib/netx-0.5/netx-no-debug.jar" tofile="dist/netx.jar"/>
+        <copy file="selfissue.jnlp" todir="dist"/>
+        <copy file="Invocation.txt" todir="dist"/>
     </target>
 </project>
