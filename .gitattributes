@@ -3,6 +3,7 @@
 .externalToolBuilders/Build[!!-~]Distribution.launch -text svneol=unset#text/plain
 .externalToolBuilders/Buildnum.launch -text
 /.project -text
+/Invocation.txt -text svneol=unset#text/plain
 /SelfIssue-package.xml -text svneol=unset#text/plain
 /buildnum.xml -text
 lib/netx-0.5/LICENSE.TXT -text

@@ -31,5 +31,8 @@
         <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/xalan-j_2_7_1/serializer.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
         <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/xalan-j_2_7_1/xercesImpl.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
         <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/xalan-j_2_7_1/xalan.jar" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/lib"/>
+        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/lib/netx-0.5/netx-no-debug.jar" tofile="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/netx.jar"/>
+        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/selfissue.jnlp" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/"/>
+        <copy file="C:/Users/Matthew/Documents/Eclipse/SelfIssue/Invocation.txt" todir="C:/Users/Matthew/Documents/Eclipse/SelfIssue/dist/"/>
     </target>
 </project>
