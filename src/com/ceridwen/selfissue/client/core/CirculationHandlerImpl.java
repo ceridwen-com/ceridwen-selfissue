@@ -65,7 +65,7 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
   /* (non-Javadoc)
  * @see com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolerClass()
  */
-public Class getSpoolerClass() {
+public Class<? extends OfflineSpooler> getSpoolerClass() {
     return spool.getClass();
   }
 
@@ -165,7 +165,7 @@ public void printReceipt(String data) {
     try {
       PrinterJob pj = PrinterJob.getPrinterJob();
       StringTokenizer tokens = new StringTokenizer(stripHtml(data), "\r\n", false);
-      Vector items = new Vector();
+      Vector<String> items = new Vector<String>();
       while (tokens.hasMoreTokens()) {
         String token = tokens.nextToken();
         if (token.length() > 0) {
@@ -465,7 +465,7 @@ public String checkStatus(int statusCode)
     this.securityDevice.unlock();
   }
 
-  public Class getSecurityDeviceClass()
+  public Class<? extends SecurityDevice> getSecurityDeviceClass()
   {
     return this.securityDevice.getClass();
   }

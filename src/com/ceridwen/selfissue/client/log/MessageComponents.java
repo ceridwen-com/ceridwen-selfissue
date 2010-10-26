@@ -12,7 +12,8 @@ class MessageComponents
   public String originalTransactionTime = null;
   public String subjectType = null;
 
-  public MessageComponents(String patronId, String itemId, String addInfo,
+  @SuppressWarnings("deprecation")
+public MessageComponents(String patronId, String itemId, String addInfo,
                            String subjectType, String type, String originalTransactionTime, String datestamp)
   {
     this.patronId = (patronId == null) ? "Unknown" : patronId;

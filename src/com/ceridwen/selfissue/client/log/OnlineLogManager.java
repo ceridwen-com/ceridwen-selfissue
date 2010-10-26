@@ -7,7 +7,7 @@ import java.util.Vector;
 import com.ceridwen.circulation.SIP.messages.Message;
 
 public class OnlineLogManager implements OnlineLog {
-  private Vector loggers = new Vector();
+  private Vector<OnlineLog> loggers = new Vector<OnlineLog>();
 
 
   public void addOnlineLogger(OnlineLog logger) {
@@ -20,7 +20,7 @@ public class OnlineLogManager implements OnlineLog {
 
   public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request,
                           Message response) {
-    Enumeration enumerate = loggers.elements();
+    Enumeration<OnlineLog> enumerate = loggers.elements();
     while (enumerate.hasMoreElements()) {
       ((OnlineLog)enumerate.nextElement()).recordEvent(level, library, addInfo, originalTransactionTime, request, response);
     }

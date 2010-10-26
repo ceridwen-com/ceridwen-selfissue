@@ -335,8 +335,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   {
     return this.handler.checkStatus(0);
   }
-  public Hashtable getModes() {
-    Hashtable modes = new Hashtable();
+  public Hashtable<String, Boolean> getModes() {
+    Hashtable<String, Boolean> modes = new Hashtable<String, Boolean>();
     modes.put("allowOffline", new Boolean(SelfIssuePanel.allowOffline));
     modes.put("allowRenews", new Boolean(SelfIssuePanel.allowRenews));
     modes.put("retryItemWhenError", new Boolean(SelfIssuePanel.retryItemWhenError));

@@ -27,9 +27,9 @@ public class SelfIssuePanelEvent extends EventObject {
 	
 public Message request;
   public Message response;
-  public Class nextPanel;
+  public Class<?> nextPanel;
 
-  public SelfIssuePanelEvent(Object source, Class nextPanel) {
+  public SelfIssuePanelEvent(Object source, Class<?> nextPanel) {
     super(source);
     this.nextPanel = nextPanel;
   }

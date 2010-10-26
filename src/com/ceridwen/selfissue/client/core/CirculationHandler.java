@@ -9,7 +9,7 @@ import com.ceridwen.circulation.security.TimeoutException;
 
 public interface CirculationHandler {
 
-	public abstract Class getSpoolerClass();
+	public abstract Class<?> getSpoolerClass();
 	public abstract void spool(Message msg);
 	public abstract int getSpoolSize();
 
@@ -19,7 +19,7 @@ public interface CirculationHandler {
 
 	public abstract String checkStatus(int statusCode);
 
-	public abstract Class getSecurityDeviceClass();
+	public abstract Class<?> getSecurityDeviceClass();
 	public abstract void stopSecurityDevice();
 	public abstract void startSecurityDevice(SecurityListener listener);
 	public abstract void initSecurityDevice();

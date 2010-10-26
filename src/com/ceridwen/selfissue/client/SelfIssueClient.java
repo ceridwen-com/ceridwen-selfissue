@@ -29,8 +29,8 @@ public class SelfIssueClient extends Thread {
   private static Log log = LogFactory.getLog(SelfIssueClient.class);
   private final boolean packFrame = false;
 
-  private SelfIssueClient() {
-  }
+//  private SelfIssueClient() {
+//  }
 
   private static int criticalSectionCounter = 0;
 

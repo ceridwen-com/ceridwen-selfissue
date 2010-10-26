@@ -78,9 +78,10 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
     }
   }
 
-  private transient Vector selfIssuePanelListeners;
+  private transient Vector<SelfIssuePanelListener> selfIssuePanelListeners;
   public synchronized void addSelfIssuePanelListener(SelfIssuePanelListener l) {
-    Vector v = ((selfIssuePanelListeners == null)?new Vector(2):(Vector)selfIssuePanelListeners.clone());
+    @SuppressWarnings("unchecked")
+	Vector<SelfIssuePanelListener> v = ((selfIssuePanelListeners == null)?new Vector<SelfIssuePanelListener>(2):(Vector<SelfIssuePanelListener>)selfIssuePanelListeners.clone());
     if (!v.contains(l)) {
       v.addElement(l);
       selfIssuePanelListeners = v;
@@ -88,14 +89,15 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   }
   public synchronized void removeSelfIssuePanelListener(SelfIssuePanelListener l) {
     if (selfIssuePanelListeners != null && selfIssuePanelListeners.contains(l)) {
-      Vector v = (Vector) selfIssuePanelListeners.clone();
+      @SuppressWarnings("unchecked")
+	Vector<SelfIssuePanelListener> v = (Vector<SelfIssuePanelListener>) selfIssuePanelListeners.clone();
       v.removeElement(l);
       selfIssuePanelListeners = v;
     }
   }
   protected void firePanelChange(SelfIssuePanelEvent e) {
     if (selfIssuePanelListeners != null) {
-      Vector listeners = selfIssuePanelListeners;
+      Vector<SelfIssuePanelListener> listeners = selfIssuePanelListeners;
       int count = listeners.size();
       for (int i = 0; i < count; i++) {
         ((SelfIssuePanelListener) listeners.elementAt(i)).PanelChange(e);

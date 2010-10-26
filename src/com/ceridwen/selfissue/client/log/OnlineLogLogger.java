@@ -64,7 +64,8 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
     return "Self Issue Report: " + ( (subjectType == null) ? "" : subjectType);
   }
 
-  protected MessageComponents getMessageComponents(OnlineLogEvent event) {
+  @SuppressWarnings("deprecation")
+protected MessageComponents getMessageComponents(OnlineLogEvent event) {
     String subjectType = null;
 	String patronId = null;
     String itemId = null;
