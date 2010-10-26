@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Circulation"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Utilities"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_0/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_0/xalan.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_0/xercesImpl.jar"/>
