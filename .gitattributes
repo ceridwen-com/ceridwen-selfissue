@@ -5,6 +5,9 @@
 /.project -text
 /SelfIssue-package.xml -text svneol=unset#text/plain
 /buildnum.xml -text
+lib/netx-0.5/LICENSE.TXT -text
+lib/netx-0.5/netx-no-debug.jar -text
+lib/netx-0.5/netx.jar -text
 lib/xalan-j_2_7_1/LICENSE.txt -text svneol=unset#text/plain
 lib/xalan-j_2_7_1/NOTICE.txt -text svneol=unset#text/plain
 lib/xalan-j_2_7_1/readme.html -text svneol=unset#text/plain
