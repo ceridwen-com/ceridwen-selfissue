@@ -5,16 +5,17 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/Circulation"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Utilities"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/xalan-j_2_7_0/serializer.jar"/>
-	<classpathentry kind="lib" path="lib/xalan-j_2_7_0/xalan.jar"/>
-	<classpathentry kind="lib" path="lib/xalan-j_2_7_0/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="lib/xalan-j_2_7_0/xml-apis.jar"/>
-	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.7.0/commons-beanutils-bean-collections.jar"/>
-	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.7.0/commons-beanutils-core.jar"/>
-	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.7.0/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1/commons-logging-adapters-1.1.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1/commons-logging-api-1.1.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-net-1.4.1/commons-net-1.4.1.jar"/>
+	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-core-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Utilities/lib/commons-net-2.0/commons-net-2.0.jar"/>
+	<classpathentry kind="lib" path="/Utilities/lib/commons-net-2.0/commons-net-ftp-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/serializer.jar"/>
+	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xalan.jar"/>
+	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xml-apis.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
