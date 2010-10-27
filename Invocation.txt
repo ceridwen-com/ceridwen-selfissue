@@ -6,3 +6,8 @@ java -Xbootclasspath/a:res -jar selfissue.jar
 Remote invocation:
 
 java -Xbootclasspath/a:res -jar netx.jar -jnlp selfissue.jnlp
+
+
+Encode password:
+
+java -jar EncodePassword.jar [password]

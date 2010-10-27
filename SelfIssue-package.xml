@@ -20,6 +20,13 @@
             </manifest>
             <fileset dir="bin" excludes="com/ceridwen/selfissue/client/config/config.* uk/**" />
         </jar>
+        <jar destfile="dist/EncodePassword.jar">
+            <manifest>
+                <attribute name="Main-Class" value="com.ceridwen.selfissue.EncodePassword"/>
+                <attribute name="Class-Path" value=". lib/ceridwen-utilities.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar"/>
+            </manifest>
+            <fileset dir="bin" includes="com/ceridwen/selfissue/client/config/Configuration.class com/ceridwen/selfissue/EncodePassword.class" />
+        </jar>    	
         <copy file="../Circulation/bin/ceridwen-circulation.jar" todir="dist/lib"/>
         <copy file="../Utilities/bin/ceridwen-utilities.jar" todir="dist/lib"/>
         <copy file="../Utilities/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar" todir="dist/lib"/>

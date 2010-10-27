@@ -14,13 +14,16 @@ public class EncodePassword {
   public EncodePassword() {
   }
   public static void main(String[] args) {
-    String enc = Configuration.Encrypt(args[0]);
-    if (enc != null && enc.length() > 0) {
-      System.out.println(enc);
-    } else {
-      System.out.println("Usage: encode <password>");
-    }
-    Configuration.Decrypt(enc);
+	System.out.println("SelfIssue Password Encoder");
+	if (args.length != 1) {
+	      System.out.println("Usage: encode <password>");		
+	} else {
+	    String enc = Configuration.Encrypt(args[0]);
+	    if (enc != null && enc.length() > 0) {
+	      System.out.println(enc);
+	    } else {
+	      System.out.println("Usage: encode <password>");
+	    }
+	}
   }
-
 }
