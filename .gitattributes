@@ -6,6 +6,7 @@
 /Invocation.txt -text svneol=unset#text/plain
 /SelfIssue-package.xml -text svneol=unset#text/plain
 /buildnum.xml -text
+/encodepassword.jnlp -text
 lib/netx-0.5/LICENSE.TXT -text
 lib/netx-0.5/netx-no-debug.jar -text
 lib/netx-0.5/netx.jar -text

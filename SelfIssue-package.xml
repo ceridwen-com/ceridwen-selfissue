@@ -43,6 +43,7 @@
         <copy file="lib/xalan-j_2_7_1/xalan.jar" todir="dist/lib"/>
         <copy file="lib/netx-0.5/netx-no-debug.jar" tofile="dist/netx.jar"/>
         <copy file="selfissue.jnlp" todir="dist"/>
+        <copy file="encodepassword.jnlp" todir="dist"/>
         <copy file="Invocation.txt" todir="dist"/>
     </target>
 </project>
