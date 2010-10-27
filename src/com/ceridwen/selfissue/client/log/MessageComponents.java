@@ -1,5 +1,6 @@
 package com.ceridwen.selfissue.client.log;
 
+import java.text.DateFormat;
 import java.util.Date;
 
 class MessageComponents
@@ -12,7 +13,6 @@ class MessageComponents
   public String originalTransactionTime = null;
   public String subjectType = null;
 
-  @SuppressWarnings("deprecation")
 public MessageComponents(String patronId, String itemId, String addInfo,
                            String subjectType, String type, String originalTransactionTime, String datestamp)
   {
@@ -22,6 +22,6 @@ public MessageComponents(String patronId, String itemId, String addInfo,
     this.type = (type == null) ? "Unknown" : type;
     this.subjectType = (subjectType == null) ? "Unknown" : subjectType;
     this.originalTransactionTime = (originalTransactionTime == null)? "Unknown" : originalTransactionTime;
-    this.datestamp = (datestamp == null) ?  new Date().toLocaleString() : datestamp;
+    this.datestamp = (datestamp == null) ?  DateFormat.getDateInstance().format(new Date()) : datestamp;
   }
 }

@@ -1,4 +1,6 @@
 package com.ceridwen.selfissue.client.log;
+import java.text.DateFormat;
+
 import org.w3c.dom.Node;
 
 import com.ceridwen.circulation.SIP.messages.*;
@@ -64,7 +66,6 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
     return "Self Issue Report: " + ( (subjectType == null) ? "" : subjectType);
   }
 
-  @SuppressWarnings("deprecation")
 protected MessageComponents getMessageComponents(OnlineLogEvent event) {
     String subjectType = null;
 	String patronId = null;
@@ -118,7 +119,7 @@ protected MessageComponents getMessageComponents(OnlineLogEvent event) {
     if (addInfo == null) {
       addInfo = event.getAddInfo();
     }
-    return new MessageComponents(patronId, itemId, addInfo, type, subjectType, event.getOriginalTransactionTime().toLocaleString(), null);
+    return new MessageComponents(patronId, itemId, addInfo, type, subjectType,  DateFormat.getDateInstance().format(event.getOriginalTransactionTime()), null);
   }
 
   public String getMessage(OnlineLogEvent event) {
