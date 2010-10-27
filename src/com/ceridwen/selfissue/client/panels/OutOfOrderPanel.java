@@ -25,6 +25,8 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.ceridwen.selfissue.client.config.Configuration;
+
 /**
  * <p>Title: </p>
  *
@@ -64,9 +66,16 @@ private BorderLayout borderLayout1 = new BorderLayout();
 
   private void jbInit() throws Exception
   {
+	Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour"); //new Color(0xC9, 0xD3, 0xDD);  
+//	Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour"); //Color.black;
+	Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour"); //Color.gray;
+	  
     setLayout(borderLayout1);
+    this.setOpaque(true);
+    this.setBackground(BackgroundColour);
     jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 64));
-    jLabel1.setForeground(Color.red);
+    jLabel1.setForeground(WarningTextColour);
+    jLabel1.setOpaque(false);
     jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
     jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
     jLabel1.setText("Terminal Out Of Order");

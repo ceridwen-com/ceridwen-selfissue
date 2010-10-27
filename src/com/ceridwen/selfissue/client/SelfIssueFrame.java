@@ -34,6 +34,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
@@ -133,25 +134,41 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   //Component initialization
   private void jbInit() throws Exception
   {
+	Color OuterBorderColour = Configuration.getBackgroundColour("OuterBorderColour"); //new Color(0x3F, 0x46, 0x6B);
+	Color InnerBorderColour = Configuration.getBackgroundColour("InnerBorderColour"); //new Color(0x40, 0x96, 0xEE);
+	Color TitleBackgroundColour = Configuration.getBackgroundColour("TitleBackgroundColour"); //new Color(0xC9, 0xD3, 0xDD);
+	Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour"); //new Color(0xC9, 0xD3, 0xDD);  
+	Color TitleTextColour = Configuration.getForegroundColour("TitleTextColour"); //new Color(0, 0, 0x44);
+	Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour"); //Color.black;
+	Color VersionTextColour = Configuration.getForegroundColour("VersionTextColour"); //Color.gray;
+	  
     MainPane = (JPanel)this.getContentPane();
     border1 = BorderFactory.createCompoundBorder(BorderFactory.
                                                  createCompoundBorder(new
-        EtchedBorder(EtchedBorder.RAISED, Color.white, new Color(172, 172, 172)),
+        EtchedBorder(EtchedBorder.RAISED, Color.white, OuterBorderColour),
         BorderFactory.createEmptyBorder(32, 32, 0, 32)), border1);
     border2 = BorderFactory.createEmptyBorder(16, 0, 0, 0);
     border3 = BorderFactory.createEmptyBorder(16, 16, 0, 0);
     MainPane.setLayout(MainBorderLayout);
     this.setCursor(null);
     this.setEnabled(true);
-    this.setForeground(Color.black);
+    this.setBackground(BackgroundColour);
+    this.setForeground(DefaultTextColour);
     this.setResizable(false);
-    this.setSize(new Dimension(1024, 768));
-    this.setMaximizedBounds(new Rectangle(1024, 768));
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int h = screenSize.height;
+    int w = screenSize.width;
+    this.setSize(new Dimension(w, h));
+    this.setMaximizedBounds(new Rectangle(w, h));
     this.setUndecorated(true);
     this.setExtendedState(MAXIMIZED_BOTH);
     this.setTitle(Configuration.getProperty("UI/SelfIssue/WindowTitle"));
     MainPane.setBorder(border1);
+    MainPane.setOpaque(true);
+    MainPane.setBackground(InnerBorderColour);
     TitlePanel.setLayout(TitleBorderLayout);
+    TitlePanel.setOpaque(true);
+    TitlePanel.setBackground(TitleBackgroundColour);
     MainPanel.addSelfIssuePanelListener(new
         SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
     TitleBorderLayout.setHgap(2);
@@ -160,7 +177,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     OlisIcon.setIcon(Configuration.LoadImage("UI/SelfIssue/LeftIcon_Icon"));
     TitleText.setEnabled(true);
     TitleText.setFont(new java.awt.Font("Dialog", 1, 48));
-    TitleText.setForeground(new Color(0, 0, 128));
+    TitleText.setForeground(TitleTextColour);
     TitleText.setOpaque(false);
     TitleText.setRequestFocusEnabled(false);
     TitleText.setToolTipText("");
@@ -170,27 +187,30 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     TitleText.setVerticalAlignment(SwingConstants.BOTTOM);
     TitleText.setVerticalTextPosition(SwingConstants.CENTER);
     LibraryText.setFont(new java.awt.Font("Dialog", 1, 40));
-    LibraryText.setForeground(new Color(0, 0, 128));
+    LibraryText.setForeground(TitleTextColour);
     LibraryText.setHorizontalAlignment(SwingConstants.CENTER);
     LibraryText.setText(Configuration.getProperty(
         "UI/SelfIssue/LibraryText_Text"));
     LibraryText.setVerticalAlignment(SwingConstants.TOP);
     TitleTextPanel.setLayout(TitleTextBorderLayout);
+    TitleTextPanel.setOpaque(false);
     BuildVersion.setFont(new java.awt.Font("Dialog", 2, 10));
-    BuildVersion.setForeground(Color.gray);
+    BuildVersion.setForeground(VersionTextColour);
     BuildVersion.setBorder(border2);
     BuildVersion.setHorizontalAlignment(SwingConstants.RIGHT);
     BuildVersion.setText(ComponentRegistry.getName(SelfIssueClient.class) + " " +
                          ComponentRegistry.getVersionString(SelfIssueClient.class));
     StatusPanel.setLayout(borderLayout1);
+    StatusPanel.setOpaque(true);
+    StatusPanel.setBackground(InnerBorderColour);
     Mode.setFont(new java.awt.Font("Dialog", 2, 10));
     Mode.setBorder(border3);
-    Mode.setForeground(Color.lightGray);
+    Mode.setForeground(VersionTextColour);
     Mode.setHorizontalAlignment(SwingConstants.RIGHT);
     Mode.setText(ComponentRegistry.getAuthor(SelfIssueClient.class));
     Ceridwen.setFont(new java.awt.Font("Dialog", 2, 10));
     Ceridwen.setBorder(border3);
-    Ceridwen.setForeground(Color.lightGray);
+    Ceridwen.setForeground(VersionTextColour);
     Ceridwen.setHorizontalAlignment(SwingConstants.LEFT);
     Ceridwen.setText("Ceridwen.com");
     TitlePanel.add(CrestIcon, BorderLayout.EAST);

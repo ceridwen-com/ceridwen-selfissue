@@ -208,6 +208,7 @@ public class PatronPanelFocusTraversalPolicy
   private Border border2;
   private JLabel CardIcon = new JLabel();
   private Border border3;
+  private Border border8;
   private javax.swing.Timer ResetTimer;
 
   private CirculationHandler handler;
@@ -226,16 +227,27 @@ public class PatronPanelFocusTraversalPolicy
     }
   }
   private void jbInit() throws Exception {
+	Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
+	Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
+	Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
+	Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
+	Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
+	  
     border1 = BorderFactory.createEmptyBorder(10,10,10,10);
     border2 = BorderFactory.createEmptyBorder(10,10,10,10);
     border3 = BorderFactory.createEmptyBorder(10,10,10,10);
     border7 = BorderFactory.createEmptyBorder(140,0,140,0);
+    border8 = BorderFactory.createEmptyBorder(0,0,0,0);
     this.setLayout(PatronBorderLayout);
+    this.setOpaque(true);
+    this.setBackground(BackgroundColour);
     NextButton.setFont(new java.awt.Font("Dialog", 1, 16));
 //    NextButton.setNextFocusableComponent(ResetButton);
     NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_Text"));
     NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_ToolTipText"));
     NextButton.addActionListener(new PatronPanel_NextButton_actionAdapter(this));
+    NextButton.setForeground(ButtonTextColour);
+    NextButton.setBackground(ButtonBackgroundColour);
     ResetButton.setFont(new java.awt.Font("Dialog", 1, 16));
     ResetButton.setForeground(Color.black);
 //    ResetButton.setNextFocusableComponent(PatronField);
@@ -246,34 +258,44 @@ public class PatronPanelFocusTraversalPolicy
     ResetButton.setRolloverEnabled(false);
     ResetButton.setText(Configuration.getProperty("UI/PatronPanel/PatronPanelResetButton_Text"));
     ResetButton.addActionListener(new PatronPanel_ResetButton_actionAdapter(this));
+    ResetButton.setForeground(ButtonTextColour);
+    ResetButton.setBackground(ButtonBackgroundColour);
     NavigationPanel.setLayout(NavigationBorderLayout);
+    NavigationPanel.setOpaque(false);
     PatronFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
+    PatronFieldLabel.setForeground(DefaultTextColour);
     PatronFieldLabel.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_ToolTipText"));
     PatronFieldLabel.setLabelFor(PatronField);
     PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_Text"));
     InformationPanel.setLayout(InformationBorderLayout);
+    InformationPanel.setOpaque(false);
     PatronField.setFont(new java.awt.Font("Dialog", 1, 16));
+    PatronField.setBackground(BackgroundColour);
+    PatronField.setForeground(DefaultTextColour);
 //    PatronField.setNextFocusableComponent(NextButton);
     PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronField_ToolTipText"));
     PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));
     PatronField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));
     CardIcon.setIcon(Configuration.LoadImage("UI/PatronPanel/CardIcon_Icon"));
     DataPanel.setLayout(DataBorderLayout);
+    DataPanel.setOpaque(false);
     ResponsePanel.setLayout(ResponseBorderLayout);
+    ResponsePanel.setOpaque(false);
     NavigationPanel.setBorder(border1);
     DataPanel.setBorder(border2);
     ResponsePanel.setBorder(border3);
     DataBorderLayout.setHgap(5);
     DataBorderLayout.setVgap(5);
     PatronTextPanel.setLayout(PatronTextBorderLayout);
+    PatronTextPanel.setOpaque(false);
     PatronTextPanel.setBorder(border7);
     PatronTextPanel.setDebugGraphicsOptions(0);
     PatronTextPanel.setDoubleBuffered(true);
     PatronTextPanel.setPreferredSize(new Dimension(100, 301));
-    PatronText.setForeground(Color.red);
+    PatronText.setForeground(WarningTextColour);
     PatronText.setFont(new java.awt.Font("SansSerif", 1, 16));
-    PatronText.setForeground(Color.red);
-    PatronText.setOpaque(false);
+    PatronText.setBackground(BackgroundColour);
+    PatronText.setBorder(border8);
     PatronText.setRequestFocusEnabled(false);
     PatronText.setEditable(false);
     PatronText.setText("");

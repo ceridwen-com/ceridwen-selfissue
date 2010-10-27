@@ -25,6 +25,8 @@ import java.net.ServerSocket;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -111,12 +113,14 @@ public class SelfIssueClient extends Thread {
     //Center the window
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     Dimension frameSize = frame.getSize();
+        
     if (frameSize.height > screenSize.height) {
       frameSize.height = screenSize.height;
     }
     if (frameSize.width > screenSize.width) {
       frameSize.width = screenSize.width;
     }
+        
     frame.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 
     frame.setVisible(true);
@@ -132,12 +136,26 @@ public class SelfIssueClient extends Thread {
     final int WatchDogMaximumErrors = 5;
 
     try {
-      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-//      UIManager.setLookAndFeel(new napkin.NapkinLookAndFeel());
+    	try {
+    		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    	} catch (Exception ex) {    		
+    	}
+    	try {
+    	    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+    	        if ("Nimbus".equals(info.getName())) {
+    	            UIManager.setLookAndFeel(info.getClassName());
+    	            break;
+    	        }
+    	    }
+    	} catch (UnsupportedLookAndFeelException e) {
+    	} catch (ClassNotFoundException e) {
+    	} catch (InstantiationException e) {
+    	} catch (IllegalAccessException e) {
+    	}    	   	
       /**@todo: reinstate this optionally?
        *       com.ceridwen.util.synchronicity.TimeCheck check = new com.ceridwen.util.synchronicity.TimeCheck(24, 120, "ntp0.oucs.ox.ac.uk");
        */
+
       this.StartUp();
       int watchdogErrors = 0;
       int watchdog = WatchDogThreshold;

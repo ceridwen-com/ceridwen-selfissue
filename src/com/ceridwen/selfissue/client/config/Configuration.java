@@ -19,6 +19,7 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.config;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -227,8 +228,37 @@ public class Configuration {
       return 0;
     }
   }
+  
+  private static Color getColour(String colour) {
+	  try {
+		  String raw = Configuration.getProperty("UI/Palette/" + colour);
+		  int r = Integer.parseInt(raw.substring(0, 2), 16);
+		  int g = Integer.parseInt(raw.substring(2, 4), 16);
+		  int b = Integer.parseInt(raw.substring(4, 6), 16);
+		  return new Color(r, g, b);
+	  } catch (Exception ex) {
+		  return null;
+	  }
+  }
+  
+  public static Color getForegroundColour(String colour) {
+	  Color col = Configuration.getColour(colour);
+	  if (col != null) {
+		  return col;
+	  } else {
+		  return new Color(0xff, 0xff, 0xff);
+	  }
+  }
 
-
+  public static Color getBackgroundColour(String colour) {
+	  Color col = Configuration.getColour(colour);
+	  if (col != null) {
+		  return col;
+	  } else {
+		  return new Color(0x00, 0x00, 0x00);
+	  }
+  }
+  
   public static String getMessage(String messageKey, String[] components) {
     String pattern = getProperty("UI/Messages/" + messageKey);
     if (pattern == null) {
