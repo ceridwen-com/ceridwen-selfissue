@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-  <jnlp spec="1.0+" codebase="http://www.ceridwen.com/sitest/" href="selfissue.jnlp">
+  <jnlp spec="1.0+" codebase="http://myserver/selfissue" href="selfissue.jnlp">
 
   <information>
 
@@ -8,7 +8,7 @@
 
     <vendor>www.ceridwen.com</vendor>
 
-    <homepage href="http://www.ceridwen.com" />
+    <homepage href="http://www.ceridwen.com/selfissue" />
 
     <offline-allowed />
 
