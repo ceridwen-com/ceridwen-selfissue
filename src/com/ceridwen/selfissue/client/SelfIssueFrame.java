@@ -176,7 +176,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     CrestIcon.setIcon(Configuration.LoadImage("UI/SelfIssue/RightIcon_Icon"));
     OlisIcon.setIcon(Configuration.LoadImage("UI/SelfIssue/LeftIcon_Icon"));
     TitleText.setEnabled(true);
-    TitleText.setFont(new java.awt.Font("Dialog", 1, 48));
+    TitleText.setFont(new java.awt.Font(Configuration.getProperty("UI/SelfIssue/TitleText_Font"), 1, Configuration.getIntProperty("UI/SelfIssue/TitleText_Size")));
     TitleText.setForeground(TitleTextColour);
     TitleText.setOpaque(false);
     TitleText.setRequestFocusEnabled(false);
@@ -186,7 +186,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     TitleText.setText(Configuration.getProperty("UI/SelfIssue/TitleText_Text"));
     TitleText.setVerticalAlignment(SwingConstants.BOTTOM);
     TitleText.setVerticalTextPosition(SwingConstants.CENTER);
-    LibraryText.setFont(new java.awt.Font("Dialog", 1, 40));
+    LibraryText.setFont(new java.awt.Font(Configuration.getProperty("UI/SelfIssue/LibraryText_Font"), 1, Configuration.getIntProperty("UI/SelfIssue/LibraryText_Size")));
     LibraryText.setForeground(TitleTextColour);
     LibraryText.setHorizontalAlignment(SwingConstants.CENTER);
     LibraryText.setText(Configuration.getProperty(
