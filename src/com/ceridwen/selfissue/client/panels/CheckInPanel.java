@@ -398,6 +398,7 @@ public class CheckInPanelFocusTraversalPolicy
     try {
       ResetTimer.stop();
       request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
+      request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
       request.setItemIdentifier(strim(this.BookField.getText()));
       request.setTransactionDate(new Date());
       request.setNoBlock(new Boolean(false));

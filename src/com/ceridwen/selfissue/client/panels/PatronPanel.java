@@ -344,6 +344,7 @@ public class PatronPanelFocusTraversalPolicy
       this.PatronField.setEnabled(false);
 
       request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
+      request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
       request.setPatronIdentifier(strim(this.PatronField.getText()));
       if (request.getPatronIdentifier().length() < 1) {
         throw new PatronIdTooShort();

@@ -474,6 +474,7 @@ public class CheckOutPanelFocusTraversalPolicy
       }
 
       request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
+      request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
       request.setPatronIdentifier(this.PatronID);
       request.setItemIdentifier(strim(this.BookField.getText()));
       request.setRenewalPolicy(new Boolean(allowRenews || trustMode));
