@@ -2,7 +2,6 @@ Local invocation:
 
 java -Xbootclasspath/a:res -jar selfissue.jar
 
-
 Remote invocation:
 
 java -Xbootclasspath/a:res -jar netx.jar -jnlp selfissue.jnlp
@@ -14,4 +13,4 @@ java -jar EncodePassword.jar [password]
 
 Encode password (remote):
 
-java -jar netx.jar -jnlp encodepassword.jnlp [password]
+java -jar netx.jar -jnlp encodepassword.jnlp -arg [password]
