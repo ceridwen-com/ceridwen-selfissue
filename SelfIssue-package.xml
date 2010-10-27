@@ -3,6 +3,7 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <target name="create_run_jar">
+        <mkdir dir="dist"/>
         <delete dir="dist/lib"/>
         <delete dir="dist/res"/>
     	<delete>
@@ -45,5 +46,6 @@
         <copy file="selfissue.jnlp" todir="dist"/>
         <copy file="encodepassword.jnlp" todir="dist"/>
         <copy file="Invocation.txt" todir="dist"/>
+        <copy file="license.txt" todir="dist"/>
     </target>
 </project>
