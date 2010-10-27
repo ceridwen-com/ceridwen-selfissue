@@ -1,8 +1,8 @@
 #Build Number: src/com/ceridwen/circulation/security/SecurityDevice.num
-#Wed Oct 27 22:21:31 BST 2010
+#Wed Oct 27 22:23:34 BST 2010
 version=2.30
-date=Wed Oct 27 22\:21\:31 BST 2010
 name=Circulation Security Device Module
+date=Wed Oct 27 22\:23\:34 BST 2010
 author=Matthew J. Dovey
 epoch=1140293108000
-build=1430
+build=1431
