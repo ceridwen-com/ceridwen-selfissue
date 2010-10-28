@@ -22,9 +22,9 @@ package com.ceridwen.selfissue.client.core;
 import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
-import com.ceridwen.circulation.security.FailureException;
-import com.ceridwen.circulation.security.SecurityListener;
-import com.ceridwen.circulation.security.TimeoutException;
+import com.ceridwen.circulation.rfid.FailureException;
+import com.ceridwen.circulation.rfid.RFIDDeviceListener;
+import com.ceridwen.circulation.rfid.TimeoutException;
 
 public interface CirculationHandler {
 
@@ -38,14 +38,14 @@ public interface CirculationHandler {
 
 	public abstract String checkStatus(int statusCode);
 
-	public abstract Class<?> getSecurityDeviceClass();
-	public abstract void stopSecurityDevice();
-	public abstract void startSecurityDevice(SecurityListener listener);
-	public abstract void initSecurityDevice();
-	public abstract void deinitSecurityDevice();
-	public abstract void resetSecurityDevice(); 
-	public abstract void pauseSecurityDevice(); 
-	public abstract void resumeSecurityDevice();
+	public abstract Class<?> getRFIDDeviceClass();
+	public abstract void stopRFIDDevice();
+	public abstract void startRFIDDevice(RFIDDeviceListener listener);
+	public abstract void initRFIDDevice();
+	public abstract void deinitRFIDDevice();
+	public abstract void resetRFIDDevice(); 
+	public abstract void pauseRFIDDevice(); 
+	public abstract void resumeRFIDDevice();
 	public abstract void lockItem() throws TimeoutException, FailureException;
 	public abstract void unlockItem() throws TimeoutException, FailureException;
 

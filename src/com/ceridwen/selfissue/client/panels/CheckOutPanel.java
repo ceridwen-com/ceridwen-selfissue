@@ -44,16 +44,16 @@ import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckInResponse;
 import com.ceridwen.circulation.SIP.messages.CheckOut;
 import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
-import com.ceridwen.circulation.security.FailureException;
-import com.ceridwen.circulation.security.SecurityListener;
-import com.ceridwen.circulation.security.TimeoutException;
+import com.ceridwen.circulation.rfid.FailureException;
+import com.ceridwen.circulation.rfid.RFIDDeviceListener;
+import com.ceridwen.circulation.rfid.TimeoutException;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
 
 
-public class CheckOutPanel extends SelfIssuePanel implements SecurityListener {
+public class CheckOutPanel extends SelfIssuePanel implements RFIDDeviceListener {
   /**
 	 * 
 	 */
@@ -585,7 +585,7 @@ public class CheckOutPanelFocusTraversalPolicy
     } catch (UnlockFailed ex) {
       CheckInResponse checkinr = null;
       try {
-        handler.resetSecurityDevice();
+        handler.resetRFIDDevice();
         CheckIn checkin = new CheckIn();
         checkin.setItemIdentifier(request.getItemIdentifier());
         checkin.setCancel(new Boolean(true));
@@ -696,24 +696,24 @@ public class CheckOutPanelFocusTraversalPolicy
   }
 
   private void startSecurity() {
-    handler.initSecurityDevice();
-    handler.startSecurityDevice(this);
+    handler.initRFIDDevice();
+    handler.startRFIDDevice(this);
   }
 
   private void resetSecurity() {
-    handler.resetSecurityDevice();
+    handler.resetRFIDDevice();
   }
   private void pauseSecurity() {
-    handler.pauseSecurityDevice();
+    handler.pauseRFIDDevice();
   }
 
   private void resumeSecurity() {
-    handler.resumeSecurityDevice();
+    handler.resumeRFIDDevice();
   }
 
   private void stopSecurity() {
-    handler.stopSecurityDevice();
-    handler.deinitSecurityDevice();
+    handler.stopRFIDDevice();
+    handler.deinitRFIDDevice();
   }
 
   protected void finalize() throws java.lang.Throwable {

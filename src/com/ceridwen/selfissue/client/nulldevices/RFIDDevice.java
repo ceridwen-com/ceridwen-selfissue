@@ -19,9 +19,9 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.nulldevices;
 
-import com.ceridwen.circulation.security.FailureException;
-import com.ceridwen.circulation.security.SecurityListener;
-import com.ceridwen.circulation.security.TimeoutException;
+import com.ceridwen.circulation.rfid.FailureException;
+import com.ceridwen.circulation.rfid.RFIDDeviceListener;
+import com.ceridwen.circulation.rfid.TimeoutException;
 
 /**
  * <p>Title: RTSI</p>
@@ -32,8 +32,8 @@ import com.ceridwen.circulation.security.TimeoutException;
  * @version 2.0
  */
 
-public class SecurityDevice extends com.ceridwen.circulation.security.SecurityDevice {
-  public SecurityDevice() {
+public class RFIDDevice extends com.ceridwen.circulation.rfid.RFIDDevice {
+  public RFIDDevice() {
   }
 
 
@@ -81,9 +81,9 @@ public class SecurityDevice extends com.ceridwen.circulation.security.SecurityDe
   /**
    * start
    *
-   * @param listener SecurityListener
+   * @param listener RFIDDeviceListener
    */
-  public void start(SecurityListener listener) {
+  public void start(RFIDDeviceListener listener) {
   }
 
   public void reset() {

@@ -265,8 +265,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     }
 
     if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-      this.handler.stopSecurityDevice();
-      this.handler.deinitSecurityDevice();
+      this.handler.stopRFIDDevice();
+      this.handler.deinitRFIDDevice();
       System.exit(0);
     }
   }
@@ -349,22 +349,22 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   void ResetTimer_actionPerformed(ActionEvent e)
   {
     ResetTimer.stop();
-    this.handler.stopSecurityDevice();
-    this.handler.deinitSecurityDevice();
+    this.handler.stopRFIDDevice();
+    this.handler.deinitRFIDDevice();
     setPatronPanel();
     ResetTimer.start();
   }
 
-  public String getSecurityDevice() {
-    return handler.getSecurityDeviceClass().getCanonicalName();
+  public String getRFIDDevice() {
+    return handler.getRFIDDeviceClass().getCanonicalName();
   }
   public String getLoggingDevice() {
     return handler.getSpoolerClass().getCanonicalName();
   }
   public void terminateSelfIssue()
   {
-    this.handler.stopSecurityDevice();
-    this.handler.deinitSecurityDevice();
+    this.handler.stopRFIDDevice();
+    this.handler.deinitRFIDDevice();
     System.exit(0);
   }
   public String checkConfiguration(String key) {
@@ -387,7 +387,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   }
   public void resetSecurity()
   {
-    this.handler.resetSecurityDevice();
+    this.handler.resetRFIDDevice();
   }
   public int getSpoolSize()
   {
@@ -413,8 +413,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   }
   public void resetSystem()
   {
-    this.handler.stopSecurityDevice();
-    this.handler.deinitSecurityDevice();
+    this.handler.stopRFIDDevice();
+    this.handler.deinitRFIDDevice();
     handler = new CirculationHandlerImpl();
     this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }

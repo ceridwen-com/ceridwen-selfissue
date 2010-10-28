@@ -42,15 +42,15 @@ import org.apache.commons.logging.LogFactory;
 
 import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckInResponse;
-import com.ceridwen.circulation.security.FailureException;
-import com.ceridwen.circulation.security.SecurityListener;
-import com.ceridwen.circulation.security.TimeoutException;
+import com.ceridwen.circulation.rfid.FailureException;
+import com.ceridwen.circulation.rfid.RFIDDeviceListener;
+import com.ceridwen.circulation.rfid.TimeoutException;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
 
-public class CheckInPanel extends SelfIssuePanel implements SecurityListener {
+public class CheckInPanel extends SelfIssuePanel implements RFIDDeviceListener {
   /**
 	 * 
 	 */
@@ -219,7 +219,7 @@ public class CheckInPanelFocusTraversalPolicy
       jbInit();
       ResetTimer.restart();
       enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
-      handler.startSecurityDevice(this);
+      handler.startRFIDDevice(this);
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -366,12 +366,12 @@ public class CheckInPanelFocusTraversalPolicy
   }
 
   void NextButton_actionPerformed(ActionEvent e) {
-    handler.stopSecurityDevice();
+    handler.stopRFIDDevice();
     this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 
   void ResetButton_actionPerformed(ActionEvent e) {
-    handler.stopSecurityDevice();
+    handler.stopRFIDDevice();
     this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 
@@ -471,7 +471,7 @@ public class CheckInPanelFocusTraversalPolicy
             response.getItemIdentifier(), (response.getScreenMessage() != null) ?
             response.getScreenMessage() : ""}));
     } catch (LockFailed ex) {
-        handler.resetSecurityDevice();
+        handler.resetRFIDDevice();
         handler.recordEvent(OnlineLogEvent.STATUS_LOCKFAILURE,"", "", new Date(), request, response);
         this.PlaySound("LockFailedError");
         this.appendCheckinText(Configuration.getMessage("LockFailedError",
@@ -517,7 +517,7 @@ public class CheckInPanelFocusTraversalPolicy
   }
 
   protected void finalize() throws java.lang.Throwable {
-    handler.stopSecurityDevice();
+    handler.stopRFIDDevice();
     super.finalize();
   }
 

@@ -47,10 +47,10 @@ import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
-import com.ceridwen.circulation.security.FailureException;
-import com.ceridwen.circulation.security.SecurityDevice;
-import com.ceridwen.circulation.security.SecurityListener;
-import com.ceridwen.circulation.security.TimeoutException;
+import com.ceridwen.circulation.rfid.FailureException;
+import com.ceridwen.circulation.rfid.RFIDDevice;
+import com.ceridwen.circulation.rfid.RFIDDeviceListener;
+import com.ceridwen.circulation.rfid.TimeoutException;
 import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.ShutdownThread;
 import com.ceridwen.selfissue.client.config.Configuration;
@@ -79,7 +79,7 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
   private Connection conn;
   private OfflineSpooler spool;
   public OnlineLogManager log ;
-  public SecurityDevice securityDevice;
+  public RFIDDevice rfidDevice;
 
   /* (non-Javadoc)
  * @see com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolerClass()
@@ -105,17 +105,17 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
 
   private void configureSecurityDevice() {
     try {
-      securityDevice = (SecurityDevice) Class.forName(Configuration.getProperty(
-          "Systems/Security/@class")).newInstance();
+      rfidDevice = (RFIDDevice) Class.forName(Configuration.getProperty(
+          "Systems/RFID/@class")).newInstance();
     } catch (Exception ex) {
       logger.warn("Could not initialise security device - defaulting to null device", ex);
-      securityDevice = new com.ceridwen.selfissue.client.nulldevices.SecurityDevice();
+      rfidDevice = new com.ceridwen.selfissue.client.nulldevices.RFIDDevice();
     }
-    securityDevice.setRetries(Configuration.getIntProperty(
+    rfidDevice.setRetries(Configuration.getIntProperty(
         "Systems/Security/Retries"));
-    securityDevice.setTimeOut(Configuration.getIntProperty(
+    rfidDevice.setTimeOut(Configuration.getIntProperty(
         "Systems/Security/Timeout"));
-    ShutdownThread.registerSecurityDeviceShutdown(securityDevice);
+    ShutdownThread.registerSecurityDeviceShutdown(rfidDevice);
   }
 
   private void initiateOnlineLoggers()
@@ -439,54 +439,54 @@ public String checkStatus(int statusCode)
     }
   }
   
-  public void stopSecurityDevice()
+  public void stopRFIDDevice()
   {
-    this.securityDevice.stop();
+    this.rfidDevice.stop();
   }
 
-  public void startSecurityDevice(SecurityListener listener)
+  public void startRFIDDevice(RFIDDeviceListener listener)
   {
-    this.securityDevice.start(listener);
+    this.rfidDevice.start(listener);
   }
 
-  public void initSecurityDevice()
+  public void initRFIDDevice()
   {
-    this.securityDevice.init();
+    this.rfidDevice.init();
   }
 
-  public void deinitSecurityDevice()
+  public void deinitRFIDDevice()
   {
-    this.securityDevice.deinit();
+    this.rfidDevice.deinit();
   }
 
-  public void resetSecurityDevice()
+  public void resetRFIDDevice()
   {
-    this.securityDevice.reset();
+    this.rfidDevice.reset();
   }
 
-  public void pauseSecurityDevice()
+  public void pauseRFIDDevice()
   {
-    this.securityDevice.pause();
+    this.rfidDevice.pause();
   }
 
-  public void resumeSecurityDevice()
+  public void resumeRFIDDevice()
   {
-    this.securityDevice.resume();
+    this.rfidDevice.resume();
   }
 
   public void lockItem() throws TimeoutException, FailureException
   {
-    this.securityDevice.lock();
+    this.rfidDevice.lock();
   }
 
   public void unlockItem() throws TimeoutException, FailureException
   {
-    this.securityDevice.unlock();
+    this.rfidDevice.unlock();
   }
 
-  public Class<? extends SecurityDevice> getSecurityDeviceClass()
+  public Class<? extends RFIDDevice> getRFIDDeviceClass()
   {
-    return this.securityDevice.getClass();
+    return this.rfidDevice.getClass();
   }
 
   public void recordEvent(int level, String library, String addInfo,

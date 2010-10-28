@@ -533,9 +533,9 @@ public class PatronPanelFocusTraversalPolicy
     } else if (command.equals("*Check Systems")) {
       if (Configuration.getBoolProperty("CommandInterface/AllowSystemsCheck")) {
         StringBuffer data = new StringBuffer();
-        if (handler.getSecurityDeviceClass() != null) {
+        if (handler.getRFIDDeviceClass() != null) {
           data.append("Sec: " +
-                      handler.getSecurityDeviceClass().getName() + "\r\n");
+                      handler.getRFIDDeviceClass().getName() + "\r\n");
         }
         data.append("Log: " +
                     Configuration.getProperty("Systems/Loggers/Logger/@class") +

@@ -49,7 +49,7 @@ src/com/ceridwen/selfissue/client/log/OnlineLogEvent.java -text
 src/com/ceridwen/selfissue/client/log/OnlineLogLogger.java -text
 src/com/ceridwen/selfissue/client/log/OnlineLogManager.java -text
 src/com/ceridwen/selfissue/client/nulldevices/OnlineLogLogger.java -text
-src/com/ceridwen/selfissue/client/nulldevices/SecurityDevice.java -text
+src/com/ceridwen/selfissue/client/nulldevices/RFIDDevice.java -text
 src/com/ceridwen/selfissue/client/panels/CheckInPanel.java -text
 src/com/ceridwen/selfissue/client/panels/CheckOutPanel.java -text
 src/com/ceridwen/selfissue/client/panels/OutOfOrderPanel.java -text
