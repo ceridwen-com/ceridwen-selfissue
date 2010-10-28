@@ -26,7 +26,7 @@ import com.ceridwen.circulation.SIP.messages.ACSStatus;
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
-import com.ceridwen.circulation.rfid.RFIDDevice;
+import com.ceridwen.circulation.devices.RFIDDevice;
 import com.ceridwen.selfissue.client.config.Configuration;
 
 public class ShutdownThread extends Thread {

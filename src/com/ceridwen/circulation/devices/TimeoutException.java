@@ -26,19 +26,19 @@
  * @version 2.1
  */
 
-package com.ceridwen.circulation.rfid;
+package com.ceridwen.circulation.devices;
 
 /**
- * General failure communicating with security/RFID device
+ * Timeout exception communicating with security/RFID device
  * @author Matthew
  *
  */
-public class FailureException extends Exception {
+public class TimeoutException extends Exception {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3687488928113855832L;
+	private static final long serialVersionUID = 6410978724815231982L;
 
 	/**
 	 * 

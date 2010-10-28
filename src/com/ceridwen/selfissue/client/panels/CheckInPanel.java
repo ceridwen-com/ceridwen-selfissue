@@ -42,9 +42,9 @@ import org.apache.commons.logging.LogFactory;
 
 import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckInResponse;
-import com.ceridwen.circulation.rfid.FailureException;
-import com.ceridwen.circulation.rfid.RFIDDeviceListener;
-import com.ceridwen.circulation.rfid.TimeoutException;
+import com.ceridwen.circulation.devices.FailureException;
+import com.ceridwen.circulation.devices.RFIDDeviceListener;
+import com.ceridwen.circulation.devices.TimeoutException;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;

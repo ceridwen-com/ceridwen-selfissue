@@ -26,7 +26,7 @@
  * @version 2.1
  */
 
-package com.ceridwen.circulation.rfid;
+package com.ceridwen.circulation.devices;
 
 import com.ceridwen.selfissue.client.SelfIssueClient;
 

@@ -26,27 +26,12 @@
  * @version 2.1
  */
 
-package com.ceridwen.circulation.rfid;
+package com.ceridwen.circulation.devices;
 
+public interface RFIDDeviceListener {
 /**
- * Timeout exception communicating with security/RFID device
- * @author Matthew
- *
+ * Fire the detected RFID item id	
+ * @param serial
  */
-public class TimeoutException extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6410978724815231982L;
-
-	/**
-	 * 
-	 */
-	
-
-	/**
-	 * 
-	 */
-	
+  void autoInputId(String serial);
 }

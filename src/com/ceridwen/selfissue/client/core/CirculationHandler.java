@@ -22,9 +22,9 @@ package com.ceridwen.selfissue.client.core;
 import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
-import com.ceridwen.circulation.rfid.FailureException;
-import com.ceridwen.circulation.rfid.RFIDDeviceListener;
-import com.ceridwen.circulation.rfid.TimeoutException;
+import com.ceridwen.circulation.devices.FailureException;
+import com.ceridwen.circulation.devices.RFIDDeviceListener;
+import com.ceridwen.circulation.devices.TimeoutException;
 
 public interface CirculationHandler {
 

@@ -26,12 +26,27 @@
  * @version 2.1
  */
 
-package com.ceridwen.circulation.rfid;
+package com.ceridwen.circulation.devices;
 
-public interface RFIDDeviceListener {
 /**
- * Fire the detected RFID item id	
- * @param serial
+ * General failure communicating with security/RFID device
+ * @author Matthew
+ *
  */
-  void autoInputId(String serial);
+public class FailureException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3687488928113855832L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
 }
