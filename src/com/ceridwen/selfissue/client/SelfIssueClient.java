@@ -99,8 +99,10 @@ public class SelfIssueClient extends Thread {
     super(parent, name);
   }
 
+  private SelfIssueFrame frame;
+  
   private void StartUp() {
-    SelfIssueFrame frame = new SelfIssueFrame();
+	  frame = new SelfIssueFrame();
 
     //Validate frames that have preset sizes
     //Pack frames that have useful preferred size info, e.g. from their layout
@@ -133,6 +135,7 @@ public class SelfIssueClient extends Thread {
     int WatchDogThreshold = Configuration.getIntProperty("UI/WatchDog/CriticalSectionThreshold");
     int WatchDogTimer = Configuration.getIntProperty("UI/WatchDog/Timer") * 1000;
     int WatchDogMinimumMemory = Configuration.getIntProperty("UI/WatchDog/MinimumMemory");
+    boolean ooo = Configuration.getBoolProperty("UI/WatchDog/UseOutOfOrderScreen");
     final int WatchDogMaximumErrors = 5;
 
     try {
@@ -167,6 +170,10 @@ public class SelfIssueClient extends Thread {
             if (watchdogErrors < WatchDogMaximumErrors) {
               log.error("Watchdog timeout in critical section");
               watchdogErrors++;
+            } else {
+            	if (ooo) {
+            		frame.setOutOfOrderPanel();
+            	}
             }
             watchdog = 0;
           }
@@ -179,6 +186,9 @@ public class SelfIssueClient extends Thread {
         long availableMemory = (runtime.maxMemory() - (runtime.totalMemory() - runtime.freeMemory()))/(1024*1024);
         if (availableMemory < WatchDogMinimumMemory) {
           log.fatal("Low Memory: " + availableMemory);
+      	  if (ooo) {
+    		frame.setOutOfOrderPanel();
+    	  }
         }
 
         try {
