@@ -25,11 +25,6 @@ src/com/ceridwen/circulation/rfid/RFIDDevice.java -text
 src/com/ceridwen/circulation/rfid/RFIDDevice.num -text
 src/com/ceridwen/circulation/rfid/RFIDDeviceListener.java -text
 src/com/ceridwen/circulation/rfid/TimeoutException.java -text
-src/com/ceridwen/circulation/security/FailureException.java -text
-src/com/ceridwen/circulation/security/SecurityDevice.java -text
-src/com/ceridwen/circulation/security/SecurityDevice.num -text
-src/com/ceridwen/circulation/security/SecurityListener.java -text
-src/com/ceridwen/circulation/security/TimeoutException.java -text
 src/com/ceridwen/selfissue/EncodePassword.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.num -text
