@@ -696,11 +696,13 @@ public class CheckOutPanelFocusTraversalPolicy
   }
 
   private void startSecurity() {
+	handler.initSecurityDevice();
     handler.initRFIDDevice();
     handler.startRFIDDevice(this);
   }
 
   private void resetSecurity() {
+	handler.resetSecurityDevice();
     handler.resetRFIDDevice();
   }
   private void pauseSecurity() {
@@ -714,6 +716,7 @@ public class CheckOutPanelFocusTraversalPolicy
   private void stopSecurity() {
     handler.stopRFIDDevice();
     handler.deinitRFIDDevice();
+    handler.deinitSecurityDevice();
   }
 
   protected void finalize() throws java.lang.Throwable {

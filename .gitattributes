@@ -20,10 +20,11 @@ lib/xalan-j_2_7_1/xercesImpl.jar -text
 lib/xalan-j_2_7_1/xml-apis.jar -text
 /license.txt -text svneol=unset#text/plain
 /selfissue.jnlp -text
+src/com/ceridwen/circulation/devices/CirculationDevices.num -text
 src/com/ceridwen/circulation/devices/FailureException.java -text
 src/com/ceridwen/circulation/devices/RFIDDevice.java -text
-src/com/ceridwen/circulation/devices/RFIDDevice.num -text
 src/com/ceridwen/circulation/devices/RFIDDeviceListener.java -text
+src/com/ceridwen/circulation/devices/SecurityDevice.java -text svneol=unset#text/plain
 src/com/ceridwen/circulation/devices/TimeoutException.java -text
 src/com/ceridwen/selfissue/EncodePassword.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
@@ -45,6 +46,7 @@ src/com/ceridwen/selfissue/client/log/OnlineLogLogger.java -text
 src/com/ceridwen/selfissue/client/log/OnlineLogManager.java -text
 src/com/ceridwen/selfissue/client/nulldevices/OnlineLogLogger.java -text
 src/com/ceridwen/selfissue/client/nulldevices/RFIDDevice.java -text
+src/com/ceridwen/selfissue/client/nulldevices/SecurityDevice.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/panels/CheckInPanel.java -text
 src/com/ceridwen/selfissue/client/panels/CheckOutPanel.java -text
 src/com/ceridwen/selfissue/client/panels/OutOfOrderPanel.java -text

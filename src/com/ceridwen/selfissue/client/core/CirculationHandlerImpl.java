@@ -50,6 +50,7 @@ import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.devices.FailureException;
 import com.ceridwen.circulation.devices.RFIDDevice;
 import com.ceridwen.circulation.devices.RFIDDeviceListener;
+import com.ceridwen.circulation.devices.SecurityDevice;
 import com.ceridwen.circulation.devices.TimeoutException;
 import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.ShutdownThread;
@@ -80,6 +81,7 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
   private OfflineSpooler spool;
   public OnlineLogManager log ;
   public RFIDDevice rfidDevice;
+  public SecurityDevice securityDevice;
 
   /* (non-Javadoc)
  * @see com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolerClass()
@@ -105,18 +107,29 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
 
   private void configureSecurityDevice() {
     try {
-      rfidDevice = (RFIDDevice) Class.forName(Configuration.getProperty(
-          "Systems/RFID/@class")).newInstance();
+      securityDevice = (SecurityDevice) Class.forName(Configuration.getProperty(
+          "Systems/Security/@class")).newInstance();
     } catch (Exception ex) {
       logger.warn("Could not initialise security device - defaulting to null device", ex);
-      rfidDevice = new com.ceridwen.selfissue.client.nulldevices.RFIDDevice();
+      securityDevice = new com.ceridwen.selfissue.client.nulldevices.SecurityDevice();
     }
-    rfidDevice.setRetries(Configuration.getIntProperty(
+    securityDevice.setRetries(Configuration.getIntProperty(
         "Systems/Security/Retries"));
-    rfidDevice.setTimeOut(Configuration.getIntProperty(
+    securityDevice.setTimeOut(Configuration.getIntProperty(
         "Systems/Security/Timeout"));
-    ShutdownThread.registerSecurityDeviceShutdown(rfidDevice);
+    ShutdownThread.registerSecurityDeviceShutdown(securityDevice);
   }
+
+  private void configureRFIDDevice() {
+	    try {
+	      rfidDevice = (RFIDDevice) Class.forName(Configuration.getProperty(
+	          "Systems/RFID/@class")).newInstance();
+	    } catch (Exception ex) {
+	      logger.warn("Could not initialise RFID device - defaulting to null device", ex);
+	      rfidDevice = new com.ceridwen.selfissue.client.nulldevices.RFIDDevice();
+	    }
+	    ShutdownThread.registerRFIDDeviceShutdown(rfidDevice);
+	  }
 
   private void initiateOnlineLoggers()
   {
@@ -153,6 +166,7 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
   public CirculationHandlerImpl() {
     initiateOfflineSpooler();
     initiateOnlineLoggers();
+    configureRFIDDevice();
     configureSecurityDevice();
   }
 
@@ -474,19 +488,35 @@ public String checkStatus(int statusCode)
     this.rfidDevice.resume();
   }
 
+  public void initSecurityDevice() {
+	this.securityDevice.init();  	
+  }
+
+  public void deinitSecurityDevice() {
+	this.securityDevice.deinit();  	  	
+  }  
+
+  public void resetSecurityDevice() {
+	this.securityDevice.reset();
+  }
+
   public void lockItem() throws TimeoutException, FailureException
   {
-    this.rfidDevice.lock();
+    this.securityDevice.lock();
   }
 
   public void unlockItem() throws TimeoutException, FailureException
   {
-    this.rfidDevice.unlock();
+    this.securityDevice.unlock();
   }
-
+  
   public Class<? extends RFIDDevice> getRFIDDeviceClass()
   {
     return this.rfidDevice.getClass();
+  }
+
+  public Class<? extends SecurityDevice> getSecurityDeviceClass() {
+	  	return securityDevice.getClass();
   }
 
   public void recordEvent(int level, String library, String addInfo,

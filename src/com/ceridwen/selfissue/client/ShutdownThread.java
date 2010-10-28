@@ -27,10 +27,12 @@ import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.devices.RFIDDevice;
+import com.ceridwen.circulation.devices.SecurityDevice;
 import com.ceridwen.selfissue.client.config.Configuration;
 
 public class ShutdownThread extends Thread {
-  private static RFIDDevice device = null;
+  private static RFIDDevice rfidDevice = null;
+  private static SecurityDevice securityDevice = null;
 
   private static Log log = LogFactory.getLog(ShutdownThread.class);
   private Connection conn;
@@ -39,17 +41,28 @@ public class ShutdownThread extends Thread {
     super();
   }
 
-  public static void registerSecurityDeviceShutdown(RFIDDevice d) {
-    device = d;
+  public static void registerSecurityDeviceShutdown(SecurityDevice d) {
+    securityDevice = d;
+  }
+
+  public static void registerRFIDDeviceShutdown(RFIDDevice d) {
+    rfidDevice = d;
   }
 
   public static void shutdownSecurityDevice() {
-    synchronized (device) {
-      device.stop();
-      device.deinit();
-      device = null;
+    synchronized (securityDevice) {
+	  securityDevice.deinit();
+	  securityDevice = null;
     }
   }
+  
+  public static void shutdownRFIDDevice() {
+	synchronized (rfidDevice) {
+	  rfidDevice.stop();
+	  rfidDevice.deinit();
+	  rfidDevice = null;
+	}
+  }  
 
   private boolean connect() {
     conn = SelfIssueClient.ConfigureConnection();
@@ -86,6 +99,7 @@ public class ShutdownThread extends Thread {
   public void run() {
     log.error("Shutting Down Self Issue Terminal");
     shutdownSecurityDevice();
+    shutdownRFIDDevice();
     System.out.println("Shutting Down Self Issue Terminal...");
     this.sendShutdownStatus();
   }

@@ -28,34 +28,52 @@
 
 package com.ceridwen.circulation.devices;
 
-public interface RFIDDevice {
+public abstract class SecurityDevice {
+  private int timeOut;
+  private int retries;
+  public int getTimeOut() {
+    return timeOut;
+  }
+  public void setTimeOut(int timeOut) {
+    this.timeOut = timeOut;
+  }
+  public int getRetries() {
+    return retries;
+  }
+  public void setRetries(int retries) {
+    this.retries = retries;
+  }
+
+  
 /**
- * Initialise the security/RFID device  
+ * Initialise the security device  
  */
   public abstract void init();
-/**
- * Start the security/RFID device listening for new items  
- * @param listener listener class to fire detected ids to
- */
-  public abstract void start(RFIDDeviceListener listener);
-/**
- * Stop the security/RFID device listening for new items  
- */
-  public abstract void stop();
-/**
- * Reset the security/RFID device  
- */
-  public abstract void reset();
-/**
- * Pause the security/RFID device listening for new items  
- */
-  public abstract void pause();
-/**
- * Resume the security/RFID device listening for new items  
- */
-  public abstract void resume();
 /**
  * De-initialise the security/RFID device  
  */
   public abstract void deinit();
+/**
+  * Reset the security/RFID device  
+  */
+  public abstract void reset();
+/**
+ * Lock the currently detected item  
+ * @throws TimeoutException
+ * @throws FailureException
+ */  
+  public abstract void lock() throws TimeoutException, FailureException;
+/**
+ * Unlock the currently detected item  
+ * @throws TimeoutException
+ * @throws FailureException
+ */
+  public abstract void unlock() throws TimeoutException, FailureException;
+/**
+ * Report the locked state of the detected item  
+ * @return
+ * @throws TimeoutException
+ * @throws FailureException
+ */
+  public abstract boolean isLocked() throws TimeoutException, FailureException;  
 }
