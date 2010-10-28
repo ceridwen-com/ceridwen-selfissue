@@ -1,4 +1,4 @@
-#Build Number: src/com/ceridwen/circulation/security/SecurityDevice.num
+#Build Number: src/com/ceridwen/circulation/circulation/devices/CirculationDevices.num
 #Thu Oct 28 13:58:37 BST 2010
 version=2.30
 name=Circulation Devices Module

@@ -23,7 +23,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Buildnum - RFIDDevice.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/Buildnum - CirculationDevices.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>

@@ -1,7 +1,7 @@
 * text=auto !eol
 /.classpath -text
 .externalToolBuilders/Build[!!-~]Distribution.launch -text svneol=unset#text/plain
-.externalToolBuilders/Buildnum[!!-~]-[!!-~]RFIDDevice.launch -text svneol=unset#text/plain
+.externalToolBuilders/Buildnum[!!-~]-[!!-~]CirculationDevices.launch -text svneol=unset#text/plain
 .externalToolBuilders/Buildnum[!!-~]-[!!-~]SelfIssue.launch -text svneol=unset#text/plain
 /.project -text
 /Invocation.txt -text svneol=unset#text/plain
