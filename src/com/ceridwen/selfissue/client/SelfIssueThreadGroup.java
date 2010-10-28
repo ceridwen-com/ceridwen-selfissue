@@ -22,8 +22,12 @@ package com.ceridwen.selfissue.client;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
+import com.ceridwen.selfissue.client.config.Configuration;
+
 class SelfIssueClientThreadGroup extends ThreadGroup {
+  private static boolean ooo = Configuration.getBoolProperty("UI/WatchDog/ShowOutOfOrderScreenOnUnhandledException"); 
   private static Log log = LogFactory.getLog(SelfIssueClientThreadGroup.class);
+  private static SelfIssueFrame frame = null;
 
   public SelfIssueClientThreadGroup(String name) {
     super(name);
@@ -32,8 +36,20 @@ class SelfIssueClientThreadGroup extends ThreadGroup {
   public SelfIssueClientThreadGroup(ThreadGroup parent, String name) {
     super(parent, name);
   }
+  
+  public void setFrame(SelfIssueFrame f)
+  {
+	  frame = f;
+  }
 
   public void uncaughtException(Thread t, Throwable e) {
-    log.fatal("Uncaught exception:", e);
+	try {
+	    log.fatal("Uncaught exception:", e);    
+	    if (ooo && frame != null)
+	    {
+	    	frame.setOutOfOrderPanel();
+	    }
+	} catch (Exception ex) {		
+	}
   }
 }

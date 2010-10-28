@@ -49,6 +49,10 @@ import com.ceridwen.selfissue.client.dialogs.ErrorDialog;
 public class SelfIssueClient extends Thread {
   private static Log log = LogFactory.getLog(SelfIssueClient.class);
   private final boolean packFrame = false;
+  private SelfIssueFrame frame;
+  private static SelfIssueClientThreadGroup tg;
+  private static SelfIssueClient th;
+  
 
 //  private SelfIssueClient() {
 //  }
@@ -98,11 +102,9 @@ public class SelfIssueClient extends Thread {
   public SelfIssueClient(ThreadGroup parent, String name) {
     super(parent, name);
   }
-
-  private SelfIssueFrame frame;
   
   private void StartUp() {
-	  frame = new SelfIssueFrame();
+	frame = new SelfIssueFrame();
 
     //Validate frames that have preset sizes
     //Pack frames that have useful preferred size info, e.g. from their layout
@@ -126,6 +128,7 @@ public class SelfIssueClient extends Thread {
     frame.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 
     frame.setVisible(true);
+    tg.setFrame(frame);
   }
   //Main method
 
@@ -135,7 +138,7 @@ public class SelfIssueClient extends Thread {
     int WatchDogThreshold = Configuration.getIntProperty("UI/WatchDog/CriticalSectionThreshold");
     int WatchDogTimer = Configuration.getIntProperty("UI/WatchDog/Timer") * 1000;
     int WatchDogMinimumMemory = Configuration.getIntProperty("UI/WatchDog/MinimumMemory");
-    boolean ooo = Configuration.getBoolProperty("UI/WatchDog/UseOutOfOrderScreen");
+    boolean ooo = Configuration.getBoolProperty("UI/WatchDog/ShowOutOfOrderScreenOnWatchDogProblem");
     final int WatchDogMaximumErrors = 5;
 
     try {
@@ -240,8 +243,8 @@ public class SelfIssueClient extends Thread {
 
     Runtime.getRuntime().addShutdownHook(new ShutdownThread());
 
-    SelfIssueClientThreadGroup tg = new SelfIssueClientThreadGroup("SelfIssueClientThreadGroup");
-    SelfIssueClient th = new SelfIssueClient(tg, "SelfIssueClientThread");
+    tg = new SelfIssueClientThreadGroup("SelfIssueClientThreadGroup");
+    th = new SelfIssueClient(tg, "SelfIssueClientThread");
     th.start();
   }
 
