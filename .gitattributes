@@ -20,6 +20,11 @@ lib/xalan-j_2_7_1/xercesImpl.jar -text
 lib/xalan-j_2_7_1/xml-apis.jar -text
 /license.txt -text svneol=unset#text/plain
 /selfissue.jnlp -text
+src/com/ceridwen/circulation/rfid/FailureException.java -text
+src/com/ceridwen/circulation/rfid/RFIDDevice.java -text
+src/com/ceridwen/circulation/rfid/RFIDDevice.num -text
+src/com/ceridwen/circulation/rfid/RFIDDeviceListener.java -text
+src/com/ceridwen/circulation/rfid/TimeoutException.java -text
 src/com/ceridwen/circulation/security/FailureException.java -text
 src/com/ceridwen/circulation/security/SecurityDevice.java -text
 src/com/ceridwen/circulation/security/SecurityDevice.num -text
