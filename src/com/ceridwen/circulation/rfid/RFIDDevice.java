@@ -28,6 +28,8 @@
 
 package com.ceridwen.circulation.rfid;
 
+import com.ceridwen.selfissue.client.SelfIssueClient;
+
 public abstract class RFIDDevice {
   private int timeOut;
   private int retries;
@@ -93,4 +95,8 @@ public abstract class RFIDDevice {
  * @throws FailureException
  */
   public abstract boolean isLocked() throws TimeoutException, FailureException;
+  
+  static {
+	    com.ceridwen.util.versioning.ComponentRegistry.registerComponent(RFIDDevice.class);
+  }  
 }
