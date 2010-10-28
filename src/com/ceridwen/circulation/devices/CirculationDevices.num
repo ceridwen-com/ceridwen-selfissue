@@ -1,8 +1,8 @@
 #Build Number: src/com/ceridwen/circulation/devices/CirculationDevices.num
-#Thu Oct 28 19:54:06 BST 2010
+#Thu Oct 28 20:03:53 BST 2010
 version=2.30
+date=Thu Oct 28 20\:03\:53 BST 2010
 name=Circulation Devices Module
-date=Thu Oct 28 19\:54\:06 BST 2010
 author=Matthew J. Dovey
 epoch=1140293108000
-build=1439
+build=1440
