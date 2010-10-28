@@ -28,6 +28,11 @@
 
 package com.ceridwen.circulation.security;
 
+/**
+ * Timeout exception communicating with security/RFID device
+ * @author Matthew
+ *
+ */
 public class TimeoutException extends Exception {
 
 	/**

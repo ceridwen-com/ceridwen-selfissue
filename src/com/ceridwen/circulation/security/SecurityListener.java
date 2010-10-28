@@ -29,5 +29,9 @@
 package com.ceridwen.circulation.security;
 
 public interface SecurityListener {
+/**
+ * Fire the detected RFID item id	
+ * @param serial
+ */
   void autoInputId(String serial);
 }

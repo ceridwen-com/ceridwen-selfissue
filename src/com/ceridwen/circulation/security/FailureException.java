@@ -28,6 +28,11 @@
 
 package com.ceridwen.circulation.security;
 
+/**
+ * General failure communicating with security/RFID device
+ * @author Matthew
+ *
+ */
 public class FailureException extends Exception {
 
 	/**
