@@ -39,8 +39,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.NodeList;
 
+import com.ceridwen.circulation.SIP.exceptions.ChecksumError;
 import com.ceridwen.circulation.SIP.exceptions.ConnectionFailure;
+import com.ceridwen.circulation.SIP.exceptions.MandatoryFieldOmitted;
+import com.ceridwen.circulation.SIP.exceptions.MessageNotUnderstood;
 import com.ceridwen.circulation.SIP.exceptions.RetriesExceeded;
+import com.ceridwen.circulation.SIP.exceptions.SequenceError;
 import com.ceridwen.circulation.SIP.messages.ACSStatus;
 import com.ceridwen.circulation.SIP.messages.CheckOut;
 import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
@@ -216,16 +220,14 @@ public void printReceipt(String data) {
   private boolean connect() {
     conn = SelfIssueClient.ConfigureConnection();
     SelfIssueClient.EnterCriticalSection();
-    boolean result = false;
     try {
-      result = conn.connect();
+      conn.connect();
     } catch (Exception ex) {
-      logger.error("Unexpected exception on connection", ex);
-    }
-    if (!result) {
       SelfIssueClient.LeaveCriticalSection();
+      logger.error("Unexpected exception on connection", ex);
+      return false;
     }
-    return result;
+    return true;
   }
 
   private void disconnect() {
@@ -409,8 +411,14 @@ public Message send(Message request) {
  */
 public String checkStatus(int statusCode)
   {
+	Connection c = SelfIssueClient.ConfigureConnection();
     try {
-      ACSStatus response = (ACSStatus)this.status(statusCode);
+      c.connect();
+      SCStatus scstatus = new SCStatus();
+      scstatus.setProtocolVersion("2.00");
+      scstatus.setStatusCode(Integer.toString(statusCode));
+      ACSStatus response = (ACSStatus) c.send(scstatus);
+      c.disconnect();
       return "DateTimeSync: " + response.getDateTimeSync() + " | " +
           "InstId: " + response.getInstitutionId() + " | " +
           "LibName: " + response.getLibraryName() + " | " +
@@ -427,29 +435,12 @@ public String checkStatus(int statusCode)
           "Online: " + response.isOnLineStatus() + " | " +
           "Renewal: " + response.isRenewalPolicy() + " | " +
           "StatusUpdate: " + response.isStatusUpdateOk();
-    } catch (java.lang.ClassCastException ex) {
-      return "Connection error";
-    } catch (java.lang.NullPointerException ex) {
-      return "Connection error";
-    }
-
-  }
-
-  private Message status(int StatusCode) {
-    if (!this.connect()) {
-      return null;
-    }
-
-    SCStatus scstatus = new SCStatus();
-    scstatus.setProtocolVersion("2.00");
-    scstatus.setStatusCode(Integer.toString(StatusCode));
-    try {
-      ACSStatus ascstatus = (ACSStatus) conn.send(scstatus);
-      this.disconnect();
-      return ascstatus;
     } catch (Exception ex) {
-      this.disconnect();
-      return null;
+    	try {
+    		c.disconnect();
+    	} catch (Exception inner) {    		
+    	}
+    	return "Error: " + ex.toString();
     }
   }
   

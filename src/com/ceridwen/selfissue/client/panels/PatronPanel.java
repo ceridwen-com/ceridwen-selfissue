@@ -543,7 +543,7 @@ public class PatronPanelFocusTraversalPolicy
         }
         if (handler.getSecurityDeviceClass() != null) {
             data.append("Security: " +
-                        handler.getRFIDDeviceClass().getName() + "\r\n");
+                        handler.getSecurityDeviceClass().getName() + "\r\n");
           }
         data.append("Loggers: ");
         NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");

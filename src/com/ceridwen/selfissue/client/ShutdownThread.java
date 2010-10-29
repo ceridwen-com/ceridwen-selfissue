@@ -64,43 +64,35 @@ public class ShutdownThread extends Thread {
 	}
   }  
 
-  private boolean connect() {
-    conn = SelfIssueClient.ConfigureConnection();
-    return conn.connect();
+  private void connect() {
   }
 
   private void disconnect() {
     conn.disconnect();
   }
 
-  private Message sendShutdownStatus() {
-    if (!Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
-      return null;
-    }
-
-    if (!this.connect()) {
-      return null;
-    }
-
-    SCStatus scstatus = new SCStatus();
-    scstatus.setProtocolVersion("2.00");
-    scstatus.setStatusCode("2");
-    try {
-      ACSStatus ascstatus = (ACSStatus) conn.send(scstatus);
-      this.disconnect();
-      return ascstatus;
-    } catch (Exception ex) {
-      this.disconnect();
-      return null;
+  private void sendShutdownStatus() {
+    if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
+	    try {
+	      conn = SelfIssueClient.ConfigureConnection();
+	      conn.connect();
+	      SCStatus scstatus = new SCStatus();
+	      scstatus.setProtocolVersion("2.00");
+	      scstatus.setStatusCode("2");
+	      ACSStatus ascstatus = (ACSStatus) conn.send(scstatus);
+	      this.disconnect();
+	    } catch (Exception ex) {
+	      this.disconnect();
+	    }
     }
   }
 
 
   public void run() {
     log.error("Shutting Down Self Issue Terminal");
+    System.out.println("Shutting Down Self Issue Terminal...");
     shutdownSecurityDevice();
     shutdownRFIDDevice();
-    System.out.println("Shutting Down Self Issue Terminal...");
     this.sendShutdownStatus();
   }
 }
