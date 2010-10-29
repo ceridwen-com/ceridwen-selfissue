@@ -323,6 +323,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   {
     MainPane.remove(MainPanel);
     MainPanel = new OutOfOrderPanel();
+    MainPanel.addSelfIssuePanelListener(new
+            SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
     MainPane.add(MainPanel);
     this.validate();
     MainPanel.grabFocus();

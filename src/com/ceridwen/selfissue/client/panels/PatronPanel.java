@@ -27,10 +27,14 @@ import javax.swing.border.Border;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.ceridwen.circulation.SIP.helpers.FlagBitmap;
 import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
+import com.ceridwen.circulation.SIP.transport.Connection;
+import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
@@ -517,7 +521,7 @@ public class PatronPanelFocusTraversalPolicy
         ShutdownConfirmation.setVisible(true);
         if (ShutdownConfirmation.getPassword().equals(Configuration.Decrypt(
             Configuration.getProperty(
-                "CommandInterface/SystemShutdownPassword")))) {
+                "CommandInterface/SystemPassword")))) {
           System.exit(0);
         }
         SelfIssueFrame.setOnTop(true);
@@ -534,12 +538,37 @@ public class PatronPanelFocusTraversalPolicy
       if (Configuration.getBoolProperty("CommandInterface/AllowSystemsCheck")) {
         StringBuffer data = new StringBuffer();
         if (handler.getRFIDDeviceClass() != null) {
-          data.append("Sec: " +
+          data.append("RFID: " +
                       handler.getRFIDDeviceClass().getName() + "\r\n");
         }
-        data.append("Log: " +
-                    Configuration.getProperty("Systems/Loggers/Logger/@class") +
-                    "\r\n");
+        if (handler.getSecurityDeviceClass() != null) {
+            data.append("Security: " +
+                        handler.getRFIDDeviceClass().getName() + "\r\n");
+          }
+        data.append("Loggers: ");
+        NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
+        for (int i = 0; i < loggers.getLength(); i++) {
+            data.append(Configuration.getSubProperty(loggers.item(i), "@class") +
+            "\r\n");
+        }
+        Connection conn = SelfIssueClient.ConfigureConnection();
+        data.append("Host: " + conn.getHost());
+        data.append(": " + conn.getPort() + "\r\n");
+        data.append("Timeouts: " + conn.getConnectionTimeout() + ","
+        		+ conn.getIdleTimeout() + "\r\n");
+        data.append("Retries: " + conn.getRetryAttempts() + ","
+        		+ conn.getRetryWait() + "\r\n");
+        data.append("Error handling: ");
+        if (conn.getAddSequenceAndChecksum()) {
+        	data.append("AddChecksum|");
+        }
+        if (conn.getStrictChecksumChecking()) {
+        	data.append("CheckChecksum|");
+        }
+        if (conn.getStrictSequenceChecking()) {
+        	data.append("CheckSequence");
+        }
+        data.append("\r\n");
         data.append("Modes: ");
         if (trustMode) {
           data.append("Trust|");
@@ -560,11 +589,12 @@ public class PatronPanelFocusTraversalPolicy
           data.append("NoBlocks|");
         }
         if (suppressSecurityFailureMessages) {
-          data.append("SuppressSecurityMsgs|");
+          data.append("SuppressSecurityMsgs");
         }
         data.append("\r\n");
         data.append("Spooler: " + handler.getSpoolSize() + "\r\n");
         data.append("Memory (Max, VM, Free): " + Runtime.getRuntime().maxMemory()/(1024*1024) + "MB, ");
+        
         data.append(Runtime.getRuntime().totalMemory()/(1024*1024) + "MB, ");
         data.append(Runtime.getRuntime().freeMemory()/(1024*1024) + "MB\r\n");
 
@@ -577,15 +607,31 @@ public class PatronPanelFocusTraversalPolicy
         this.firePanelChange(ev);
         throw new java.lang.InternalError("Test");
       }
+    } else if (command.equals("*Out Of Order")) {
+        if (Configuration.getBoolProperty("CommandInterface/AllowOutOfOrder")) {
+            SelfIssueFrame.setOnTop(false);
+            PasswordDialog OOOConfirmation = new PasswordDialog();
+            OOOConfirmation.clearPassword();
+            OOOConfirmation.setVisible(true);
+            if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
+                Configuration.getProperty(
+                    "CommandInterface/SystemPassword")))) {
+                SelfIssueFrame.setOnTop(true);
+                SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, OutOfOrderPanel.class);
+                this.firePanelChange(ev);
+            }
+            SelfIssueFrame.setOnTop(true);
+            return true;
+        }         
     } else if (command.equals("*Check In")) {
       if (Configuration.getBoolProperty("CommandInterface/AllowCheckIn")) {
         SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
         this.firePanelChange(ev);
         return true;
       }
-    } else if (command.startsWith("*Encrypt Password ")) {
-      if (Configuration.getBoolProperty("CommandInterface/AllowEncryptPassword")) {
-        String password = command.replaceFirst("\\*Encrypt Password ", "");
+    } else if (command.startsWith("*Encode Password ")) {
+      if (Configuration.getBoolProperty("CommandInterface/AllowEncodePassword")) {
+        String password = command.replaceFirst("\\*Encode Password ", "");
         this.PatronText.setText(Configuration.Encrypt(password));
         this.PatronField.setText(Configuration.Encrypt(password));
         return true;

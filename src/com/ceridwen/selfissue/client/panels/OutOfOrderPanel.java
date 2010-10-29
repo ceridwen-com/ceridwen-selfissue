@@ -22,10 +22,14 @@ package com.ceridwen.selfissue.client.panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 
 /**
  * <p>Title: </p>
@@ -80,5 +84,49 @@ private BorderLayout borderLayout1 = new BorderLayout();
     jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
     jLabel1.setText("Terminal Out Of Order");
     add(jLabel1, java.awt.BorderLayout.CENTER);
+    
+    this.addKeyListener(new OutOfOrderPanel_keyAdapter(this));
+  }
+  
+  StringBuffer command = new StringBuffer("");
+  
+  void OutOfOrderPanel_keyTyped(KeyEvent e){
+      if (Configuration.getBoolProperty("CommandInterface/AllowResetOutOfOrder")) {
+		  char ch = e.getKeyChar();
+		  if (ch == '¦') {
+			  if (command.toString().equals("*Reset Out Of Order")) {
+			        SelfIssueFrame.setOnTop(false);
+			        PasswordDialog ResetConfirmation = new PasswordDialog();
+			        ResetConfirmation.clearPassword();
+			        ResetConfirmation.setVisible(true);
+			        if (ResetConfirmation.getPassword().equals(Configuration.Decrypt(
+			            Configuration.getProperty(
+			                "CommandInterface/SystemPassword")))) {
+				        SelfIssueFrame.setOnTop(true);
+				        SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
+				        this.firePanelChange(ev);			  
+			        }
+			        SelfIssueFrame.setOnTop(true);
+			  }
+			  command.delete(0, command.length());
+		  } else if (ch == '*') {
+			  command.delete(0, command.length());
+			  command.append(ch);
+		  } else {
+			  command.append(ch);
+		  }
+      }
   }
 }
+
+
+class OutOfOrderPanel_keyAdapter extends java.awt.event.KeyAdapter {
+	  private OutOfOrderPanel adaptee;
+
+	  OutOfOrderPanel_keyAdapter(OutOfOrderPanel adaptee) {
+	    this.adaptee = adaptee;
+	  }
+	  public void keyTyped(KeyEvent e) {
+	    adaptee.OutOfOrderPanel_keyTyped(e);
+	  }
+	}
