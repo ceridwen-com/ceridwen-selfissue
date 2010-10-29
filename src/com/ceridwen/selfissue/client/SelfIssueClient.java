@@ -92,6 +92,7 @@ public class SelfIssueClient extends Thread {
     conn.setIdleTimeout(Configuration.getIntProperty("Systems/SIP/IdleTimeout") * 1000);
     conn.setRetryAttempts(Configuration.getIntProperty("Systems/SIP/RetryAttempts"));
     conn.setRetryWait(Configuration.getIntProperty("Systems/SIP/RetryWait"));
+    conn.setStrictSequenceChecking(Configuration.getBoolProperty("Systems/SIP/StrictSequenceChecking"));
     return conn;
   }
 
