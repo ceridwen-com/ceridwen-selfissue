@@ -27,7 +27,6 @@ import javax.swing.border.Border;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.ceridwen.circulation.SIP.helpers.FlagBitmap;

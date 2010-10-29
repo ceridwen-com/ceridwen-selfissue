@@ -52,10 +52,11 @@ import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.core.CirculationHandlerImpl;
+import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
 import com.ceridwen.selfissue.client.panels.*;
 import com.ceridwen.util.versioning.ComponentRegistry;
 
-public class SelfIssueFrame extends JFrame
+public class SelfIssueFrame extends JFrame implements OutOfOrderInterface
 {
   /**
 	 *
@@ -97,13 +98,13 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   private JLabel LibraryText = new JLabel();
   private BorderLayout TitleTextBorderLayout = new BorderLayout();
 
-  private CirculationHandler handler = new CirculationHandlerImpl();
+  private CirculationHandler handler = new CirculationHandlerImpl(this);
   private Border border2;
 
   //Construct the frame
   public SelfIssueFrame()
   {
-    log.error("RTSI Start Up:- Spooled: " + handler.getSpoolSize());
+    log.info("RTSI Start Up:- Spooled: " + handler.getSpoolSize());
 
 
 //    backgroundTasks.scheduleAtFixedRate(logger, (long)10000, (long)10000);
@@ -417,7 +418,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   {
     this.handler.stopRFIDDevice();
     this.handler.deinitRFIDDevice();
-    handler = new CirculationHandlerImpl();
+    handler = new CirculationHandlerImpl(this);
     this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 }

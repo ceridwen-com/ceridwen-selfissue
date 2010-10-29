@@ -17,38 +17,10 @@
  * Contributors:
  *     Matthew J. Dovey - initial API and implementation
  ******************************************************************************/
-package com.ceridwen.selfissue.client.spooler;
 
-import java.io.File;
+package com.ceridwen.selfissue.client.core;
 
-/**
- * <p>Title: RTSI</p>
- * <p>Description: Real Time Self Issue</p>
- * <p>Copyright: </p>
- * <p>Company: </p>
- * @author Matthew J. Dovey
- * @version 2.0
- */
-import com.ceridwen.util.PersistentQueue;
-import com.ceridwen.util.Spooler;
-import com.ceridwen.util.SpoolerProcessor;
-
-public class OfflineSpoolerDevice implements OfflineSpooler {
-  private Spooler spool;
-  private static final long delay = 10000;
-
-  public OfflineSpoolerDevice(File file, SpoolerProcessor processor, int period) {
-    spool = new Spooler(new PersistentQueue(file), processor, delay, period);
-  }
-
-  public void add(OfflineSpoolObject m) {
-    spool.add(m);
-  }
-  public int size() {
-    return spool.size();
-  }
-  protected void finalize() throws java.lang.Throwable {
-    spool.cancelScheduler();
-    super.finalize();
-  }
+public interface OutOfOrderInterface {
+	  public boolean getOutOfOrder();
+	  public void setOutOfOrder(boolean b);
 }

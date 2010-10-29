@@ -39,12 +39,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.NodeList;
 
-import com.ceridwen.circulation.SIP.exceptions.ChecksumError;
 import com.ceridwen.circulation.SIP.exceptions.ConnectionFailure;
-import com.ceridwen.circulation.SIP.exceptions.MandatoryFieldOmitted;
-import com.ceridwen.circulation.SIP.exceptions.MessageNotUnderstood;
 import com.ceridwen.circulation.SIP.exceptions.RetriesExceeded;
-import com.ceridwen.circulation.SIP.exceptions.SequenceError;
 import com.ceridwen.circulation.SIP.messages.ACSStatus;
 import com.ceridwen.circulation.SIP.messages.CheckOut;
 import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
@@ -135,7 +131,7 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
 	    ShutdownThread.registerRFIDDeviceShutdown(rfidDevice);
 	  }
 
-  private void initiateOnlineLoggers()
+  private void initiateOnlineLoggers(OutOfOrderInterface ooo)
   {
     NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
     log = new OnlineLogManager();
@@ -149,7 +145,7 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
           onlineLogger = (OnlineLogLogger) Class.forName(
               Configuration.getSubProperty(loggers.item(i), "@class")).
               newInstance();
-          onlineLogger.initialise(loggers.item(i));
+          onlineLogger.initialise(loggers.item(i), ooo);
           OnlineLog alog = new com.ceridwen.selfissue.client.log.
               OnlineLogDevice(onlineLogDir,
                               onlineLogger,
@@ -167,9 +163,9 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
     }
   }
 
-  public CirculationHandlerImpl() {
+  public CirculationHandlerImpl(OutOfOrderInterface ooo) {
     initiateOfflineSpooler();
-    initiateOnlineLoggers();
+    initiateOnlineLoggers(ooo);
     configureRFIDDevice();
     configureSecurityDevice();
   }

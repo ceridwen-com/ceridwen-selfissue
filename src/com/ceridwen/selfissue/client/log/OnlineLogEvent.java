@@ -65,7 +65,7 @@ public static final int STATUS_CHECKOUTSUCCESS = 0x0001;
 
   private String source;
   private String library;
-  private String TimeStamp;
+  private Date TimeStamp;
   private Date originalTransactionTime;
   private Message request;
   private Message response;
@@ -96,10 +96,10 @@ public Message getRequest() {
   public String getSource() {
     return source;
   }
-  public String getTimeStamp() {
+  public Date getTimeStamp() {
     return TimeStamp;
   }
-  public void setTimeStamp(String TimeStamp) {
+  public void setTimeStamp(Date TimeStamp) {
     this.TimeStamp = TimeStamp;
   }
   public void setSource(String source) {

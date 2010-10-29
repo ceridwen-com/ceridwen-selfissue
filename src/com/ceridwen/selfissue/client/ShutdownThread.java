@@ -22,8 +22,6 @@ package com.ceridwen.selfissue.client;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.ceridwen.circulation.SIP.messages.ACSStatus;
-import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.devices.RFIDDevice;
@@ -64,13 +62,6 @@ public class ShutdownThread extends Thread {
 	}
   }  
 
-  private void connect() {
-  }
-
-  private void disconnect() {
-    conn.disconnect();
-  }
-
   private void sendShutdownStatus() {
     if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
 	    try {
@@ -79,10 +70,10 @@ public class ShutdownThread extends Thread {
 	      SCStatus scstatus = new SCStatus();
 	      scstatus.setProtocolVersion("2.00");
 	      scstatus.setStatusCode("2");
-	      ACSStatus ascstatus = (ACSStatus) conn.send(scstatus);
-	      this.disconnect();
+	      conn.send(scstatus);
+	      conn.disconnect();
 	    } catch (Exception ex) {
-	      this.disconnect();
+	      conn.disconnect();
 	    }
     }
   }

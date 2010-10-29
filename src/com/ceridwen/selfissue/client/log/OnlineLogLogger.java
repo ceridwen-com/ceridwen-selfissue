@@ -19,11 +19,15 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.log;
 import java.text.DateFormat;
+import java.util.Date;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Node;
 
 import com.ceridwen.circulation.SIP.messages.*;
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
 
 /**
  * <p>Title: RTSI</p>
@@ -35,7 +39,11 @@ import com.ceridwen.selfissue.client.config.Configuration;
  */
 
 public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProcessor {
+  private static Log logger = LogFactory.getLog(OnlineLogLogger.class);
+
   protected int eventMask;
+  protected long overdueAgeOOO;
+  protected OutOfOrderInterface ooo;
 
   public boolean process(Object o) {
     try {
@@ -43,14 +51,26 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
       if ((ev.getLevel() & eventMask) == 0) {
         return true;
       }
-      return log(ev);
+      boolean response = log(ev);
+      if (!response && overdueAgeOOO > 0) {
+          long age = (new Date().getTime() - ev.getTimeStamp().getTime())/(60*60*1000);
+          if (age > overdueAgeOOO) {
+        	  if (!ooo.getOutOfOrder()) {
+        		  logger.fatal("OnlineLogEvent Expired forcing Out Of Order state");
+        		  ooo.setOutOfOrder(true);
+        	  }        	          	  
+          }
+      }
+      return response;
     } catch (Exception ex) {
       return false;
     }
   }
 
-  public void initialise(Node config) {
-    eventMask = Configuration.getIntSubProperty(config, "EventMask");
+  public void initialise(Node config, OutOfOrderInterface ooo) {
+    this.eventMask = Configuration.getIntSubProperty(config, "EventMask");
+    this.overdueAgeOOO = Configuration.getIntSubProperty(config, "OverdueAgeOutOfOrder");
+    this.ooo = ooo;
   }
 
   public abstract boolean log(OnlineLogEvent event);

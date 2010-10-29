@@ -25,6 +25,7 @@ import org.apache.commons.net.smtp.SMTPClient;
 import org.w3c.dom.Node;
 
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
 
 public class MailLogger extends OnlineLogLogger {
   protected String relay;
@@ -33,8 +34,8 @@ public class MailLogger extends OnlineLogLogger {
   protected int idleTimeout;
   protected String from;
 
-  public void initialise(Node config) {
-    super.initialise(config);
+  public void initialise(Node config, OutOfOrderInterface ooo) {
+    super.initialise(config, ooo);
 
     relay = Configuration.getSubProperty(config, "Relay");
     from = Configuration.getSubProperty(config, "From");

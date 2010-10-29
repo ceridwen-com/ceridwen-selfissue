@@ -38,10 +38,11 @@ import com.ceridwen.util.Spooler;
 public class OnlineLogDevice implements OnlineLog {
   private Spooler spool;
   private OnlineLogLogger processor;
+  private static final long delay = 10000;
 
   public OnlineLogDevice(File file, OnlineLogLogger processor, int period) {
     this.processor = processor;
-    spool = new Spooler(new PersistentQueue(file), this.processor, period);
+    spool = new Spooler(new PersistentQueue(file), this.processor, delay, period);
   }
 
   public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response) {
@@ -57,7 +58,7 @@ public class OnlineLogDevice implements OnlineLog {
     } catch (Exception ex) {
 
     }
-    ev.setTimeStamp(new java.util.Date().toString());
+    ev.setTimeStamp(new java.util.Date());
     if (!this.processor.process(ev)) {
       spool.add(ev);
     }

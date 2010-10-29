@@ -35,6 +35,7 @@ src/com/ceridwen/selfissue/client/ShutdownThread.java -text
 src/com/ceridwen/selfissue/client/config/Configuration.java -text
 src/com/ceridwen/selfissue/client/core/CirculationHandler.java -text
 src/com/ceridwen/selfissue/client/core/CirculationHandlerImpl.java -text
+src/com/ceridwen/selfissue/client/core/OutOfOrderInterface.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/dialogs/ErrorDialog.java -text
 src/com/ceridwen/selfissue/client/dialogs/PasswordDialog.java -text
 src/com/ceridwen/selfissue/client/log/MailLogger.java -text
