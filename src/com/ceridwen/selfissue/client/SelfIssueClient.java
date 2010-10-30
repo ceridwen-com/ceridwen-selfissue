@@ -247,7 +247,9 @@ public class SelfIssueClient extends Thread {
     Runtime.getRuntime().addShutdownHook(new ShutdownThread());
 
     tg = new SelfIssueClientThreadGroup("SelfIssueClientThreadGroup");
+    Thread.setDefaultUncaughtExceptionHandler(tg);
     th = new SelfIssueClient(tg, "SelfIssueClientThread");
+    th.setUncaughtExceptionHandler(tg);
     th.start();
   }
 
