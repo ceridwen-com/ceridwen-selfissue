@@ -47,6 +47,7 @@ import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
+import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
 import com.ceridwen.circulation.devices.FailureException;
 import com.ceridwen.circulation.devices.RFIDDevice;
 import com.ceridwen.circulation.devices.RFIDDeviceListener;
@@ -357,7 +358,7 @@ public Message send(Message request) {
       if (this.connect()) {
         SCStatus scstatus = new SCStatus();
         scstatus.setProtocolVersion("2.00");
-        scstatus.setStatusCode("0");
+        scstatus.setStatusCode(StatusCode.OK);
         try {
           ACSStatus ascstatus = (ACSStatus) conn.send(scstatus);
           if (ascstatus == null) {
@@ -412,7 +413,7 @@ public String checkStatus(int statusCode)
       c.connect();
       SCStatus scstatus = new SCStatus();
       scstatus.setProtocolVersion("2.00");
-      scstatus.setStatusCode(Integer.toString(statusCode));
+      scstatus.setStatusCode(StatusCode.OK);
       ACSStatus response = (ACSStatus) c.send(scstatus);
       c.disconnect();
       return "DateTimeSync: " + response.getDateTimeSync() + " | " +

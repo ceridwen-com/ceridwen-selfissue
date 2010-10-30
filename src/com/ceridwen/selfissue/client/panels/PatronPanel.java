@@ -29,10 +29,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.NodeList;
 
-import com.ceridwen.circulation.SIP.helpers.FlagBitmap;
 import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.SIP.transport.Connection;
+import com.ceridwen.circulation.SIP.types.flagfields.PatronStatus;
 import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
@@ -368,7 +368,7 @@ public class PatronPanelFocusTraversalPolicy
              request.getPatronIdentifier().equals(lastEnteredId))) {
           response = new PatronInformationResponse();
           response.setValidPatron(new Boolean(true));
-          response.setPatronStatus("              ");
+          response.getPatronStatus().unsetAll();
           response.setPersonalName(request.getPatronIdentifier());
           response.setPatronIdentifier(request.getPatronIdentifier());
         } else {
@@ -384,7 +384,7 @@ public class PatronPanelFocusTraversalPolicy
           throw new InvalidPatron();
         }
       }
-      if (FlagBitmap.flagSet(response.getPatronStatus())) {
+      if (isBlocked(response.getPatronStatus())) {
         if (trustMode &&
             (!retryPatronWhenError ||
              request.getPatronIdentifier().equals(lastEnteredId))) {
@@ -468,7 +468,52 @@ public class PatronPanelFocusTraversalPolicy
     ResetTimer.start();
   }
 
-  private static String strim(String string) {
+  private boolean isBlocked(PatronStatus patronStatus) {
+	if (patronStatus.isSet(PatronStatus.CARDREPORTEDLOST)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.CHARGEPRIVILEGESDENIED)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.EXCESSIVEOUTSTANDINGFEES)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.EXCESSIVEOUTSTANDINGFINES)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.HOLDPRIVILIGESDENIED)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.RECALLOVERDUE)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.RECALLPRIVILIGESDENIED)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.RENEWALPRIVILIGESDENIED)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.TOOMANYCLAIMSOFITEMSRETURNED)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSBILLED)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSCHARGED)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSLOST)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSOVERDUE)) {
+		return true;
+	}
+	if (patronStatus.isSet(PatronStatus.TOOMANYRENEWALS)) {
+		return true;
+	}
+	return false;
+  }
+private static String strim(String string) {
     String intermediate = string.trim();
     if (Configuration.getBoolProperty("UI/Control/StripPatronChecksumDigit")) {
       if (intermediate.length() > 0) {
