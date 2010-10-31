@@ -19,6 +19,14 @@ lib/xalan-j_2_7_1/xalan.jar -text
 lib/xalan-j_2_7_1/xercesImpl.jar -text
 lib/xalan-j_2_7_1/xml-apis.jar -text
 /license.txt -text svneol=unset#text/plain
+res/com/ceridwen/selfissue/client/config/config.xml -text svneol=unset#text/plain
+res/com/ceridwen/selfissue/client/images/card.gif -text
+res/org/freesound/26034__ashassin__cassrol.wav -text
+res/org/freesound/34804___zin___splash_bell_2.wav -text
+res/org/freesound/8594__SpeedY__Strum_mute_down.wav -text
+res/org/pdclipart/book_stack_of_books_taller_ga_.png -text
+res/org/pdclipart/bookcase.png -text
+res/org/pdclipart/library_book_cart.png -text
 /selfissue.jnlp -text
 src/com/ceridwen/circulation/devices/CirculationDevices.num -text
 src/com/ceridwen/circulation/devices/FailureException.java -text
