@@ -469,46 +469,46 @@ public class PatronPanelFocusTraversalPolicy
   }
 
   private boolean isBlocked(PatronStatus patronStatus) {
-	if (patronStatus.isSet(PatronStatus.CARDREPORTEDLOST)) {
+	if (patronStatus.isSet(PatronStatus.CARD_REPORTED_LOST)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.CHARGEPRIVILEGESDENIED)) {
+	if (patronStatus.isSet(PatronStatus.CHARGE_PRIVILEGES_DENIED)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.EXCESSIVEOUTSTANDINGFEES)) {
+	if (patronStatus.isSet(PatronStatus.EXCESSIVE_OUTSTANDING_FEES)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.EXCESSIVEOUTSTANDINGFINES)) {
+	if (patronStatus.isSet(PatronStatus.EXCESSIVE_OUTSTANDING_FINES)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.HOLDPRIVILIGESDENIED)) {
+	if (patronStatus.isSet(PatronStatus.HOLD_PRIVILIGES_DENIED)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.RECALLOVERDUE)) {
+	if (patronStatus.isSet(PatronStatus.RECALL_OVERDUE)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.RECALLPRIVILIGESDENIED)) {
+	if (patronStatus.isSet(PatronStatus.RECALL_PRIVILIGES_DENIED)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.RENEWALPRIVILIGESDENIED)) {
+	if (patronStatus.isSet(PatronStatus.RENEWAL_PRIVILIGES_DENIED)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOOMANYCLAIMSOFITEMSRETURNED)) {
+	if (patronStatus.isSet(PatronStatus.TOO_MANY_CLAIMS_OF_ITEMS_RETURNED)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSBILLED)) {
+	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_BILLED)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSCHARGED)) {
+	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_CHARGED)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSLOST)) {
+	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_LOST)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOOMANYITEMSOVERDUE)) {
+	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_OVERDUE)) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOOMANYRENEWALS)) {
+	if (patronStatus.isSet(PatronStatus.TOO_MANY_RENEWALS)) {
 		return true;
 	}
 	return false;

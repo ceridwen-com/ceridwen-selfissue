@@ -70,7 +70,7 @@ public class ShutdownThread extends Thread {
 	      conn.connect();
 	      SCStatus scstatus = new SCStatus();
 	      scstatus.setProtocolVersion("2.00");
-	      scstatus.setStatusCode(StatusCode.SHUTTINGDOWN);
+	      scstatus.setStatusCode(StatusCode.SHUTTING_DOWN);
 	      conn.send(scstatus);
 	      conn.disconnect();
 	    } catch (Exception ex) {
