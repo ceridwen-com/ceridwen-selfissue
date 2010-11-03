@@ -6,6 +6,7 @@
 /.project -text
 /Invocation.txt -text svneol=unset#text/plain
 /SelfIssue-package.xml -text svneol=unset#text/plain
+/build.xml -text svneol=unset#text/plain
 /buildnum.xml -text
 /encodepassword.jnlp -text
 lib/netx-0.5/LICENSE.TXT -text
