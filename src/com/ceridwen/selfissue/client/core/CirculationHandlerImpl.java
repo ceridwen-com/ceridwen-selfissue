@@ -222,7 +222,7 @@ public void printReceipt(String data) {
       conn.connect();
     } catch (Exception ex) {
       SelfIssueClient.LeaveCriticalSection();
-      logger.error("Unexpected exception on connection", ex);
+      logger.warn("Exception on connection", ex);
       return false;
     }
     return true;
@@ -233,7 +233,7 @@ public void printReceipt(String data) {
       try {
         conn.disconnect();
       } catch (Exception ex) {
-        logger.error("Unexpected exception on disconnection", ex);
+        logger.warn("Exception on disconnection", ex);
       }
     }
     conn = null;
@@ -372,11 +372,11 @@ public Message send(Message request) {
             return null;
           }
         } catch (RetriesExceeded ex) {
-          logger.error("Repeated retries on status request: " + request);
+          logger.warn("Repeated retries on status request: " + request);
           this.disconnect();
           throw ex;
         } catch (Exception ex) {
-          logger.error("Unexpected error on status request: " + request, ex);
+          logger.warn("Unexpected error on status request: " + request, ex);
           this.disconnect();
           return null;
         }
@@ -385,14 +385,14 @@ public Message send(Message request) {
           response = conn.send(request);
         } catch (RetriesExceeded ex) {
           this.disconnect();
-          logger.error("Repeated retries on request: " + request);
+          logger.warn("Repeated retries on request: " + request);
           throw ex;
         } catch (ConnectionFailure ex) {
           response = null;
-          logger.error("Connection Failure on request: " + request);
+          logger.warn("Connection Failure on request: " + request);
         } catch (Exception ex) {
           response = null;
-          logger.error("Unexpected exception on request: " + request, ex);
+          logger.warn("Unexpected exception on request: " + request, ex);
         }
         this.disconnect();
       }
