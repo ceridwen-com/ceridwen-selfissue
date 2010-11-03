@@ -4,6 +4,7 @@
 .externalToolBuilders/Buildnum[!!-~]-[!!-~]CirculationDevices.launch -text svneol=unset#text/plain
 .externalToolBuilders/Buildnum[!!-~]-[!!-~]SelfIssue.launch -text svneol=unset#text/plain
 /.project -text
+.settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
 /Invocation.txt -text svneol=unset#text/plain
 /SelfIssue-package.xml -text svneol=unset#text/plain
 /build.xml -text svneol=unset#text/plain

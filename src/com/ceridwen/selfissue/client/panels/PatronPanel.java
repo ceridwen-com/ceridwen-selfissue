@@ -692,7 +692,7 @@ private static String strim(String string) {
       e.consume();
       this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
     }
-    if (e.getKeyChar() == '¦') {
+    if (e.getKeyChar() == 'Â¦') {
       if (this.commandProcessor(this.PatronField.getText())) {
         e.consume();
         this.PatronField.setText("");

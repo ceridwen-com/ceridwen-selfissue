@@ -124,147 +124,147 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   }
 
   public static final String escapeHTML(String s) {
-    StringBuffer sb = new StringBuffer();
-    int n = s.length();
-    for (int i = 0; i < n ; i++) {
-      char c = s.charAt(i);
-      switch (c) {
-        case '<':
-          sb.append("&lt;");
-          break;
-        case '>':
-          sb.append("&gt;");
-          break;
-        case '&':
-          sb.append("&amp;");
-          break;
-        case '"':
-          sb.append("&quot;");
-          break;
-        case '‡':
-          sb.append("&agrave;");
-          break;
-        case '¿':
-          sb.append("&Agrave;");
-          break;
-        case '‚':
-          sb.append("&acirc;");
-          break;
-        case '¬':
-          sb.append("&Acirc;");
-          break;
-        case '‰':
-          sb.append("&auml;");
-          break;
-        case 'ƒ':
-          sb.append("&Auml;");
-          break;
-        case 'Â':
-          sb.append("&aring;");
-          break;
-        case '≈':
-          sb.append("&Aring;");
-          break;
-        case 'Ê':
-          sb.append("&aelig;");
-          break;
-        case '∆':
-          sb.append("&AElig;");
-          break;
-        case 'Á':
-          sb.append("&ccedil;");
-          break;
-        case '«':
-          sb.append("&Ccedil;");
-          break;
-        case 'È':
-          sb.append("&eacute;");
-          break;
-        case '…':
-          sb.append("&Eacute;");
-          break;
-        case 'Ë':
-          sb.append("&egrave;");
-          break;
-        case '»':
-          sb.append("&Egrave;");
-          break;
-        case 'Í':
-          sb.append("&ecirc;");
-          break;
-        case ' ':
-          sb.append("&Ecirc;");
-          break;
-        case 'Î':
-          sb.append("&euml;");
-          break;
-        case 'À':
-          sb.append("&Euml;");
-          break;
-        case 'Ô':
-          sb.append("&iuml;");
-          break;
-        case 'œ':
-          sb.append("&Iuml;");
-          break;
-        case 'Ù':
-          sb.append("&ocirc;");
-          break;
-        case '‘':
-          sb.append("&Ocirc;");
-          break;
-        case 'ˆ':
-          sb.append("&ouml;");
-          break;
-        case '÷':
-          sb.append("&Ouml;");
-          break;
-        case '¯':
-          sb.append("&oslash;");
-          break;
-        case 'ÿ':
-          sb.append("&Oslash;");
-          break;
-        case 'ﬂ':
-          sb.append("&szlig;");
-          break;
-        case '˘':
-          sb.append("&ugrave;");
-          break;
-        case 'Ÿ':
-          sb.append("&Ugrave;");
-          break;
-        case '˚':
-          sb.append("&ucirc;");
-          break;
-        case '€':
-          sb.append("&Ucirc;");
-          break;
-        case '¸':
-          sb.append("&uuml;");
-          break;
-        case '‹':
-          sb.append("&Uuml;");
-          break;
-        case 'Æ':
-          sb.append("&reg;");
-          break;
-        case '©':
-          sb.append("&copy;");
-          break;
-        case 'Ä':
-          sb.append("&euro;");
-          break;
-          // be carefull with this one (non-breaking white space)
-          //           case ' ': sb.append("&nbsp;");break;
+	    StringBuffer sb = new StringBuffer();
+	    int n = s.length();
+	    for (int i = 0; i < n ; i++) {
+	      char c = s.charAt(i);
+	      switch (c) {
+	        case '<':
+	          sb.append("&lt;");
+	          break;
+	        case '>':
+	          sb.append("&gt;");
+	          break;
+	        case '&':
+	          sb.append("&amp;");
+	          break;
+	        case '"':
+	          sb.append("&quot;");
+	          break;
+	        case '√†':
+	          sb.append("&agrave;");
+	          break;
+	        case '√Ä':
+	          sb.append("&Agrave;");
+	          break;
+	        case '√¢':
+	          sb.append("&acirc;");
+	          break;
+	        case '√Ç':
+	          sb.append("&Acirc;");
+	          break;
+	        case '√§':
+	          sb.append("&auml;");
+	          break;
+	        case '√Ñ':
+	          sb.append("&Auml;");
+	          break;
+	        case '√•':
+	          sb.append("&aring;");
+	          break;
+	        case '√Ö':
+	          sb.append("&Aring;");
+	          break;
+	        case '√¶':
+	          sb.append("&aelig;");
+	          break;
+	        case '√Ü':
+	          sb.append("&AElig;");
+	          break;
+	        case '√ß':
+	          sb.append("&ccedil;");
+	          break;
+	        case '√á':
+	          sb.append("&Ccedil;");
+	          break;
+	        case '√©':
+	          sb.append("&eacute;");
+	          break;
+	        case '√â':
+	          sb.append("&Eacute;");
+	          break;
+	        case '√®':
+	          sb.append("&egrave;");
+	          break;
+	        case '√à':
+	          sb.append("&Egrave;");
+	          break;
+	        case '√™':
+	          sb.append("&ecirc;");
+	          break;
+	        case '√ä':
+	          sb.append("&Ecirc;");
+	          break;
+	        case '√´':
+	          sb.append("&euml;");
+	          break;
+	        case '√ã':
+	          sb.append("&Euml;");
+	          break;
+	        case '√Ø':
+	          sb.append("&iuml;");
+	          break;
+	        case '√è':
+	          sb.append("&Iuml;");
+	          break;
+	        case '√¥':
+	          sb.append("&ocirc;");
+	          break;
+	        case '√î':
+	          sb.append("&Ocirc;");
+	          break;
+	        case '√∂':
+	          sb.append("&ouml;");
+	          break;
+	        case '√ñ':
+	          sb.append("&Ouml;");
+	          break;
+	        case '√∏':
+	          sb.append("&oslash;");
+	          break;
+	        case '√ò':
+	          sb.append("&Oslash;");
+	          break;
+	        case '√ü':
+	          sb.append("&szlig;");
+	          break;
+	        case '√π':
+	          sb.append("&ugrave;");
+	          break;
+	        case '√ô':
+	          sb.append("&Ugrave;");
+	          break;
+	        case '√ª':
+	          sb.append("&ucirc;");
+	          break;
+	        case '√õ':
+	          sb.append("&Ucirc;");
+	          break;
+	        case '√º':
+	          sb.append("&uuml;");
+	          break;
+	        case '√ú':
+	          sb.append("&Uuml;");
+	          break;
+	        case '¬Æ':
+	          sb.append("&reg;");
+	          break;
+	        case '¬©':
+	          sb.append("&copy;");
+	          break;
+	        case '‚Ç¨':
+	          sb.append("&euro;");
+	          break;
+	          // be carefull with this one (non-breaking white space)
+	          //           case ' ': sb.append("&nbsp;");break;
 
-        default:
-          sb.append(c);
-          break;
-      }
-    }
-    return sb.toString();
-  }
+	        default:
+	          sb.append(c);
+	          break;
+	      }
+	    }
+	    return sb.toString();
+	  }
 
   protected String demangleDate(String date) {
     if (date == null) {

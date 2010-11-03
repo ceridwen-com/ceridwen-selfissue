@@ -92,7 +92,7 @@ private BorderLayout borderLayout1 = new BorderLayout();
   void OutOfOrderPanel_keyTyped(KeyEvent e){
       if (Configuration.getBoolProperty("CommandInterface/AllowResetOutOfOrder")) {
 		  char ch = e.getKeyChar();
-		  if (ch == '¦') {
+		  if (ch == 'Â¦') {
 			  if (command.toString().equals("*Reset Out Of Order")) {
 			        SelfIssueFrame.setOnTop(false);
 			        PasswordDialog ResetConfirmation = new PasswordDialog();
