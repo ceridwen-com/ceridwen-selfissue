@@ -47,5 +47,8 @@
         <copy file="encodepassword.jnlp" todir="dist"/>
         <copy file="Invocation.txt" todir="dist"/>
         <copy file="license.txt" todir="dist"/>
+    	<zip destfile="dist/SelfIssue.zip">
+    		<zipfileset dir ="dist/" />
+    	</zip>
     </target>
 </project>
