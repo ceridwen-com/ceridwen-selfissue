@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
+import com.ceridwen.circulation.SIP.types.enumerations.ProtocolVersion;
 import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
 import com.ceridwen.circulation.devices.RFIDDevice;
 import com.ceridwen.circulation.devices.SecurityDevice;
@@ -69,7 +70,7 @@ public class ShutdownThread extends Thread {
 	      conn = SelfIssueClient.ConfigureConnection();
 	      conn.connect();
 	      SCStatus scstatus = new SCStatus();
-	      scstatus.setProtocolVersion("2.00");
+	      scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
 	      scstatus.setStatusCode(StatusCode.SHUTTING_DOWN);
 	      conn.send(scstatus);
 	      conn.disconnect();
