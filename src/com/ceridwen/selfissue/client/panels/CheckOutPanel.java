@@ -43,6 +43,8 @@ import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckInResponse;
 import com.ceridwen.circulation.SIP.messages.CheckOut;
 import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
+import com.ceridwen.circulation.SIP.messages.PatronInformation;
+import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.devices.FailureException;
 import com.ceridwen.circulation.devices.RFIDDeviceListener;
 import com.ceridwen.circulation.devices.TimeoutException;
@@ -226,7 +228,7 @@ public class CheckOutPanelFocusTraversalPolicy
    private JPanel NavigationPanel = new JPanel();
    private BorderLayout BookBorderLayout = new BorderLayout();
    private JButton NextButton = new JButton();
-   private JButton ResetButton = new JButton();
+   private JButton CheckInButton = new JButton();
    private BorderLayout NavigationBorderLayout = new BorderLayout();
    private JPanel InformationPanel = new JPanel();
    private JLabel BookFieldLabel = new JLabel();
@@ -258,6 +260,8 @@ public class CheckOutPanelFocusTraversalPolicy
 
 private String PatronPassword;
 
+private boolean CheckInEnabled;
+
 
   public CheckOutPanel() {
   }
@@ -267,10 +271,11 @@ private String PatronPassword;
       this.handler = handler;
       this.PatronID = PatronID;
       this.PatronPassword = PatronPassword;
+      this.CheckInEnabled = Configuration.getBoolProperty("Modes/EnableCheckIn");
       this.PatronName = PatronName;
       this.ResetTimer = ResetTimer;
       jbInit();
-      PatronText.setText(Configuration.getMessage("GreetPatron", new String[]{PatronName, ((message == null)?"":message)}));
+      PatronText.setText(Configuration.getMessage("GreetPatronCheckOut", new String[]{PatronName, ((message == null)?"":message)}));
       ResetTimer.restart();
       enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
       startSecurity();
@@ -299,14 +304,14 @@ private String PatronPassword;
     NextButton.addActionListener(new BookPanel_NextButton_actionAdapter(this));
     NextButton.setForeground(ButtonTextColour);
     NextButton.setBackground(ButtonBackgroundColour);
-    ResetButton.setFont(new java.awt.Font("Dialog", 1, 16));
+    CheckInButton.setFont(new java.awt.Font("Dialog", 1, 16));
 //    ResetButton.setNextFocusableComponent(BookField);
-    ResetButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_ToolTipText"));
-    ResetButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_Text"));
-    ResetButton.addActionListener(new BookPanel_ResetButton_actionAdapter(this));
-    ResetButton.setVisible(false);
-    ResetButton.setForeground(ButtonTextColour);
-    ResetButton.setBackground(ButtonBackgroundColour);
+    CheckInButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_ToolTipText"));
+    CheckInButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_Text"));
+    CheckInButton.addActionListener(new BookPanel_CheckinButton_actionAdapter(this));
+    CheckInButton.setVisible(this.CheckInEnabled);
+    CheckInButton.setForeground(ButtonTextColour);
+    CheckInButton.setBackground(ButtonBackgroundColour);
     NavigationPanel.setLayout(NavigationBorderLayout);
     BookFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
     BookFieldLabel.setForeground(DefaultTextColour);
@@ -388,7 +393,7 @@ private String PatronPassword;
     StatusText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/StatusText_ToolTipText"));
     StatusText.setText(Configuration.getProperty("UI/CheckOutPanel/StatusText_DefaultText"));
     this.add(NavigationPanel,  BorderLayout.SOUTH);
-    NavigationPanel.add(ResetButton, BorderLayout.WEST);
+    NavigationPanel.add(CheckInButton, BorderLayout.WEST);
     NavigationPanel.add(NextButton,  BorderLayout.EAST);
     this.add(InformationPanel,  BorderLayout.CENTER);
     InformationPanel.add(DataPanel,  BorderLayout.SOUTH);
@@ -418,9 +423,18 @@ private String PatronPassword;
     this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 
-  void ResetButton_actionPerformed(ActionEvent e) {
+  void CheckinButton_actionPerformed(ActionEvent e) {
     this.stopSecurity();
-    this.firePanelChange(new SelfIssuePanelEvent(this, CheckInPanel.class));
+    SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
+    // Need this to pass back id and password
+    PatronInformation rq = new PatronInformation();
+    rq.setPatronPassword(this.PatronPassword);
+    PatronInformationResponse rp = new PatronInformationResponse();
+    rp.setPatronIdentifier(this.PatronID);
+    rp.setPersonalName(this.PatronName);
+    ev.request = rq;
+    ev.response = rp;
+    this.firePanelChange(ev);
   }
 
   private void appendCheckoutText(String entry) {
@@ -678,14 +692,21 @@ private String PatronPassword;
   }
 
   void BookField_keyTyped(KeyEvent e) {
-    ResetTimer.restart();
-    if (e.getKeyChar() == '\u001B') {
-      this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
-    }
-    if (e.getKeyChar() == '\n' || e.getKeyChar() == '^') {
-      e.consume();
-      this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
-    }
+	  ResetTimer.restart();
+/**	
+     if (e.getKeyChar() == '' && this.CheckInEnabled) {
+		  e.consume();
+		  this.CheckinButton_actionPerformed(new ActionEvent(this, 0, ""));
+	  }
+*/	  
+	  if (e.getKeyChar() == '\u001B') {
+		  e.consume();
+		  this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
+	  }
+	  if (e.getKeyChar() == '\n' || e.getKeyChar() == '^') {
+		  e.consume();
+		  this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+	  }
   }
 
   public void grabFocus() {
@@ -745,14 +766,14 @@ class BookPanel_NextButton_actionAdapter implements java.awt.event.ActionListene
   }
 }
 
-class BookPanel_ResetButton_actionAdapter implements java.awt.event.ActionListener {
+class BookPanel_CheckinButton_actionAdapter implements java.awt.event.ActionListener {
   private CheckOutPanel adaptee;
 
-  BookPanel_ResetButton_actionAdapter(CheckOutPanel adaptee) {
+  BookPanel_CheckinButton_actionAdapter(CheckOutPanel adaptee) {
     this.adaptee = adaptee;
   }
   public void actionPerformed(ActionEvent e) {
-    adaptee.ResetButton_actionPerformed(e);
+    adaptee.CheckinButton_actionPerformed(e);
   }
 }
 

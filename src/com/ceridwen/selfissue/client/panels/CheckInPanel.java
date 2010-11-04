@@ -41,6 +41,8 @@ import org.apache.commons.logging.LogFactory;
 
 import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckInResponse;
+import com.ceridwen.circulation.SIP.messages.PatronInformation;
+import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.devices.FailureException;
 import com.ceridwen.circulation.devices.RFIDDeviceListener;
 import com.ceridwen.circulation.devices.TimeoutException;
@@ -179,7 +181,7 @@ public class CheckInPanelFocusTraversalPolicy
   private JPanel NavigationPanel = new JPanel();
   private BorderLayout BookBorderLayout = new BorderLayout();
   private JButton NextButton = new JButton();
-  private JButton ResetButton = new JButton();
+  private JButton CheckoutButton = new JButton();
   private BorderLayout NavigationBorderLayout = new BorderLayout();
   private JPanel InformationPanel = new JPanel();
   private JLabel BookFieldLabel = new JLabel();
@@ -207,18 +209,31 @@ public class CheckInPanelFocusTraversalPolicy
 
   private CirculationHandler handler;
 
+private String PatronID;
+
+private String PatronPassword;
+
+private String PatronName;
+
+private Boolean CheckOutEnabled;
+
 
   public CheckInPanel() {
   }
 
-  public CheckInPanel(CirculationHandler handler, javax.swing.Timer ResetTimer) {
+  public CheckInPanel(CirculationHandler handler, String PatronID, String PatronPassword, String PatronName, String message, javax.swing.Timer ResetTimer) {
     try {
-      this.handler = handler;
-      this.ResetTimer = ResetTimer;
-      jbInit();
-      ResetTimer.restart();
-      enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
-      handler.startRFIDDevice(this);
+        this.handler = handler;
+        this.PatronID = PatronID;
+        this.PatronPassword = PatronPassword;
+        this.CheckOutEnabled = (PatronName!=null);
+        this.PatronName = (PatronName!=null)?PatronName:"Staff User";
+        this.ResetTimer = ResetTimer;
+        jbInit();
+        PatronText.setText(Configuration.getMessage("GreetPatronCheckIn", new String[]{PatronName, ((message == null)?"":message)}));
+        ResetTimer.restart();
+        enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
+        startSecurity();
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -244,14 +259,14 @@ public class CheckInPanelFocusTraversalPolicy
     NextButton.addActionListener(new CheckInPanel_NextButton_actionAdapter(this));
     NextButton.setForeground(ButtonTextColour);
     NextButton.setBackground(ButtonBackgroundColour);    
-    ResetButton.setFont(new java.awt.Font("Dialog", 1, 16));
+    CheckoutButton.setFont(new java.awt.Font("Dialog", 1, 16));
 //    ResetButton.setNextFocusableComponent(BookField);
-    ResetButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_ToolTipText"));
-    ResetButton.setText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_Text"));
-    ResetButton.addActionListener(new CheckInPanel_ResetButton_actionAdapter(this));
-    ResetButton.setVisible(false);
-    ResetButton.setForeground(ButtonTextColour);
-    ResetButton.setBackground(ButtonBackgroundColour);    
+    CheckoutButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_ToolTipText"));
+    CheckoutButton.setText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_Text"));
+    CheckoutButton.addActionListener(new CheckInPanel_CheckoutButton_actionAdapter(this));
+    CheckoutButton.setVisible(CheckOutEnabled);
+    CheckoutButton.setForeground(ButtonTextColour);
+    CheckoutButton.setBackground(ButtonBackgroundColour);    
     NavigationPanel.setLayout(NavigationBorderLayout);
     BookFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
     BookFieldLabel.setForeground(DefaultTextColour);    
@@ -333,7 +348,7 @@ public class CheckInPanelFocusTraversalPolicy
     StatusText.setToolTipText(Configuration.getProperty("UI/CheckInPanel/StatusText_ToolTipText"));
     StatusText.setText(Configuration.getProperty("UI/CheckInPanel/StatusText_DefaultText"));
     this.add(NavigationPanel,  BorderLayout.SOUTH);
-    NavigationPanel.add(ResetButton, BorderLayout.WEST);
+    NavigationPanel.add(CheckoutButton, BorderLayout.WEST);
     NavigationPanel.add(NextButton,  BorderLayout.EAST);
     this.add(InformationPanel,  BorderLayout.CENTER);
     InformationPanel.add(DataPanel,  BorderLayout.SOUTH);
@@ -365,13 +380,22 @@ public class CheckInPanelFocusTraversalPolicy
   }
 
   void NextButton_actionPerformed(ActionEvent e) {
-    handler.stopRFIDDevice();
+	this.stopSecurity();
     this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
 
-  void ResetButton_actionPerformed(ActionEvent e) {
-    handler.stopRFIDDevice();
-    this.firePanelChange(new SelfIssuePanelEvent(this, CheckOutPanel.class));
+  void CheckoutButton_actionPerformed(ActionEvent e) {
+	this.stopSecurity();
+    SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckOutPanel.class);
+    // Need this to pass back id and password
+    PatronInformation rq = new PatronInformation();
+    rq.setPatronPassword(this.PatronPassword);
+    PatronInformationResponse rp = new PatronInformationResponse();
+    rp.setPatronIdentifier(this.PatronID);
+    rp.setPersonalName(this.PatronName);
+    ev.request = rq;
+    ev.response = rp;    
+    this.firePanelChange(ev);
   }
 
   private void appendCheckinText(String entry) {
@@ -383,6 +407,31 @@ public class CheckInPanelFocusTraversalPolicy
     this.CheckinText.setText(msg.replaceAll("\r\n", "<br>"));
   }
 
+  private void startSecurity() {
+		handler.initSecurityDevice();
+	    handler.initRFIDDevice();
+	    handler.startRFIDDevice(this);
+	  }
+/**
+	  private void resetSecurity() {
+		handler.resetSecurityDevice();
+	    handler.resetRFIDDevice();
+	  }
+	  private void pauseSecurity() {
+	    handler.pauseRFIDDevice();
+	  }
+
+	  private void resumeSecurity() {
+	    handler.resumeRFIDDevice();
+	  }
+*/
+	  private void stopSecurity() {
+	    handler.stopRFIDDevice();
+	    handler.deinitRFIDDevice();
+	    handler.deinitSecurityDevice();
+	  }
+  
+  
   void CheckinButton_actionPerformed(ActionEvent e) {
     CheckIn request = new CheckIn();
     CheckInResponse response = null;
@@ -496,13 +545,21 @@ public class CheckInPanelFocusTraversalPolicy
 
   void BookField_keyTyped(KeyEvent e) {
     ResetTimer.restart();
-    if (e.getKeyChar() == '\u001B') {
-      this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
-    }
-    if (e.getKeyChar() == '\n' || e.getKeyChar() == '^') {
-      e.consume();
-      this.CheckinButton_actionPerformed(new ActionEvent(this, 0, ""));
-    }
+/**	
+    
+	  if (e.getKeyChar() == '' && this.CheckOutEnabled) {
+		  e.consume();
+		  this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+	  }
+*/	  
+	  if (e.getKeyChar() == '\u001B') {
+		  e.consume();
+		  this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
+	  }
+	  if (e.getKeyChar() == '\n' || e.getKeyChar() == '^') {
+		  e.consume();
+		  this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+	  }
   }
 
   public void grabFocus() {
@@ -516,7 +573,7 @@ public class CheckInPanelFocusTraversalPolicy
   }
 
   protected void finalize() throws java.lang.Throwable {
-    handler.stopRFIDDevice();
+	this.stopSecurity();
     super.finalize();
   }
 
@@ -538,14 +595,14 @@ class CheckInPanel_NextButton_actionAdapter implements java.awt.event.ActionList
   }
 }
 
-class CheckInPanel_ResetButton_actionAdapter implements java.awt.event.ActionListener {
+class CheckInPanel_CheckoutButton_actionAdapter implements java.awt.event.ActionListener {
   private CheckInPanel adaptee;
 
-  CheckInPanel_ResetButton_actionAdapter(CheckInPanel adaptee) {
+  CheckInPanel_CheckoutButton_actionAdapter(CheckInPanel adaptee) {
     this.adaptee = adaptee;
   }
   public void actionPerformed(ActionEvent e) {
-    adaptee.ResetButton_actionPerformed(e);
+    adaptee.CheckoutButton_actionPerformed(e);
   }
 }
 

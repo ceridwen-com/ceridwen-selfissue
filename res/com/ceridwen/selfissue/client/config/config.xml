@@ -90,7 +90,7 @@
       <CheckinButton_ToolTipText>Check In</CheckinButton_ToolTipText>
       <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
       <BookPanelNextButton_ToolTipText>Login as new borrower.</BookPanelNextButton_ToolTipText>
-      <BookPanelCheckoutButton_Text>Check out</BookPanelCheckouButton_Text>
+      <BookPanelCheckoutButton_Text>Check out</BookPanelCheckoutButton_Text>
       <BookPanelCheckoutButton_ToolTipText>Check out books.</BookPanelCheckoutButton_ToolTipText>
     </CheckInPanel>
     <Messages>
@@ -99,7 +99,9 @@
       ^ is used to indicate a line break
       {0}, {1] etc. will be replaced by message specific strings.
   -->
-      <GreetPatron>Hello {0}^Please begin checking out your books.</GreetPatron>
+      <GreetPatronCheckout>Hello {0}^Please begin checking out your books.</GreetPatronCheckout>
+      <!-- {0} = patron name or barcode -->
+      <GreetPatronCheckin>Hello {0}^Please begin checking in your books.</GreetPatronCheckin>
       <!-- {0} = patron name or barcode -->
       <CheckingPatronMessage>Checking for barcode {0}^Please wait...</CheckingPatronMessage>
       <!-- {0} = item barcode -->
@@ -426,6 +428,8 @@
     EnableBarcodeAlii: If true allows aliaa for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦)
     This allows commands to be encoded as barcodes (e.g. can be entered from a command barcode sheet)
      -->
+     <EnableCheckIn>false</EnableCheckIn>
+     <!-- Experimental checkin screen -->
   </Modes>
   <CommandInterface>
     <!--

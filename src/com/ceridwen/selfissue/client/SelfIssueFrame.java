@@ -311,10 +311,11 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     MainPanel.grabFocus();
   }
 
-  public void setCheckInPanel()
+  public void setCheckInPanel(String id, String password, String name, String message)
   {
     MainPane.remove(MainPanel);
-    MainPanel = new CheckInPanel(handler, this.ResetTimer);
+    MainPanel = new CheckInPanel(handler, id, password, demangleName(name), message,
+            this.ResetTimer);
     MainPanel.addSelfIssuePanelListener(new
         SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
     MainPane.add(MainPanel);
@@ -345,7 +346,14 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
                        ( (PatronInformationResponse) e.response).
                        getScreenMessage());
     } else if (e.nextPanel == CheckInPanel.class) {
-      setCheckInPanel();
+        setCheckInPanel( ( (PatronInformationResponse) e.response).
+                getPatronIdentifier(),
+                ( (PatronInformation) e.request).
+                getPatronPassword(),
+                ( (PatronInformationResponse) e.response).
+                getPersonalName(),
+                ( (PatronInformationResponse) e.response).
+                getScreenMessage());
     } else if (e.nextPanel == OutOfOrderPanel.class) {
       setOutOfOrderPanel();
     } else {
