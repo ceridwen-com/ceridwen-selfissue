@@ -69,8 +69,8 @@ private JPanel panel1 = new JPanel();
     }
   }
 
-  public PasswordDialog() {
-    this(null, "Shutdown Request", true);
+  public PasswordDialog(String title) {
+    this(null, title, true);
   }
 
   public void clearPassword() {
@@ -89,6 +89,7 @@ private JPanel panel1 = new JPanel();
         jButton1_actionPerformed(e);
       }
     });
+    this.setMinimumSize(new Dimension(224,0));
     jPasswordField1.setFont(new java.awt.Font("DialogInput", 0, 18));
     jPasswordField1.setText("jPasswordField1");
     jPasswordField1.addKeyListener(new KeyAdapter() {
@@ -96,7 +97,7 @@ private JPanel panel1 = new JPanel();
         jPasswordField1_keyTyped(e);
       }
     });
-    jLabel1.setText("Please enter shutdown password:");
+    jLabel1.setText(this.getTitle() + ":");
     this.setModal(true);
     this.setResizable(false);
     getContentPane().add(panel1);
@@ -122,7 +123,7 @@ private JPanel panel1 = new JPanel();
   }
 
   public void jPasswordField1_keyTyped(KeyEvent e) {
-    if (e.getKeyChar() == '\n' || e.getKeyChar() == '^') {
+    if (e.getKeyChar() == '\n' || e.getKeyChar() == '^' || e.getKeyChar() == 0x1B) {
       e.consume();
       this.jButton1_actionPerformed(new ActionEvent(this, 0, ""));
     }

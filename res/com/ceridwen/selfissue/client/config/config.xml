@@ -55,6 +55,7 @@
       <PatronFieldLabel_Text>Please scan in your barcode number using the hand held scanner: </PatronFieldLabel_Text>
       <PatronFieldLabel_ToolTipText>Please enter the barcode number from your university card.</PatronFieldLabel_ToolTipText>
       <PatronField_ToolTipText>Scan your University barcode using the hand held scanner.</PatronField_ToolTipText>
+	  <PatronPasswordPrompt>Please enter your password</PatronPasswordPrompt>
       <PatronPanelNextButton_Text>Next</PatronPanelNextButton_Text>
       <PatronPanelNextButton_ToolTipText>Next</PatronPanelNextButton_ToolTipText>
       <PatronPanelResetButton_ToolTipText>Clear any entries</PatronPanelResetButton_ToolTipText>
@@ -66,31 +67,31 @@
       <PatronText_ToolTipText>List of books already checked out.</PatronText_ToolTipText>
       <StatusText_DefaultText/>
       <StatusText_ToolTipText>Status</StatusText_ToolTipText>
-      <BookFieldLabel_Text>Please scan book barcode using the hand held scanner: </BookFieldLabel_Text>
+      <BookFieldLabel_Text>Please scan barcode of book to check out using the hand held scanner:</BookFieldLabel_Text>
       <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check out.</BookFieldLabel_ToolTipText>
       <BookField_ToolTipText>Please enter the barcode of the next book to check out.</BookField_ToolTipText>
       <CheckoutButton_Text>Check Out</CheckoutButton_Text>
       <CheckoutButton_ToolTipText>Check Out</CheckoutButton_ToolTipText>
       <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
       <BookPanelNextButton_ToolTipText>Login as new borrower.</BookPanelNextButton_ToolTipText>
-      <BookPanelResetButton_Text>Back and Finish</BookPanelResetButton_Text>
-      <BookPanelResetButton_ToolTipText>Login as new borrower.</BookPanelResetButton_ToolTipText>
+      <BookPanelCheckinButton_Text>Check In</BookPanelCheckinButton_Text>
+      <BookPanelCheckinButton_ToolTipText>Check in books.</BookPanelCheckinButton_ToolTipText>
     </CheckOutPanel>
     <CheckInPanel><!--Check In panel settings-->
       <BooksIcon_Icon>org/pdclipart/book_stack_of_books_taller_ga_.png</BooksIcon_Icon>
-      <PatronText_DefaultText>Staff Check In Screen</PatronText_DefaultText>
+      <PatronText_DefaultText>List of books already checked in</PatronText_DefaultText>
       <PatronText_ToolTipText></PatronText_ToolTipText>
       <StatusText_DefaultText/>
       <StatusText_ToolTipText>Status</StatusText_ToolTipText>
-      <BookFieldLabel_Text>Please scan book barcode using the hand held scanner: </BookFieldLabel_Text>
+      <BookFieldLabel_Text>Please scan barcode of book to check in using the hand held scanner:</BookFieldLabel_Text>
       <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check in.</BookFieldLabel_ToolTipText>
       <BookField_ToolTipText>Please enter the barcode of the next book to check in.</BookField_ToolTipText>
       <CheckinButton_Text>Check In</CheckinButton_Text>
       <CheckinButton_ToolTipText>Check In</CheckinButton_ToolTipText>
       <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
       <BookPanelNextButton_ToolTipText>Login as new borrower.</BookPanelNextButton_ToolTipText>
-      <BookPanelResetButton_Text>Back and Finish</BookPanelResetButton_Text>
-      <BookPanelResetButton_ToolTipText>Login as new borrower.</BookPanelResetButton_ToolTipText>
+      <BookPanelCheckoutButton_Text>Check out</BookPanelCheckouButton_Text>
+      <BookPanelCheckoutButton_ToolTipText>Check out books.</BookPanelCheckoutButton_ToolTipText>
     </CheckInPanel>
     <Messages>
     <!--
@@ -214,11 +215,11 @@
       <!--
       IP Port of 3M SIP Server>23
       -->
-      <Username>CHANGEME</Username>
+      <TelnetUsername>CHANGEME</TelnetUsername>
       <!--
       Telnet username
       -->
-      <Password>CF36E3912E87A998</Password>
+      <TelnetPassword>CF36E3912E87A998</TelnetPassword>
       <!--
       Telnet password (encrypted)
       -->
@@ -226,6 +227,16 @@
       <!--
       Text to look for to confirm logon
  (Telnet)-->
+	  <LoginUserId></LoginUserId>
+	  <!-- UserId for SIP Login message (SIP logon message not sent if blank) -->
+	  <LoginPassword></LoginPassword>
+	  <!-- Password for SIP Login message (SIP logon message not sent if blank) -->
+	  <LocationCode></LocationCode>
+	  <!-- Location code for SIP Login message (if SIP logon message sent) -->	  
+	  <UIDAlgorithm></UIDAlgorithm>
+	  <!-- UIDAlgorithm code for SIP Login message (if SIP logon message sent) -->	  
+	  <PWDAlgorithm></PWDAlgorithm>
+	  <!-- PWDAlgorithm code for SIP Login message (if SIP logon message sent) -->	  
       <ConnectionTimeout>1</ConnectionTimeout>
       <!--
       Time (seconds) to wait during initial connection
@@ -247,6 +258,8 @@
       <StrictSequenceChecking>false</StrictSequenceChecking><!--Enable sequence number checking for responses-->
       <InstitutionId></InstitutionId><!--Institution Id for SIP messages (optional)-->
       <TerminalPassword></TerminalPassword><!--Terminal Password for SIP messages (optional)-->
+      <SendEndPatronSession>false</SendEndPatronSession><!--  Send endPatronSession mesage on disconnect -->
+      <RequirePatronPassword>false</RequirePatronPassword><!--Prompt for patron password-->
     </SIP>
     <RFID class="com.ceridwen.selfissue.client.nulldevices.RFIDDevice">
       <!--
@@ -437,7 +450,7 @@
     <AllowEncodePassword>true</AllowEncodePassword><!--Allow *Encode Password¦-->
     <AllowOutOfOrder>true</AllowOutOfOrder><!--Allow *Out Of Order¦-->
     <AllowResetOutOfOrder>true</AllowResetOutOfOrder><!--Allow *Reset Out Of Order¦-->
-    <AllowCheckIn>false</AllowCheckIn><!--Allow *Check In¦ to switch to check in screen-->
+    <AllowCheckIn>false</AllowCheckIn><!--Allow *Check In¦ to switch to check in screen from patron screen-->
 	<SystemPassword>CF36E3912E87A998</SystemPassword>
     <!--System password - for shutdown and reset out of order (encrypted)-->
 

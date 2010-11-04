@@ -246,8 +246,8 @@ public class CheckInPanelFocusTraversalPolicy
     NextButton.setBackground(ButtonBackgroundColour);    
     ResetButton.setFont(new java.awt.Font("Dialog", 1, 16));
 //    ResetButton.setNextFocusableComponent(BookField);
-    ResetButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookPanelResetButton_ToolTipText"));
-    ResetButton.setText(Configuration.getProperty("UI/CheckInPanel/BookPanelResetButton_Text"));
+    ResetButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_ToolTipText"));
+    ResetButton.setText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_Text"));
     ResetButton.addActionListener(new CheckInPanel_ResetButton_actionAdapter(this));
     ResetButton.setVisible(false);
     ResetButton.setForeground(ButtonTextColour);
@@ -371,7 +371,7 @@ public class CheckInPanelFocusTraversalPolicy
 
   void ResetButton_actionPerformed(ActionEvent e) {
     handler.stopRFIDDevice();
-    this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
+    this.firePanelChange(new SelfIssuePanelEvent(this, CheckOutPanel.class));
   }
 
   private void appendCheckinText(String entry) {

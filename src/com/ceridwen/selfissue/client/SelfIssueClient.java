@@ -80,8 +80,8 @@ public class SelfIssueClient extends Thread {
       conn = new SocketConnection();
     } else {
       conn = new TelnetConnection();
-      ((TelnetConnection)conn).setUsername(Configuration.getProperty("Systems/SIP/Username"));
-      ((TelnetConnection)conn).setPassword(Configuration.Decrypt(Configuration.getProperty("Systems/SIP/Password")));
+      ((TelnetConnection)conn).setUsername(Configuration.getProperty("Systems/SIP/TelnetUsername"));
+      ((TelnetConnection)conn).setPassword(Configuration.Decrypt(Configuration.getProperty("Systems/SIP/TelnetPassword")));
       ((TelnetConnection)conn).setLoggedOnText(Configuration.getProperty("Systems/SIP/LoggedOnText"));
     }
 

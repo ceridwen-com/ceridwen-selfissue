@@ -256,14 +256,17 @@ public class CheckOutPanelFocusTraversalPolicy
 
    private CirculationHandler handler;
 
+private String PatronPassword;
+
 
   public CheckOutPanel() {
   }
 
-  public CheckOutPanel(CirculationHandler handler, String PatronID, String PatronName, String message, javax.swing.Timer ResetTimer) {
+  public CheckOutPanel(CirculationHandler handler, String PatronID, String PatronPassword, String PatronName, String message, javax.swing.Timer ResetTimer) {
     try {
       this.handler = handler;
       this.PatronID = PatronID;
+      this.PatronPassword = PatronPassword;
       this.PatronName = PatronName;
       this.ResetTimer = ResetTimer;
       jbInit();
@@ -298,8 +301,8 @@ public class CheckOutPanelFocusTraversalPolicy
     NextButton.setBackground(ButtonBackgroundColour);
     ResetButton.setFont(new java.awt.Font("Dialog", 1, 16));
 //    ResetButton.setNextFocusableComponent(BookField);
-    ResetButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelResetButton_ToolTipText"));
-    ResetButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelResetButton_Text"));
+    ResetButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_ToolTipText"));
+    ResetButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_Text"));
     ResetButton.addActionListener(new BookPanel_ResetButton_actionAdapter(this));
     ResetButton.setVisible(false);
     ResetButton.setForeground(ButtonTextColour);
@@ -417,7 +420,7 @@ public class CheckOutPanelFocusTraversalPolicy
 
   void ResetButton_actionPerformed(ActionEvent e) {
     this.stopSecurity();
-    this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
+    this.firePanelChange(new SelfIssuePanelEvent(this, CheckInPanel.class));
   }
 
   private void appendCheckoutText(String entry) {
@@ -475,6 +478,7 @@ public class CheckOutPanelFocusTraversalPolicy
       request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
       request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
       request.setPatronIdentifier(this.PatronID);
+      request.setPatronPassword(this.PatronPassword);
       request.setItemIdentifier(strim(this.BookField.getText()));
       request.setRenewalPolicy(new Boolean(allowRenews || trustMode));
       request.setTransactionDate(new Date());

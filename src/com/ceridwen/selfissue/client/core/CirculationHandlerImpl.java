@@ -18,6 +18,7 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.core;
 
+import java.lang.reflect.Method;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
 import java.util.Date;
@@ -41,8 +42,12 @@ import org.w3c.dom.NodeList;
 import com.ceridwen.circulation.SIP.exceptions.ConnectionFailure;
 import com.ceridwen.circulation.SIP.exceptions.RetriesExceeded;
 import com.ceridwen.circulation.SIP.messages.ACSStatus;
+import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckOut;
 import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
+import com.ceridwen.circulation.SIP.messages.EndPatronSession;
+import com.ceridwen.circulation.SIP.messages.Login;
+import com.ceridwen.circulation.SIP.messages.LoginResponse;
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
@@ -83,7 +88,7 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
   public OnlineLogManager log ;
   public RFIDDevice rfidDevice;
   public SecurityDevice securityDevice;
-
+  
   /* (non-Javadoc)
  * @see com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolerClass()
  */
@@ -219,15 +224,33 @@ public void printReceipt(String data) {
     SelfIssueClient.EnterCriticalSection();
     try {
       conn.connect();
+      return doLogin();
     } catch (Exception ex) {
       SelfIssueClient.LeaveCriticalSection();
       logger.warn("Exception on connection", ex);
       return false;
     }
-    return true;
   }
 
-  private void disconnect() {
+private boolean doLogin() throws RetriesExceeded {
+	if (Configuration.getProperty("Systems/SIP/LoginUserId").isEmpty()) {
+		return true;
+	}
+	if (Configuration.getProperty("Systems/SIP/LoginPassword").isEmpty()) {
+		return true;
+	}
+	Login login = new Login();
+	login.setLoginUserId(Configuration.getProperty("Systems/SIP/LoginUserId"));
+	login.setLoginPassword(Configuration.Decrypt(Configuration.getProperty("Systems/SIP/LoginPassword")));
+	login.setLocationCode(Configuration.getProperty("Systems/SIP/LocationCode"));
+	login.setPWDAlgorithm(Configuration.getProperty("Systems/SIP/PWDAlgorithm"));
+	login.setUIDAlgorithm(Configuration.getProperty("Systems/SIP/UIDAlgorithm"));
+	
+	LoginResponse response = (LoginResponse)this.unprotectedSend(login);
+	return response.getOk();
+}
+
+private void disconnect() {
     if (conn != null) {
       try {
         conn.disconnect();
@@ -239,7 +262,40 @@ public void printReceipt(String data) {
     SelfIssueClient.LeaveCriticalSection();
   }
 
-  /* (non-Javadoc)
+private void doEndPatronSession(Message request) {
+	if (Configuration.getBoolProperty("Systems/SIP/SendEndPatronSession")) {
+		try {
+			String id;
+			String password;
+
+			Method mthd = request.getClass().getMethod("getPatronIdentifier", new Class[]{});
+			id = (String)mthd.invoke(request, new Object[]{});
+			mthd = request.getClass().getMethod("getPatronPassword", new Class[]{});
+			password = (String)mthd.invoke(request, new Object[]{});						
+			if (id == null) {
+				return;
+			}
+			if (password == null) {
+				return;
+			}
+			if (id.isEmpty()) {
+				return;
+			}
+			if (password.isEmpty()) {
+				return;
+			}
+			EndPatronSession endPatronSession = new EndPatronSession();	  
+			endPatronSession.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
+			endPatronSession.setPatronIdentifier(id);
+			endPatronSession.setPatronPassword(password);
+			endPatronSession.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
+		} catch (Exception e) {
+			return;
+		}  
+	}
+}
+
+/* (non-Javadoc)
  * @see com.ceridwen.selfissue.client.core.CirculationHandler#spool(com.ceridwen.circulation.SIP.messages.Message)
  */
 public void spool(Message msg) {
@@ -351,6 +407,12 @@ public Message send(Message request) {
         return null;
       }
     }
+    if (request.getClass() == CheckIn.class) {
+        if (((CheckIn)request).getItemIdentifier() == null) {
+          logger.error("Null item identifier in checkin request: " + request);
+          return null;
+        }
+      }
 
     Message response = null;
 
@@ -393,6 +455,7 @@ public Message send(Message request) {
           response = null;
           logger.warn("Unexpected exception on request: " + request, ex);
         }
+        doEndPatronSession(request);
         this.disconnect();
       }
     }

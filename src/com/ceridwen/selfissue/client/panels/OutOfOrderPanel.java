@@ -95,7 +95,7 @@ private BorderLayout borderLayout1 = new BorderLayout();
 		  if (ch == '¦') {
 			  if (command.toString().equals("*Reset Out Of Order")) {
 			        SelfIssueFrame.setOnTop(false);
-			        PasswordDialog ResetConfirmation = new PasswordDialog();
+			        PasswordDialog ResetConfirmation = new PasswordDialog("Please enter system password");
 			        ResetConfirmation.clearPassword();
 			        ResetConfirmation.setVisible(true);
 			        if (ResetConfirmation.getPassword().equals(Configuration.Decrypt(

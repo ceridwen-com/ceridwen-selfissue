@@ -47,6 +47,7 @@ import javax.swing.border.EtchedBorder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
@@ -298,10 +299,10 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     }
   }
 
-  public void setCheckOutPanel(String id, String name, String message)
+  public void setCheckOutPanel(String id, String password, String name, String message)
   {
     MainPane.remove(MainPanel);
-    MainPanel = new CheckOutPanel(handler, id, demangleName(name), message,
+    MainPanel = new CheckOutPanel(handler, id, password, demangleName(name), message,
                                   this.ResetTimer);
     MainPanel.addSelfIssuePanelListener(new
         SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
@@ -337,6 +338,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     if (e.nextPanel == CheckOutPanel.class) {
       setCheckOutPanel( ( (PatronInformationResponse) e.response).
                        getPatronIdentifier(),
+                       ( (PatronInformation) e.request).
+                       getPatronPassword(),
                        ( (PatronInformationResponse) e.response).
                        getPersonalName(),
                        ( (PatronInformationResponse) e.response).

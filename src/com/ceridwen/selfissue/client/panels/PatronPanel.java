@@ -354,6 +354,18 @@ public class PatronPanelFocusTraversalPolicy
       if (!this.validateBarcode(request.getPatronIdentifier(), Configuration.getProperty("UI/Validation/PatronBarcodeMask"))) {
         throw new InvalidPatronBarcode();
       }
+      if (Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword")) {
+          SelfIssueFrame.setOnTop(false);
+          PasswordDialog patronPasswordDialog = new PasswordDialog("Please enter your password");
+          patronPasswordDialog.clearPassword();
+          patronPasswordDialog.setVisible(true);
+          String password = strim(patronPasswordDialog.getPassword());
+          if (password.isEmpty()) {
+        	  throw new PatronIdTooShort();
+          }
+          request.setPatronPassword(password);
+          SelfIssueFrame.setOnTop(true);
+      }
       this.PatronText.setText(Configuration.getMessage("CheckingPatronMessage", new String[]{request.getPatronIdentifier()}));
       this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
       try {
@@ -559,7 +571,7 @@ private static String strim(String string) {
     } else if (command.equals("*Shutdown System")) {
       if (Configuration.getBoolProperty("CommandInterface/AllowSystemShutdown")) {
         SelfIssueFrame.setOnTop(false);
-        PasswordDialog ShutdownConfirmation = new PasswordDialog();
+        PasswordDialog ShutdownConfirmation = new PasswordDialog("Please enter system password");
         ShutdownConfirmation.clearPassword();
         ShutdownConfirmation.setVisible(true);
         if (ShutdownConfirmation.getPassword().equals(Configuration.Decrypt(
@@ -653,7 +665,7 @@ private static String strim(String string) {
     } else if (command.equals("*Out Of Order")) {
         if (Configuration.getBoolProperty("CommandInterface/AllowOutOfOrder")) {
             SelfIssueFrame.setOnTop(false);
-            PasswordDialog OOOConfirmation = new PasswordDialog();
+            PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
             OOOConfirmation.clearPassword();
             OOOConfirmation.setVisible(true);
             if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
@@ -668,9 +680,19 @@ private static String strim(String string) {
         }         
     } else if (command.equals("*Check In")) {
       if (Configuration.getBoolProperty("CommandInterface/AllowCheckIn")) {
-        SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
-        this.firePanelChange(ev);
-        return true;
+          SelfIssueFrame.setOnTop(false);
+          PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
+          OOOConfirmation.clearPassword();
+          OOOConfirmation.setVisible(true);
+          if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
+              Configuration.getProperty(
+                  "CommandInterface/SystemPassword")))) {
+              SelfIssueFrame.setOnTop(true);
+              SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
+              this.firePanelChange(ev);
+          }
+          SelfIssueFrame.setOnTop(true);
+          return true;
       }
     } else if (command.startsWith("*Encode Password ")) {
       if (Configuration.getBoolProperty("CommandInterface/AllowEncodePassword")) {
