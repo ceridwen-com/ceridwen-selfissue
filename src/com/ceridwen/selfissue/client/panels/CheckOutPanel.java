@@ -275,7 +275,7 @@ private boolean CheckInEnabled;
       this.PatronName = PatronName;
       this.ResetTimer = ResetTimer;
       jbInit();
-      PatronText.setText(Configuration.getMessage("GreetPatronCheckOut", new String[]{PatronName, ((message == null)?"":message)}));
+      PatronText.setText(Configuration.getMessage("GreetPatronCheckout", new String[]{this.PatronName, ((message == null)?"":message)}));
       ResetTimer.restart();
       enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
       startSecurity();

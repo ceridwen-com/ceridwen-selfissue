@@ -230,7 +230,7 @@ private Boolean CheckOutEnabled;
         this.PatronName = (PatronName!=null)?PatronName:"Staff User";
         this.ResetTimer = ResetTimer;
         jbInit();
-        PatronText.setText(Configuration.getMessage("GreetPatronCheckIn", new String[]{PatronName, ((message == null)?"":message)}));
+        PatronText.setText(Configuration.getMessage("GreetPatronCheckin", new String[]{this.PatronName, ((message == null)?"":message)}));
         ResetTimer.restart();
         enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
         startSecurity();

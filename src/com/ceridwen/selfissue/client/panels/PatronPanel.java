@@ -689,6 +689,8 @@ private static String strim(String string) {
                   "CommandInterface/SystemPassword")))) {
               SelfIssueFrame.setOnTop(true);
               SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
+              ev.request = new PatronInformation();
+              ev.response = new PatronInformationResponse();
               this.firePanelChange(ev);
           }
           SelfIssueFrame.setOnTop(true);

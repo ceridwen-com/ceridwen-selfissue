@@ -454,7 +454,7 @@
     <AllowEncodePassword>true</AllowEncodePassword><!--Allow *Encode Password¦-->
     <AllowOutOfOrder>true</AllowOutOfOrder><!--Allow *Out Of Order¦-->
     <AllowResetOutOfOrder>true</AllowResetOutOfOrder><!--Allow *Reset Out Of Order¦-->
-    <AllowCheckIn>false</AllowCheckIn><!--Allow *Check In¦ to switch to check in screen from patron screen-->
+    <AllowCheckIn>true</AllowCheckIn><!--Allow *Check In¦ to switch to check in screen from patron screen-->
 	<SystemPassword>CF36E3912E87A998</SystemPassword>
     <!--System password - for shutdown and reset out of order (encrypted)-->
 
