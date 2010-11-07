@@ -471,6 +471,7 @@
     <LoggingHandler class="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper">
       <level>ALL</level>
       <smtpServer>CHANGEME</smtpServer>
+      <sender>CHANGEME</sender>
       <recipients>CHANGEME</recipients>
     </LoggingHandler>
   </Logging>

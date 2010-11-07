@@ -12,6 +12,7 @@ public class SMTPLoggingHandlerWrapper extends LoggingHandlerWrapper {
     public Handler getLoggingHandler(Node item) {
         java.util.logging.Handler handler = new com.ceridwen.util.logging.SMTPLogHandler(
                 Configuration.getSubProperty(item, "smtpServer"),
+                Configuration.getSubProperty(item, "sender"),
                 Configuration.getSubProperty(item, "recipients"));
         handler.setLevel(super.getLevel(item));
         return handler;
