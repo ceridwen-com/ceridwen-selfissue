@@ -3,7 +3,7 @@ Support syslog LogHandler
 Support syslog logging
 Multiple loggers support
 RFID refactoring*
-Update to circulation 2.6
+?Update to circulation 2.6
 added sender to SMTP handler
 
 Added experimental Checkin panel option
@@ -13,7 +13,7 @@ Added support for
   Patron Password (optional)
 ?Downgraded some connection errors from log.error to log.warn since the client handles these in the background
 
-Version 2.30: 3/11/2010 (255)
+Version 2.30: 3/11/2010 (255) - Public Release
 Added default exception handlers (JDK 1.5)
 Added config option so that stale Logger messages can trigger Out Of Order screen
 Test Connection should be more informative about failures
