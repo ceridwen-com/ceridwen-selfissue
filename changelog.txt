@@ -1,7 +1,8 @@
 Version 2.50:
+Support syslog LogHandler
 Support syslog logging
-Additional loggers
-RFID refactoring
+Multiple loggers support
+RFID refactoring*
 Update to circulation 2.6
 added sender to SMTP handler
 
