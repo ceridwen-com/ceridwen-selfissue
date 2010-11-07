@@ -31,13 +31,6 @@ res/org/pdclipart/book_stack_of_books_taller_ga_.png -text
 res/org/pdclipart/bookcase.png -text
 res/org/pdclipart/library_book_cart.png -text
 /selfissue.jnlp -text
-src/com/ceridwen/circulation/devices/CirculationDevices.num -text
-src/com/ceridwen/circulation/devices/FailureException.java -text
-src/com/ceridwen/circulation/devices/IDReaderDevice.java -text
-src/com/ceridwen/circulation/devices/IDReaderDeviceListener.java -text
-src/com/ceridwen/circulation/devices/JavaSmartCardDevice.java -text svneol=unset#text/plain
-src/com/ceridwen/circulation/devices/SecurityDevice.java -text svneol=unset#text/plain
-src/com/ceridwen/circulation/devices/TimeoutException.java -text
 src/com/ceridwen/selfissue/EncodePassword.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.num -text
