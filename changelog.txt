@@ -1,0 +1,59 @@
+Version 2.50:
+Support syslog logging
+Additional logger
+RFID refactoring
+Update to circulation 2.6
+
+Added experimental Checkin panel option
+Added support for
+  SIP Login message (optional)
+  SIP EndPatronSession message (optional)
+  Patron Password (optional)
+?Downgraded some connection errors from log.error to log.warn since the client handles these in the background
+
+Version 2.30: 3/11/2010 (255)
+Added default exception handlers (JDK 1.5)
+Added config option so that stale Logger messages can trigger Out Of Order screen
+Test Connection should be more informative about failures
+Added new commands to command interface (Out Of Order)
+Added AddSequenceAndChecksum and StrictChecksumChecking options to config
+Added StrictSequenceChecking option to config
+Added Out Of Order on unhandled exception option
+Changed config file from BookPanel to CheckOutPanel
+Refactoring to split RFID and Security devices
+Added Title Text size and font to configuration
+Added TerminalPassword support to config
+Added Colour to Configuration
+Changed failed SecurityDevice to warning and explicit mention defaulting to null device
+Updated copyright notices to GPL3
+
+Version 2.20: 27/10/2010 (124)
+Added encodepassword.jnlp
+Added EncodePassword jar
+Updated deprecated  Date.ToLocale() with DateFormat.getDateInstance().format()
+Added local and netx invocation documentation
+Added netx library
+Updated commons logging from 1.1 to 1.1.1
+Updated commons net from 1.4.1 to 2.0
+Updated commons beanutils from 1.7.0 to 1.8.3
+Updated xalan from 2.7.0 to 2.7.1
+Templated classes based on JDK 1.6 warnings
+
+Version 2.15: 16/1/2007 (91)
+Data and time of transaction not present in e-mailed events 
+Class injection pattern applied to CirculationHandler
+
+
+Version 2.10: 3/6/2005 (66)
+InstitutionId now set for checkout requests
+TransactionDate now explicitly set for all transactions not just offline ones
+SecurityDevice no longer restarted between checkin attempts
+Spool access now through methods in CirculationHandler rather than directly
+Spooled object expiry now handled by spool wrapper object (fixes bug by which expiry never called item is aged).
+InstitutionId now set for patronInfo requests
+Fixed bug whereby the security device would not be deactivated if the BookPanel timesout to reset to PatronPanel
+Spooled SIP Messages are now wrapped in a container object with expiry information
+Modified fatal errors to give user feedback via dialog box
+Moved conn creation to constructor to force single connections
+
+Version 2.00: 25/10/2004 (58)
