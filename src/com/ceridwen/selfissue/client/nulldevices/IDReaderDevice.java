@@ -20,7 +20,7 @@ package com.ceridwen.selfissue.client.nulldevices;
 
 import org.w3c.dom.Node;
 
-import com.ceridwen.circulation.devices.IDReaderDeviceListener;
+import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 
 /**
  * <p>Title: RTSI</p>
@@ -31,7 +31,7 @@ import com.ceridwen.circulation.devices.IDReaderDeviceListener;
  * @version 2.0
  */
 
-public class IDReaderDevice implements com.ceridwen.circulation.devices.IDReaderDevice {
+public class IDReaderDevice implements com.ceridwen.selfissue.client.devices.IDReaderDevice {
   public IDReaderDevice() {
   }
 
@@ -41,34 +41,16 @@ public class IDReaderDevice implements com.ceridwen.circulation.devices.IDReader
     return;
   }
 
+  @Override
   public void deinit() {
     return;
   }
-
   
-  /**
-   * stop
-   *
-   */
+  @Override
   public void stop() {
   }
 
-  /**
-   * start
-   *
-   * @param listener RFIDDeviceListener
-   */
+  @Override
   public void start(IDReaderDeviceListener listener) {
   }
-
-  public void reset() {
-  }
-
-  public void pause() {
-  }
-
-  public void resume() {
-  }
-
-
 }

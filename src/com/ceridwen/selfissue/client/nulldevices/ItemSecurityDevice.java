@@ -23,57 +23,38 @@ package com.ceridwen.selfissue.client.nulldevices;
 
 import org.w3c.dom.Node;
 
-import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.TimeoutException;
+import com.ceridwen.selfissue.client.devices.FailureException;
+import com.ceridwen.selfissue.client.devices.TimeoutException;
 
 /**
  * @author Matthew
  *
  */
-public class SecurityDevice extends
-		com.ceridwen.circulation.devices.SecurityDevice {
+public class ItemSecurityDevice extends
+		com.ceridwen.selfissue.client.devices.SecurityDevice {
 	
 	boolean locked;
 
-	/* (non-Javadoc)
-	 * @see com.ceridwen.circulation.devices.SecurityDevice#init()
-	 */
 	@Override
 	public void init(Node node) {
 	  return;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ceridwen.circulation.devices.SecurityDevice#deinit()
-	 */
 	@Override
 	public void deinit() {
     return;
 	}
 
 	@Override
-	public void reset() {
-    return;
-	}
-	/* (non-Javadoc)
-	 * @see com.ceridwen.circulation.devices.SecurityDevice#lock()
-	 */
-	@Override
 	public void lock() throws TimeoutException, FailureException {
 		locked = true;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ceridwen.circulation.devices.SecurityDevice#unlock()
-	 */
 	@Override
 	public void unlock() throws TimeoutException, FailureException {
 		locked = false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.ceridwen.circulation.devices.SecurityDevice#isLocked()
-	 */
 	@Override
 	public boolean isLocked() throws TimeoutException, FailureException {
 		return locked;

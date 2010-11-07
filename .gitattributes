@@ -62,8 +62,8 @@ src/com/ceridwen/selfissue/client/logging/LoggingHandlerWrapper.java -text svneo
 src/com/ceridwen/selfissue/client/logging/SMTPLoggingHandlerWrapper.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/logging/SyslogLoggingHandlerWrapper.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/nulldevices/IDReaderDevice.java -text
+src/com/ceridwen/selfissue/client/nulldevices/ItemSecurityDevice.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/nulldevices/OnlineLogLogger.java -text
-src/com/ceridwen/selfissue/client/nulldevices/SecurityDevice.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/panels/CheckInPanel.java -text
 src/com/ceridwen/selfissue/client/panels/CheckOutPanel.java -text
 src/com/ceridwen/selfissue/client/panels/OutOfOrderPanel.java -text
