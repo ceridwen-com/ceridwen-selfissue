@@ -41,6 +41,13 @@ src/com/ceridwen/selfissue/client/config/Configuration.java -text
 src/com/ceridwen/selfissue/client/core/CirculationHandler.java -text
 src/com/ceridwen/selfissue/client/core/CirculationHandlerImpl.java -text
 src/com/ceridwen/selfissue/client/core/OutOfOrderInterface.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/devices/CirculationDevices.num -text
+src/com/ceridwen/selfissue/client/devices/FailureException.java -text
+src/com/ceridwen/selfissue/client/devices/IDReaderDevice.java -text
+src/com/ceridwen/selfissue/client/devices/IDReaderDeviceListener.java -text
+src/com/ceridwen/selfissue/client/devices/JavaSmartCardDevice.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/devices/SecurityDevice.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/devices/TimeoutException.java -text
 src/com/ceridwen/selfissue/client/dialogs/ErrorDialog.java -text
 src/com/ceridwen/selfissue/client/dialogs/PasswordDialog.java -text
 src/com/ceridwen/selfissue/client/log/MailLogger.java -text

@@ -21,45 +21,53 @@ package com.ceridwen.selfissue.client.core;
 import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
-import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.IDReaderDevice;
-import com.ceridwen.circulation.devices.IDReaderDeviceListener;
-import com.ceridwen.circulation.devices.SecurityDevice;
-import com.ceridwen.circulation.devices.TimeoutException;
+import com.ceridwen.selfissue.client.devices.FailureException;
+import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
+import com.ceridwen.selfissue.client.devices.TimeoutException;
 
 public interface CirculationHandler {
+    public enum IDReaderDeviceType {
+        PATRON_IDREADER,
+        ITEM_IDREADER
+    };
 
-	public abstract Class<?> getSpoolerClass();
-	public abstract void spool(Message msg);
-	public abstract int getSpoolSize();
+    public abstract Class<?> getSpoolerClass();
 
-	public abstract Message send(Message request);
+    public abstract void spool(Message msg);
 
-	public abstract void printReceipt(String data);
+    public abstract int getSpoolSize();
 
-	public abstract String checkStatus(int statusCode);
+    public abstract Message send(Message request);
 
-	public abstract Class<? extends IDReaderDevice> getRFIDDeviceClass();
-	public abstract Class<? extends SecurityDevice> getSecurityDeviceClass();
-	public abstract void stopRFIDDevice();
-	public abstract void startRFIDDevice(IDReaderDeviceListener listener);
-	public abstract void initRFIDDevice();
-	public abstract void deinitRFIDDevice();
-	public abstract void resetRFIDDevice(); 
-	public abstract void pauseRFIDDevice(); 
-	public abstract void resumeRFIDDevice();
-	public abstract void initSecurityDevice();
-	public abstract void deinitSecurityDevice();
-	public abstract void resetSecurityDevice();
-	public abstract void lockItem() throws TimeoutException, FailureException;
-	public abstract void unlockItem() throws TimeoutException, FailureException;
+    public abstract void printReceipt(String data);
 
-	void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response);
+    public abstract String checkStatus(int statusCode);
+
+    // public abstract Class<? extends IDReaderDevice> getRFIDDeviceClass();
+    // public abstract Class<? extends SecurityDevice> getSecurityDeviceClass();
+    public abstract void initIDReaderDevice(IDReaderDeviceType type);
+
+    public abstract void startIDReaderDevice(IDReaderDeviceListener listener);
+
+    public abstract void stopIDReaderDevice();
+
+    public abstract void deinitIDReaderDevice();
+
+    public abstract void initItemSecurityDevice();
+
+    public abstract void lockItem() throws TimeoutException, FailureException;
+
+    public abstract void unlockItem() throws TimeoutException, FailureException;
+
+    public abstract boolean isItemLocked() throws TimeoutException, FailureException;
+
+    public abstract void deinitItemSecurityDevice();
+
+    void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response);
 }
 
 /**
-public List peekSpoolerContents() throws RemoteException;
-public boolean hasSpoolerContentsChanged() throws RemoteException;
-public void purgeSpool() throws RemoteException;
-
-**/
+ * public List peekSpoolerContents() throws RemoteException; public boolean
+ * hasSpoolerContentsChanged() throws RemoteException; public void purgeSpool()
+ * throws RemoteException;
+ **/

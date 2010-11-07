@@ -27,12 +27,28 @@
 
 package com.ceridwen.selfissue.client.panels;
 
-import java.util.Date;
-
-import java.awt.*;
+import java.awt.AWTEvent;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.FocusTraversalPolicy;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import javax.swing.*;
+import java.util.Date;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -45,756 +61,732 @@ import com.ceridwen.circulation.SIP.messages.CheckOut;
 import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
 import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
-import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.IDReaderDeviceListener;
-import com.ceridwen.circulation.devices.TimeoutException;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
+import com.ceridwen.selfissue.client.devices.FailureException;
+import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
+import com.ceridwen.selfissue.client.devices.TimeoutException;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
-
-
 public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListener {
-  /**
+    /**
 	 * 
 	 */
-	
 
-/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 2719843299250704940L;
+    private static final long serialVersionUID = 2719843299250704940L;
 
-/**
+    /**
 	 * 
 	 */
-	
 
-public class CheckOutPanelFocusTraversalPolicy
+    public class CheckOutPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
-       public Component getComponentAfter(Container focusCycleRoot,
+        public Component getComponentAfter(Container focusCycleRoot,
                                           Component aComponent) {
-           if (aComponent.equals(BookField)) {
-               return CheckoutButton;
-           } else if (aComponent.equals(CheckoutButton)) {
-               return NextButton;
-           } else if (aComponent.equals(NextButton)) {
-               return BookField ;
-           }
-           return BookField;
-       }
+            if (aComponent.equals(CheckOutPanel.this.BookField)) {
+                return CheckOutPanel.this.CheckoutButton;
+            } else if (aComponent.equals(CheckOutPanel.this.CheckoutButton)) {
+                return CheckOutPanel.this.NextButton;
+            } else if (aComponent.equals(CheckOutPanel.this.NextButton)) {
+                return CheckOutPanel.this.BookField;
+            }
+            return CheckOutPanel.this.BookField;
+        }
 
-       public Component getComponentBefore(Container focusCycleRoot,
+        public Component getComponentBefore(Container focusCycleRoot,
                                       Component aComponent) {
-         if (aComponent.equals(BookField)) {
-             return NextButton;
-         } else if (aComponent.equals(NextButton)) {
-             return CheckoutButton;
-         } else if (aComponent.equals(CheckoutButton)) {
-             return BookField;
-         }
-         return BookField;
-       }
+            if (aComponent.equals(CheckOutPanel.this.BookField)) {
+                return CheckOutPanel.this.NextButton;
+            } else if (aComponent.equals(CheckOutPanel.this.NextButton)) {
+                return CheckOutPanel.this.CheckoutButton;
+            } else if (aComponent.equals(CheckOutPanel.this.CheckoutButton)) {
+                return CheckOutPanel.this.BookField;
+            }
+            return CheckOutPanel.this.BookField;
+        }
 
-       public Component getDefaultComponent(Container focusCycleRoot) {
-           return BookField;
-       }
+        public Component getDefaultComponent(Container focusCycleRoot) {
+            return CheckOutPanel.this.BookField;
+        }
 
-       public Component getLastComponent(Container focusCycleRoot) {
-           return NextButton;
-       }
+        public Component getLastComponent(Container focusCycleRoot) {
+            return CheckOutPanel.this.NextButton;
+        }
 
-       public Component getFirstComponent(Container focusCycleRoot) {
-           return BookField;
-       }
-   }
-
-   static class CheckinConnectionFailed extends Exception
-   {
-     /**
-	 * 
-	 */
-	
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -9174095569381531669L;
-
-	/**
-	 * 
-	 */
-	
-
-	public CheckinConnectionFailed(String message)
-     {
-       super(message);
-     }
-   }
-   static class CheckoutConnectionFailed extends Exception
-   {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 938940430814523317L;
-
-	/**
-	 * 
-	 */
-	
-
-	/**
-	 * 
-	 */
-	
-   }
-   static class CheckoutFailed extends Exception
-   {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7053811637076480863L;
-
-	/**
-	 * 
-	 */
-	
-
-	/**
-	 * 
-	 */
-	
-   }
-   static class UnlockFailed extends Exception
-   {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4113648518632457004L;
-
-	/**
-	 * 
-	 */
-	
-
-	/**
-	 * 
-	 */
-	
-   }
-   static class InvalidItemBarcode extends Exception
-   {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8746850315375610829L;
-
-	/**
-	 * 
-	 */
-	
-
-	/**
-	 * 
-	 */
-	
-   }
-   static class RepeatedOrTooShortItemId extends Exception
-   {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -621647592912309839L;
-
-	/**
-	 * 
-	 */
-	
-
-	/**
-	 * 
-	 */
-	
-   }
-
-   private static Log log = LogFactory.getLog(CheckOutPanel.class);
-
-   private JPanel NavigationPanel = new JPanel();
-   private BorderLayout BookBorderLayout = new BorderLayout();
-   private JButton NextButton = new JButton();
-   private JButton CheckInButton = new JButton();
-   private BorderLayout NavigationBorderLayout = new BorderLayout();
-   private JPanel InformationPanel = new JPanel();
-   private JLabel BookFieldLabel = new JLabel();
-   private JPanel DataPanel = new JPanel();
-   private BorderLayout InformationBorderLayout = new BorderLayout();
-   private JTextField BookField = new JTextField();
-   private JPanel ResponsePanel = new JPanel();
-   private BorderLayout ResponseBorderLayout = new BorderLayout();
-   private Border border1;
-   private Border border2;
-   private JLabel BooksIcon = new JLabel();
-   private Border border3;
-   private JPanel ResponseTextPanel = new JPanel();
-   private JTextArea PatronText = new JTextArea();
-   private BorderLayout ResponseTextBorderLayout = new BorderLayout();
-   private JButton CheckoutButton = new JButton();
-   private FlowLayout DataFlowLayout = new FlowLayout();
-   private String PatronID;
-   private String PatronName;
-   private javax.swing.Timer ResetTimer;
-   private String lastEnteredId = "";
-   private String lastCheckedOutId = "";
-   private JScrollPane CheckOutScrollPane = new JScrollPane();
-//  JTextArea CheckoutText = new JTextArea();
-   private JEditorPane CheckoutText = new JEditorPane();
-   private JLabel StatusText = new JLabel();
-
-   private CirculationHandler handler;
-
-private String PatronPassword;
-
-private boolean CheckInEnabled;
-
-
-  public CheckOutPanel() {
-  }
-
-  public CheckOutPanel(CirculationHandler handler, String PatronID, String PatronPassword, String PatronName, String message, javax.swing.Timer ResetTimer) {
-    try {
-      this.handler = handler;
-      this.PatronID = PatronID;
-      this.PatronPassword = PatronPassword;
-      this.CheckInEnabled = Configuration.getBoolProperty("Modes/EnableCheckIn");
-      this.PatronName = PatronName;
-      this.ResetTimer = ResetTimer;
-      jbInit();
-      PatronText.setText(Configuration.getMessage("GreetPatronCheckout", new String[]{this.PatronName, ((message == null)?"":message)}));
-      ResetTimer.restart();
-      enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
-      startSecurity();
+        public Component getFirstComponent(Container focusCycleRoot) {
+            return CheckOutPanel.this.BookField;
+        }
     }
-    catch(Exception e) {
-      e.printStackTrace();
+
+    static class CheckinConnectionFailed extends Exception {
+        /**
+	 * 
+	 */
+
+        /**
+	 * 
+	 */
+        private static final long serialVersionUID = -9174095569381531669L;
+
+        /**
+	 * 
+	 */
+
+        public CheckinConnectionFailed(String message) {
+            super(message);
+        }
     }
-  }
-  private void jbInit() throws Exception {
-	Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
-	Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
-	Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
-	Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
-	Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");	
 
-	border1 = BorderFactory.createEmptyBorder(10,10,10,10);
-    border2 = BorderFactory.createEmptyBorder(10,10,10,10);
-    border3 = BorderFactory.createEmptyBorder(10,10,10,10);
-    this.setLayout(BookBorderLayout);
-    this.setOpaque(true);
-    this.setBackground(BackgroundColour);
-    NextButton.setFont(new java.awt.Font("Dialog", 1, 16));
-//    NextButton.setNextFocusableComponent(BookField);
-    NextButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelNextButton_ToolTipText"));
-    NextButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelNextButton_Text"));
-    NextButton.addActionListener(new BookPanel_NextButton_actionAdapter(this));
-    NextButton.setForeground(ButtonTextColour);
-    NextButton.setBackground(ButtonBackgroundColour);
-    CheckInButton.setFont(new java.awt.Font("Dialog", 1, 16));
-//    ResetButton.setNextFocusableComponent(BookField);
-    CheckInButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_ToolTipText"));
-    CheckInButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_Text"));
-    CheckInButton.addActionListener(new BookPanel_CheckinButton_actionAdapter(this));
-    CheckInButton.setVisible(this.CheckInEnabled);
-    CheckInButton.setForeground(ButtonTextColour);
-    CheckInButton.setBackground(ButtonBackgroundColour);
-    NavigationPanel.setLayout(NavigationBorderLayout);
-    BookFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
-    BookFieldLabel.setForeground(DefaultTextColour);
-    BookFieldLabel.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookFieldLabel_ToolTipText"));
-    BookFieldLabel.setLabelFor(BookField);
-    BookFieldLabel.setText(Configuration.getProperty("UI/CheckOutPanel/BookFieldLabel_Text"));
-    InformationPanel.setLayout(InformationBorderLayout);
-    InformationPanel.setOpaque(false);
-    BookField.setFont(new java.awt.Font("Dialog", 1, 16));
-    BookField.setForeground(DefaultTextColour);
-    BookField.setBackground(BackgroundColour);
-    BookField.setMinimumSize(new Dimension(200, 27));
-//    BookField.setNextFocusableComponent(CheckoutButton);
-    BookField.setPreferredSize(new Dimension(200, 27));
-    BookField.setRequestFocusEnabled(true);
-    BookField.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookField_ToolTipText"));
-    BookField.setText("");
-    BookField.setHorizontalAlignment(SwingConstants.LEADING);
-    BookField.addKeyListener(new BookPanel_BookField_keyAdapter(this));
-    DataPanel.setLayout(DataFlowLayout);
-    ResponsePanel.setLayout(ResponseBorderLayout);
-    ResponsePanel.setOpaque(false);
-    NavigationPanel.setBorder(border1);
-    NavigationPanel.setOpaque(false);
-    DataPanel.setBorder(border2);
-    DataPanel.setOpaque(false);
-    BooksIcon.setText("");
-    BooksIcon.setIcon(Configuration.LoadImage("UI/CheckOutPanel/BooksIcon_Icon"));
-    ResponsePanel.setBorder(border3);
-    ResponsePanel.setOpaque(false);
-    PatronText.setFont(new java.awt.Font("Dialog", 1, 18));
-    PatronText.setForeground(DefaultTextColour);
-    PatronText.setBackground(BackgroundColour);
-    PatronText.setOpaque(true);
-    PatronText.setRequestFocusEnabled(false);
-    PatronText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/PatronText_ToolTipText"));
-    PatronText.setEditable(false);
-    PatronText.setText(Configuration.getProperty("UI/CheckOutPanel/PatronText_DefaultText"));
-    PatronText.setLineWrap(true);
-    PatronText.setRows(2);
-    PatronText.setBorder(null);
-//    CheckoutText.setLineWrap(true);
-    ResponseTextPanel.setLayout(ResponseTextBorderLayout);
-    ResponseTextPanel.setOpaque(true);
-    ResponseTextPanel.setBackground(BackgroundColour);
-    CheckoutButton.setFont(new java.awt.Font("Dialog", 1, 16));
-//    CheckoutButton.setNextFocusableComponent(NextButton);
-    CheckoutButton.setText(Configuration.getProperty("UI/CheckOutPanel/CheckoutButton_Text"));
-    CheckoutButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/CheckoutButton_ToolTipText"));
-    CheckoutButton.addActionListener(new BookPanel_CheckoutButton_actionAdapter(this));
-    CheckoutButton.setForeground(ButtonTextColour);
-    CheckoutButton.setBackground(ButtonBackgroundColour);
-    CheckOutScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-    CheckOutScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-    CheckOutScrollPane.setAutoscrolls(true);
-    CheckOutScrollPane.setBorder(null);
-    CheckOutScrollPane.setBackground(BackgroundColour);
-    CheckOutScrollPane.setOpaque(true);
-    CheckoutText.setFont(new java.awt.Font("Dialog", 1, 16));
-    CheckoutText.setForeground(DefaultTextColour);
-    CheckoutText.setBackground(BackgroundColour);
-    CheckoutText.setBorder(null);
-    CheckoutText.setOpaque(true);
-    CheckoutText.setRequestFocusEnabled(false);
-    CheckoutText.setEditable(false);
-    HTMLEditorKit kit = new HTMLEditorKit();
-    kit.getStyleSheet().addRule("body {font-family: Dialog; font-size: 16pt; background-color:#" + Configuration.getProperty("UI/Palette/BackgroundColour") + ";}");
-    kit.getStyleSheet().addRule("em {font-style: normal; color:#" + Configuration.getProperty("UI/Palette/WarningTextColour") + ";}");
-    CheckoutText.setEditorKit(kit);
-    CheckoutText.setContentType("text/html");
-//    CheckoutText.setLineWrap(true);
-//    CheckoutText.setWrapStyleWord(true);
-    StatusText.setFont(new java.awt.Font("Dialog", 1, 18));
-    StatusText.setForeground(WarningTextColour);
-    StatusText.setBackground(BackgroundColour);
-    StatusText.setMinimumSize(new Dimension(33, 15));
-    StatusText.setOpaque(true);
-    StatusText.setPreferredSize(new Dimension(0, 24));
-    StatusText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/StatusText_ToolTipText"));
-    StatusText.setText(Configuration.getProperty("UI/CheckOutPanel/StatusText_DefaultText"));
-    this.add(NavigationPanel,  BorderLayout.SOUTH);
-    NavigationPanel.add(CheckInButton, BorderLayout.WEST);
-    NavigationPanel.add(NextButton,  BorderLayout.EAST);
-    this.add(InformationPanel,  BorderLayout.CENTER);
-    InformationPanel.add(DataPanel,  BorderLayout.SOUTH);
-    DataPanel.add(BookFieldLabel, null);
-    DataPanel.add(BookField, null);
-    DataPanel.add(CheckoutButton, null);
-    InformationPanel.add(ResponsePanel,  BorderLayout.CENTER);
-    ResponsePanel.add(BooksIcon,  BorderLayout.EAST);
-    ResponsePanel.add(ResponseTextPanel,  BorderLayout.CENTER);
-    ResponseTextPanel.add(PatronText, BorderLayout.NORTH);
-    ResponseTextPanel.add(CheckOutScrollPane,  BorderLayout.CENTER);
-    ResponseTextPanel.add(StatusText,  BorderLayout.SOUTH);
-    CheckOutScrollPane.getViewport().add(CheckoutText, null);
-    CheckOutPanelFocusTraversalPolicy policy = new CheckOutPanelFocusTraversalPolicy();
-    this.setFocusTraversalPolicy(policy);
-    this.setFocusCycleRoot(true);
-    this.setFocusTraversalKeysEnabled(true);
-    this.grabFocus();
-  }
+    static class CheckoutConnectionFailed extends Exception {
 
-  void NextButton_actionPerformed(ActionEvent e) {
-    this.stopSecurity();
-    handler.printReceipt("Check-out Receipt for " + this.PatronName + " (" +
+        /**
+	 * 
+	 */
+        private static final long serialVersionUID = 938940430814523317L;
+
+        /**
+	 * 
+	 */
+
+        /**
+	 * 
+	 */
+
+    }
+
+    static class CheckoutFailed extends Exception {
+
+        /**
+	 * 
+	 */
+        private static final long serialVersionUID = 7053811637076480863L;
+
+        /**
+	 * 
+	 */
+
+        /**
+	 * 
+	 */
+
+    }
+
+    static class UnlockFailed extends Exception {
+
+        /**
+	 * 
+	 */
+        private static final long serialVersionUID = -4113648518632457004L;
+
+        /**
+	 * 
+	 */
+
+        /**
+	 * 
+	 */
+
+    }
+
+    static class InvalidItemBarcode extends Exception {
+
+        /**
+	 * 
+	 */
+        private static final long serialVersionUID = 8746850315375610829L;
+
+        /**
+	 * 
+	 */
+
+        /**
+	 * 
+	 */
+
+    }
+
+    static class RepeatedOrTooShortItemId extends Exception {
+
+        /**
+	 * 
+	 */
+        private static final long serialVersionUID = -621647592912309839L;
+
+        /**
+	 * 
+	 */
+
+        /**
+	 * 
+	 */
+
+    }
+
+    private static Log log = LogFactory.getLog(CheckOutPanel.class);
+
+    private JPanel NavigationPanel = new JPanel();
+    private BorderLayout BookBorderLayout = new BorderLayout();
+    private JButton NextButton = new JButton();
+    private JButton CheckInButton = new JButton();
+    private BorderLayout NavigationBorderLayout = new BorderLayout();
+    private JPanel InformationPanel = new JPanel();
+    private JLabel BookFieldLabel = new JLabel();
+    private JPanel DataPanel = new JPanel();
+    private BorderLayout InformationBorderLayout = new BorderLayout();
+    private JTextField BookField = new JTextField();
+    private JPanel ResponsePanel = new JPanel();
+    private BorderLayout ResponseBorderLayout = new BorderLayout();
+    private Border border1;
+    private Border border2;
+    private JLabel BooksIcon = new JLabel();
+    private Border border3;
+    private JPanel ResponseTextPanel = new JPanel();
+    private JTextArea PatronText = new JTextArea();
+    private BorderLayout ResponseTextBorderLayout = new BorderLayout();
+    private JButton CheckoutButton = new JButton();
+    private FlowLayout DataFlowLayout = new FlowLayout();
+    private String PatronID;
+    private String PatronName;
+    private javax.swing.Timer ResetTimer;
+    private String lastEnteredId = "";
+    private String lastCheckedOutId = "";
+    private JScrollPane CheckOutScrollPane = new JScrollPane();
+    // JTextArea CheckoutText = new JTextArea();
+    private JEditorPane CheckoutText = new JEditorPane();
+    private JLabel StatusText = new JLabel();
+
+    private CirculationHandler handler;
+
+    private String PatronPassword;
+
+    private boolean CheckInEnabled;
+
+    public CheckOutPanel() {
+    }
+
+    public CheckOutPanel(CirculationHandler handler, String PatronID, String PatronPassword, String PatronName, String message, javax.swing.Timer ResetTimer) {
+        try {
+            this.handler = handler;
+            this.PatronID = PatronID;
+            this.PatronPassword = PatronPassword;
+            this.CheckInEnabled = Configuration.getBoolProperty("Modes/EnableCheckIn");
+            this.PatronName = PatronName;
+            this.ResetTimer = ResetTimer;
+            this.jbInit();
+            this.PatronText.setText(Configuration.getMessage("GreetPatronCheckout", new String[] { this.PatronName, ((message == null) ? "" : message) }));
+            ResetTimer.restart();
+            this.enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
+            this.startItemIDReader();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void jbInit() throws Exception {
+        Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");
+        Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
+        Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
+        Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
+        Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
+
+        this.border1 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        this.border2 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        this.border3 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        this.setLayout(this.BookBorderLayout);
+        this.setOpaque(true);
+        this.setBackground(BackgroundColour);
+        this.NextButton.setFont(new java.awt.Font("Dialog", 1, 16));
+        // NextButton.setNextFocusableComponent(BookField);
+        this.NextButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelNextButton_ToolTipText"));
+        this.NextButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelNextButton_Text"));
+        this.NextButton.addActionListener(new BookPanel_NextButton_actionAdapter(this));
+        this.NextButton.setForeground(ButtonTextColour);
+        this.NextButton.setBackground(ButtonBackgroundColour);
+        this.CheckInButton.setFont(new java.awt.Font("Dialog", 1, 16));
+        // ResetButton.setNextFocusableComponent(BookField);
+        this.CheckInButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_ToolTipText"));
+        this.CheckInButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_Text"));
+        this.CheckInButton.addActionListener(new BookPanel_CheckinButton_actionAdapter(this));
+        this.CheckInButton.setVisible(this.CheckInEnabled);
+        this.CheckInButton.setForeground(ButtonTextColour);
+        this.CheckInButton.setBackground(ButtonBackgroundColour);
+        this.NavigationPanel.setLayout(this.NavigationBorderLayout);
+        this.BookFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.BookFieldLabel.setForeground(DefaultTextColour);
+        this.BookFieldLabel.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookFieldLabel_ToolTipText"));
+        this.BookFieldLabel.setLabelFor(this.BookField);
+        this.BookFieldLabel.setText(Configuration.getProperty("UI/CheckOutPanel/BookFieldLabel_Text"));
+        this.InformationPanel.setLayout(this.InformationBorderLayout);
+        this.InformationPanel.setOpaque(false);
+        this.BookField.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.BookField.setForeground(DefaultTextColour);
+        this.BookField.setBackground(BackgroundColour);
+        this.BookField.setMinimumSize(new Dimension(200, 27));
+        // BookField.setNextFocusableComponent(CheckoutButton);
+        this.BookField.setPreferredSize(new Dimension(200, 27));
+        this.BookField.setRequestFocusEnabled(true);
+        this.BookField.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookField_ToolTipText"));
+        this.BookField.setText("");
+        this.BookField.setHorizontalAlignment(SwingConstants.LEADING);
+        this.BookField.addKeyListener(new BookPanel_BookField_keyAdapter(this));
+        this.DataPanel.setLayout(this.DataFlowLayout);
+        this.ResponsePanel.setLayout(this.ResponseBorderLayout);
+        this.ResponsePanel.setOpaque(false);
+        this.NavigationPanel.setBorder(this.border1);
+        this.NavigationPanel.setOpaque(false);
+        this.DataPanel.setBorder(this.border2);
+        this.DataPanel.setOpaque(false);
+        this.BooksIcon.setText("");
+        this.BooksIcon.setIcon(Configuration.LoadImage("UI/CheckOutPanel/BooksIcon_Icon"));
+        this.ResponsePanel.setBorder(this.border3);
+        this.ResponsePanel.setOpaque(false);
+        this.PatronText.setFont(new java.awt.Font("Dialog", 1, 18));
+        this.PatronText.setForeground(DefaultTextColour);
+        this.PatronText.setBackground(BackgroundColour);
+        this.PatronText.setOpaque(true);
+        this.PatronText.setRequestFocusEnabled(false);
+        this.PatronText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/PatronText_ToolTipText"));
+        this.PatronText.setEditable(false);
+        this.PatronText.setText(Configuration.getProperty("UI/CheckOutPanel/PatronText_DefaultText"));
+        this.PatronText.setLineWrap(true);
+        this.PatronText.setRows(2);
+        this.PatronText.setBorder(null);
+        // CheckoutText.setLineWrap(true);
+        this.ResponseTextPanel.setLayout(this.ResponseTextBorderLayout);
+        this.ResponseTextPanel.setOpaque(true);
+        this.ResponseTextPanel.setBackground(BackgroundColour);
+        this.CheckoutButton.setFont(new java.awt.Font("Dialog", 1, 16));
+        // CheckoutButton.setNextFocusableComponent(NextButton);
+        this.CheckoutButton.setText(Configuration.getProperty("UI/CheckOutPanel/CheckoutButton_Text"));
+        this.CheckoutButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/CheckoutButton_ToolTipText"));
+        this.CheckoutButton.addActionListener(new BookPanel_CheckoutButton_actionAdapter(this));
+        this.CheckoutButton.setForeground(ButtonTextColour);
+        this.CheckoutButton.setBackground(ButtonBackgroundColour);
+        this.CheckOutScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        this.CheckOutScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        this.CheckOutScrollPane.setAutoscrolls(true);
+        this.CheckOutScrollPane.setBorder(null);
+        this.CheckOutScrollPane.setBackground(BackgroundColour);
+        this.CheckOutScrollPane.setOpaque(true);
+        this.CheckoutText.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.CheckoutText.setForeground(DefaultTextColour);
+        this.CheckoutText.setBackground(BackgroundColour);
+        this.CheckoutText.setBorder(null);
+        this.CheckoutText.setOpaque(true);
+        this.CheckoutText.setRequestFocusEnabled(false);
+        this.CheckoutText.setEditable(false);
+        HTMLEditorKit kit = new HTMLEditorKit();
+        kit.getStyleSheet().addRule(
+                "body {font-family: Dialog; font-size: 16pt; background-color:#" + Configuration.getProperty("UI/Palette/BackgroundColour") + ";}");
+        kit.getStyleSheet().addRule("em {font-style: normal; color:#" + Configuration.getProperty("UI/Palette/WarningTextColour") + ";}");
+        this.CheckoutText.setEditorKit(kit);
+        this.CheckoutText.setContentType("text/html");
+        // CheckoutText.setLineWrap(true);
+        // CheckoutText.setWrapStyleWord(true);
+        this.StatusText.setFont(new java.awt.Font("Dialog", 1, 18));
+        this.StatusText.setForeground(WarningTextColour);
+        this.StatusText.setBackground(BackgroundColour);
+        this.StatusText.setMinimumSize(new Dimension(33, 15));
+        this.StatusText.setOpaque(true);
+        this.StatusText.setPreferredSize(new Dimension(0, 24));
+        this.StatusText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/StatusText_ToolTipText"));
+        this.StatusText.setText(Configuration.getProperty("UI/CheckOutPanel/StatusText_DefaultText"));
+        this.add(this.NavigationPanel, BorderLayout.SOUTH);
+        this.NavigationPanel.add(this.CheckInButton, BorderLayout.WEST);
+        this.NavigationPanel.add(this.NextButton, BorderLayout.EAST);
+        this.add(this.InformationPanel, BorderLayout.CENTER);
+        this.InformationPanel.add(this.DataPanel, BorderLayout.SOUTH);
+        this.DataPanel.add(this.BookFieldLabel, null);
+        this.DataPanel.add(this.BookField, null);
+        this.DataPanel.add(this.CheckoutButton, null);
+        this.InformationPanel.add(this.ResponsePanel, BorderLayout.CENTER);
+        this.ResponsePanel.add(this.BooksIcon, BorderLayout.EAST);
+        this.ResponsePanel.add(this.ResponseTextPanel, BorderLayout.CENTER);
+        this.ResponseTextPanel.add(this.PatronText, BorderLayout.NORTH);
+        this.ResponseTextPanel.add(this.CheckOutScrollPane, BorderLayout.CENTER);
+        this.ResponseTextPanel.add(this.StatusText, BorderLayout.SOUTH);
+        this.CheckOutScrollPane.getViewport().add(this.CheckoutText, null);
+        CheckOutPanelFocusTraversalPolicy policy = new CheckOutPanelFocusTraversalPolicy();
+        this.setFocusTraversalPolicy(policy);
+        this.setFocusCycleRoot(true);
+        this.setFocusTraversalKeysEnabled(true);
+        this.grabFocus();
+    }
+
+    void NextButton_actionPerformed(ActionEvent e) {
+        this.stopItemIDReader();
+        this.handler.printReceipt("Check-out Receipt for " + this.PatronName + " (" +
                          this.PatronID + ")\r\n\r\n" +
                          this.CheckoutText.getText()
                          + "\r\n\r\n" + new Date());
-    this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
-  }
-
-  void CheckinButton_actionPerformed(ActionEvent e) {
-    this.stopSecurity();
-    SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
-    // Need this to pass back id and password
-    PatronInformation rq = new PatronInformation();
-    rq.setPatronPassword(this.PatronPassword);
-    PatronInformationResponse rp = new PatronInformationResponse();
-    rp.setPatronIdentifier(this.PatronID);
-    rp.setPersonalName(this.PatronName);
-    ev.request = rq;
-    ev.response = rp;
-    this.firePanelChange(ev);
-  }
-
-  private void appendCheckoutText(String entry) {
-    String msg = this.CheckoutText.getText();
-    if (msg == null) {
-      msg = "";
+        this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
     }
-    msg = this.stripHTML(msg) + entry + "<br>";
-    this.CheckoutText.setText(msg.replaceAll("\r\n", "<br>"));
-  }
 
+    void CheckinButton_actionPerformed(ActionEvent e) {
+        this.stopItemIDReader();
+        SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
+        // Need this to pass back id and password
+        PatronInformation rq = new PatronInformation();
+        rq.setPatronPassword(this.PatronPassword);
+        PatronInformationResponse rp = new PatronInformationResponse();
+        rp.setPatronIdentifier(this.PatronID);
+        rp.setPersonalName(this.PatronName);
+        ev.request = rq;
+        ev.response = rp;
+        this.firePanelChange(ev);
+    }
 
-  private void reportSuccess(CheckOut request, CheckOutResponse response) {
-     this.PlaySound("CheckOutSuccess");
-     this.appendCheckoutText(Configuration.getMessage("CheckOutSuccess",
-         new String[] {
-         ( (response.getTitleIdentifier().
-            length() != 0) ?
-          escapeHTML(response.getTitleIdentifier()) :
-          escapeHTML(response.getItemIdentifier()))}) +
+    private void appendCheckoutText(String entry) {
+        String msg = this.CheckoutText.getText();
+        if (msg == null) {
+            msg = "";
+        }
+        msg = this.stripHTML(msg) + entry + "<br>";
+        this.CheckoutText.setText(msg.replaceAll("\r\n", "<br>"));
+    }
+
+    private void reportSuccess(CheckOut request, CheckOutResponse response) {
+        this.PlaySound("CheckOutSuccess");
+        this.appendCheckoutText(Configuration.getMessage("CheckOutSuccess",
+                new String[] {
+                ((response.getTitleIdentifier().
+                        length() != 0) ?
+                        SelfIssuePanel.escapeHTML(response.getTitleIdentifier()) :
+                        SelfIssuePanel.escapeHTML(response.getItemIdentifier())) }) +
                              " " +
-                             ( (response.getDueDate().length() > 0) ?
-                              Configuration.
-                              getMessage("DueDateMessage",
-                                         new String[] {
-                                         demangleDate(response.getDueDate())}) :
-                              Configuration.getMessage("NoDueDateMessage",
-         new String[] {}))
+                             ((response.getDueDate().length() > 0) ?
+                                     Configuration.
+                                             getMessage("DueDateMessage",
+                                                     new String[] {
+                                                     this.demangleDate(response.getDueDate()) }) :
+                                     Configuration.getMessage("NoDueDateMessage",
+                                             new String[] {}))
                              );
-    lastCheckedOutId = new String(request.getItemIdentifier());
-  }
-
-  void CheckoutButton_actionPerformed(ActionEvent e) {
-    CheckOut request = new CheckOut();
-    CheckOutResponse response = null;
-    String finalStatusText = "";
-
-    if (Configuration.getBoolProperty("Modes/EnableBarcodeAlii")) {
-      if (this.BookField.getText().equals("$ESCAPE%")) {
-        this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
-      }
+        this.lastCheckedOutId = new String(request.getItemIdentifier());
     }
 
-    try {
-      ResetTimer.stop();
-      this.pauseSecurity();
-      this.BookField.setEditable(true);
-      this.BookField.setEnabled(true);
-      try {
-        this.DataPanel.paint(this.DataPanel.getGraphics());
-      } catch (Exception ex) {
-        log.warn("Error during redraw", ex);
-      }
+    void CheckoutButton_actionPerformed(ActionEvent e) {
+        CheckOut request = new CheckOut();
+        CheckOutResponse response = null;
+        String finalStatusText = "";
 
-      request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
-      request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
-      request.setPatronIdentifier(this.PatronID);
-      request.setPatronPassword(this.PatronPassword);
-      request.setItemIdentifier(strim(this.BookField.getText()));
-      request.setSCRenewalPolicy(new Boolean(allowRenews || trustMode));
-      request.setTransactionDate(new Date());
-      if (trustMode) {
-        request.setNoBlock(new Boolean(useNoBlock));
-      }
-      if (request.getItemIdentifier().length() < 1 ||
-          request.getItemIdentifier().equals(lastCheckedOutId)) {
-        throw new RepeatedOrTooShortItemId();
-      }
-      if (!this.validateBarcode(request.getItemIdentifier(), Configuration.getProperty("UI/Validation/ItemBarcodeMask"))) {
-        throw new InvalidItemBarcode();
-      }
-      this.StatusText.setText(Configuration.getMessage("CheckoutPendingMessage",
-          new String[] {request.getItemIdentifier()}));
-      try {
-        this.ResponseTextPanel.paint(this.ResponseTextPanel.getGraphics());
-      } catch (Exception ex) {
-        log.warn("Error during redraw", ex);
-      }
-      try {
-        this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
-      } catch (Exception ex) {
-        log.warn("Error during redraw", ex);
-      }
-      try {
-        response = (CheckOutResponse) handler.send(request);
-      } catch (java.lang.ClassCastException ex) {
-        response = null;
-      }
-      if (response == null) {
-        if ((trustMode || allowOffline) &&
-            (!retryItemWhenError ||
-             request.getItemIdentifier().equals(lastEnteredId))) {
-          // Network failing so cache request and fake positive response
-          request.setTransactionDate(new Date());
-          request.setNoBlock(new Boolean(useNoBlock));
-          handler.spool(request);
-          response = new CheckOutResponse();
-          response.setItemIdentifier(request.getItemIdentifier());
-          response.setTitleIdentifier(request.getItemIdentifier());
-          response.setPatronIdentifier(request.getPatronIdentifier());
-          response.setDueDate("");
-          response.setOk(new Boolean(true));
-        } else {
-          throw new CheckoutConnectionFailed();
+        if (Configuration.getBoolProperty("Modes/EnableBarcodeAlii")) {
+            if (this.BookField.getText().equals("$ESCAPE%")) {
+                this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
+            }
         }
-      }
 
-      if (! ( (response.isOk() != null) ? response.isOk().booleanValue() : false)) {
-        if (trustMode &&
-            (!retryItemWhenError ||
-             request.getItemIdentifier().equals(lastEnteredId))) {
-          // System checkout failed so report to tracking log and proceed as per success
-          handler.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
-        } else {
-          throw new CheckoutFailed();
-        }
-      } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", "", new Date(), request, response);
-      }
+        try {
+            this.ResetTimer.stop();
+            this.stopItemIDReader();
+            this.BookField.setEditable(true);
+            this.BookField.setEnabled(true);
+            try {
+                this.DataPanel.paint(this.DataPanel.getGraphics());
+            } catch (Exception ex) {
+                CheckOutPanel.log.warn("Error during redraw", ex);
+            }
 
-      try {
-        handler.unlockItem();
-      }
-      catch (TimeoutException ex) {
-          throw new UnlockFailed();
-      }
-      catch (FailureException ex) {
-          throw new UnlockFailed();
-      }
+            request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
+            request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
+            request.setPatronIdentifier(this.PatronID);
+            request.setPatronPassword(this.PatronPassword);
+            request.setItemIdentifier(CheckOutPanel.strim(this.BookField.getText()));
+            request.setSCRenewalPolicy(new Boolean(SelfIssuePanel.allowRenews || SelfIssuePanel.trustMode));
+            request.setTransactionDate(new Date());
+            if (SelfIssuePanel.trustMode) {
+                request.setNoBlock(new Boolean(SelfIssuePanel.useNoBlock));
+            }
+            if ((request.getItemIdentifier().length() < 1) ||
+                    request.getItemIdentifier().equals(this.lastCheckedOutId)) {
+                throw new RepeatedOrTooShortItemId();
+            }
+            if (!this.validateBarcode(request.getItemIdentifier(), Configuration.getProperty("UI/Validation/ItemBarcodeMask"))) {
+                throw new InvalidItemBarcode();
+            }
+            this.StatusText.setText(Configuration.getMessage("CheckoutPendingMessage",
+                    new String[] { request.getItemIdentifier() }));
+            try {
+                this.ResponseTextPanel.paint(this.ResponseTextPanel.getGraphics());
+            } catch (Exception ex) {
+                CheckOutPanel.log.warn("Error during redraw", ex);
+            }
+            try {
+                this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
+            } catch (Exception ex) {
+                CheckOutPanel.log.warn("Error during redraw", ex);
+            }
+            try {
+                response = (CheckOutResponse) this.handler.send(request);
+            } catch (java.lang.ClassCastException ex) {
+                response = null;
+            }
+            if (response == null) {
+                if ((SelfIssuePanel.trustMode || SelfIssuePanel.allowOffline) &&
+                        (!SelfIssuePanel.retryItemWhenError ||
+                        request.getItemIdentifier().equals(this.lastEnteredId))) {
+                    // Network failing so cache request and fake positive
+                    // response
+                    request.setTransactionDate(new Date());
+                    request.setNoBlock(new Boolean(SelfIssuePanel.useNoBlock));
+                    this.handler.spool(request);
+                    response = new CheckOutResponse();
+                    response.setItemIdentifier(request.getItemIdentifier());
+                    response.setTitleIdentifier(request.getItemIdentifier());
+                    response.setPatronIdentifier(request.getPatronIdentifier());
+                    response.setDueDate("");
+                    response.setOk(new Boolean(true));
+                } else {
+                    throw new CheckoutConnectionFailed();
+                }
+            }
 
-      reportSuccess(request, response);
-   } catch (RepeatedOrTooShortItemId ex) {
-     // don't need to do anything for this - just let if fall through
-   } catch (InvalidItemBarcode ex) {
-     handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", new Date(), request, response);
-     this.PlaySound("InvalidItemBarcode");
-     finalStatusText = Configuration.getMessage("InvalidItemBarcode",
+            if (!((response.isOk() != null) ? response.isOk().booleanValue() : false)) {
+                if (SelfIssuePanel.trustMode &&
+                        (!SelfIssuePanel.retryItemWhenError ||
+                        request.getItemIdentifier().equals(this.lastEnteredId))) {
+                    // System checkout failed so report to tracking log and
+                    // proceed as per success
+                    this.handler.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
+                } else {
+                    throw new CheckoutFailed();
+                }
+            } else {
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", "", new Date(), request, response);
+            }
+
+            try {
+                this.unlockItem();
+            } catch (TimeoutException ex) {
+                throw new UnlockFailed();
+            } catch (FailureException ex) {
+                throw new UnlockFailed();
+            }
+
+            this.reportSuccess(request, response);
+        } catch (RepeatedOrTooShortItemId ex) {
+            // don't need to do anything for this - just let if fall through
+        } catch (InvalidItemBarcode ex) {
+            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", new Date(), request, response);
+            this.PlaySound("InvalidItemBarcode");
+            finalStatusText = Configuration.getMessage("InvalidItemBarcode",
                                                 new String[] {});
-    } catch (CheckoutConnectionFailed ex) {
-      if (trustMode) {
-        this.PlaySound("CheckoutRetry");
-        finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
-      } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Network Connection Failure", new Date(), request, response);
-        this.PlaySound("CheckoutNetworkError");
-        this.appendCheckoutText(Configuration.getMessage(
-            "CheckoutNetworkError", new String[] {
-            request.getItemIdentifier()}));
-      }
-    } catch (CheckoutFailed ex) {
-      if (trustMode) {
-        this.PlaySound("CheckoutRetry");
-        finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
-      } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Server refused checkout", new Date(), request, response);
-        this.PlaySound("CheckoutFailedError");
-        this.appendCheckoutText(Configuration.getMessage(
-            "CheckoutFailedError",
-            new String[] { (response.getTitleIdentifier().length() !=
-                            0) ?
-            response.getTitleIdentifier() :
-            response.getItemIdentifier(), (response.getScreenMessage() != null) ?
-            response.getScreenMessage() : ""}));
-      }
-    } catch (UnlockFailed ex) {
-      CheckInResponse checkinr = null;
-      try {
-        handler.resetRFIDDevice();
-        CheckIn checkin = new CheckIn();
-        checkin.setItemIdentifier(request.getItemIdentifier());
-        checkin.setCancel(new Boolean(true));
-        checkinr = (CheckInResponse) handler.send(checkin);
-        if (checkinr == null) {
-          throw new CheckinConnectionFailed("Null response");
-        }
-        if (! ( (checkinr.isOk() != null) ? checkinr.isOk().booleanValue() : false)) {
-          throw new CheckinConnectionFailed( (checkinr.getScreenMessage() != null) ?
+        } catch (CheckoutConnectionFailed ex) {
+            if (SelfIssuePanel.trustMode) {
+                this.PlaySound("CheckoutRetry");
+                finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
+            } else {
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Network Connection Failure", new Date(), request, response);
+                this.PlaySound("CheckoutNetworkError");
+                this.appendCheckoutText(Configuration.getMessage(
+                        "CheckoutNetworkError", new String[] {
+                        request.getItemIdentifier() }));
+            }
+        } catch (CheckoutFailed ex) {
+            if (SelfIssuePanel.trustMode) {
+                this.PlaySound("CheckoutRetry");
+                finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
+            } else {
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Server refused checkout", new Date(), request, response);
+                this.PlaySound("CheckoutFailedError");
+                this.appendCheckoutText(Configuration.getMessage(
+                        "CheckoutFailedError",
+                        new String[] { (response.getTitleIdentifier().length() !=
+                                0) ?
+                                        response.getTitleIdentifier() :
+                                        response.getItemIdentifier(), (response.getScreenMessage() != null) ?
+                                        response.getScreenMessage() : "" }));
+            }
+        } catch (UnlockFailed ex) {
+            CheckInResponse checkinr = null;
+            try {
+                CheckIn checkin = new CheckIn();
+                checkin.setItemIdentifier(request.getItemIdentifier());
+                checkin.setCancel(new Boolean(true));
+                checkinr = (CheckInResponse) this.handler.send(checkin);
+                if (checkinr == null) {
+                    throw new CheckinConnectionFailed("Null response");
+                }
+                if (!((checkinr.isOk() != null) ? checkinr.isOk().booleanValue() : false)) {
+                    throw new CheckinConnectionFailed((checkinr.getScreenMessage() != null) ?
                                             checkinr.getScreenMessage() :
                                             "No message");
+                }
+                this.handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE, "", "", new Date(), request, response);
+                this.PlaySound("UnlockFailedError");
+                this.appendCheckoutText(Configuration.getMessage("UnlockFailedError",
+                        new String[] { (response.getTitleIdentifier().length() != 0) ?
+                                response.getTitleIdentifier() :
+                                response.getItemIdentifier() }));
+            } catch (Exception ex1) {
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE, "", "", new Date(), request, checkinr);
+                if (SelfIssuePanel.suppressSecurityFailureMessages) {
+                    this.reportSuccess(request, response);
+                } else {
+                    this.PlaySound("UnlockFailedCheckInFailedError");
+                    this.appendCheckoutText(Configuration.getMessage(
+                            "UnlockFailedCheckInFailedError",
+                            new String[] { (response.getTitleIdentifier().length() != 0) ?
+                                    response.getTitleIdentifier() :
+                                    response.getItemIdentifier() }));
+                }
+                CheckOutPanel.log.fatal("Check back in failure: " + ex1.getMessage() + " - " +
+                        ex1.getStackTrace(), ex1);
+            }
+        } catch (Exception ex) {
+            if (SelfIssuePanel.trustMode) {
+                this.PlaySound("CheckoutRetry");
+                finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
+            } else {
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Unexpected checkout error!", new Date(), request, response);
+                this.PlaySound("UnexpectedCheckoutError");
+                this.appendCheckoutText(Configuration.getMessage(
+                        "UnexpectedCheckoutError", new String[] {
+                        request.getItemIdentifier()
+                }));
+            }
+            CheckOutPanel.log.fatal("Unexpected checkout failure: " + ex.getMessage() + " - " +
+                    ex.getStackTrace(), ex);
         }
-        handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE,"", "", new Date(), request, response);
-        this.PlaySound("UnlockFailedError");
-        this.appendCheckoutText(Configuration.getMessage("UnlockFailedError",
-            new String[] { (response.getTitleIdentifier().length() != 0) ?
-            response.getTitleIdentifier() :
-            response.getItemIdentifier()}));
-      } catch (Exception ex1) {
-        handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE,"", "", new Date(), request, checkinr);
-        if (suppressSecurityFailureMessages) {
-          reportSuccess(request, response);
-        } else {
-          this.PlaySound("UnlockFailedCheckInFailedError");
-          this.appendCheckoutText(Configuration.getMessage(
-              "UnlockFailedCheckInFailedError",
-              new String[] { (response.getTitleIdentifier().length() != 0) ?
-              response.getTitleIdentifier() :
-              response.getItemIdentifier()}));
+        this.lastEnteredId = new String(request.getItemIdentifier());
+        this.StatusText.setText(finalStatusText);
+        this.BookField.setText("");
+        this.BookField.requestFocus();
+
+        try {
+            this.DataPanel.paint(this.DataPanel.getGraphics());
+        } catch (Exception ex) {
+            CheckOutPanel.log.warn("Error during redraw", ex);
         }
-        log.fatal("Check back in failure: " + ex1.getMessage() + " - " +
-                  ex1.getStackTrace(), ex1);
-      }
-    } catch (Exception ex) {
-      if (trustMode) {
-        this.PlaySound("CheckoutRetry");
-        finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
-      } else {
-        handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Unexpected checkout error!", new Date(), request, response);
-        this.PlaySound("UnexpectedCheckoutError");
-        this.appendCheckoutText(Configuration.getMessage(
-            "UnexpectedCheckoutError", new String[] {
-            request.getItemIdentifier()
-        }));
-      }
-      log.fatal("Unexpected checkout failure: " + ex.getMessage() + " - " +
-                ex.getStackTrace(), ex);
-    }
-    lastEnteredId = new String(request.getItemIdentifier());
-    this.StatusText.setText(finalStatusText);
-    this.BookField.setText("");
-    this.BookField.requestFocus();
+        try {
+            this.ResponseTextPanel.paint(this.ResponseTextPanel.getGraphics());
+        } catch (Exception ex) {
+            CheckOutPanel.log.warn("Error during redraw", ex);
+        }
+        try {
+            this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
+        } catch (Exception ex) {
+            CheckOutPanel.log.warn("Error during redraw", ex);
+        }
 
-    try {
-      this.DataPanel.paint(this.DataPanel.getGraphics());
-    } catch (Exception ex) {
-      log.warn("Error during redraw", ex);
-    }
-    try {
-      this.ResponseTextPanel.paint(this.ResponseTextPanel.getGraphics());
-    } catch (Exception ex) {
-      log.warn("Error during redraw", ex);
-    }
-    try {
-      this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
-    } catch (Exception ex) {
-      log.warn("Error during redraw", ex);
+        this.BookField.setEditable(true);
+        this.BookField.setEnabled(true);
+        this.startItemIDReader();
+        this.ResetTimer.start();
+
     }
 
-    this.resumeSecurity();
-    this.resetSecurity();
-    this.BookField.setEditable(true);
-    this.BookField.setEnabled(true);
-    ResetTimer.start();
-
-  }
-
-
-  private static String strim(String string) {
-    String intermediate = string.trim();
-    if (Configuration.getBoolProperty("UI/Control/StripItemChecksumDigit")) {
-      if (intermediate.length() > 0) {
-        intermediate = intermediate.substring(0, intermediate.length()-1);
-      }
+    private static String strim(String string) {
+        String intermediate = string.trim();
+        if (Configuration.getBoolProperty("UI/Control/StripItemChecksumDigit")) {
+            if (intermediate.length() > 0) {
+                intermediate = intermediate.substring(0, intermediate.length() - 1);
+            }
+        }
+        return intermediate;
     }
-    return intermediate;
-  }
 
-  void BookField_keyTyped(KeyEvent e) {
-	  ResetTimer.restart();
-/**	
-     if (e.getKeyChar() == '' && this.CheckInEnabled) {
-		  e.consume();
-		  this.CheckinButton_actionPerformed(new ActionEvent(this, 0, ""));
-	  }
-*/	  
-	  if (e.getKeyChar() == '\u001B') {
-		  e.consume();
-		  this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
-	  }
-	  if (e.getKeyChar() == '\n' || e.getKeyChar() == '^') {
-		  e.consume();
-		  this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
-	  }
-  }
+    void BookField_keyTyped(KeyEvent e) {
+        this.ResetTimer.restart();
+        /**
+         * if (e.getKeyChar() == '' && this.CheckInEnabled) { e.consume();
+         * this.CheckinButton_actionPerformed(new ActionEvent(this, 0, "")); }
+         */
+        if (e.getKeyChar() == '\u001B') {
+            e.consume();
+            this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
+        }
+        if ((e.getKeyChar() == '\n') || (e.getKeyChar() == '^')) {
+            e.consume();
+            this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+        }
+    }
 
-  public void grabFocus() {
-    super.grabFocus();
-    BookField.grabFocus();
-  }
+    public void grabFocus() {
+        super.grabFocus();
+        this.BookField.grabFocus();
+    }
 
-  public void requestFocus() {
-    super.requestFocus();
-    BookField.requestFocus();
-  }
+    public void requestFocus() {
+        super.requestFocus();
+        this.BookField.requestFocus();
+    }
 
-  private void startSecurity() {
-	handler.initSecurityDevice();
-    handler.initRFIDDevice();
-    handler.startRFIDDevice(this);
-  }
+    private void startItemIDReader() {
+        this.handler.initIDReaderDevice(CirculationHandler.IDReaderDeviceType.ITEM_IDREADER);
+        this.handler.startIDReaderDevice(this);
+    }
 
-  private void resetSecurity() {
-	handler.resetSecurityDevice();
-    handler.resetRFIDDevice();
-  }
-  private void pauseSecurity() {
-    handler.pauseRFIDDevice();
-  }
+    private void stopItemIDReader() {
+        this.handler.stopIDReaderDevice();
+        this.handler.deinitIDReaderDevice();
+    }
 
-  private void resumeSecurity() {
-    handler.resumeRFIDDevice();
-  }
+    private void unlockItem() throws TimeoutException, FailureException {
+        this.handler.initItemSecurityDevice();
+        this.handler.unlockItem();
+        this.handler.deinitItemSecurityDevice();
+    }
 
-  private void stopSecurity() {
-    handler.stopRFIDDevice();
-    handler.deinitRFIDDevice();
-    handler.deinitSecurityDevice();
-  }
+    protected void finalize() throws java.lang.Throwable {
+        this.stopItemIDReader();
+        super.finalize();
+    }
 
-  protected void finalize() throws java.lang.Throwable {
-    stopSecurity();
-    super.finalize();
-  }
-
-  public void autoInputData(String serial, String passcode) {
-    this.BookField.setText(serial);
-    this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
-  }
+    public void autoInputData(String serial, String passcode) {
+        this.BookField.setText(serial);
+        this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+    }
 }
 
-
 class BookPanel_NextButton_actionAdapter implements java.awt.event.ActionListener {
-  private CheckOutPanel adaptee;
+    private CheckOutPanel adaptee;
 
-  BookPanel_NextButton_actionAdapter(CheckOutPanel adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.NextButton_actionPerformed(e);
-  }
+    BookPanel_NextButton_actionAdapter(CheckOutPanel adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        this.adaptee.NextButton_actionPerformed(e);
+    }
 }
 
 class BookPanel_CheckinButton_actionAdapter implements java.awt.event.ActionListener {
-  private CheckOutPanel adaptee;
+    private CheckOutPanel adaptee;
 
-  BookPanel_CheckinButton_actionAdapter(CheckOutPanel adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.CheckinButton_actionPerformed(e);
-  }
+    BookPanel_CheckinButton_actionAdapter(CheckOutPanel adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        this.adaptee.CheckinButton_actionPerformed(e);
+    }
 }
 
 class BookPanel_CheckoutButton_actionAdapter implements java.awt.event.ActionListener {
-  private CheckOutPanel adaptee;
+    private CheckOutPanel adaptee;
 
-  BookPanel_CheckoutButton_actionAdapter(CheckOutPanel adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void actionPerformed(ActionEvent e) {
-    adaptee.CheckoutButton_actionPerformed(e);
-  }
+    BookPanel_CheckoutButton_actionAdapter(CheckOutPanel adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        this.adaptee.CheckoutButton_actionPerformed(e);
+    }
 }
 
 class BookPanel_BookField_keyAdapter extends java.awt.event.KeyAdapter {
-  private CheckOutPanel adaptee;
+    private CheckOutPanel adaptee;
 
-  BookPanel_BookField_keyAdapter(CheckOutPanel adaptee) {
-    this.adaptee = adaptee;
-  }
-  public void keyTyped(KeyEvent e) {
-    adaptee.BookField_keyTyped(e);
-  }
+    BookPanel_BookField_keyAdapter(CheckOutPanel adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void keyTyped(KeyEvent e) {
+        this.adaptee.BookField_keyTyped(e);
+    }
 }

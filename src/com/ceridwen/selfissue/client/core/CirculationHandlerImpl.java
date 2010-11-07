@@ -18,13 +18,6 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.core;
 
-import java.lang.reflect.Method;
-import java.text.AttributedCharacterIterator;
-import java.text.AttributedString;
-import java.util.Date;
-import java.util.StringTokenizer;
-import java.util.Vector;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,6 +27,12 @@ import java.awt.geom.Point2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
+import java.lang.reflect.Method;
+import java.text.AttributedCharacterIterator;
+import java.text.AttributedString;
+import java.util.Date;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,14 +52,14 @@ import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.enumerations.ProtocolVersion;
 import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
-import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.IDReaderDevice;
-import com.ceridwen.circulation.devices.IDReaderDeviceListener;
-import com.ceridwen.circulation.devices.SecurityDevice;
-import com.ceridwen.circulation.devices.TimeoutException;
 import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.ShutdownThread;
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.selfissue.client.devices.FailureException;
+import com.ceridwen.selfissue.client.devices.IDReaderDevice;
+import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
+import com.ceridwen.selfissue.client.devices.SecurityDevice;
+import com.ceridwen.selfissue.client.devices.TimeoutException;
 import com.ceridwen.selfissue.client.log.OnlineLog;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 import com.ceridwen.selfissue.client.log.OnlineLogLogger;
@@ -70,511 +69,543 @@ import com.ceridwen.selfissue.client.spooler.OfflineSpooler;
 import com.ceridwen.selfissue.client.spooler.OfflineSpoolerDevice;
 
 /**
- * <p>Title: RTSI</p>
- * <p>Description: Real Time Self Issue</p>
- * <p>Copyright: </p>
- * <p>Company: </p>
+ * <p>Title: RTSI</p> <p>Description: Real Time Self Issue</p> <p>Copyright:
+ * </p> <p>Company: </p>
+ * 
  * @author Matthew J. Dovey
  * @version 2.0
  */
 
-
 public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcessor, CirculationHandler {
 
-  private static Log logger = LogFactory.getLog(CirculationHandler.class);
+    private static Log logger = LogFactory.getLog(CirculationHandler.class);
 
-  private Connection conn;
-  private OfflineSpooler spool;
-  public OnlineLogManager log ;
-  public IDReaderDevice rfidDevice;
-  public SecurityDevice securityDevice;
-  
-  /* (non-Javadoc)
- * @see com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolerClass()
- */
-public Class<? extends OfflineSpooler> getSpoolerClass() {
-    return spool.getClass();
-  }
+    private Connection conn;
+    private OfflineSpooler spool;
+    public OnlineLogManager log;
+    public IDReaderDevice idReaderDevice;
+    public SecurityDevice itemSecurityDevice;
 
-  private void initiateOfflineSpooler() {
-    java.io.File spoolDir = null;
-    try {
-      spoolDir = new java.io.File(Configuration.getProperty(
-          "Systems/Spooler/Spool"));
-
-    } catch (Exception ex) {
-      logger.fatal("Can't create SpoolerDirectory", ex);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolerClass()
+     */
+    @Override
+    public Class<? extends OfflineSpooler> getSpoolerClass() {
+        return this.spool.getClass();
     }
-    spool = new OfflineSpoolerDevice(spoolDir, this,
+
+    private void initiateOfflineSpooler() {
+        java.io.File spoolDir = null;
+        try {
+            spoolDir = new java.io.File(Configuration.getProperty(
+                    "Systems/Spooler/Spool"));
+
+        } catch (Exception ex) {
+            CirculationHandlerImpl.logger.fatal("Can't create SpoolerDirectory", ex);
+        }
+        this.spool = new OfflineSpoolerDevice(spoolDir, this,
                                      Configuration.getIntProperty(
-        "Systems/Spooler/ReplayPeriod") *
+                                             "Systems/Spooler/ReplayPeriod") *
                                      60000);
-  }
-
-  private void configureSecurityDevice() {
-    try {
-      securityDevice = (SecurityDevice) Class.forName(Configuration.getProperty(
-          "Systems/Security/@class")).newInstance();
-    } catch (Exception ex) {
-      logger.warn("Could not initialise security device - defaulting to null device", ex);
-      securityDevice = new com.ceridwen.selfissue.client.nulldevices.SecurityDevice();
     }
-    securityDevice.setRetries(Configuration.getIntProperty(
-        "Systems/Security/Retries"));
-    securityDevice.setTimeOut(Configuration.getIntProperty(
-        "Systems/Security/Timeout"));
-    ShutdownThread.registerSecurityDeviceShutdown(securityDevice);
-  }
 
-  private void configureIDReaderDevice() { // TODO
-	    try {
-	      rfidDevice = (IDReaderDevice) Class.forName(Configuration.getProperty(
-	          "Systems/RFID/@class")).newInstance();
-	    } catch (Exception ex) {
-	      logger.warn("Could not initialise RFID device - defaulting to null device", ex);
-	      rfidDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
-	    }
-	    ShutdownThread.registerRFIDDeviceShutdown(rfidDevice);
-	  }
+    private void initiateOnlineLoggers(OutOfOrderInterface ooo) {
+        NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
+        this.log = new OnlineLogManager();
+        for (int i = 0; i < loggers.getLength(); i++) {
+            java.io.File onlineLogDir = null;
+            try {
+                onlineLogDir = new java.io.File(
+                        Configuration.getSubProperty(loggers.item(i), "Spool"));
+                OnlineLogLogger onlineLogger;
+                try {
+                    onlineLogger = (OnlineLogLogger) Class.forName(
+                            Configuration.getSubProperty(loggers.item(i), "@class")).
+                            newInstance();
+                    onlineLogger.initialise(loggers.item(i), ooo);
+                    OnlineLog alog = new com.ceridwen.selfissue.client.log.
+                            OnlineLogDevice(onlineLogDir,
+                                    onlineLogger,
+                                    Configuration.getIntSubProperty(loggers.item(i),
+                                            "ReplayPeriod") * 60000);
+                    this.log.addOnlineLogger(alog);
+                } catch (Exception ex) {
+                    CirculationHandlerImpl.logger.error(ex);
+                } catch (java.lang.NoClassDefFoundError ex) {
+                    CirculationHandlerImpl.logger.error(ex);
+                }
+            } catch (Exception ex) {
+                CirculationHandlerImpl.logger.fatal("Can't create OnlineLogDirectory", ex);
+            }
+        }
+    }
 
-  private void initiateOnlineLoggers(OutOfOrderInterface ooo)
-  {
-    NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
-    log = new OnlineLogManager();
-    for (int i = 0; i < loggers.getLength(); i++) {
-      java.io.File onlineLogDir = null;
-      try {
-        onlineLogDir = new java.io.File(
-            Configuration.getSubProperty(loggers.item(i), "Spool"));
-        OnlineLogLogger onlineLogger;
+    public CirculationHandlerImpl(OutOfOrderInterface ooo) {
+        this.initiateOfflineSpooler();
+        this.initiateOnlineLoggers(ooo);
+    }
+
+    public String stripHtml(String data) {
+        boolean omit = false;
+
+        StringBuffer processed = new StringBuffer();
+
+        for (int i = 0; i < data.length(); i++) {
+            if (data.charAt(i) == '<') {
+                omit = true;
+            } else if (data.charAt(i) == '>') {
+                omit = false;
+            } else if (!omit) {
+                processed.append(data.charAt(i));
+            }
+        }
+        return processed.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.ceridwen.selfissue.client.core.CirculationHandler#printReceipt(java
+     * .lang.String)
+     */
+    @Override
+    public void printReceipt(String data) {
+        if (!Configuration.getBoolProperty("Systems/Printer/PrintReceipt")) {
+            return;
+        }
+
         try {
-          onlineLogger = (OnlineLogLogger) Class.forName(
-              Configuration.getSubProperty(loggers.item(i), "@class")).
-              newInstance();
-          onlineLogger.initialise(loggers.item(i), ooo);
-          OnlineLog alog = new com.ceridwen.selfissue.client.log.
-              OnlineLogDevice(onlineLogDir,
-                              onlineLogger,
-                              Configuration.getIntSubProperty(loggers.item(i),
-              "ReplayPeriod") * 60000);
-          log.addOnlineLogger(alog);
+            PrinterJob pj = PrinterJob.getPrinterJob();
+            StringTokenizer tokens = new StringTokenizer(this.stripHtml(data), "\r\n", false);
+            Vector<String> items = new Vector<String>();
+            while (tokens.hasMoreTokens()) {
+                String token = tokens.nextToken();
+                if (token.length() > 0) {
+                    items.add(token);
+                }
+            }
+            pj.setPrintable(new PrintItem(items.toArray()));
+            pj.print();
+        } catch (Exception e) {
+            CirculationHandlerImpl.logger.error(e);
+        }
+    }
+
+    private boolean connect() {
+        this.conn = SelfIssueClient.ConfigureConnection();
+        SelfIssueClient.EnterCriticalSection();
+        try {
+            this.conn.connect();
+            return this.doLogin();
         } catch (Exception ex) {
-          logger.error(ex);
-        } catch (java.lang.NoClassDefFoundError ex) {
-          logger.error(ex);
+            SelfIssueClient.LeaveCriticalSection();
+            CirculationHandlerImpl.logger.warn("Exception on connection", ex);
+            return false;
         }
-      } catch (Exception ex) {
-        logger.fatal("Can't create OnlineLogDirectory", ex);
-      }
-    }
-  }
-
-  public CirculationHandlerImpl(OutOfOrderInterface ooo) {
-    initiateOfflineSpooler();
-    initiateOnlineLoggers(ooo);
-    configureIDReaderDevice();
-    configureSecurityDevice();
-  }
-
-  public String stripHtml(String data) {
-    boolean omit = false;
-
-    StringBuffer processed = new StringBuffer();
-
-    for (int i=0; i<data.length(); i++) {
-      if (data.charAt(i) == '<') {
-        omit = true;
-      } else if (data.charAt(i) == '>') {
-        omit = false;
-      } else if (!omit) {
-        processed.append(data.charAt(i));
-      }
-    }
-    return processed.toString();
-  }
-
-  /* (non-Javadoc)
- * @see com.ceridwen.selfissue.client.core.CirculationHandler#printReceipt(java.lang.String)
- */
-public void printReceipt(String data) {
-    if (!Configuration.getBoolProperty("Systems/Printer/PrintReceipt")) {
-      return;
     }
 
-    try {
-      PrinterJob pj = PrinterJob.getPrinterJob();
-      StringTokenizer tokens = new StringTokenizer(stripHtml(data), "\r\n", false);
-      Vector<String> items = new Vector<String>();
-      while (tokens.hasMoreTokens()) {
-        String token = tokens.nextToken();
-        if (token.length() > 0) {
-          items.add(token);
+    private boolean doLogin() throws RetriesExceeded {
+        if (Configuration.getProperty("Systems/SIP/LoginUserId").isEmpty()) {
+            return true;
         }
-      }
-      pj.setPrintable(new PrintItem(items.toArray()));
-      pj.print();
-    }
-    catch (Exception e) {
-      logger.error(e);
-    }
-  }
+        if (Configuration.getProperty("Systems/SIP/LoginPassword").isEmpty()) {
+            return true;
+        }
+        Login login = new Login();
+        login.setLoginUserId(Configuration.getProperty("Systems/SIP/LoginUserId"));
+        login.setLoginPassword(Configuration.Decrypt(Configuration.getProperty("Systems/SIP/LoginPassword")));
+        login.setLocationCode(Configuration.getProperty("Systems/SIP/LocationCode"));
+        login.setPWDAlgorithm(Configuration.getProperty("Systems/SIP/PWDAlgorithm"));
+        login.setUIDAlgorithm(Configuration.getProperty("Systems/SIP/UIDAlgorithm"));
 
-  private boolean connect() {
-    conn = SelfIssueClient.ConfigureConnection();
-    SelfIssueClient.EnterCriticalSection();
-    try {
-      conn.connect();
-      return doLogin();
-    } catch (Exception ex) {
-      SelfIssueClient.LeaveCriticalSection();
-      logger.warn("Exception on connection", ex);
-      return false;
+        LoginResponse response = (LoginResponse) this.unprotectedSend(login);
+        return ((response.isOk() != null) ? response.isOk().booleanValue() : false);
     }
-  }
 
-private boolean doLogin() throws RetriesExceeded {
-	if (Configuration.getProperty("Systems/SIP/LoginUserId").isEmpty()) {
-		return true;
-	}
-	if (Configuration.getProperty("Systems/SIP/LoginPassword").isEmpty()) {
-		return true;
-	}
-	Login login = new Login();
-	login.setLoginUserId(Configuration.getProperty("Systems/SIP/LoginUserId"));
-	login.setLoginPassword(Configuration.Decrypt(Configuration.getProperty("Systems/SIP/LoginPassword")));
-	login.setLocationCode(Configuration.getProperty("Systems/SIP/LocationCode"));
-	login.setPWDAlgorithm(Configuration.getProperty("Systems/SIP/PWDAlgorithm"));
-	login.setUIDAlgorithm(Configuration.getProperty("Systems/SIP/UIDAlgorithm"));
-	
-	LoginResponse response = (LoginResponse)this.unprotectedSend(login);
-	return ( (response.isOk() != null) ? response.isOk().booleanValue() : false);
-}
-
-private void disconnect() {
-    if (conn != null) {
-      try {
-        conn.disconnect();
-      } catch (Exception ex) {
-        logger.warn("Exception on disconnection", ex);
-      }
+    private void disconnect() {
+        if (this.conn != null) {
+            try {
+                this.conn.disconnect();
+            } catch (Exception ex) {
+                CirculationHandlerImpl.logger.warn("Exception on disconnection", ex);
+            }
+        }
+        this.conn = null;
+        SelfIssueClient.LeaveCriticalSection();
     }
-    conn = null;
-    SelfIssueClient.LeaveCriticalSection();
-  }
 
-private void doEndPatronSession(Message request) {
-	if (Configuration.getBoolProperty("Systems/SIP/SendEndPatronSession")) {
-		try {
-			String id;
-			String password;
+    private void doEndPatronSession(Message request) {
+        if (Configuration.getBoolProperty("Systems/SIP/SendEndPatronSession")) {
+            try {
+                String id;
+                String password;
 
-			Method mthd = request.getClass().getMethod("getPatronIdentifier", new Class[]{});
-			id = (String)mthd.invoke(request, new Object[]{});
-			mthd = request.getClass().getMethod("getPatronPassword", new Class[]{});
-			password = (String)mthd.invoke(request, new Object[]{});						
-			if (id == null) {
-				return;
-			}
-			if (password == null) {
-				return;
-			}
-			if (id.isEmpty()) {
-				return;
-			}
-			if (password.isEmpty()) {
-				return;
-			}
-			EndPatronSession endPatronSession = new EndPatronSession();	  
-			endPatronSession.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
-			endPatronSession.setPatronIdentifier(id);
-			endPatronSession.setPatronPassword(password);
-			endPatronSession.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
-		} catch (Exception e) {
-			return;
-		}  
-	}
-}
-
-/* (non-Javadoc)
- * @see com.ceridwen.selfissue.client.core.CirculationHandler#spool(com.ceridwen.circulation.SIP.messages.Message)
- */
-public void spool(Message msg) {
-    this.spool.add(new OfflineSpoolObject(msg));
-  }
-
-  /* (non-Javadoc)
- * @see com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolSize()
- */
-public int getSpoolSize() {
-    return this.spool.size();
-  }
-
-  public boolean process(Object o) {
-    OfflineSpoolObject obj;
-    if (o == null) {
-      logger.error("Null spool object");
-      return true; //Whatever it is in the spool it isn't valid so delete
+                Method mthd = request.getClass().getMethod("getPatronIdentifier", new Class[] {});
+                id = (String) mthd.invoke(request, new Object[] {});
+                mthd = request.getClass().getMethod("getPatronPassword", new Class[] {});
+                password = (String) mthd.invoke(request, new Object[] {});
+                if (id == null) {
+                    return;
+                }
+                if (password == null) {
+                    return;
+                }
+                if (id.isEmpty()) {
+                    return;
+                }
+                if (password.isEmpty()) {
+                    return;
+                }
+                EndPatronSession endPatronSession = new EndPatronSession();
+                endPatronSession.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
+                endPatronSession.setPatronIdentifier(id);
+                endPatronSession.setPatronPassword(password);
+                endPatronSession.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
+            } catch (Exception e) {
+                return;
+            }
+        }
     }
-    try {
-      obj = (OfflineSpoolObject) o;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.ceridwen.selfissue.client.core.CirculationHandler#spool(com.ceridwen
+     * .circulation.SIP.messages.Message)
+     */
+    @Override
+    public void spool(Message msg) {
+        this.spool.add(new OfflineSpoolObject(msg));
     }
-    catch (Exception ex) {
-      logger.error("Invalid spool object: " + o);
-      return true; //Whatever it is in the spool it isn't valid so delete
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.ceridwen.selfissue.client.core.CirculationHandler#getSpoolSize()
+     */
+    @Override
+    public int getSpoolSize() {
+        return this.spool.size();
     }
-    if (obj.getMessage() == null) {
-      logger.error("Null spool object message: ");
-      return true; //Whatever it is in the spool it isn't valid so delete
-    }
-    if (obj.isAboutToExpire()) {
-      //            logger.error("Item stored in spooler expired: " + request);
-      log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "",
+
+    public boolean process(Object o) {
+        OfflineSpoolObject obj;
+        if (o == null) {
+            CirculationHandlerImpl.logger.error("Null spool object");
+            return true; // Whatever it is in the spool it isn't valid so delete
+        }
+        try {
+            obj = (OfflineSpoolObject) o;
+        } catch (Exception ex) {
+            CirculationHandlerImpl.logger.error("Invalid spool object: " + o);
+            return true; // Whatever it is in the spool it isn't valid so delete
+        }
+        if (obj.getMessage() == null) {
+            CirculationHandlerImpl.logger.error("Null spool object message: ");
+            return true; // Whatever it is in the spool it isn't valid so delete
+        }
+        if (obj.isAboutToExpire()) {
+            // logger.error("Item stored in spooler expired: " + request);
+            this.log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "",
                       "Cached item expired", obj.getAdded(), obj.getMessage(), null);
-      return true;
-    }
-    if (obj.isAboutToStale()) {
-  //            logger.warn("Item stored in spooler overdue: " + request);
-      log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "",
+            return true;
+        }
+        if (obj.isAboutToStale()) {
+            // logger.warn("Item stored in spooler overdue: " + request);
+            this.log.recordEvent(OnlineLogEvent.STATUS_CHECKOUTPENDING, "",
                       "Aged cached item warning", obj.getAdded(), obj.getMessage(), null);
-    }
-    return processMessage(obj.getMessage());
-  }
-
-  /* (non-Javadoc)
- * @see com.ceridwen.selfissue.client.core.CirculationHandler#processMessage(com.ceridwen.circulation.SIP.messages.Message)
- */
-public boolean processMessage(Message request) {
-    if (request.getClass() == CheckOut.class) {
-      if (((CheckOut)request).getPatronIdentifier() == null) {
-        logger.error("Null patron identifier in spool: " + request);
-        return false;
-      }
-      if (((CheckOut)request).getItemIdentifier() == null) {
-        logger.error("Null item identifier in spool: " + request);
-        return false;
-      }
-    }
-
-    Message response = null;
-
-    try {
-      response = unprotectedSend(request);
-    } catch (RetriesExceeded ex) {
-      logger.fatal("Invalid spool message: " + request);
-      return false;
-    }
-
-    if (response == null) {
-      return false;
-    }
-
-    if (response.getClass() == CheckOutResponse.class) {
-      CheckOutResponse checkout = (CheckOutResponse) response;
-      if (! ( (checkout.isOk() != null) ? checkout.isOk().booleanValue() : false)) {
-        this.log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
-      }
-    } else {
-      logger.error("Unexpected Checkout response: " + request + ", " + response);
-    }
-
-    return true;
-  }
-
-  /* (non-Javadoc)
- * @see com.ceridwen.selfissue.client.core.CirculationHandler#send(com.ceridwen.circulation.SIP.messages.Message)
- */
-public Message send(Message request) {
-    try {
-      return unprotectedSend(request);
-    } catch (RetriesExceeded ex) {
-      return null;
-    }
-  }
-
-  private final static Object sync = new Object();
-
-  private Message unprotectedSend(Message request) throws RetriesExceeded {
-    if (request == null) {
-      throw new RetriesExceeded(); // request is invalid
-    }
-    if (request.getClass() == CheckOut.class) {
-      if (((CheckOut)request).getPatronIdentifier() == null) {
-        logger.error("Null patron identifier in checkout request: " + request);
-        return null;
-      }
-      if (((CheckOut)request).getItemIdentifier() == null) {
-        logger.error("Null item identifier in checkout request: " + request);
-        return null;
-      }
-    }
-    if (request.getClass() == CheckIn.class) {
-        if (((CheckIn)request).getItemIdentifier() == null) {
-          logger.error("Null item identifier in checkin request: " + request);
-          return null;
         }
-      }
+        return this.processMessage(obj.getMessage());
+    }
 
-    Message response = null;
-
-    synchronized (sync) {
-      if (this.connect()) {
-        SCStatus scstatus = new SCStatus();
-        scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
-        scstatus.setStatusCode(StatusCode.OK);
-        try {
-          ACSStatus ascstatus = (ACSStatus) conn.send(scstatus);
-          if (ascstatus == null) {
-            this.disconnect();
-            return null;
-          }
-          if (! ( (ascstatus.isCheckOutOk() != null) ?
-                 ascstatus.isCheckOutOk().booleanValue() : false)) {
-            this.disconnect();
-            return null;
-          }
-        } catch (RetriesExceeded ex) {
-          logger.warn("Repeated retries on status request: " + request);
-          this.disconnect();
-          throw ex;
-        } catch (Exception ex) {
-          logger.warn("Unexpected error on status request: " + request, ex);
-          this.disconnect();
-          return null;
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.ceridwen.selfissue.client.core.CirculationHandler#processMessage(
+     * com.ceridwen.circulation.SIP.messages.Message)
+     */
+    public boolean processMessage(Message request) {
+        if (request.getClass() == CheckOut.class) {
+            if (((CheckOut) request).getPatronIdentifier() == null) {
+                CirculationHandlerImpl.logger.error("Null patron identifier in spool: " + request);
+                return false;
+            }
+            if (((CheckOut) request).getItemIdentifier() == null) {
+                CirculationHandlerImpl.logger.error("Null item identifier in spool: " + request);
+                return false;
+            }
         }
+
+        Message response = null;
 
         try {
-          response = conn.send(request);
+            response = this.unprotectedSend(request);
         } catch (RetriesExceeded ex) {
-          this.disconnect();
-          logger.warn("Repeated retries on request: " + request);
-          throw ex;
-        } catch (ConnectionFailure ex) {
-          response = null;
-          logger.warn("Connection Failure on request: " + request);
-        } catch (Exception ex) {
-          response = null;
-          logger.warn("Unexpected exception on request: " + request, ex);
+            CirculationHandlerImpl.logger.fatal("Invalid spool message: " + request);
+            return false;
         }
-        doEndPatronSession(request);
-        this.disconnect();
-      }
+
+        if (response == null) {
+            return false;
+        }
+
+        if (response.getClass() == CheckOutResponse.class) {
+            CheckOutResponse checkout = (CheckOutResponse) response;
+            if (!((checkout.isOk() != null) ? checkout.isOk().booleanValue() : false)) {
+                this.log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
+            }
+        } else {
+            CirculationHandlerImpl.logger.error("Unexpected Checkout response: " + request + ", " + response);
+        }
+
+        return true;
     }
-    if (response != null) {
-      log.recordEvent(OnlineLogEvent.STATUS_NOTIFICATION, "", "", new Date(), request, response);
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.ceridwen.selfissue.client.core.CirculationHandler#send(com.ceridwen
+     * .circulation.SIP.messages.Message)
+     */
+    public Message send(Message request) {
+        try {
+            return this.unprotectedSend(request);
+        } catch (RetriesExceeded ex) {
+            return null;
+        }
     }
 
-    return response;
-  }
+    private final static Object sync = new Object();
 
-  /* (non-Javadoc)
- * @see com.ceridwen.selfissue.client.core.CirculationHandler#checkStatus(int)
- */
-public String checkStatus(int statusCode)
-  {
-	Connection c = SelfIssueClient.ConfigureConnection();
-    try {
-      c.connect();
-      SCStatus scstatus = new SCStatus();
-      scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
-      scstatus.setStatusCode(StatusCode.OK);
-      ACSStatus response = (ACSStatus) c.send(scstatus);
-      c.disconnect();
-      return "DateTimeSync: " + response.getDateTimeSync() + " | " +
-          "InstId: " + response.getInstitutionId() + " | " +
-          "LibName: " + response.getLibraryName() + " | " +
-          "ProtVer: " + response.getProtocolVersion() + " | " +
-          "Retries: " + response.getRetriesAllowed() + " | " +
-          "SupMsgs: " + response.getSupportedMessages() + " | " +
-          "TermLoc: " + response.getTerminalLocation() + " | " +
-          "Timeout: " + response.getTimeoutPeriod() + " | " +
-          "PrtLine: " + response.getPrintLine() + " | " +
-          "SrcnMsg: " + response.getScreenMessage() + " | " +
-          "CheckIn: " + response.isCheckInOk() + " | " +
-          "CheckOut: " + response.isCheckOutOk() + " | " +
-          "Offline: " + response.isOfflineOk() + " | " +
-          "Online: " + response.isOnlineStatus() + " | " +
-          "Renewal: " + response.isACSRenewalPolicy() + " | " +
-          "StatusUpdate: " + response.isStatusUpdateOk();
-    } catch (Exception ex) {
-    	try {
-    		c.disconnect();
-    	} catch (Exception inner) {    		
-    	}
-    	return "Error: " + ex.toString();
+    private Message unprotectedSend(Message request) throws RetriesExceeded {
+        if (request == null) {
+            throw new RetriesExceeded(); // request is invalid
+        }
+        if (request.getClass() == CheckOut.class) {
+            if (((CheckOut) request).getPatronIdentifier() == null) {
+                CirculationHandlerImpl.logger.error("Null patron identifier in checkout request: " + request);
+                return null;
+            }
+            if (((CheckOut) request).getItemIdentifier() == null) {
+                CirculationHandlerImpl.logger.error("Null item identifier in checkout request: " + request);
+                return null;
+            }
+        }
+        if (request.getClass() == CheckIn.class) {
+            if (((CheckIn) request).getItemIdentifier() == null) {
+                CirculationHandlerImpl.logger.error("Null item identifier in checkin request: " + request);
+                return null;
+            }
+        }
+
+        Message response = null;
+
+        synchronized (CirculationHandlerImpl.sync) {
+            if (this.connect()) {
+                SCStatus scstatus = new SCStatus();
+                scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
+                scstatus.setStatusCode(StatusCode.OK);
+                try {
+                    ACSStatus ascstatus = (ACSStatus) this.conn.send(scstatus);
+                    if (ascstatus == null) {
+                        this.disconnect();
+                        return null;
+                    }
+                    if (!((ascstatus.isCheckOutOk() != null) ?
+                            ascstatus.isCheckOutOk().booleanValue() : false)) {
+                        this.disconnect();
+                        return null;
+                    }
+                } catch (RetriesExceeded ex) {
+                    CirculationHandlerImpl.logger.warn("Repeated retries on status request: " + request);
+                    this.disconnect();
+                    throw ex;
+                } catch (Exception ex) {
+                    CirculationHandlerImpl.logger.warn("Unexpected error on status request: " + request, ex);
+                    this.disconnect();
+                    return null;
+                }
+
+                try {
+                    response = this.conn.send(request);
+                } catch (RetriesExceeded ex) {
+                    this.disconnect();
+                    CirculationHandlerImpl.logger.warn("Repeated retries on request: " + request);
+                    throw ex;
+                } catch (ConnectionFailure ex) {
+                    response = null;
+                    CirculationHandlerImpl.logger.warn("Connection Failure on request: " + request);
+                } catch (Exception ex) {
+                    response = null;
+                    CirculationHandlerImpl.logger.warn("Unexpected exception on request: " + request, ex);
+                }
+                this.doEndPatronSession(request);
+                this.disconnect();
+            }
+        }
+        if (response != null) {
+            this.log.recordEvent(OnlineLogEvent.STATUS_NOTIFICATION, "", "", new Date(), request, response);
+        }
+
+        return response;
     }
-  }
-  
-  public void stopRFIDDevice()
-  {
-    this.rfidDevice.stop();
-  }
 
-  public void startRFIDDevice(IDReaderDeviceListener listener)
-  {
-    this.rfidDevice.start(listener);
-  }
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.ceridwen.selfissue.client.core.CirculationHandler#checkStatus(int)
+     */
+    public String checkStatus(int statusCode) {
+        Connection c = SelfIssueClient.ConfigureConnection();
+        try {
+            c.connect();
+            SCStatus scstatus = new SCStatus();
+            scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
+            scstatus.setStatusCode(StatusCode.OK);
+            ACSStatus response = (ACSStatus) c.send(scstatus);
+            c.disconnect();
+            return "DateTimeSync: " + response.getDateTimeSync() + " | " +
+                    "InstId: " + response.getInstitutionId() + " | " +
+                    "LibName: " + response.getLibraryName() + " | " +
+                    "ProtVer: " + response.getProtocolVersion() + " | " +
+                    "Retries: " + response.getRetriesAllowed() + " | " +
+                    "SupMsgs: " + response.getSupportedMessages() + " | " +
+                    "TermLoc: " + response.getTerminalLocation() + " | " +
+                    "Timeout: " + response.getTimeoutPeriod() + " | " +
+                    "PrtLine: " + response.getPrintLine() + " | " +
+                    "SrcnMsg: " + response.getScreenMessage() + " | " +
+                    "CheckIn: " + response.isCheckInOk() + " | " +
+                    "CheckOut: " + response.isCheckOutOk() + " | " +
+                    "Offline: " + response.isOfflineOk() + " | " +
+                    "Online: " + response.isOnlineStatus() + " | " +
+                    "Renewal: " + response.isACSRenewalPolicy() + " | " +
+                    "StatusUpdate: " + response.isStatusUpdateOk();
+        } catch (Exception ex) {
+            try {
+                c.disconnect();
+            } catch (Exception inner) {
+            }
+            return "Error: " + ex.toString();
+        }
+    }
 
-  public void initRFIDDevice()
-  {
-    this.rfidDevice.init(Configuration.getPropertyNode("Systems/RFID/"));
-  }
+    @Override
+    public void initIDReaderDevice(CirculationHandler.IDReaderDeviceType type) {
+        try {
+            switch (type) {
+                case ITEM_IDREADER:
+                    this.idReaderDevice = (IDReaderDevice) Class.forName(Configuration.getProperty(
+                    "Systems/ItemIDReaderDevice/@class")).newInstance();
+                    this.idReaderDevice.init(Configuration.getPropertyNode("Systems/ItemIDReaderDevice"));
+                    break;
+                case PATRON_IDREADER:
+                    this.idReaderDevice = (IDReaderDevice) Class.forName(Configuration.getProperty(
+                    "Systems/PatronIDReaderDevice/@class")).newInstance();
+                    this.idReaderDevice.init(Configuration.getPropertyNode("Systems/PatronIDReaderDevice"));
+                    break;
+                default:
+                    this.idReaderDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
+                    break;                    
+            }
+        } catch (Exception ex) {
+            CirculationHandlerImpl.logger.warn("Could not initialise ID Reader Device - defaulting to null device", ex);
+            this.idReaderDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
+        }
+        ShutdownThread.registerIDReaderDeviceShutdown(this.idReaderDevice);
+    }
 
-  public void deinitRFIDDevice()
-  {
-    this.rfidDevice.deinit();
-  }
+    @Override
+    public void startIDReaderDevice(IDReaderDeviceListener listener) {
+        if (this.idReaderDevice != null) {
+            this.idReaderDevice.start(listener);
+        } else {
+            CirculationHandlerImpl.logger.fatal("IDReaderDevice is not initialised");
+        }
+    }
 
-  public void resetRFIDDevice()
-  {
-    this.rfidDevice.reset();
-  }
+    @Override
+    public void stopIDReaderDevice() {
+        if (this.idReaderDevice != null) {
+            this.idReaderDevice.stop();
+        }
+    }
 
-  public void pauseRFIDDevice()
-  {
-    this.rfidDevice.pause();
-  }
+    @Override
+    public void deinitIDReaderDevice() {
+        if (this.idReaderDevice != null) {
+            this.idReaderDevice.deinit();
+        }
+        this.idReaderDevice = null;
+        ShutdownThread.registerIDReaderDeviceShutdown(this.idReaderDevice);
+    }
 
-  public void resumeRFIDDevice()
-  {
-    this.rfidDevice.resume();
-  }
+    @Override
+    public void initItemSecurityDevice() {
+        try {
+            this.itemSecurityDevice = (SecurityDevice) Class.forName(Configuration.getProperty(
+                    "Systems/ItemSecurityDevice/@class")).newInstance();
+        } catch (Exception ex) {
+            CirculationHandlerImpl.logger.warn("Could not initialise Item Security Device - defaulting to null device", ex);
+            this.itemSecurityDevice = new com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice();
+        }
+        this.itemSecurityDevice.init(Configuration.getPropertyNode("Systems/Security"));
+        this.itemSecurityDevice.setRetries(Configuration.getIntProperty(
+                "Systems/Security/Retries"));
+        this.itemSecurityDevice.setTimeOut(Configuration.getIntProperty(
+                "Systems/Security/Timeout"));
+        ShutdownThread.registerSecurityDeviceShutdown(this.itemSecurityDevice);
+    }
 
-  public void initSecurityDevice() {
-	this.securityDevice.init(Configuration.getPropertyNode("Systems/Security/"));  	
-  }
+    @Override
+    public void lockItem() throws TimeoutException, FailureException {
+        if (this.itemSecurityDevice != null) {
+            this.itemSecurityDevice.lock();
+        } else {
+            CirculationHandlerImpl.logger.fatal("SecurityDevice is not initialised");
+        }
+    }
 
-  public void deinitSecurityDevice() {
-	this.securityDevice.deinit();  	  	
-  }  
+    @Override
+    public void unlockItem() throws TimeoutException, FailureException {
+        if (this.itemSecurityDevice != null) {
+            this.itemSecurityDevice.unlock();
+        } else {
+            CirculationHandlerImpl.logger.fatal("SecurityDevice is not initialised");
+        }
+    }
 
-  public void resetSecurityDevice() {
-	this.securityDevice.reset();
-  }
+    @Override
+    public boolean isItemLocked() throws TimeoutException, FailureException {
+        if (this.itemSecurityDevice != null) {
+            return this.itemSecurityDevice.isLocked();
+        } else {
+            CirculationHandlerImpl.logger.fatal("SecurityDevice is not initialised");
+            return false;
+        }
+    }
 
-  public void lockItem() throws TimeoutException, FailureException
-  {
-    this.securityDevice.lock();
-  }
+    @Override
+    public void deinitItemSecurityDevice() {
+        if (this.itemSecurityDevice != null) {
+            this.itemSecurityDevice.deinit();
+        }
+        this.itemSecurityDevice = null;
+        ShutdownThread.registerSecurityDeviceShutdown(this.itemSecurityDevice);
+    }
 
-  public void unlockItem() throws TimeoutException, FailureException
-  {
-    this.securityDevice.unlock();
-  }
-  
-  public Class<? extends IDReaderDevice> getRFIDDeviceClass()
-  {
-    return this.rfidDevice.getClass();
-  }
+    public void recordEvent(int level, String library, String addInfo,
+                          Date originalTransactionTime, Message request, Message response) {
+        this.log.recordEvent(level, library, addInfo, originalTransactionTime, request, response);
+    }
 
-  public Class<? extends SecurityDevice> getSecurityDeviceClass() {
-	  	return securityDevice.getClass();
-  }
-
-  public void recordEvent(int level, String library, String addInfo,
-                          Date originalTransactionTime, Message request, Message response)
-  {
-    this.log.recordEvent(level, library, addInfo, originalTransactionTime, request, response);
-  }
 }
 
 class PrintItem implements Printable {
@@ -582,9 +613,9 @@ class PrintItem implements Printable {
     public final static String EMPTY_PARAG = "    ";
 
     public PrintItem(Object[] items) {
-        attributedItems = new AttributedString[items.length];
+        this.attributedItems = new AttributedString[items.length];
 
-        for (int i=0; i < items.length; i++) {
+        for (int i = 0; i < items.length; i++) {
             this.attributedItems[i] = new AttributedString((String) items[i]);
         }
     }
@@ -592,15 +623,15 @@ class PrintItem implements Printable {
     public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) {
 
         if (pageIndex >= 1) {
-          return Printable.NO_SUCH_PAGE;
+            return Printable.NO_SUCH_PAGE;
         }
         Graphics2D graphics2d = (Graphics2D) graphics;
         graphics2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
         graphics2d.setPaint(Color.black);
         Point2D.Float pen = new Point2D.Float();
 
-        for (int i=0; i < attributedItems.length; i++) {
-            printText(graphics2d, pageFormat, pen, attributedItems[i]);
+        for (AttributedString attributedItem : this.attributedItems) {
+            PrintItem.printText(graphics2d, pageFormat, pen, attributedItem);
         }
 
         return Printable.PAGE_EXISTS;
@@ -615,7 +646,7 @@ class PrintItem implements Printable {
         while (measurer.getPosition() < charIterator.getEndIndex()) {
             TextLayout layout = measurer.nextLayout(wrappingWidth);
             pen.y += layout.getAscent();
-            float dx = layout.isLeftToRight()? 0 : (wrappingWidth - layout.getAdvance());
+            float dx = layout.isLeftToRight() ? 0 : (wrappingWidth - layout.getAdvance());
             layout.draw(graphics2d, pen.x + dx, pen.y);
             pen.y += layout.getDescent() + layout.getLeading();
         }

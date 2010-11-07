@@ -36,6 +36,7 @@ import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
+import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 
 
@@ -50,7 +51,7 @@ import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 
 
 
-public class PatronPanel extends SelfIssuePanel {
+public class PatronPanel extends SelfIssuePanel implements IDReaderDeviceListener {
   /**
 	 * 
 	 */
@@ -223,6 +224,7 @@ public class PatronPanelFocusTraversalPolicy
       this.ResetTimer = ResetTimer;
       this.handler = handler;
       jbInit();
+      this.startPatronIDReader();
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -244,6 +246,7 @@ public class PatronPanelFocusTraversalPolicy
     this.setOpaque(true);
     this.setBackground(BackgroundColour);
     NextButton.setFont(new java.awt.Font("Dialog", 1, 16));
+    NextButton.setActionCommand(""); // We'll use Action Command to pass patron password if sent by IDReaderDevice
 //    NextButton.setNextFocusableComponent(ResetButton);
     NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_Text"));
     NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_ToolTipText"));
@@ -330,7 +333,7 @@ public class PatronPanelFocusTraversalPolicy
   void NextButton_actionPerformed(ActionEvent e) {
     PatronInformation request = new PatronInformation();
     PatronInformationResponse response = null;
-
+    
     if (Configuration.getBoolProperty("Modes/EnableBarcodeAlii")) {
       if (this.PatronField.getText().startsWith("$") && this.PatronField.getText().endsWith("%")) {
         this.commandProcessor(convert(this.PatronField.getText()));
@@ -342,6 +345,7 @@ public class PatronPanelFocusTraversalPolicy
 
     try {
       ResetTimer.stop();
+      this.stopPatronIDReader();
       this.PatronField.setEditable(false);
       this.PatronField.setEnabled(false);
 
@@ -354,7 +358,12 @@ public class PatronPanelFocusTraversalPolicy
       if (!this.validateBarcode(request.getPatronIdentifier(), Configuration.getProperty("UI/Validation/PatronBarcodeMask"))) {
         throw new InvalidPatronBarcode();
       }
-      if (Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword")) {
+      if (e.getActionCommand() != null) {
+          if (!e.getActionCommand().isEmpty()) {
+              request.setPatronPassword(e.getActionCommand());
+          }
+      }
+      if (Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword") && ((request.getPatronPassword()!=null)?request.getPatronPassword():"").isEmpty()) {
           SelfIssueFrame.setOnTop(false);
           PasswordDialog patronPasswordDialog = new PasswordDialog("Please enter your password");
           patronPasswordDialog.clearPassword();
@@ -414,6 +423,7 @@ public class PatronPanelFocusTraversalPolicy
       ev.request = request;
       ev.response = response;
       this.PlaySound("ValidPatron");
+      this.stopPatronIDReader();      
       this.firePanelChange(ev);
     } catch (PatronIdTooShort ex) {
       // nothing to do but allow to drop through
@@ -476,6 +486,7 @@ public class PatronPanelFocusTraversalPolicy
     this.PatronField.setEnabled(true);
     this.PatronField.setText("");
     this.PatronField.requestFocus();
+    this.startPatronIDReader();
     ResetTimer.start();
   }
 
@@ -535,6 +546,7 @@ private static String strim(String string) {
   }
 
   void ResetButton_actionPerformed(ActionEvent e) {
+    this.stopPatronIDReader();      
     SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
     this.firePanelChange(ev);
   }
@@ -592,6 +604,7 @@ private static String strim(String string) {
     } else if (command.equals("*Check Systems")) {
       if (Configuration.getBoolProperty("CommandInterface/AllowSystemsCheck")) {
         StringBuffer data = new StringBuffer();
+/*TODO        
         if (handler.getRFIDDeviceClass() != null) {
           data.append("RFID: " +
                       handler.getRFIDDeviceClass().getName() + "\r\n");
@@ -600,6 +613,7 @@ private static String strim(String string) {
             data.append("Security: " +
                         handler.getSecurityDeviceClass().getName() + "\r\n");
           }
+*/          
         data.append("Loggers: ");
         NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
         for (int i = 0; i < loggers.getLength(); i++) {
@@ -733,6 +747,26 @@ private static String strim(String string) {
     PatronField.requestFocus();
   }
 
+  private void startPatronIDReader() {
+      this.handler.initIDReaderDevice(CirculationHandler.IDReaderDeviceType.PATRON_IDREADER);
+      this.handler.startIDReaderDevice(this);
+  }
+
+  private void stopPatronIDReader() {
+      this.handler.stopIDReaderDevice();
+      this.handler.deinitIDReaderDevice();
+  }
+  
+  protected void finalize() throws java.lang.Throwable {
+      this.stopPatronIDReader();
+      super.finalize();
+  }
+  
+@Override
+public void autoInputData(String identifier, String passcode) {
+    this.PatronField.setText(identifier);
+    this.NextButton_actionPerformed(new ActionEvent(this, 0, (passcode==null?"":passcode)));
+}
 }
 
 class PatronPanel_NextButton_actionAdapter implements java.awt.event.ActionListener {

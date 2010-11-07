@@ -263,16 +263,21 @@
       <SendEndPatronSession>false</SendEndPatronSession><!--  Send endPatronSession mesage on disconnect -->
       <RequirePatronPassword>false</RequirePatronPassword><!--Prompt for patron password-->
     </SIP>
-    <RFID class="com.ceridwen.selfissue.client.nulldevices.RFIDDevice">
+    <PatronIDReaderDevice class="com.ceridwen.selfissue.client.devices.JavaSmartCardDevice">
+      <SmartCardReader>Broadcom Corp Contactless SmartCard 0</SmartCardReader>
       <!--
     This allows optional support for local security tagging and gates-->
-    </RFID>
-    <Security class="com.ceridwen.selfissue.client.nulldevices.SecurityDevice">
+    </PatronIDReaderDevice>
+    <ItemIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
+      <!--
+    This allows optional support for local security tagging and gates-->
+    </ItemIDReaderDevice>
+    <ItemSecurityDevice class="com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice">
       <!--
     This allows optional support for local security tagging and gates-->
       <Retries>2</Retries>
       <Timeout>1</Timeout>
-    </Security>
+    </ItemSecurityDevice>
     <Loggers>
       <!--
     The self client will need to communicate to local library staff in certain circumstances.
