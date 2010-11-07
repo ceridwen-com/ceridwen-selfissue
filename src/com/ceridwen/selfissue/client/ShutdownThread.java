@@ -25,12 +25,12 @@ import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.enumerations.ProtocolVersion;
 import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
-import com.ceridwen.circulation.devices.RFIDDevice;
+import com.ceridwen.circulation.devices.IDReaderDevice;
 import com.ceridwen.circulation.devices.SecurityDevice;
 import com.ceridwen.selfissue.client.config.Configuration;
 
 public class ShutdownThread extends Thread {
-  private static RFIDDevice rfidDevice = null;
+  private static IDReaderDevice rfidDevice = null;
   private static SecurityDevice securityDevice = null;
 
   private static Log log = LogFactory.getLog(ShutdownThread.class);
@@ -44,7 +44,7 @@ public class ShutdownThread extends Thread {
     securityDevice = d;
   }
 
-  public static void registerRFIDDeviceShutdown(RFIDDevice d) {
+  public static void registerRFIDDeviceShutdown(IDReaderDevice d) {
     rfidDevice = d;
   }
 

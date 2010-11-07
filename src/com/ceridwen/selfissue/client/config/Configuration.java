@@ -172,6 +172,20 @@ public class Configuration {
     }
   }
 
+  public static Node getPropertyNode(String key) {
+    try {
+      Node value = selectSingleNode(parse().getFirstChild(),
+                                    "//SelfIssue/" + key);
+      if (value == null) {
+        throw new NullPointerException("Node was null retrieving property value");        
+      }
+      return value;
+    } catch (Exception ex) {
+      fatal(ex, "Could not retrieve property value");
+      return null;
+    }
+  }
+
   public static NodeList getPropertyList(String key) {
     try {
       NodeList value = selectNodeList(parse().getFirstChild(),

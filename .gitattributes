@@ -33,8 +33,9 @@ res/org/pdclipart/library_book_cart.png -text
 /selfissue.jnlp -text
 src/com/ceridwen/circulation/devices/CirculationDevices.num -text
 src/com/ceridwen/circulation/devices/FailureException.java -text
-src/com/ceridwen/circulation/devices/RFIDDevice.java -text
-src/com/ceridwen/circulation/devices/RFIDDeviceListener.java -text
+src/com/ceridwen/circulation/devices/IDReaderDevice.java -text
+src/com/ceridwen/circulation/devices/IDReaderDeviceListener.java -text
+src/com/ceridwen/circulation/devices/JavaSmartCardDevice.java -text svneol=unset#text/plain
 src/com/ceridwen/circulation/devices/SecurityDevice.java -text svneol=unset#text/plain
 src/com/ceridwen/circulation/devices/TimeoutException.java -text
 src/com/ceridwen/selfissue/EncodePassword.java -text
@@ -60,8 +61,8 @@ src/com/ceridwen/selfissue/client/log/SyslogLogger.java -text svneol=unset#text/
 src/com/ceridwen/selfissue/client/logging/LoggingHandlerWrapper.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/logging/SMTPLoggingHandlerWrapper.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/logging/SyslogLoggingHandlerWrapper.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/nulldevices/IDReaderDevice.java -text
 src/com/ceridwen/selfissue/client/nulldevices/OnlineLogLogger.java -text
-src/com/ceridwen/selfissue/client/nulldevices/RFIDDevice.java -text
 src/com/ceridwen/selfissue/client/nulldevices/SecurityDevice.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/panels/CheckInPanel.java -text
 src/com/ceridwen/selfissue/client/panels/CheckOutPanel.java -text

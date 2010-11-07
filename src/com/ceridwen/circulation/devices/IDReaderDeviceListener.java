@@ -27,10 +27,11 @@
 
 package com.ceridwen.circulation.devices;
 
-public interface RFIDDeviceListener {
+public interface IDReaderDeviceListener {
 /**
  * Fire the detected RFID item id	
+ * @param passcode
  * @param serial
  */
-  void autoInputId(String serial);
+  void autoInputData(String identifier, String passcode);
 }

@@ -26,8 +26,6 @@ package com.ceridwen.selfissue.client;
  * @author Matthew J. Dovey
  * @version 2.0
  */
-import java.util.Hashtable;
-
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -369,14 +367,29 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     setPatronPanel();
     ResetTimer.start();
   }
+  public void setOutOfOrder(boolean b)
+  {
+    if (b) {
+      ResetTimer.stop();
+      this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, OutOfOrderPanel.class));
+    } else {
+      this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
+      ResetTimer.start();
+    }
+  }
+  public boolean getOutOfOrder()
+  {
+    return MainPanel instanceof OutOfOrderPanel;
+  }
 
-  public String getRFIDDevice() {
+/** TODO Review this code  
+  public String getRFIDDevice() { 
     return handler.getRFIDDeviceClass().getCanonicalName();
   }
   public String getLoggingDevice() {
     return handler.getSpoolerClass().getCanonicalName();
   }
-  public void terminateSelfIssue()
+  public void terminateSelfIssue() 
   {
     this.handler.stopRFIDDevice();
     this.handler.deinitRFIDDevice();
@@ -389,6 +402,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   {
     return this.handler.checkStatus(0);
   }
+ 
   public Hashtable<String, Boolean> getModes() {
     Hashtable<String, Boolean> modes = new Hashtable<String, Boolean>();
     modes.put("allowOffline", new Boolean(SelfIssuePanel.allowOffline));
@@ -412,20 +426,6 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   {
     return MainPanel.getClass().getSimpleName();
   }
-  public boolean getOutOfOrder()
-  {
-    return MainPanel instanceof OutOfOrderPanel;
-  }
-  public void setOutOfOrder(boolean b)
-  {
-    if (b) {
-      ResetTimer.stop();
-      this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, OutOfOrderPanel.class));
-    } else {
-      this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
-      ResetTimer.start();
-    }
-  }
   public void resetSystem()
   {
     this.handler.stopRFIDDevice();
@@ -433,6 +433,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     handler = new CirculationHandlerImpl(this);
     this.MainPanel_PanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
   }
+*/  
 }
 
 class SelfIssueFrame_MainPanel_selfIssuePanelAdapter implements com.ceridwen.selfissue.client.panels.SelfIssuePanelListener {

@@ -21,6 +21,8 @@
  */
 package com.ceridwen.selfissue.client.nulldevices;
 
+import org.w3c.dom.Node;
+
 import com.ceridwen.circulation.devices.FailureException;
 import com.ceridwen.circulation.devices.TimeoutException;
 
@@ -37,9 +39,8 @@ public class SecurityDevice extends
 	 * @see com.ceridwen.circulation.devices.SecurityDevice#init()
 	 */
 	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-
+	public void init(Node node) {
+	  return;
 	}
 
 	/* (non-Javadoc)
@@ -47,14 +48,12 @@ public class SecurityDevice extends
 	 */
 	@Override
 	public void deinit() {
-		// TODO Auto-generated method stub
-
+    return;
 	}
 
 	@Override
 	public void reset() {
-		// TODO Auto-generated method stub
-		
+    return;
 	}
 	/* (non-Javadoc)
 	 * @see com.ceridwen.circulation.devices.SecurityDevice#lock()
@@ -77,7 +76,6 @@ public class SecurityDevice extends
 	 */
 	@Override
 	public boolean isLocked() throws TimeoutException, FailureException {
-		// TODO Auto-generated method stub
 		return locked;
 	}
 }

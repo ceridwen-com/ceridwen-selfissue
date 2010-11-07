@@ -22,8 +22,8 @@ import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.RFIDDevice;
-import com.ceridwen.circulation.devices.RFIDDeviceListener;
+import com.ceridwen.circulation.devices.IDReaderDevice;
+import com.ceridwen.circulation.devices.IDReaderDeviceListener;
 import com.ceridwen.circulation.devices.SecurityDevice;
 import com.ceridwen.circulation.devices.TimeoutException;
 
@@ -39,10 +39,10 @@ public interface CirculationHandler {
 
 	public abstract String checkStatus(int statusCode);
 
-	public abstract Class<? extends RFIDDevice> getRFIDDeviceClass();
+	public abstract Class<? extends IDReaderDevice> getRFIDDeviceClass();
 	public abstract Class<? extends SecurityDevice> getSecurityDeviceClass();
 	public abstract void stopRFIDDevice();
-	public abstract void startRFIDDevice(RFIDDeviceListener listener);
+	public abstract void startRFIDDevice(IDReaderDeviceListener listener);
 	public abstract void initRFIDDevice();
 	public abstract void deinitRFIDDevice();
 	public abstract void resetRFIDDevice(); 

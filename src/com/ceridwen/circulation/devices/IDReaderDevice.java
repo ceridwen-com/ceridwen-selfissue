@@ -27,16 +27,19 @@
 
 package com.ceridwen.circulation.devices;
 
-public interface RFIDDevice {
+import org.w3c.dom.Node;
+
+public interface IDReaderDevice {
 /**
  * Initialise the security/RFID device  
+ * @param node 
  */
-  public abstract void init();
+  public abstract void init(Node node);
 /**
  * Start the security/RFID device listening for new items  
  * @param listener listener class to fire detected ids to
  */
-  public abstract void start(RFIDDeviceListener listener);
+  public abstract void start(IDReaderDeviceListener listener);
 /**
  * Stop the security/RFID device listening for new items  
  */

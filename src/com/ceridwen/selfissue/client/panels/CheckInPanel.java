@@ -44,14 +44,14 @@ import com.ceridwen.circulation.SIP.messages.CheckInResponse;
 import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.RFIDDeviceListener;
+import com.ceridwen.circulation.devices.IDReaderDeviceListener;
 import com.ceridwen.circulation.devices.TimeoutException;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
 
-public class CheckInPanel extends SelfIssuePanel implements RFIDDeviceListener {
+public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListener {
   /**
 	 * 
 	 */
@@ -577,7 +577,7 @@ private Boolean CheckOutEnabled;
     super.finalize();
   }
 
-  public void autoInputId(String serial) {
+  public void autoInputData(String serial, String passcode) {
     this.BookField.setText(serial);
     this.CheckinButton_actionPerformed(new ActionEvent(this, 0, ""));
   }

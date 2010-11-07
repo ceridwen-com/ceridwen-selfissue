@@ -27,6 +27,8 @@
 
 package com.ceridwen.circulation.devices;
 
+import org.w3c.dom.Node;
+
 public abstract class SecurityDevice {
   private int timeOut;
   private int retries;
@@ -46,8 +48,9 @@ public abstract class SecurityDevice {
   
 /**
  * Initialise the security device  
+ * @param node 
  */
-  public abstract void init();
+  public abstract void init(Node node);
 /**
  * De-initialise the security/RFID device  
  */

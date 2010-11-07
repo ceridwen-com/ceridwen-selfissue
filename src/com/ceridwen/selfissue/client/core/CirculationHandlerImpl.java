@@ -54,8 +54,8 @@ import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.enumerations.ProtocolVersion;
 import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
 import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.RFIDDevice;
-import com.ceridwen.circulation.devices.RFIDDeviceListener;
+import com.ceridwen.circulation.devices.IDReaderDevice;
+import com.ceridwen.circulation.devices.IDReaderDeviceListener;
 import com.ceridwen.circulation.devices.SecurityDevice;
 import com.ceridwen.circulation.devices.TimeoutException;
 import com.ceridwen.selfissue.client.SelfIssueClient;
@@ -86,7 +86,7 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
   private Connection conn;
   private OfflineSpooler spool;
   public OnlineLogManager log ;
-  public RFIDDevice rfidDevice;
+  public IDReaderDevice rfidDevice;
   public SecurityDevice securityDevice;
   
   /* (non-Javadoc)
@@ -126,13 +126,13 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
     ShutdownThread.registerSecurityDeviceShutdown(securityDevice);
   }
 
-  private void configureRFIDDevice() {
+  private void configureIDReaderDevice() { // TODO
 	    try {
-	      rfidDevice = (RFIDDevice) Class.forName(Configuration.getProperty(
+	      rfidDevice = (IDReaderDevice) Class.forName(Configuration.getProperty(
 	          "Systems/RFID/@class")).newInstance();
 	    } catch (Exception ex) {
 	      logger.warn("Could not initialise RFID device - defaulting to null device", ex);
-	      rfidDevice = new com.ceridwen.selfissue.client.nulldevices.RFIDDevice();
+	      rfidDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
 	    }
 	    ShutdownThread.registerRFIDDeviceShutdown(rfidDevice);
 	  }
@@ -172,7 +172,7 @@ public Class<? extends OfflineSpooler> getSpoolerClass() {
   public CirculationHandlerImpl(OutOfOrderInterface ooo) {
     initiateOfflineSpooler();
     initiateOnlineLoggers(ooo);
-    configureRFIDDevice();
+    configureIDReaderDevice();
     configureSecurityDevice();
   }
 
@@ -509,14 +509,14 @@ public String checkStatus(int statusCode)
     this.rfidDevice.stop();
   }
 
-  public void startRFIDDevice(RFIDDeviceListener listener)
+  public void startRFIDDevice(IDReaderDeviceListener listener)
   {
     this.rfidDevice.start(listener);
   }
 
   public void initRFIDDevice()
   {
-    this.rfidDevice.init();
+    this.rfidDevice.init(Configuration.getPropertyNode("Systems/RFID/"));
   }
 
   public void deinitRFIDDevice()
@@ -540,7 +540,7 @@ public String checkStatus(int statusCode)
   }
 
   public void initSecurityDevice() {
-	this.securityDevice.init();  	
+	this.securityDevice.init(Configuration.getPropertyNode("Systems/Security/"));  	
   }
 
   public void deinitSecurityDevice() {
@@ -561,7 +561,7 @@ public String checkStatus(int statusCode)
     this.securityDevice.unlock();
   }
   
-  public Class<? extends RFIDDevice> getRFIDDeviceClass()
+  public Class<? extends IDReaderDevice> getRFIDDeviceClass()
   {
     return this.rfidDevice.getClass();
   }

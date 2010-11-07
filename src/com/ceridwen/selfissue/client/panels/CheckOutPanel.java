@@ -46,7 +46,7 @@ import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
 import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.devices.FailureException;
-import com.ceridwen.circulation.devices.RFIDDeviceListener;
+import com.ceridwen.circulation.devices.IDReaderDeviceListener;
 import com.ceridwen.circulation.devices.TimeoutException;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
@@ -54,7 +54,7 @@ import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 
 
 
-public class CheckOutPanel extends SelfIssuePanel implements RFIDDeviceListener {
+public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListener {
   /**
 	 * 
 	 */
@@ -748,7 +748,7 @@ private boolean CheckInEnabled;
     super.finalize();
   }
 
-  public void autoInputId(String serial) {
+  public void autoInputData(String serial, String passcode) {
     this.BookField.setText(serial);
     this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
   }
