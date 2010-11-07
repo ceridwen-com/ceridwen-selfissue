@@ -463,10 +463,15 @@
     <!--
     Handles alerting of unexpected errors
     -->
-    <SMTPHandler>
+    <LoggingHandler class="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper">
+      <level>ALL</level>
+      <syslogHost>host.ceridwen.com</syslogHost>
+      <syslogPort>514</syslogPort>
+    </LoggingHandler>
+    <LoggingHandler class="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper">
       <level>ALL</level>
       <smtpServer>CHANGEME</smtpServer>
       <recipients>CHANGEME</recipients>
-    </SMTPHandler>
+    </LoggingHandler>
   </Logging>
 </SelfIssue>

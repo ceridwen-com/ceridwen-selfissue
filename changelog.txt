@@ -1,6 +1,6 @@
 Version 2.50:
 Support syslog logging
-Additional logger
+Additional loggers
 RFID refactoring
 Update to circulation 2.6
 

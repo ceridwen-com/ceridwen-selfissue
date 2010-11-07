@@ -29,12 +29,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.NodeList;
 
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.transport.SocketConnection;
 import com.ceridwen.circulation.SIP.transport.TelnetConnection;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.dialogs.ErrorDialog;
+import com.ceridwen.selfissue.client.logging.LoggingHandlerWrapper;
 
 /**
  * <p>Title: RTSI</p>
@@ -160,7 +162,7 @@ public class SelfIssueClient extends Thread {
     	} catch (InstantiationException e) {
     	} catch (IllegalAccessException e) {
     	}    	   	
-      /**@todo: reinstate this optionally?
+      /**TODO: reinstate this optionally?
        *       com.ceridwen.util.synchronicity.TimeCheck check = new com.ceridwen.util.synchronicity.TimeCheck(24, 120, "ntp0.oucs.ox.ac.uk");
        */
 
@@ -217,31 +219,19 @@ public class SelfIssueClient extends Thread {
         err.setVisible(true);
         Runtime.getRuntime().halt(200);
       }
-
-    java.util.logging.Handler handler = new com.ceridwen.util.logging.SMTPLogHandler(
-      Configuration.getProperty("Logging/SMTPHandler/smtpServer"),
-      Configuration.getProperty("Logging/SMTPHandler/recipients"));
-
-    if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("SEVERE")) {
-      handler.setLevel(java.util.logging.Level.SEVERE);
-    } else if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("WARNING")) {
-      handler.setLevel(java.util.logging.Level.WARNING);
-    } else if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("INFO")) {
-      handler.setLevel(java.util.logging.Level.INFO);
-    } else if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("CONFIG")) {
-      handler.setLevel(java.util.logging.Level.CONFIG);
-    } else if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("FINE")) {
-      handler.setLevel(java.util.logging.Level.FINE);
-    } else if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("FINER")) {
-      handler.setLevel(java.util.logging.Level.FINER);
-    } else if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("FINEST")) {
-      handler.setLevel(java.util.logging.Level.FINEST);
-    } else if (Configuration.getProperty("Logging/SMTPHandler/level").equalsIgnoreCase("ALL")) {
-      handler.setLevel(java.util.logging.Level.ALL);
-    } else {
-      handler.setLevel(java.util.logging.Level.OFF);
+      
+    NodeList loggingHandlers = Configuration.getPropertyList("Logging/LoggingHandler");
+    for (int i = 0; i < loggingHandlers.getLength(); i++) {
+          LoggingHandlerWrapper loggingHandlerWrapper;
+          try {
+              loggingHandlerWrapper = (LoggingHandlerWrapper) Class.forName(
+                Configuration.getSubProperty(loggingHandlers.item(i), "@class")).
+                newInstance();
+              java.util.logging.LogManager.getLogManager().getLogger("").addHandler(loggingHandlerWrapper.getLoggingHandler(loggingHandlers.item(i)));
+          } catch (Exception ex) {
+              log.fatal("Could not register logging handler", ex);
+          }
     }
-    java.util.logging.LogManager.getLogManager().getLogger("").addHandler(handler);
 
     Runtime.getRuntime().addShutdownHook(new ShutdownThread());
 
