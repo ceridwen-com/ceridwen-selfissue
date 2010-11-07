@@ -494,7 +494,7 @@ private boolean CheckInEnabled;
       request.setPatronIdentifier(this.PatronID);
       request.setPatronPassword(this.PatronPassword);
       request.setItemIdentifier(strim(this.BookField.getText()));
-      request.setRenewalPolicy(new Boolean(allowRenews || trustMode));
+      request.setSCRenewalPolicy(new Boolean(allowRenews || trustMode));
       request.setTransactionDate(new Date());
       if (trustMode) {
         request.setNoBlock(new Boolean(useNoBlock));
@@ -542,7 +542,7 @@ private boolean CheckInEnabled;
         }
       }
 
-      if (! ( (response.getOk() != null) ? response.getOk().booleanValue() : false)) {
+      if (! ( (response.isOk() != null) ? response.isOk().booleanValue() : false)) {
         if (trustMode &&
             (!retryItemWhenError ||
              request.getItemIdentifier().equals(lastEnteredId))) {
@@ -610,7 +610,7 @@ private boolean CheckInEnabled;
         if (checkinr == null) {
           throw new CheckinConnectionFailed("Null response");
         }
-        if (! ( (checkinr.getOk() != null) ? checkinr.getOk().booleanValue() : false)) {
+        if (! ( (checkinr.isOk() != null) ? checkinr.isOk().booleanValue() : false)) {
           throw new CheckinConnectionFailed( (checkinr.getScreenMessage() != null) ?
                                             checkinr.getScreenMessage() :
                                             "No message");

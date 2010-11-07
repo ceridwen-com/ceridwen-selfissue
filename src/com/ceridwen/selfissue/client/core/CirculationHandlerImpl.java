@@ -247,7 +247,7 @@ private boolean doLogin() throws RetriesExceeded {
 	login.setUIDAlgorithm(Configuration.getProperty("Systems/SIP/UIDAlgorithm"));
 	
 	LoginResponse response = (LoginResponse)this.unprotectedSend(login);
-	return response.getOk();
+	return ( (response.isOk() != null) ? response.isOk().booleanValue() : false);
 }
 
 private void disconnect() {
@@ -370,7 +370,7 @@ public boolean processMessage(Message request) {
 
     if (response.getClass() == CheckOutResponse.class) {
       CheckOutResponse checkout = (CheckOutResponse) response;
-      if (! ( (checkout.getOk() != null) ? checkout.getOk().booleanValue() : false)) {
+      if (! ( (checkout.isOk() != null) ? checkout.isOk().booleanValue() : false)) {
         this.log.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
       }
     } else {
@@ -492,8 +492,8 @@ public String checkStatus(int statusCode)
           "CheckIn: " + response.isCheckInOk() + " | " +
           "CheckOut: " + response.isCheckOutOk() + " | " +
           "Offline: " + response.isOfflineOk() + " | " +
-          "Online: " + response.isOnLineStatus() + " | " +
-          "Renewal: " + response.isRenewalPolicy() + " | " +
+          "Online: " + response.isOnlineStatus() + " | " +
+          "Renewal: " + response.isACSRenewalPolicy() + " | " +
           "StatusUpdate: " + response.isStatusUpdateOk();
     } catch (Exception ex) {
     	try {

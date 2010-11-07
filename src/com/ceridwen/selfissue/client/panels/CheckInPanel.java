@@ -473,7 +473,7 @@ private Boolean CheckOutEnabled;
         throw new CheckinConnectionFailed();
       }
 
-      if (! ( (response.getOk() != null) ? response.getOk().booleanValue() : false)) {
+      if (! ( (response.isOk() != null) ? response.isOk().booleanValue() : false)) {
         throw new CheckinFailed();
       } else {
         handler.recordEvent(OnlineLogEvent.STATUS_CHECKINSUCCESS, "", "", new Date(), request, response);

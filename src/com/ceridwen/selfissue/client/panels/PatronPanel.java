@@ -386,8 +386,8 @@ public class PatronPanelFocusTraversalPolicy
           throw new PatronConnectionFailed();
         }
       }
-      if (! ( (response.getValidPatron() != null) ?
-             response.getValidPatron().booleanValue() : false)) {
+      if (! ( (response.isValidPatron() != null) ?
+             response.isValidPatron().booleanValue() : false)) {
         if (trustMode &&
             (!retryPatronWhenError ||
              request.getPatronIdentifier().equals(lastEnteredId))) {
