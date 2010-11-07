@@ -266,8 +266,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     }
 
     if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-      this.handler.stopRFIDDevice();
-      this.handler.deinitRFIDDevice();
+      this.handler.stopIDReaderDevice();
+      this.handler.deinitIDReaderDevice();
       System.exit(0);
     }
   }
@@ -362,8 +362,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   void ResetTimer_actionPerformed(ActionEvent e)
   {
     ResetTimer.stop();
-    this.handler.stopRFIDDevice();
-    this.handler.deinitRFIDDevice();
+    this.handler.stopIDReaderDevice();
+    this.handler.deinitIDReaderDevice();
     setPatronPanel();
     ResetTimer.start();
   }

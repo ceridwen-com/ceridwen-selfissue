@@ -25,66 +25,70 @@ import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.enumerations.ProtocolVersion;
 import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
-import com.ceridwen.circulation.devices.IDReaderDevice;
-import com.ceridwen.circulation.devices.SecurityDevice;
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.selfissue.client.devices.IDReaderDevice;
+import com.ceridwen.selfissue.client.devices.SecurityDevice;
 
 public class ShutdownThread extends Thread {
-  private static IDReaderDevice rfidDevice = null;
-  private static SecurityDevice securityDevice = null;
+    private static IDReaderDevice idReaderDevice = null;
+    private static SecurityDevice securityDevice = null;
 
-  private static Log log = LogFactory.getLog(ShutdownThread.class);
-  private Connection conn;
+    private static Log log = LogFactory.getLog(ShutdownThread.class);
+    private Connection conn;
 
-  public ShutdownThread() {
-    super();
-  }
-
-  public static void registerSecurityDeviceShutdown(SecurityDevice d) {
-    securityDevice = d;
-  }
-
-  public static void registerRFIDDeviceShutdown(IDReaderDevice d) {
-    rfidDevice = d;
-  }
-
-  public static void shutdownSecurityDevice() {
-    synchronized (securityDevice) {
-	  securityDevice.deinit();
-	  securityDevice = null;
+    public ShutdownThread() {
+        super();
     }
-  }
-  
-  public static void shutdownRFIDDevice() {
-	synchronized (rfidDevice) {
-	  rfidDevice.stop();
-	  rfidDevice.deinit();
-	  rfidDevice = null;
-	}
-  }  
 
-  private void sendShutdownStatus() {
-    if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
-	    try {
-	      conn = SelfIssueClient.ConfigureConnection();
-	      conn.connect();
-	      SCStatus scstatus = new SCStatus();
-	      scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
-	      scstatus.setStatusCode(StatusCode.SHUTTING_DOWN);
-	      conn.send(scstatus);
-	      conn.disconnect();
-	    } catch (Exception ex) {
-	      conn.disconnect();
-	    }
+    public static void registerSecurityDeviceShutdown(SecurityDevice d) {
+        ShutdownThread.securityDevice = d;
     }
-  }
 
+    public static void registerIDReaderDeviceShutdown(IDReaderDevice d) {
+        ShutdownThread.idReaderDevice = d;
+    }
 
-  public void run() {
-    log.error("Shutting Down Self Issue Terminal");
-    System.out.println("Shutting Down Self Issue Terminal...");
-    shutdownSecurityDevice();
-    shutdownRFIDDevice();
-    this.sendShutdownStatus();
-  }
+    public static void shutdownSecurityDevice() {
+        if (ShutdownThread.securityDevice != null) {
+            synchronized (ShutdownThread.securityDevice) {
+                ShutdownThread.securityDevice.deinit();
+                ShutdownThread.securityDevice = null;
+            }
+        }
+    }
+
+    public static void shutdownRFIDDevice() {
+        if (ShutdownThread.idReaderDevice != null) {
+            synchronized (ShutdownThread.idReaderDevice) {
+                ShutdownThread.idReaderDevice.stop();
+                ShutdownThread.idReaderDevice.deinit();
+                ShutdownThread.idReaderDevice = null;
+            }
+        }
+    }
+
+    private void sendShutdownStatus() {
+        if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
+            try {
+                this.conn = SelfIssueClient.ConfigureConnection();
+                this.conn.connect();
+                SCStatus scstatus = new SCStatus();
+                scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
+                scstatus.setStatusCode(StatusCode.SHUTTING_DOWN);
+                this.conn.send(scstatus);
+                this.conn.disconnect();
+            } catch (Exception ex) {
+                this.conn.disconnect();
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        ShutdownThread.log.info("Shutting Down Self Issue Terminal");
+        System.out.println("Shutting Down Self Issue Terminal...");
+        ShutdownThread.shutdownSecurityDevice();
+        ShutdownThread.shutdownRFIDDevice();
+        this.sendShutdownStatus();
+    }
 }
