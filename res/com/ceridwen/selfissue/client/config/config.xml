@@ -345,6 +345,54 @@
         Directory to store spooled messages
         -->
       </Logger>
+      <Logger class="com.ceridwen.selfissue.client.log.SyslogLogger">
+        <!--
+      E-mail based logger
+      -->
+        <EventMask>108</EventMask>
+        <!--
+        Indicates which events generate messages to library staff. Logical OR of the following values:
+
+        0x0001: E-Mail with subject “Self Issue Checkout Report: Checkout Success Notification (no action required)”
+                will be sent whenever a checkout is successfully performed on the 3M server (and reported to the user).
+                It is anticipated that this would normally be suppressed unless a full record of activity is needed.
+        0x0002: E-Mail with subject “Self Issue Checkout Report: Checkout Failure Notification (no action required)”
+                whenever a checkout cannot be completed and the user is informed that the checkout has failed.
+                This would normally be suppressed, but might be required to be recorded if there is a danger that
+                the user would attempt to remove the item anyway.
+        0x0004: E-Mail with subject “Self Issue Checkout Report: Checkout Pending Notification (no action required)”.
+                An item has been issued to an user when the 3M system was unavailable, and the checkout request has
+                been spooled for an abnormally long amount of time (Systems/Spooler/). This is a warning message that there
+                may be a problem with the Self Issue client's communication with the 3M server, the 3M server has been unavailable
+                for an abnormal amount of time, or there is a network problem. No action is required as the client will
+                continue to attempt to commit the checkout, but these warning should be kept in case of a synchronisation mismatch (e.g. if the patron returns the item before the checkout can be committed)
+        0x0008: E-Mail with subject “Self Issue Checkout Report: Manual Intervention Required (action required)”
+                is generated if an item has been issued to an user, but the Self Issue client was unable to commit the checkout
+                to the 3M server. This can occur in two cases: (i) the user would not normally be allowed to checkout the
+                item but the Self Issue client is running in Trust Mode or Offline Mode when the item was checked out;
+                (ii) the item was spooled in Offline mode, but the 3M server has not been available for the designated maximum
+                life an item can be kept in the spooler (Systems/Spooler/)
+        0x0010: E-Mail with subject “Self Issue Checkout Report: Notification (no action required)”
+                will be sent whenever a message is successfully sent to the 3M server.
+                It is anticipated that this would normally be suppressed unless a full record of activity is needed.
+        0x0020: Applicable for security system support - sends a message if security device on item could not be unlocked successfully.
+                Action may be required, but the user would be prompted to retry. An attempt is made to cancel the checkout.
+        0x0040: Applicable for security system support - sends a message if a cancel checkout could not be performed after an unlock
+                failure. Action may be required - the user is warned that the book is checked out but still alarmed and
+                advised to consult a member of staff
+         -->
+        <ReplayPeriod>15</ReplayPeriod>
+        <!--
+        Messages may be spooled if the SMTP relay is not available. This indicates how often the spool is checked for stored messages (minutes)
+        -->
+        <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder><!--If age (hours) of message in queue exceeds this, force Out Of Order (0 to disable)-->
+        <host>host.ceridwen.com</host>
+        <port>514</port>
+        <Spool>c:/temp/spools/logger2</Spool>
+        <!--
+        Directory to store spooled messages
+        -->
+      </Logger>
     </Loggers>
     <Spooler>
       <!--
