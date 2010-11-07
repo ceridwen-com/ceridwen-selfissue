@@ -2,6 +2,7 @@
 <project default="create_run_jar" name="Create Runnable Jar for Project SelfIssue with libraries in sub-folder">
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
+	  <property file="src/com/ceridwen/selfissue/client/SelfIssueClient.num" />
     <target name="create_run_jar">
         <mkdir dir="dist"/>
         <delete dir="dist/lib"/>
@@ -18,6 +19,9 @@
             <manifest>
                 <attribute name="Main-Class" value="com.ceridwen.selfissue.client.SelfIssueClient"/>
                 <attribute name="Class-Path" value=". lib/ceridwen-circulation.jar lib/ceridwen-utilities.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/commons-net-2.0.jar lib/commons-net-ftp-2.0.jar lib/commons-beanutils-bean-collections-1.8.3.jar lib/commons-beanutils-core-1.8.3.jar lib/commons-beanutils-1.8.3.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar"/>
+                <attribute name="Implementation-Title" value="${name}" />
+                <attribute name="Implementation-Version" value="${version}.${build}" />
+                <attribute name="Implementation-Vendor" value="${author}" />
             </manifest>
             <fileset dir="bin" excludes="com/ceridwen/selfissue/client/config/config.* uk/**" />
         </jar>
@@ -46,8 +50,9 @@
         <copy file="selfissue.jnlp" todir="dist"/>
         <copy file="encodepassword.jnlp" todir="dist"/>
         <copy file="Invocation.txt" todir="dist"/>
+        <copy file="changelog.txt" todir="dist"/>
         <copy file="license.txt" todir="dist"/>
-    	<zip destfile="dist/SelfIssue.zip">
+    	  <zip destfile="dist/SelfIssue-${version}.zip">
     		<zipfileset dir ="dist/" />
     	</zip>
     </target>
