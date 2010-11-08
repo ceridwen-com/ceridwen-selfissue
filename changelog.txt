@@ -1,61 +1,60 @@
 Version 2.50:
-Support syslog LogHandler
-Support syslog logging
-Multiple loggers support
-RFID refactoring*
-?Update to circulation 2.6
-added sender to SMTP handler
-
-Added experimental Checkin panel option
-Added support for
-  SIP Login message (optional)
-  SIP EndPatronSession message (optional)
-  Patron Password (optional)
-?Downgraded some connection errors from log.error to log.warn since the client handles these in the background
+SelfIssue events can now be logged to Syslog
+SelfIssue exceptions can now be logged to Syslog
+Exceptions can now be sent to multiple log handlers
+Refactoring of RFID support:
+  Can configure an IDReaderDevice for the Patron screen (for user cards/contacless cards)
+  Can configure an IDReaderDevice for the Checkin/Checkout screen (for item/book RFID tags)
+  Can configure an ItemSecurityDevice for the Checkin/Checkout screen (e.g. for tattle tape)
+  Sample JavaSmartCardDevice implementation of IDReaderDevice 
+Added support for optionally sending:
+  SIP Login message at the beginning of a SIP session
+  SIP EndPatronSession message at the end of a SIP session
+Added option to prompt user for a Patron Password
+Added ability for user to select Checkin screen (via button on Checkout screen)
+  (in addition to staff being able to select a checkin screen via the command interface)
+Bugfix: sender of SMTP log handlers no longer hardcoded
+Bugfix: downgraded some connection errors from log.error to log.warn since the client handles these in the background 
+Bugfix: exception handlers are throttled if exceptions occur too rapidly
+Requires Ceridwen 3M SIP Circulation Library 2.60; Ceridwen Utilities Library 1.30
 
 Version 2.30: 3/11/2010 (255) - Public Release
-Added default exception handlers (JDK 1.5)
-Added config option so that stale Logger messages can trigger Out Of Order screen
-Test Connection should be more informative about failures
-Added new commands to command interface (Out Of Order)
-Added AddSequenceAndChecksum and StrictChecksumChecking options to config
-Added StrictSequenceChecking option to config
-Added Out Of Order on unhandled exception option
-Changed config file from BookPanel to CheckOutPanel
-Refactoring to split RFID and Security devices
-Added Title Text size and font to configuration
-Added TerminalPassword support to config
-Added Colour to Configuration
-Changed failed SecurityDevice to warning and explicit mention defaulting to null device
+Added new configuration options to conf.xml:
+  Ability to change title text font and size
+  New Palette section in UI to configure client colours
+  Out Of Order screen can be optionally triggered on unhandled exceptions
+  Out Of Order screen can be optionally triggered on stale Logger messages
+  SIP not supports socket
+  Ability to set TerminalPassword on sent SIP messages
+  Can switch SIP between adding checksum and sequence number error correction to sent SIP messages
+  Can optionally check checksum and sequence number on received SIP messages
+  Can configure seperate RFID and Security (lock/unlock) devices
+New commands added to command interface:
+  Out Of Order can be triggered by command interface
+  Hidden command in Out Of Order screen to return to normal
+  Test Connection should be more informative about failures
 Updated copyright notices to GPL3
+Requires Ceridwen 3M SIP Circulation Library 2.50; Ceridwen Utilities Library 1.20
 
 Version 2.20: 27/10/2010 (124)
-Added encodepassword.jnlp
-Added EncodePassword jar
-Updated deprecated  Date.ToLocale() with DateFormat.getDateInstance().format()
-Added local and netx invocation documentation
-Added netx library
+Added command line documentation and sample jnlp files for use with netx
+Updated deprecated Date.ToLocale() to use DateFormat.getDateInstance().format()
 Updated commons logging from 1.1 to 1.1.1
 Updated commons net from 1.4.1 to 2.0
 Updated commons beanutils from 1.7.0 to 1.8.3
 Updated xalan from 2.7.0 to 2.7.1
-Templated classes based on JDK 1.6 warnings
+Updated source code to JDK 1.6
 
 Version 2.15: 16/1/2007 (91)
-Data and time of transaction not present in e-mailed events 
-Class injection pattern applied to CirculationHandler
-
+Bugfix: Added data and time of transaction in e-mailed events 
 
 Version 2.10: 3/6/2005 (66)
-InstitutionId now set for checkout requests
-TransactionDate now explicitly set for all transactions not just offline ones
-SecurityDevice no longer restarted between checkin attempts
-Spool access now through methods in CirculationHandler rather than directly
-Spooled object expiry now handled by spool wrapper object (fixes bug by which expiry never called item is aged).
-InstitutionId now set for patronInfo requests
-Fixed bug whereby the security device would not be deactivated if the BookPanel timesout to reset to PatronPanel
-Spooled SIP Messages are now wrapped in a container object with expiry information
-Modified fatal errors to give user feedback via dialog box
-Moved conn creation to constructor to force single connections
+Added support for InstitutionId in SIP messages (configured in conf.xml)
+Spooled SIP messages will now expire
+Added dialog for fatal configuration loading errors
+Modified connection code so that client will only maintain a single connection
+Bugfix: Explicitly set TransactionDate in all messages (not just offline ones)
+Bugfix: changed handling of expiry of spooled objects to fix bug where object never expires
+Bugfix: Security device will be deactivated if BookPanel timesout
 
 Version 2.00: 25/10/2004 (58)

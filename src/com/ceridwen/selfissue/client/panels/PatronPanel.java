@@ -21,6 +21,8 @@ package com.ceridwen.selfissue.client.panels;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Stack;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -376,7 +378,11 @@ public class PatronPanelFocusTraversalPolicy
           SelfIssueFrame.setOnTop(true);
       }
       this.PatronText.setText(Configuration.getMessage("CheckingPatronMessage", new String[]{request.getPatronIdentifier()}));
-      this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
+      try {
+          this.PatronText.paint(this.PatronText.getGraphics());          
+      } catch (Exception ex) {
+          PatronPanel.log.warn("Error during redraw", ex);
+      }
       try {
         response = (PatronInformationResponse) handler.send(request);
       } catch (java.lang.ClassCastException ex) {
@@ -762,10 +768,15 @@ private static String strim(String string) {
       super.finalize();
   }
   
+Stack<String> repeatPreventer = new Stack<String>();
+
 @Override
 public void autoInputData(String identifier, String passcode) {
-    this.PatronField.setText(identifier);
-    this.NextButton_actionPerformed(new ActionEvent(this, 0, (passcode==null?"":passcode)));
+    if (!repeatPreventer.contains(identifier)) {
+        repeatPreventer.push(identifier);
+        this.PatronField.setText(identifier);
+        this.NextButton_actionPerformed(new ActionEvent(this, 0, (passcode==null?"":passcode)));
+    }
 }
 }
 

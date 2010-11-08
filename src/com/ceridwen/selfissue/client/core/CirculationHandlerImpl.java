@@ -556,11 +556,11 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
             CirculationHandlerImpl.logger.warn("Could not initialise Item Security Device - defaulting to null device", ex);
             this.itemSecurityDevice = new com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice();
         }
-        this.itemSecurityDevice.init(Configuration.getPropertyNode("Systems/Security"));
+        this.itemSecurityDevice.init(Configuration.getPropertyNode("Systems/ItemSecurityDevice"));
         this.itemSecurityDevice.setRetries(Configuration.getIntProperty(
-                "Systems/Security/Retries"));
+                "Systems/ItemSecurityDevice/Retries"));
         this.itemSecurityDevice.setTimeOut(Configuration.getIntProperty(
-                "Systems/Security/Timeout"));
+                "Systems/ItemSecurityDevice/Timeout"));
         ShutdownThread.registerSecurityDeviceShutdown(this.itemSecurityDevice);
     }
 

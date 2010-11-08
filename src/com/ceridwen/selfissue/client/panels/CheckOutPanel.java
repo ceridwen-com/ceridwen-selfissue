@@ -38,6 +38,7 @@ import java.awt.FocusTraversalPolicy;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Date;
+import java.util.Stack;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -485,12 +486,14 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             this.stopItemIDReader();
             this.BookField.setEditable(true);
             this.BookField.setEnabled(true);
-            try {
+/*
+             try {
+ 
                 this.DataPanel.paint(this.DataPanel.getGraphics());
             } catch (Exception ex) {
                 CheckOutPanel.log.warn("Error during redraw", ex);
             }
-
+*/
             request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
             request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
             request.setPatronIdentifier(this.PatronID);
@@ -511,12 +514,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             this.StatusText.setText(Configuration.getMessage("CheckoutPendingMessage",
                     new String[] { request.getItemIdentifier() }));
             try {
-                this.ResponseTextPanel.paint(this.ResponseTextPanel.getGraphics());
-            } catch (Exception ex) {
-                CheckOutPanel.log.warn("Error during redraw", ex);
-            }
-            try {
-                this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
+                this.StatusText.paint(this.StatusText.getGraphics());
             } catch (Exception ex) {
                 CheckOutPanel.log.warn("Error during redraw", ex);
             }
@@ -656,7 +654,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.StatusText.setText(finalStatusText);
         this.BookField.setText("");
         this.BookField.requestFocus();
-
+/*
         try {
             this.DataPanel.paint(this.DataPanel.getGraphics());
         } catch (Exception ex) {
@@ -672,7 +670,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         } catch (Exception ex) {
             CheckOutPanel.log.warn("Error during redraw", ex);
         }
-
+*/
         this.BookField.setEditable(true);
         this.BookField.setEnabled(true);
         this.startItemIDReader();
@@ -737,9 +735,13 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         super.finalize();
     }
 
+    Stack<String> repeatPreventer = new Stack<String>();
     public void autoInputData(String serial, String passcode) {
-        this.BookField.setText(serial);
-        this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+        if (!repeatPreventer.contains(serial)) {
+            repeatPreventer.push(serial);
+            this.BookField.setText(serial);
+            this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+        }
     }
 }
 

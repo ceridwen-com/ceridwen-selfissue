@@ -175,10 +175,10 @@
       <!--
     Pattern matching check on entered barcodes - remove for no validation
     -->
-      <PatronBarcodeMask>(2\d{6})|([a-zA-Z][\w,. -]+)</PatronBarcodeMask>
+      <PatronBarcodeMask>(2\d{6})|([1-9a-zA-Z][\w,. -]+)</PatronBarcodeMask>
       <!-- 2 followed by 6 digits or name-->
 <!--      <ItemBarcodeMask>3\d{8}</ItemBarcodeMask> -->
-      <ItemBarcodeMask>[P|T|R]\d{6}|3\d{8}</ItemBarcodeMask>
+      <ItemBarcodeMask>[P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+)</ItemBarcodeMask>
       <!-- 3 followed by 8 digits or P,T,R followed by 6 digits -->
     </Validation>
     <Control>
@@ -391,7 +391,7 @@
         Messages may be spooled if the SMTP relay is not available. This indicates how often the spool is checked for stored messages (minutes)
         -->
         <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder><!--If age (hours) of message in queue exceeds this, force Out Of Order (0 to disable)-->
-        <host>host.ceridwen.com</host>
+        <host>CHANGEME</host>
         <port>514</port>
         <Spool>c:/temp/spools/logger2</Spool>
         <!--
@@ -518,7 +518,7 @@
     -->
     <LoggingHandler class="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper">
       <level>ALL</level>
-      <syslogHost>host.ceridwen.com</syslogHost>
+      <syslogHost>CHANGEME</syslogHost>
       <syslogPort>514</syslogPort>
     </LoggingHandler>
     <LoggingHandler class="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper">

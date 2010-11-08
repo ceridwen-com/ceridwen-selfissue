@@ -82,7 +82,7 @@ public class Configuration {
     try {
       nodeList = xPathAPI.selectNodeList(node, xPath);
     } catch (javax.xml.transform.TransformerException e) {
-      fatal(e, "Could not select valid nodes");
+      fatal(e, "Could not select valid nodes: " + xPath);
       System.exit(200);
     }
     return nodeList;
@@ -95,7 +95,7 @@ public class Configuration {
     try {
       selection = xPathAPI.selectSingleNode(node, xPath);
     } catch (javax.xml.transform.TransformerException e) {
-      fatal(e, "Could not select valid node");
+      fatal(e, "Could not select valid node: " + xPath);
     }
     return selection;
   }
@@ -167,7 +167,7 @@ public class Configuration {
 
       return propValue;
     } catch (Exception ex) {
-      fatal(ex, "Could not retrieve property value");
+      fatal(ex, "Could not retrieve property value: " + key);
       return null;
     }
   }
@@ -181,7 +181,7 @@ public class Configuration {
       }
       return value;
     } catch (Exception ex) {
-      fatal(ex, "Could not retrieve property value");
+      fatal(ex, "Could not retrieve property value: " + key);
       return null;
     }
   }
@@ -196,7 +196,7 @@ public class Configuration {
 
       return value;
     } catch (Exception ex) {
-      fatal(ex, "Could not retrieve property values");
+      fatal(ex, "Could not retrieve property values: " + key);
       return null;
     }
 
@@ -212,7 +212,7 @@ public class Configuration {
 
       return propValue;
     } catch (Exception ex) {
-      fatal(ex, "Could not retrieve property sub-value");
+      fatal(ex, "Could not retrieve property sub-value: " + key);
       return null;
     }
   }

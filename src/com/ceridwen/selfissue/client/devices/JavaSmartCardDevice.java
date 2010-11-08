@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 import com.ceridwen.selfissue.client.config.Configuration;
 
 class CardThread extends Thread {
-    private static Log log = LogFactory.getLog(CardThread.class);
+//    private static Log log = LogFactory.getLog(CardThread.class);
   
   private IDReaderDeviceListener listener;
   private CardTerminal terminal;
@@ -43,7 +43,7 @@ class CardThread extends Thread {
           Thread.sleep(100);
         }
       } catch (Exception ex) {
-          log.error("Error during thread", ex);
+//          log.error("Error during thread", ex);
       }
       
     }    
