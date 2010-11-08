@@ -10,10 +10,11 @@ public class SyslogLoggingHandlerWrapper extends LoggingHandlerWrapper {
 
     @Override
     public Handler getLoggingHandler(Node item) {
-        java.util.logging.Handler handler = new com.ceridwen.util.logging.SyslogLogHandler(
+        com.ceridwen.util.logging.SyslogLogHandler handler = new com.ceridwen.util.logging.SyslogLogHandler(
                 Configuration.getSubProperty(item, "syslogHost"),
                 Configuration.getIntSubProperty(item, "syslogPort"));
         handler.setLevel(super.getLevel(item));
+        handler.setThrottle(1, 15);
         return handler;
     }
 

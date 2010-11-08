@@ -264,14 +264,14 @@
       <RequirePatronPassword>false</RequirePatronPassword><!--Prompt for patron password-->
     </SIP>
     <PatronIDReaderDevice class="com.ceridwen.selfissue.client.devices.JavaSmartCardDevice">
-      <SmartCardReader>Broadcom Corp Contactless SmartCard 0</SmartCardReader>
+      <SmartCardReader>Broadcom Corp Contacted SmartCard 0</SmartCardReader>
       <!--
     This allows optional support for local security tagging and gates-->
     </PatronIDReaderDevice>
-    <ItemIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
+    <ItemIDReaderDevice class="com.ceridwen.selfissue.client.devices.JavaSmartCardDevice">
       <!--
     This allows optional support for local security tagging and gates-->
-    </ItemIDReaderDevice>
+      <SmartCardReader>Broadcom Corp Contactless SmartCard 0</SmartCardReader></ItemIDReaderDevice>
     <ItemSecurityDevice class="com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice">
       <!--
     This allows optional support for local security tagging and gates-->
