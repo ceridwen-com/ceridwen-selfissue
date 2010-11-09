@@ -549,12 +549,12 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                         request.getItemIdentifier().equals(this.lastEnteredId))) {
                     // System checkout failed so report to tracking log and
                     // proceed as per success
-                    this.handler.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", "", new Date(), request, response);
+                    this.handler.recordEvent(OnlineLogEvent.STATUS_MANUALCHECKOUT, "", new Date(), request, response);
                 } else {
                     throw new CheckoutFailed();
                 }
             } else {
-                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", "", new Date(), request, response);
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", new Date(), request, response);
             }
 
             try {
@@ -569,7 +569,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         } catch (RepeatedOrTooShortItemId ex) {
             // don't need to do anything for this - just let if fall through
         } catch (InvalidItemBarcode ex) {
-            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", new Date(), request, response);
+            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Invalid Barcode Entered", new Date(), request, response);
             this.PlaySound("InvalidItemBarcode");
             finalStatusText = Configuration.getMessage("InvalidItemBarcode",
                                                 new String[] {});
@@ -578,7 +578,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 this.PlaySound("CheckoutRetry");
                 finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
             } else {
-                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Network Connection Failure", new Date(), request, response);
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Network Connection Failure", new Date(), request, response);
                 this.PlaySound("CheckoutNetworkError");
                 this.appendCheckoutText(Configuration.getMessage(
                         "CheckoutNetworkError", new String[] {
@@ -589,7 +589,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 this.PlaySound("CheckoutRetry");
                 finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
             } else {
-                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Server refused checkout", new Date(), request, response);
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Server refused checkout", new Date(), request, response);
                 this.PlaySound("CheckoutFailedError");
                 this.appendCheckoutText(Configuration.getMessage(
                         "CheckoutFailedError",
@@ -614,14 +614,14 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                                             checkinr.getScreenMessage() :
                                             "No message");
                 }
-                this.handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE, "", "", new Date(), request, response);
+                this.handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE, "", new Date(), request, response);
                 this.PlaySound("UnlockFailedError");
                 this.appendCheckoutText(Configuration.getMessage("UnlockFailedError",
                         new String[] { (response.getTitleIdentifier().length() != 0) ?
                                 response.getTitleIdentifier() :
                                 response.getItemIdentifier() }));
             } catch (Exception ex1) {
-                this.handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE, "", "", new Date(), request, checkinr);
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE, "", new Date(), request, checkinr);
                 if (SelfIssuePanel.suppressSecurityFailureMessages) {
                     this.reportSuccess(request, response);
                 } else {
@@ -640,7 +640,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 this.PlaySound("CheckoutRetry");
                 finalStatusText = Configuration.getMessage("CheckoutRetry", new String[] {});
             } else {
-                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Unexpected checkout error!", new Date(), request, response);
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Unexpected checkout error!", new Date(), request, response);
                 this.PlaySound("UnexpectedCheckoutError");
                 this.appendCheckoutText(Configuration.getMessage(
                         "UnexpectedCheckoutError", new String[] {

@@ -488,7 +488,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             if (!((response.isOk() != null) ? response.isOk().booleanValue() : false)) {
                 throw new CheckinFailed();
             } else {
-                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINSUCCESS, "", "", new Date(), request, response);
+                this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINSUCCESS, "", new Date(), request, response);
             }
 
             try {
@@ -508,18 +508,18 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
                                     response.getScreenMessage() : "" }));
             this.lastCheckedInId = new String(request.getItemIdentifier());
         } catch (InvalidItemBarcode ex) {
-            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "", "Invalid Barcode Entered", new Date(), request, response);
+            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Invalid Barcode Entered", new Date(), request, response);
             this.PlaySound("InvalidItemBarcode");
             finalStatusText = Configuration.getMessage("InvalidItemBarcode",
                                                 new String[] {});
         } catch (CheckinConnectionFailed ex) {
-            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Network Connection Failure", new Date(), request, response);
+            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "Network Connection Failure", new Date(), request, response);
             this.PlaySound("CheckinNetworkError");
             this.appendCheckinText(Configuration.getMessage(
                     "CheckinNetworkError", new String[] {
                     request.getItemIdentifier() }));
         } catch (CheckinFailed ex) {
-            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Server refused checkout", new Date(), request, response);
+            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "Server refused checkout", new Date(), request, response);
             this.PlaySound("CheckinFailedError");
             this.appendCheckinText(Configuration.getMessage(
                     "CheckinFailedError",
@@ -529,14 +529,14 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
                                     response.getItemIdentifier(), (response.getScreenMessage() != null) ?
                                     response.getScreenMessage() : "" }));
         } catch (LockFailed ex) {
-            this.handler.recordEvent(OnlineLogEvent.STATUS_LOCKFAILURE, "", "", new Date(), request, response);
+            this.handler.recordEvent(OnlineLogEvent.STATUS_LOCKFAILURE, "", new Date(), request, response);
             this.PlaySound("LockFailedError");
             this.appendCheckinText(Configuration.getMessage("LockFailedError",
                     new String[] { (response.getTitleIdentifier().length() != 0) ?
                             response.getTitleIdentifier() :
                             response.getItemIdentifier() }));
         } catch (Exception ex) {
-            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "", "Unexpected checkin error!", new Date(), request, response);
+            this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "Unexpected checkin error!", new Date(), request, response);
             this.PlaySound("UnexpectedCheckinError");
             this.appendCheckinText(Configuration.getMessage(
                     "UnexpectedCheckinError", new String[] {

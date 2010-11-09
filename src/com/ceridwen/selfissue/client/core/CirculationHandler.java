@@ -63,7 +63,7 @@ public interface CirculationHandler {
 
     public abstract void deinitItemSecurityDevice();
 
-    void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response);
+    void recordEvent(int level, String addInfo, Date originalTransactionTime, Message request, Message response);
 }
 
 /**
