@@ -16,7 +16,9 @@ Added ability for user to select Checkin screen (via button on Checkout screen)
 Bugfix: sender of SMTP log handlers no longer hardcoded
 Bugfix: downgraded some connection errors from log.error to log.warn since the client handles these in the background 
 Bugfix: exception handlers are throttled if exceptions occur too rapidly
+Bugfix: Configuration error messages more informative
 Requires Ceridwen 3M SIP Circulation Library 2.60; Ceridwen Utilities Library 1.30
+
 
 Version 2.30: 3/11/2010 (255) - Public Release
 Added new configuration options to conf.xml:
