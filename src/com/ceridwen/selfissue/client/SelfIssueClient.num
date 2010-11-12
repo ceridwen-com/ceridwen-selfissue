@@ -1,8 +1,8 @@
 #Build Number: src/com/ceridwen/selfissue/client/SelfIssueClient.num
-#Mon Nov 08 23:39:33 GMT 2010
+#Fri Nov 12 18:38:18 GMT 2010
 version=2.50
-date=Mon Nov 08 23\:39\:33 GMT 2010
 name=Self Issue Client
+date=Fri Nov 12 18\:38\:18 GMT 2010
 author=Matthew J. Dovey, (http\://www.ceridwen.com)
 epoch=1135160369578
-build=2065
+build=2076

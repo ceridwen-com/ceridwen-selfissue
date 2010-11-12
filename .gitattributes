@@ -57,8 +57,10 @@ src/com/ceridwen/selfissue/client/log/OnlineLogDevice.java -text
 src/com/ceridwen/selfissue/client/log/OnlineLogEvent.java -text
 src/com/ceridwen/selfissue/client/log/OnlineLogLogger.java -text
 src/com/ceridwen/selfissue/client/log/OnlineLogManager.java -text
+src/com/ceridwen/selfissue/client/log/RESTLogger.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/log/SyslogLogger.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/logging/LoggingHandlerWrapper.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/logging/RESTLoggingHandlerWrapper.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/logging/SMTPLoggingHandlerWrapper.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/logging/SyslogLoggingHandlerWrapper.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/nulldevices/IDReaderDevice.java -text

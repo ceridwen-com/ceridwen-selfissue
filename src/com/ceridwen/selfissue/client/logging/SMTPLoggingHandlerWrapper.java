@@ -5,12 +5,13 @@ import java.util.logging.Handler;
 import org.w3c.dom.Node;
 
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.util.logging.SMTPLogHandler;
 
 public class SMTPLoggingHandlerWrapper extends LoggingHandlerWrapper {
 
     @Override
     public Handler getLoggingHandler(Node item) {
-        com.ceridwen.util.logging.SMTPLogHandler handler = new com.ceridwen.util.logging.SMTPLogHandler(
+        SMTPLogHandler handler = new SMTPLogHandler(
                 Configuration.getSubProperty(item, "smtpServer"),
                 Configuration.getSubProperty(item, "sender"),
                 Configuration.getSubProperty(item, "recipients"));

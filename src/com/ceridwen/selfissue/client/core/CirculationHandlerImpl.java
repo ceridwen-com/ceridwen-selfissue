@@ -45,6 +45,7 @@ import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckOut;
 import com.ceridwen.circulation.SIP.messages.CheckOutResponse;
 import com.ceridwen.circulation.SIP.messages.EndPatronSession;
+import com.ceridwen.circulation.SIP.messages.EndSessionResponse;
 import com.ceridwen.circulation.SIP.messages.Login;
 import com.ceridwen.circulation.SIP.messages.LoginResponse;
 import com.ceridwen.circulation.SIP.messages.Message;
@@ -238,7 +239,7 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
         SelfIssueClient.LeaveCriticalSection();
     }
 
-    private void doEndPatronSession(Message request) {
+    private Boolean doEndPatronSession(Message request) {
         if (Configuration.getBoolProperty("Systems/SIP/SendEndPatronSession")) {
             try {
                 String id;
@@ -249,25 +250,29 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
                 mthd = request.getClass().getMethod("getPatronPassword", new Class[] {});
                 password = (String) mthd.invoke(request, new Object[] {});
                 if (id == null) {
-                    return;
+                    return null;
                 }
                 if (password == null) {
-                    return;
+                    return null;
                 }
                 if (id.isEmpty()) {
-                    return;
+                    return null;
                 }
                 if (password.isEmpty()) {
-                    return;
+                    return null;
                 }
                 EndPatronSession endPatronSession = new EndPatronSession();
                 endPatronSession.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
                 endPatronSession.setPatronIdentifier(id);
                 endPatronSession.setPatronPassword(password);
                 endPatronSession.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
+                EndSessionResponse endSessionResponse = (EndSessionResponse)this.conn.send(endPatronSession);
+                return endSessionResponse.isEndSession();
             } catch (Exception e) {
-                return;
+                return null;
             }
+        } else {
+            return null;            
         }
     }
 
