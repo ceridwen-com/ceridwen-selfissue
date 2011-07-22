@@ -1,4 +1,4 @@
-Version 2.50: 22/07/2011 ()
+Version 2.50: 22/07/2011 (356)
 SelfIssue events can now be logged to Syslog
 SelfIssue exceptions can now be logged to Syslog
 Exceptions can now be sent to multiple log handlers
