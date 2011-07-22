@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.NodeList;
@@ -185,7 +186,7 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
             Vector<String> items = new Vector<String>();
             while (tokens.hasMoreTokens()) {
                 String token = tokens.nextToken();
-                if (token.length() > 0) {
+                if (StringUtils.isNotEmpty(token)) {
                     items.add(token);
                 }
             }
@@ -210,10 +211,10 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
     }
 
     private boolean doLogin() throws RetriesExceeded {
-        if (Configuration.getProperty("Systems/SIP/LoginUserId").isEmpty()) {
+        if (StringUtils.isEmpty(Configuration.getProperty("Systems/SIP/LoginUserId"))) {
             return true;
         }
-        if (Configuration.getProperty("Systems/SIP/LoginPassword").isEmpty()) {
+        if (StringUtils.isEmpty(Configuration.getProperty("Systems/SIP/LoginPassword"))) {
             return true;
         }
         Login login = new Login();
@@ -249,16 +250,10 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
                 id = (String) mthd.invoke(request, new Object[] {});
                 mthd = request.getClass().getMethod("getPatronPassword", new Class[] {});
                 password = (String) mthd.invoke(request, new Object[] {});
-                if (id == null) {
+                if (StringUtils.isEmpty(id)) {
                     return null;
                 }
-                if (password == null) {
-                    return null;
-                }
-                if (id.isEmpty()) {
-                    return null;
-                }
-                if (password.isEmpty()) {
+                if (StringUtils.isEmpty(password)) {
                     return null;
                 }
                 EndPatronSession endPatronSession = new EndPatronSession();

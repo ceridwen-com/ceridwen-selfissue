@@ -30,6 +30,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import javax.swing.ImageIcon;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xpath.CachedXPathAPI;
@@ -161,7 +162,7 @@ public class Configuration {
       Node value = selectSingleNode(parse().getFirstChild(),
                                     "//SelfIssue/" + key);
       String propValue = getValue(value);
-      if (propValue.length() == 0) {
+      if (StringUtils.isEmpty(propValue)) {
         log.debug("**CONFIGURATION**  Empty key:" + key);
       }
 
@@ -206,7 +207,7 @@ public class Configuration {
     try {
       Node value = selectSingleNode(node,key);
       String propValue = getValue(value);
-      if (propValue.length() == 0) {
+      if (StringUtils.isEmpty(propValue)) {
         log.debug("**CONFIGURATION**  Empty key:" + key);
       }
 

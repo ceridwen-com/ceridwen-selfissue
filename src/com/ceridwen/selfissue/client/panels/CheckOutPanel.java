@@ -53,6 +53,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.text.html.HTMLEditorKit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -453,13 +454,11 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     private void reportSuccess(CheckOut request, CheckOutResponse response) {
         this.PlaySound("CheckOutSuccess");
         this.appendCheckoutText(Configuration.getMessage("CheckOutSuccess",
-                new String[] {
-                ((response.getTitleIdentifier().
-                        length() != 0) ?
+                new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                         SelfIssuePanel.escapeHTML(response.getTitleIdentifier()) :
-                        SelfIssuePanel.escapeHTML(response.getItemIdentifier())) }) +
+                        SelfIssuePanel.escapeHTML(response.getItemIdentifier()) }) +
                              " " +
-                             ((response.getDueDate().length() > 0) ?
+                             (StringUtils.isNotEmpty(response.getDueDate()) ?
                                      Configuration.
                                              getMessage("DueDateMessage",
                                                      new String[] {
@@ -504,7 +503,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             if (SelfIssuePanel.trustMode) {
                 request.setNoBlock(new Boolean(SelfIssuePanel.useNoBlock));
             }
-            if ((request.getItemIdentifier().length() < 1) ||
+            if (StringUtils.isEmpty(request.getItemIdentifier()) ||
                     request.getItemIdentifier().equals(this.lastCheckedOutId)) {
                 throw new RepeatedOrTooShortItemId();
             }
@@ -593,10 +592,9 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 this.PlaySound("CheckoutFailedError");
                 this.appendCheckoutText(Configuration.getMessage(
                         "CheckoutFailedError",
-                        new String[] { (response.getTitleIdentifier().length() !=
-                                0) ?
+                        new String[] {  StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                                         response.getTitleIdentifier() :
-                                        response.getItemIdentifier(), (response.getScreenMessage() != null) ?
+                                        response.getItemIdentifier(), StringUtils.isNotEmpty(response.getScreenMessage()) ?
                                         response.getScreenMessage() : "" }));
             }
         } catch (UnlockFailed ex) {
@@ -617,7 +615,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 this.handler.recordEvent(OnlineLogEvent.STATUS_UNLOCKFAILURE, "", new Date(), request, response);
                 this.PlaySound("UnlockFailedError");
                 this.appendCheckoutText(Configuration.getMessage("UnlockFailedError",
-                        new String[] { (response.getTitleIdentifier().length() != 0) ?
+                        new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                                 response.getTitleIdentifier() :
                                 response.getItemIdentifier() }));
             } catch (Exception ex1) {
@@ -628,7 +626,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                     this.PlaySound("UnlockFailedCheckInFailedError");
                     this.appendCheckoutText(Configuration.getMessage(
                             "UnlockFailedCheckInFailedError",
-                            new String[] { (response.getTitleIdentifier().length() != 0) ?
+                            new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                                     response.getTitleIdentifier() :
                                     response.getItemIdentifier() }));
                 }
@@ -681,7 +679,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     private static String strim(String string) {
         String intermediate = string.trim();
         if (Configuration.getBoolProperty("UI/Control/StripItemChecksumDigit")) {
-            if (intermediate.length() > 0) {
+            if (StringUtils.isNotEmpty(intermediate)) {
                 intermediate = intermediate.substring(0, intermediate.length() - 1);
             }
         }

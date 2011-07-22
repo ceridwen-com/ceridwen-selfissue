@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Node;
 
 import com.ceridwen.selfissue.client.config.Configuration;
@@ -49,7 +50,7 @@ public class RESTLogger extends OnlineLogLogger {
                 // Send data
                 String urlStr = this.baseUrl;
                 String params = restString.toString();
-                if  (params.length() > 0) {
+                if  (StringUtils.isNotEmpty(params)) {
                      urlStr += "?" + params;
                 }
                 URL url = new URL(urlStr);

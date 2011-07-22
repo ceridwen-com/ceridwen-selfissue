@@ -26,6 +26,7 @@ import java.util.Stack;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.NodeList;
@@ -354,24 +355,22 @@ public class PatronPanelFocusTraversalPolicy
       request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
       request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
       request.setPatronIdentifier(strim(this.PatronField.getText()));
-      if (request.getPatronIdentifier().length() < 1) {
+      if (StringUtils.isEmpty(request.getPatronIdentifier())) {
         throw new PatronIdTooShort();
       }
       if (!this.validateBarcode(request.getPatronIdentifier(), Configuration.getProperty("UI/Validation/PatronBarcodeMask"))) {
         throw new InvalidPatronBarcode();
       }
-      if (e.getActionCommand() != null) {
-          if (!e.getActionCommand().isEmpty()) {
-              request.setPatronPassword(e.getActionCommand());
-          }
+      if (StringUtils.isNotEmpty(e.getActionCommand())) {
+    	  request.setPatronPassword(e.getActionCommand());
       }
-      if (Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword") && ((request.getPatronPassword()!=null)?request.getPatronPassword():"").isEmpty()) {
+      if (Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword") && (StringUtils.isEmpty(request.getPatronPassword()))) {
           SelfIssueFrame.setOnTop(false);
           PasswordDialog patronPasswordDialog = new PasswordDialog("Please enter your password");
           patronPasswordDialog.clearPassword();
           patronPasswordDialog.setVisible(true);
           String password = strim(patronPasswordDialog.getPassword());
-          if (password.isEmpty()) {
+          if (StringUtils.isEmpty(password)) {
         	  throw new PatronIdTooShort();
           }
           request.setPatronPassword(password);
@@ -544,7 +543,7 @@ public class PatronPanelFocusTraversalPolicy
 private static String strim(String string) {
     String intermediate = string.trim();
     if (Configuration.getBoolProperty("UI/Control/StripPatronChecksumDigit")) {
-      if (intermediate.length() > 0) {
+      if (StringUtils.isNotEmpty(intermediate)) {
         intermediate = intermediate.substring(0, intermediate.length()-1);
       }
     }

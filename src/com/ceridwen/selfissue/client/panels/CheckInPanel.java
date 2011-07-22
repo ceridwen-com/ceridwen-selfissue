@@ -52,6 +52,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.text.html.HTMLEditorKit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -389,7 +390,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
     private static String strim(String string) {
         String intermediate = string.trim();
         if (Configuration.getBoolProperty("UI/Control/StripItemChecksumDigit")) {
-            if (intermediate.length() > 0) {
+            if (StringUtils.isNotEmpty(intermediate)) {
                 intermediate = intermediate.substring(0, intermediate.length() - 1);
             }
         }
@@ -459,7 +460,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             request.setItemIdentifier(CheckInPanel.strim(this.BookField.getText()));
             request.setTransactionDate(new Date());
             request.setNoBlock(new Boolean(false));
-            if ((request.getItemIdentifier().length() < 1) ||
+            if (StringUtils.isEmpty(request.getItemIdentifier()) ||
                     request.getItemIdentifier().equals(this.lastCheckedInId)) {
                 this.BookField.setText("");
                 this.BookField.requestFocus();
@@ -501,10 +502,9 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             this.PlaySound("CheckInSuccess");
             this.appendCheckinText(Configuration.getMessage(
                     "CheckInSuccess",
-                    new String[] { (response.getTitleIdentifier().length() !=
-                            0) ?
+                    new String[] {  StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                                     response.getTitleIdentifier() :
-                                    response.getItemIdentifier(), (response.getScreenMessage() != null) ?
+                                    response.getItemIdentifier(), StringUtils.isNotEmpty(response.getScreenMessage()) ?
                                     response.getScreenMessage() : "" }));
             this.lastCheckedInId = new String(request.getItemIdentifier());
         } catch (InvalidItemBarcode ex) {
@@ -523,16 +523,15 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             this.PlaySound("CheckinFailedError");
             this.appendCheckinText(Configuration.getMessage(
                     "CheckinFailedError",
-                    new String[] { (response.getTitleIdentifier().length() !=
-                            0) ?
+                    new String[] {  StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                                     response.getTitleIdentifier() :
-                                    response.getItemIdentifier(), (response.getScreenMessage() != null) ?
+                                    response.getItemIdentifier(), StringUtils.isNotEmpty(response.getScreenMessage()) ?
                                     response.getScreenMessage() : "" }));
         } catch (LockFailed ex) {
             this.handler.recordEvent(OnlineLogEvent.STATUS_LOCKFAILURE, "", new Date(), request, response);
             this.PlaySound("LockFailedError");
             this.appendCheckinText(Configuration.getMessage("LockFailedError",
-                    new String[] { (response.getTitleIdentifier().length() != 0) ?
+                    new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                             response.getTitleIdentifier() :
                             response.getItemIdentifier() }));
         } catch (Exception ex) {
