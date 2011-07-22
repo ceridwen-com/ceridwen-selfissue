@@ -17,6 +17,8 @@
  *     Matthew J. Dovey (www.ceridwen.com) - initial API and implementation
  ******************************************************************************/
 package com.ceridwen.selfissue;
+import org.apache.commons.lang3.StringUtils;
+
 import com.ceridwen.selfissue.client.config.Configuration;
 
 /**
@@ -37,7 +39,7 @@ public class EncodePassword {
 	      System.out.println("Usage: encode <password>");		
 	} else {
 	    String enc = Configuration.Encrypt(args[0]);
-	    if (enc != null && enc.length() > 0) {
+	    if (StringUtils.isNotEmpty(enc)) {
 	      System.out.println(enc);
 	    } else {
 	      System.out.println("Usage: encode <password>");

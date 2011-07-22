@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JPanel;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -72,10 +73,7 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   private static final int MAX_LEN = 256;
 
   boolean validateBarcode(String barcode, String pattern) {
-    if (pattern == null) {
-      return barcode.length() < MAX_LEN;
-    }
-    if (pattern.length() == 0) {
+    if (StringUtils.isEmpty(pattern)) {
       return barcode.length() < MAX_LEN;
     }
     return Pattern.matches(pattern, barcode);
@@ -84,10 +82,7 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   void PlaySound(String sound) {
     try {
       String snd = Configuration.getProperty("UI/Audio/" + sound);
-      if (snd == null) {
-        return;
-      }
-      if (snd.length() == 0) {
+      if (StringUtils.isEmpty(snd)) {
         return;
       }
       Applet.newAudioClip(Configuration.LoadResource(snd)).play();
@@ -124,6 +119,9 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   }
 
   public static final String escapeHTML(String s) {
+	    if (StringUtils.isEmpty(s)) {
+	    	return "";
+  		}
 	    StringBuffer sb = new StringBuffer();
 	    int n = s.length();
 	    for (int i = 0; i < n ; i++) {
