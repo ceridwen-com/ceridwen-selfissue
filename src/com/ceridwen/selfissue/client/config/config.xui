@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.71;time=2011-08-09 23:28:33.743;xui=config.xui;xsd=config.xsd;nsMapping=%KEYhttp://www.jaxfront.com/xui%VAL%KEYhttp://www.w3.org/2001/XMLSchema%VALxsd%KEYhttp://www.w3.org/2001/XMLSchema-instance%VALxsi?>
+<XUI  xsi:schemaLocation="http://www.jaxfront.com/xui jar:file:/C:/Program%20Files%20(x86)/JAXFront-2.71/lib/jaxfront-core.jar!/xui.xsd" xmlns="http://www.jaxfront.com/xui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+       <global>
+              <general>
+                     <validateEmptyMandatoryContent>false</validateEmptyMandatoryContent>
+                     <useAnnotationInTooltip>true</useAnnotationInTooltip>
+                     <automaticTabbedChildrenView>1</automaticTabbedChildrenView>
+              </general>
+              <style>
+                     <component>
+                            <maxLengthString>160</maxLengthString>
+                            <leafSize>-2.0</leafSize>
+                     </component>
+                     <choiceAndEnumeration>
+                            <choiceOrientation>vertical</choiceOrientation>
+                            <enumerationOrientation>vertical</enumerationOrientation>
+                     </choiceAndEnumeration>
+                     <editorPanel>
+                            <showStatusBar>false</showStatusBar>
+                            <showButtonBar>false</showButtonBar>
+                     </editorPanel>
+                     <navigationTree>
+                            <visible>false</visible>
+                     </navigationTree>
+              </style>
+       </global>
+       <component xpath="/SelfIssue/CommandInterface/SystemPassword">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/Logging/LoggingHandler[list]">
+              <style>
+                     <list>
+                            <tab/>
+                     </list>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/Systems/Loggers/Logger[list]">
+              <style>
+                     <list>
+                            <tab/>
+                     </list>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/Systems/SIP/LoginPassword">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/Systems/SIP/TelnetPassword">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/Systems/SIP/TerminalPassword">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/BackgroundColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/ButtonBackgroundColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/ButtonTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/DefaultTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/InnerBorderColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/OuterBorderColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/TitleBackgroundColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/TitleTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/VersionTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/WarningTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+</XUI>

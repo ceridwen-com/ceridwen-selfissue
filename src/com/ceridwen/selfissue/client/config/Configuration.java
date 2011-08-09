@@ -246,9 +246,19 @@ public class Configuration {
   private static Color getColour(String colour) {
 	  try {
 		  String raw = Configuration.getProperty("UI/Palette/" + colour);
-		  int r = Integer.parseInt(raw.substring(0, 2), 16);
-		  int g = Integer.parseInt(raw.substring(2, 4), 16);
-		  int b = Integer.parseInt(raw.substring(4, 6), 16);
+		  String parsed[] = raw.split(",");		  
+		  int r = 0;
+		  int g = 0;
+		  int b = 0;
+		  if (parsed.length > 0) {
+			  r = Integer.parseInt(parsed[0]);
+		  }
+		  if (parsed.length > 1) {
+			  g = Integer.parseInt(parsed[1]);
+		  }
+		  if (parsed.length > 2) {
+			  b = Integer.parseInt(parsed[2]);
+		  }
 		  return new Color(r, g, b);
 	  } catch (Exception ex) {
 		  return null;

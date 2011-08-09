@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="SelfIssue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="UI"/>
+        <xs:element ref="Systems"/>
+        <xs:element ref="Modes"/>
+        <xs:element ref="CommandInterface"/>
+        <xs:element ref="Logging"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UI">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SelfIssue">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="RightIcon_Icon"/>
+              <xs:element ref="LeftIcon_Icon"/>
+              <xs:element ref="TitleText_Text"/>
+              <xs:element ref="TitleText_Font"/>
+              <xs:element ref="TitleText_Size"/>
+              <xs:element ref="LibraryText_Text"/>
+              <xs:element ref="LibraryText_Font"/>
+              <xs:element ref="LibraryText_Size"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element ref="Palette"/>
+        <xs:element ref="PatronPanel"/>
+        <xs:element ref="CheckOutPanel"/>
+        <xs:element ref="CheckInPanel"/>
+        <xs:element ref="Messages"/>
+        <xs:element ref="Audio"/>
+        <xs:element ref="Validation"/>
+        <xs:element ref="Control"/>
+        <xs:element ref="WatchDog"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Palette">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="OuterBorderColour"/>
+        <xs:element ref="InnerBorderColour"/>
+        <xs:element ref="TitleBackgroundColour"/>
+        <xs:element ref="BackgroundColour"/>
+        <xs:element ref="TitleTextColour"/>
+        <xs:element ref="DefaultTextColour"/>
+        <xs:element ref="WarningTextColour"/>
+        <xs:element ref="VersionTextColour"/>
+        <xs:element ref="ButtonTextColour"/>
+        <xs:element ref="ButtonBackgroundColour"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OuterBorderColour" type="xs:string"/>
+  <xs:element name="InnerBorderColour" type="xs:string"/>
+  <xs:element name="TitleBackgroundColour" type="xs:string"/>
+  <xs:element name="BackgroundColour" type="xs:string"/>
+  <xs:element name="TitleTextColour" type="xs:string"/>
+  <xs:element name="DefaultTextColour" type="xs:string"/>
+  <xs:element name="WarningTextColour" type="xs:string"/>
+  <xs:element name="VersionTextColour" type="xs:integer"/>
+  <xs:element name="ButtonTextColour" type="xs:string"/>
+  <xs:element name="ButtonBackgroundColour" type="xs:string"/>
+  <xs:element name="PatronPanel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PatronSalutation_Text"/>
+        <xs:element ref="PatronField_DefaultText"/>
+        <xs:element ref="CardIcon_Icon"/>
+        <xs:element ref="PatronFieldLabel_Text"/>
+        <xs:element ref="PatronFieldLabel_ToolTipText"/>
+        <xs:element ref="PatronField_ToolTipText"/>
+        <xs:element ref="PatronPasswordPrompt"/>
+        <xs:element ref="PatronPanelNextButton_Text"/>
+        <xs:element ref="PatronPanelNextButton_ToolTipText"/>
+        <xs:element ref="PatronPanelResetButton_ToolTipText"/>
+        <xs:element ref="PatronPanelResetButton_Text"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PatronSalutation_Text" type="xs:string"/>
+  <xs:element name="PatronField_DefaultText" type="xs:string"> </xs:element>
+  <xs:element name="CardIcon_Icon" type="xs:string"/>
+  <xs:element name="PatronFieldLabel_Text" type="xs:string"/>
+  <xs:element name="PatronFieldLabel_ToolTipText" type="xs:string"/>
+  <xs:element name="PatronField_ToolTipText" type="xs:string"/>
+  <xs:element name="PatronPasswordPrompt" type="xs:string"/>
+  <xs:element name="PatronPanelNextButton_Text" type="xs:string"/>
+  <xs:element name="PatronPanelNextButton_ToolTipText" type="xs:string"/>
+  <xs:element name="PatronPanelResetButton_ToolTipText" type="xs:string"/>
+  <xs:element name="PatronPanelResetButton_Text" type="xs:string"/>
+  <xs:element name="CheckOutPanel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BooksIcon_Icon"/>
+        <xs:element ref="PatronText_DefaultText"/>
+        <xs:element ref="PatronText_ToolTipText"/>
+        <xs:element ref="StatusText_DefaultText"/>
+        <xs:element ref="StatusText_ToolTipText"/>
+        <xs:element ref="BookFieldLabel_Text"/>
+        <xs:element ref="BookFieldLabel_ToolTipText"/>
+        <xs:element ref="BookField_ToolTipText"/>
+        <xs:element ref="CheckoutButton_Text"/>
+        <xs:element ref="CheckoutButton_ToolTipText"/>
+        <xs:element ref="BookPanelNextButton_Text"/>
+        <xs:element ref="BookPanelNextButton_ToolTipText"/>
+        <xs:element ref="BookPanelCheckinButton_Text"/>
+        <xs:element ref="BookPanelCheckinButton_ToolTipText"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckoutButton_Text" type="xs:string"/>
+  <xs:element name="CheckoutButton_ToolTipText" type="xs:string"/>
+  <xs:element name="BookPanelCheckinButton_Text" type="xs:string"/>
+  <xs:element name="BookPanelCheckinButton_ToolTipText" type="xs:string"/>
+  <xs:element name="CheckInPanel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="BooksIcon_Icon"/>
+        <xs:element ref="PatronText_DefaultText"/>
+        <xs:element ref="PatronText_ToolTipText"/>
+        <xs:element ref="StatusText_DefaultText"/>
+        <xs:element ref="StatusText_ToolTipText"/>
+        <xs:element ref="BookFieldLabel_Text"/>
+        <xs:element ref="BookFieldLabel_ToolTipText"/>
+        <xs:element ref="BookField_ToolTipText"/>
+        <xs:element ref="CheckinButton_Text"/>
+        <xs:element ref="CheckinButton_ToolTipText"/>
+        <xs:element ref="BookPanelNextButton_Text"/>
+        <xs:element ref="BookPanelNextButton_ToolTipText"/>
+        <xs:element ref="BookPanelCheckoutButton_Text"/>
+        <xs:element ref="BookPanelCheckoutButton_ToolTipText"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckinButton_Text" type="xs:string"/>
+  <xs:element name="CheckinButton_ToolTipText" type="xs:string"/>
+  <xs:element name="BookPanelCheckoutButton_Text" type="xs:string"/>
+  <xs:element name="BookPanelCheckoutButton_ToolTipText" type="xs:string"/>
+  <xs:element name="Messages">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="GreetPatronCheckout"/>
+        <xs:element ref="GreetPatronCheckin"/>
+        <xs:element ref="CheckingPatronMessage"/>
+        <xs:element ref="InvalidPatronBarcode"/>
+        <xs:element ref="PatronRetry"/>
+        <xs:element ref="PatronNetworkError"/>
+        <xs:element ref="InvalidPatronError"/>
+        <xs:element ref="BlockedPatronError"/>
+        <xs:element ref="UnexpectedPatronError"/>
+        <xs:element ref="CheckoutPendingMessage"/>
+        <xs:element ref="InvalidItemBarcode"/>
+        <xs:element ref="CheckoutRetry"/>
+        <xs:element ref="CheckOutSuccess"/>
+        <xs:element ref="DueDateMessage"/>
+        <xs:element ref="NoDueDateMessage"/>
+        <xs:element ref="CheckoutNetworkError"/>
+        <xs:element ref="CheckoutFailedError"/>
+        <xs:element ref="UnexpectedCheckoutError"/>
+        <xs:element ref="UnlockFailedError"/>
+        <xs:element ref="UnlockFailedCheckInFailedError"/>
+        <xs:element ref="CheckInSuccess"/>
+        <xs:element ref="CheckinNetworkError"/>
+        <xs:element ref="CheckinFailedError"/>
+        <xs:element ref="UnexpectedCheckinError"/>
+        <xs:element ref="LockFailedError"/>
+        <xs:element ref="CheckinPendingMessage"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GreetPatronCheckout" type="xs:string"/>
+  <xs:element name="GreetPatronCheckin" type="xs:string"/>
+  <xs:element name="CheckingPatronMessage" type="xs:string"/>
+  <xs:element name="CheckoutPendingMessage" type="xs:string"/>
+  <xs:element name="DueDateMessage" type="xs:string"/>
+  <xs:element name="NoDueDateMessage" type="xs:string"/>
+  <xs:element name="CheckInSuccess" type="xs:string"/>
+  <xs:element name="CheckinNetworkError" type="xs:string"/>
+  <xs:element name="CheckinFailedError" type="xs:string"/>
+  <xs:element name="UnexpectedCheckinError" type="xs:string"/>
+  <xs:element name="LockFailedError" type="xs:string"/>
+  <xs:element name="CheckinPendingMessage" type="xs:string"/>
+  <xs:element name="Audio">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ValidPatron"/>
+        <xs:element ref="CheckOutSuccess"/>
+        <xs:element ref="PatronRetry"/>
+        <xs:element ref="CheckoutRetry"/>
+        <xs:element ref="InvalidPatronBarcode"/>
+        <xs:element ref="PatronNetworkError"/>
+        <xs:element ref="InvalidPatronError"/>
+        <xs:element ref="BlockedPatronError"/>
+        <xs:element ref="UnexpectedPatronError"/>
+        <xs:element ref="InvalidItemBarcode"/>
+        <xs:element ref="CheckoutNetworkError"/>
+        <xs:element ref="CheckoutFailedError"/>
+        <xs:element ref="UnexpectedCheckoutError"/>
+        <xs:element ref="UnlockFailedError"/>
+        <xs:element ref="UnlockFailedCheckInFailedError"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidPatron" type="xs:string"/>
+  <xs:element name="Validation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PatronBarcodeMask"/>
+        <xs:element ref="ItemBarcodeMask"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PatronBarcodeMask" type="xs:string"/>
+  <xs:element name="ItemBarcodeMask" type="xs:string"/>
+  <xs:element name="Control">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ResetTimeout"/>
+        <xs:element ref="StripPatronChecksumDigit"/>
+        <xs:element ref="StripItemChecksumDigit"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResetTimeout" type="xs:integer"/>
+  <xs:element name="StripPatronChecksumDigit" type="xs:boolean"/>
+  <xs:element name="StripItemChecksumDigit" type="xs:boolean"/>
+  <xs:element name="WatchDog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Timer"/>
+        <xs:element ref="CriticalSectionThreshold"/>
+        <xs:element ref="MinimumMemory"/>
+        <xs:element ref="ShowOutOfOrderScreenOnWatchDogProblem"/>
+        <xs:element ref="ShowOutOfOrderScreenOnUnhandledException"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Timer" type="xs:integer"/>
+  <xs:element name="CriticalSectionThreshold" type="xs:integer"/>
+  <xs:element name="MinimumMemory" type="xs:integer"/>
+  <xs:element name="ShowOutOfOrderScreenOnWatchDogProblem" type="xs:boolean"/>
+  <xs:element name="ShowOutOfOrderScreenOnUnhandledException" type="xs:boolean"/>
+  <xs:element name="RightIcon_Icon" type="xs:string"/>
+  <xs:element name="LeftIcon_Icon" type="xs:string"/>
+  <xs:element name="TitleText_Text" type="xs:string"/>
+  <xs:element name="TitleText_Font" type="xs:string"/>
+  <xs:element name="TitleText_Size" type="xs:integer"/>
+  <xs:element name="LibraryText_Text" type="xs:string"/>
+  <xs:element name="LibraryText_Font" type="xs:string"/>
+  <xs:element name="LibraryText_Size" type="xs:integer"/>
+  <xs:element name="Systems">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Printer"/>
+        <xs:element ref="SIP"/>
+        <xs:element ref="PatronIDReaderDevice"/>
+        <xs:element ref="ItemIDReaderDevice"/>
+        <xs:element ref="ItemSecurityDevice"/>
+        <xs:element ref="Loggers"/>
+        <xs:element ref="Spooler"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Printer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PrintReceipt"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PrintReceipt" type="xs:boolean"/>
+  <xs:element name="SIP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Host"/>
+        <xs:element ref="Port"/>
+        <xs:element ref="TelnetUsername"/>
+        <xs:element ref="TelnetPassword"/>
+        <xs:element ref="LoggedOnText"/>
+        <xs:element ref="LoginUserId"/>
+        <xs:element ref="LoginPassword"/>
+        <xs:element ref="LocationCode"/>
+        <xs:element ref="UIDAlgorithm"/>
+        <xs:element ref="PWDAlgorithm"/>
+        <xs:element ref="ConnectionTimeout"/>
+        <xs:element ref="IdleTimeout"/>
+        <xs:element ref="RetryAttempts"/>
+        <xs:element ref="RetryWait"/>
+        <xs:element ref="AddSequenceAndChecksum"/>
+        <xs:element ref="StrictChecksumChecking"/>
+        <xs:element ref="StrictSequenceChecking"/>
+        <xs:element ref="InstitutionId"/>
+        <xs:element ref="TerminalPassword"/>
+        <xs:element ref="SendEndPatronSession"/>
+        <xs:element ref="RequirePatronPassword"/>
+      </xs:sequence>
+      <xs:attribute name="mode" use="required" form="unqualified">
+        <xs:annotation>
+          <xs:documentation>Socket or Telnet</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Socket"/>
+            <xs:enumeration value="Telnet"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Host" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+       IP Address of Self Issue server
+       
+       Some additional information
+       </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="Port" type="xs:integer"/>
+  <xs:element name="TelnetUsername" type="xs:string"/>
+  <xs:element name="TelnetPassword" type="xs:string"/>
+  <xs:element name="LoggedOnText" type="xs:string"/>
+  <xs:element name="LoginUserId" type="xs:string"> </xs:element>
+  <xs:element name="LoginPassword" type="xs:string"> </xs:element>
+  <xs:element name="LocationCode" type="xs:string"> </xs:element>
+  <xs:element name="UIDAlgorithm" type="xs:string"> </xs:element>
+  <xs:element name="PWDAlgorithm" type="xs:string"> </xs:element>
+  <xs:element name="RetryAttempts" type="xs:integer"/>
+  <xs:element name="RetryWait" type="xs:integer"/>
+  <xs:element name="AddSequenceAndChecksum" type="xs:boolean"/>
+  <xs:element name="StrictChecksumChecking" type="xs:boolean"/>
+  <xs:element name="StrictSequenceChecking" type="xs:boolean"/>
+  <xs:element name="InstitutionId" type="xs:string"> </xs:element>
+  <xs:element name="TerminalPassword" type="xs:string"> </xs:element>
+  <xs:element name="SendEndPatronSession" type="xs:boolean"/>
+  <xs:element name="RequirePatronPassword" type="xs:boolean"/>
+  <xs:element name="PatronIDReaderDevice">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="SmartCardReader">
+          <xs:attribute name="class" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice"/>
+                <xs:enumeration value="com.ceridwen.selfissue.client.devices.JavaSmartCardDevice"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ItemIDReaderDevice">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="SmartCardReader">
+          <xs:attribute name="class" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice"/>
+                <xs:enumeration value="com.ceridwen.selfissue.client.devices.JavaSmartCardDevice"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ItemSecurityDevice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Retries"/>
+        <xs:element ref="Timeout"/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Retries" type="xs:integer"/>
+  <xs:element name="Timeout" type="xs:integer"/>
+  <xs:element name="Loggers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Logger"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Logger">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="EventMask"/>
+        <xs:element ref="ReplayPeriod"/>
+        <xs:element ref="OverdueAgeOutOfOrder"/>
+        <xs:element ref="host"/>
+        <xs:element ref="port"/>
+        <xs:element ref="To"/>
+        <xs:element ref="From"/>
+        <xs:element ref="Relay"/>
+        <xs:element ref="ConnectionTimeout"/>
+        <xs:element ref="IdleTimeout"/>
+        <xs:element ref="Spool"/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="com.ceridwen.selfissue.client.log.MailLogger"/>
+            <xs:enumeration value="com.ceridwen.selfissue.client.log.SyslogLogger"/>
+            <xs:enumeration value="com.ceridwen.selfissue.client.log.RestLogger"/>
+            <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.OnlineLogLogger"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EventMask" type="xs:integer"/>
+  <xs:element name="OverdueAgeOutOfOrder" type="xs:integer"/>
+  <xs:element name="host" type="xs:string"> </xs:element>
+  <xs:element name="port" type="xs:integer"/>
+  <xs:element name="To" type="xs:string"/>
+  <xs:element name="From" type="xs:string"/>
+  <xs:element name="Relay" type="xs:string"/>
+  <xs:element name="Spooler">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ReplayPeriod"/>
+        <xs:element ref="OverdueAgeWarn"/>
+        <xs:element ref="OverdueAgeExpire"/>
+        <xs:element ref="Spool"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OverdueAgeWarn" type="xs:integer"/>
+  <xs:element name="OverdueAgeExpire" type="xs:integer"/>
+  <xs:element name="Modes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="TrustMode"/>
+        <xs:element ref="AllowOffline"/>
+        <xs:element ref="UseNoBlock"/>
+        <xs:element ref="RetryPatronWhenError"/>
+        <xs:element ref="RetryItemWhenError"/>
+        <xs:element ref="AllowRenews"/>
+        <xs:element ref="SuppressSecurityFailureMessages"/>
+        <xs:element ref="SendShutdownStatus"/>
+        <xs:element ref="EnableBarcodeAlii"/>
+        <xs:element ref="EnableCheckIn"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TrustMode" type="xs:boolean"/>
+  <xs:element name="AllowOffline" type="xs:boolean"/>
+  <xs:element name="UseNoBlock" type="xs:boolean"/>
+  <xs:element name="RetryPatronWhenError" type="xs:boolean"/>
+  <xs:element name="RetryItemWhenError" type="xs:boolean"/>
+  <xs:element name="AllowRenews" type="xs:boolean"/>
+  <xs:element name="SuppressSecurityFailureMessages" type="xs:boolean"/>
+  <xs:element name="SendShutdownStatus" type="xs:boolean"/>
+  <xs:element name="EnableBarcodeAlii" type="xs:boolean"/>
+  <xs:element name="EnableCheckIn" type="xs:boolean"/>
+  <xs:element name="CommandInterface">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="AllowConnectionTest"/>
+        <xs:element ref="AllowSystemsCheck"/>
+        <xs:element ref="AllowLogTest"/>
+        <xs:element ref="AllowSystemShutdown"/>
+        <xs:element ref="AllowEncodePassword"/>
+        <xs:element ref="AllowOutOfOrder"/>
+        <xs:element ref="AllowResetOutOfOrder"/>
+        <xs:element ref="AllowCheckIn"/>
+        <xs:element ref="SystemPassword"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AllowConnectionTest" type="xs:boolean"/>
+  <xs:element name="AllowSystemsCheck" type="xs:boolean"/>
+  <xs:element name="AllowLogTest" type="xs:boolean"/>
+  <xs:element name="AllowSystemShutdown" type="xs:boolean"/>
+  <xs:element name="AllowEncodePassword" type="xs:boolean"/>
+  <xs:element name="AllowOutOfOrder" type="xs:boolean"/>
+  <xs:element name="AllowResetOutOfOrder" type="xs:boolean"/>
+  <xs:element name="AllowCheckIn" type="xs:boolean"/>
+  <xs:element name="SystemPassword" type="xs:string"/>
+  <xs:element name="Logging">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="LoggingHandler"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoggingHandler">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="level"/>
+        <xs:element ref="smtpServer"/>
+        <xs:element ref="sender"/>
+        <xs:element ref="recipients"/>
+        <xs:element ref="syslogHost"/>
+        <xs:element ref="syslogPort"/>
+        <xs:element name="URL" type="xs:string"/>
+      </xs:sequence>
+      <xs:attribute name="class" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration
+              value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
+            <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
+            <xs:enumeration value="com.ceridwen.selfissue.client.logging.RestLoggingHandlerWrapper"
+            />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="level">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="SEVERE"/>
+        <xs:enumeration value="WARNING"/>
+        <xs:enumeration value="INFO"/>
+        <xs:enumeration value="CONFIG"/>
+        <xs:enumeration value="FINE"/>
+        <xs:enumeration value="FINER"/>
+        <xs:enumeration value="FINEST"/>
+        <xs:enumeration value="ALL"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+  <xs:element name="smtpServer" type="xs:string"/>
+  <xs:element name="sender" type="xs:string"/>
+  <xs:element name="recipients" type="xs:string"/>
+  <xs:element name="syslogHost" type="xs:string"/>
+  <xs:element name="syslogPort" type="xs:integer"/>
+  <xs:element name="BooksIcon_Icon" type="xs:string"/>
+  <xs:element name="PatronText_DefaultText" type="xs:string"/>
+  <xs:element name="PatronText_ToolTipText" type="xs:string"/>
+  <xs:element name="StatusText_DefaultText">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="StatusText_ToolTipText" type="xs:string"/>
+  <xs:element name="BookFieldLabel_Text" type="xs:string"/>
+  <xs:element name="BookFieldLabel_ToolTipText" type="xs:string"/>
+  <xs:element name="BookField_ToolTipText" type="xs:string"/>
+  <xs:element name="BookPanelNextButton_Text" type="xs:string"/>
+  <xs:element name="BookPanelNextButton_ToolTipText" type="xs:string"/>
+  <xs:element name="InvalidPatronBarcode" type="xs:string"/>
+  <xs:element name="PatronRetry" type="xs:string"/>
+  <xs:element name="PatronNetworkError" type="xs:string"/>
+  <xs:element name="InvalidPatronError" type="xs:string"/>
+  <xs:element name="BlockedPatronError" type="xs:string"/>
+  <xs:element name="UnexpectedPatronError" type="xs:string"/>
+  <xs:element name="InvalidItemBarcode" type="xs:string"/>
+  <xs:element name="CheckoutRetry" type="xs:string"/>
+  <xs:element name="CheckOutSuccess" type="xs:string"/>
+  <xs:element name="CheckoutNetworkError" type="xs:string"/>
+  <xs:element name="CheckoutFailedError" type="xs:string"/>
+  <xs:element name="UnexpectedCheckoutError" type="xs:string"/>
+  <xs:element name="UnlockFailedError" type="xs:string"/>
+  <xs:element name="UnlockFailedCheckInFailedError" type="xs:string"/>
+  <xs:element name="ConnectionTimeout" type="xs:integer"/>
+  <xs:element name="IdleTimeout" type="xs:integer"/>
+  <xs:complexType name="SmartCardReader">
+    <xs:sequence>
+      <xs:element ref="SmartCardReader"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SmartCardReader" type="xs:string"/>
+  <xs:element name="ReplayPeriod" type="xs:integer"/>
+  <xs:element name="Spool" type="xs:anyURI"/>
+</xs:schema>

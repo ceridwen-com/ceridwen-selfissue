@@ -18,5 +18,8 @@
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xml-apis.jar"/>
 	<classpathentry kind="lib" path="/Utilities/lib/commons-lang3-3.0/commons-lang3-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/jaxfront-2.71/jaxfront-core.jar"/>
+	<classpathentry kind="lib" path="lib/jaxfront-2.71/jaxfront-pdf.jar"/>
+	<classpathentry kind="lib" path="lib/jaxfront-2.71/jaxfront-swing.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

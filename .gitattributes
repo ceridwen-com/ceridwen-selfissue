@@ -11,6 +11,9 @@
 /buildnum.xml -text
 /changelog.txt -text svneol=unset#text/plain
 /encodepassword.jnlp -text
+lib/jaxfront-2.71/jaxfront-core.jar -text
+lib/jaxfront-2.71/jaxfront-pdf.jar -text
+lib/jaxfront-2.71/jaxfront-swing.jar -text
 lib/netx-0.5/LICENSE.TXT -text
 lib/netx-0.5/netx-no-debug.jar -text
 lib/netx-0.5/netx.jar -text
@@ -38,6 +41,11 @@ src/com/ceridwen/selfissue/client/SelfIssueFrame.java -text
 src/com/ceridwen/selfissue/client/SelfIssueThreadGroup.java -text
 src/com/ceridwen/selfissue/client/ShutdownThread.java -text
 src/com/ceridwen/selfissue/client/config/Configuration.java -text
+src/com/ceridwen/selfissue/client/config/Editor.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/config/EncryptionVisualizer.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/config/config.xsd -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/config/config.xui -text
+src/com/ceridwen/selfissue/client/config/default.xml -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/core/CirculationHandler.java -text
 src/com/ceridwen/selfissue/client/core/CirculationHandlerImpl.java -text
 src/com/ceridwen/selfissue/client/core/OutOfOrderInterface.java -text svneol=unset#text/plain
