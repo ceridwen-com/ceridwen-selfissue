@@ -1,5 +1,6 @@
-Version 2.50:
+Version 2.50: 10/08/2011 (371) - Public Release
 Added configuration editor
+Required Ceridwen 3M SIP Circulation Library 2.7; Ceridwen Utilities Library 1.40
 
 Version 2.40: 22/07/2011 (366)
 SelfIssue events can now be logged to Syslog

@@ -474,8 +474,7 @@
       	<xs:element ref="AllowConnectionTest" />
       	<xs:element ref="AllowSystemsCheck" />
       	<xs:element ref="AllowLogTest" />
-      	<xs:element ref="AllowSystemShutdown" />
-                <xs:element name="AllowConfigurationEditor" type="xs:boolean"></xs:element>
+      	<xs:element ref="AllowSystemShutdown" />
       	<xs:element ref="AllowOutOfOrder" />
       	<xs:element ref="AllowResetOutOfOrder" />
       	<xs:element ref="AllowCheckIn" />
