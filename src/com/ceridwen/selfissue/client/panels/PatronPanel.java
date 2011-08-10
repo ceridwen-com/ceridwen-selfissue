@@ -38,6 +38,7 @@ import com.ceridwen.circulation.SIP.types.flagfields.PatronStatus;
 import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.selfissue.client.config.Editor;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
@@ -715,14 +716,21 @@ private static String strim(String string) {
           SelfIssueFrame.setOnTop(true);
           return true;
       }
-    } else if (command.startsWith("*Encode Password ")) {
-      if (Configuration.getBoolProperty("CommandInterface/AllowEncodePassword")) {
-        String password = command.replaceFirst("\\*Encode Password ", "");
-        this.PatronText.setText(Configuration.Encrypt(password));
-        this.PatronField.setText(Configuration.Encrypt(password));
-        return true;
-      }
-    }
+    } 
+//    else if (command.startsWith("*Edit Configuration")) {
+//      if (Configuration.getBoolProperty("CommandInterface/AllowConfigurationEditor")) {
+//	      PasswordDialog EditorConfirmation = new PasswordDialog("Please enter system password");
+//	      EditorConfirmation.clearPassword();
+//	      EditorConfirmation.setVisible(true);
+//	      if (EditorConfirmation.getPassword().equals(Configuration.Decrypt(
+//	          Configuration.getProperty(
+//	              "CommandInterface/SystemPassword")))) {
+//	    	  			
+//	    	  			Editor.main(new String[]{});	    	  
+//	      }
+//	      return true;
+//      }
+//    }
     return false;
   }
 

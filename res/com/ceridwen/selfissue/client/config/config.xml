@@ -507,7 +507,7 @@
     <!--
     AllowSystemShutdown: Allow *Shutdown System¦ command in the patron panel (closes Self Issue client after password check)
     -->    
-    <AllowEncodePassword>true</AllowEncodePassword><!--Allow *Encode Password¦-->
+    <AllowConfigurationEditor>true</AllowConfigurationEditor>
     <AllowOutOfOrder>true</AllowOutOfOrder><!--Allow *Out Of Order¦-->
     <AllowResetOutOfOrder>true</AllowResetOutOfOrder><!--Allow *Reset Out Of Order¦-->
     <AllowCheckIn>true</AllowCheckIn><!--Allow *Check In¦ to switch to check in screen from patron screen-->

@@ -1,3 +1,6 @@
+Version 2.50:
+Added configuration editor
+
 Version 2.40: 22/07/2011 (366)
 SelfIssue events can now be logged to Syslog
 SelfIssue exceptions can now be logged to Syslog

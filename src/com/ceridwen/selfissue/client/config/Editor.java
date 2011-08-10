@@ -14,14 +14,10 @@ import java.net.URL;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
@@ -32,7 +28,6 @@ import com.jaxfront.core.help.HelpEvent;
 import com.jaxfront.core.help.HelpListener;
 import com.jaxfront.core.images.SystemImages;
 import com.jaxfront.core.schema.ValidationException;
-import com.jaxfront.core.type.Type;
 import com.jaxfront.core.ui.TypeVisualizerFactory;
 import com.jaxfront.core.util.JAXFrontProperties;
 import com.jaxfront.core.util.LicenseErrorException;
@@ -40,7 +35,6 @@ import com.jaxfront.core.util.URLHelper;
 import com.jaxfront.core.util.io.BrowserControl;
 import com.jaxfront.core.util.io.cache.XUICache;
 import com.jaxfront.pdf.PDFGenerator;
-import com.jaxfront.swing.ui.beans.TypeTable;
 import com.jaxfront.swing.ui.editor.EditorPanel;
 import com.jaxfront.swing.ui.editor.ShowXMLDialog;
 
@@ -159,7 +153,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 
 	private void initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		JMenu applicationMenu = new JMenu("Application");
+		JMenu applicationMenu = new JMenu("Configuration");
 		applicationMenu.add(_reloadAction);
 		applicationMenu.add(_saveAction);
 		applicationMenu.addSeparator();
@@ -263,11 +257,6 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 		dialog.setLocation(((x > 0) ? x : 0), ((y > 0) ? y : 0));
 		dialog.setVisible(true);		
 	}
-
-	private void setApplicationTitle(String currentFileName) {
-		setTitle(APPLICATION_TITLE + " - " + currentFileName);
-	}
-
 
 	private void load(boolean defaultXml) {
 //		URL url = URLHelper.getUserURL("examples/purchaseOrder/po.xsd");

@@ -471,15 +471,15 @@
   <xs:element name="CommandInterface">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="AllowConnectionTest"/>
-        <xs:element ref="AllowSystemsCheck"/>
-        <xs:element ref="AllowLogTest"/>
-        <xs:element ref="AllowSystemShutdown"/>
-        <xs:element ref="AllowEncodePassword"/>
-        <xs:element ref="AllowOutOfOrder"/>
-        <xs:element ref="AllowResetOutOfOrder"/>
-        <xs:element ref="AllowCheckIn"/>
-        <xs:element ref="SystemPassword"/>
+      	<xs:element ref="AllowConnectionTest" />
+      	<xs:element ref="AllowSystemsCheck" />
+      	<xs:element ref="AllowLogTest" />
+      	<xs:element ref="AllowSystemShutdown" />
+                <xs:element name="AllowConfigurationEditor" type="xs:boolean"></xs:element>
+      	<xs:element ref="AllowOutOfOrder" />
+      	<xs:element ref="AllowResetOutOfOrder" />
+      	<xs:element ref="AllowCheckIn" />
+      	<xs:element ref="SystemPassword" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

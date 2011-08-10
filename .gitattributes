@@ -34,7 +34,6 @@ res/org/pdclipart/book_stack_of_books_taller_ga_.png -text
 res/org/pdclipart/bookcase.png -text
 res/org/pdclipart/library_book_cart.png -text
 /selfissue.jnlp -text
-src/com/ceridwen/selfissue/EncodePassword.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.num -text
 src/com/ceridwen/selfissue/client/SelfIssueFrame.java -text

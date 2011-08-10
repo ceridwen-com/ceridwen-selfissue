@@ -1,11 +1,7 @@
 package com.ceridwen.selfissue.client.config;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.InputMethodEvent;
-import java.awt.event.InputMethodListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPasswordField;
 
