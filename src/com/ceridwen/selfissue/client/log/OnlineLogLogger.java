@@ -65,9 +65,29 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
       return false;
     }
   }
+  
+  private int generateEventMask(Node eventMask) {
+	  if (eventMask == null) { return 0; }
+	  int ret = 0;
+	  //@todo
+	  if (Configuration.getBoolSubProperty(eventMask, "CancelCheckoutFailure")) { ret += OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE; }
+	  if (Configuration.getBoolSubProperty(eventMask, "CheckinFailure")) { ret += OnlineLogEvent.STATUS_CHECKINFAILURE; }
+	  if (Configuration.getBoolSubProperty(eventMask, "CheckinPending")) { ret += OnlineLogEvent.STATUS_CHECKINPENDING; }
+	  if (Configuration.getBoolSubProperty(eventMask, "CheckinSuccess")) { ret += OnlineLogEvent.STATUS_CHECKINSUCCESS; }
+	  if (Configuration.getBoolSubProperty(eventMask, "CheckoutFailure")) { ret += OnlineLogEvent.STATUS_CHECKOUTFAILURE; }
+	  if (Configuration.getBoolSubProperty(eventMask, "CheckoutPending")) { ret += OnlineLogEvent.STATUS_CHECKOUTPENDING; }
+	  if (Configuration.getBoolSubProperty(eventMask, "CheckoutSuccess")) { ret += OnlineLogEvent.STATUS_CHECKOUTSUCCESS; }
+	  if (Configuration.getBoolSubProperty(eventMask, "LockFailure")) { ret += OnlineLogEvent.STATUS_LOCKFAILURE; }
+	  if (Configuration.getBoolSubProperty(eventMask, "LockSuccess")) { ret += OnlineLogEvent.STATUS_LOCKSUCCESS; }
+	  if (Configuration.getBoolSubProperty(eventMask, "ManualCheckout")) { ret += OnlineLogEvent.STATUS_MANUALCHECKOUT; }
+	  if (Configuration.getBoolSubProperty(eventMask, "Notification")) { ret += OnlineLogEvent.STATUS_NOTIFICATION; }
+	  if (Configuration.getBoolSubProperty(eventMask, "UnlockFailure")) { ret += OnlineLogEvent.STATUS_UNLOCKFAILURE; }
+	  if (Configuration.getBoolSubProperty(eventMask, "UnlockSuccess")) { ret += OnlineLogEvent.STATUS_UNLOCKSUCCESS; }
+	  return ret;
+  }
 
   public void initialise(Node config, OutOfOrderInterface ooo) {
-    this.eventMask = Configuration.getIntSubProperty(config, "EventMask");
+    this.eventMask = this.generateEventMask(Configuration.getSubPropertyNode(config, "EventMask"));
     this.overdueAgeOOO = Configuration.getIntSubProperty(config, "OverdueAgeOutOfOrder");
     this.ooo = ooo;
   }

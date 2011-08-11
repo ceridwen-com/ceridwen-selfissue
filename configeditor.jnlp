@@ -4,7 +4,7 @@
 
   <information>
 
-    <title>Self Issue</title>
+    <title>Self Issue Configuration Editor</title>
 
     <vendor>www.ceridwen.com</vendor>
 
@@ -22,9 +22,11 @@
 
     <j2se version="1.5+" />
 
-    <jar href="EncodePassword.jar"/>
+    <jar href="configeditor.jar"/>
 
     <jar href="lib/ceridwen-utilities.jar"/>
+
+    <jar href="lib/commons-lang3-3.0.jar"/>
 
     <jar href="lib/commons-logging-1.1.1.jar"/>
 
@@ -39,8 +41,19 @@
     <jar href="lib/xercesImpl.jar"/>
 
     <jar href="lib/xml-apis.jar"/>
+
+    <jar href="lib/jaxfront-core.jar"/>
+
+    <jar href="lib/jaxfront-pdf.jar"/>
+
+    <jar href="lib/jaxfront-swing.jar"/>
+    
+    <jar href="lib/jgoodies-common-1.2.1.jar"/>
+    
+    <jar href="lib/jgoodies-looks-2.4.2.jar"/>          
+    
   </resources>
 
-  <application-desc main-class="com.ceridwen.selfissue.EncodePassword" />
+  <application-desc main-class="com.ceridwen.selfissue.client.config.Editor" />
 
 </jnlp>

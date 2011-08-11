@@ -3,6 +3,7 @@
 .externalToolBuilders/Build[!!-~]Distribution.launch -text svneol=unset#text/plain
 .externalToolBuilders/Buildnum[!!-~]-[!!-~]CirculationDevices.launch -text svneol=unset#text/plain
 .externalToolBuilders/Buildnum[!!-~]-[!!-~]SelfIssue.launch -text svneol=unset#text/plain
+.externalToolBuilders/Deploy[!!-~]Default[!!-~]Config.launch -text svneol=unset#text/plain
 /.project -text
 .settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
 /Invocation.txt -text svneol=unset#text/plain
@@ -10,10 +11,13 @@
 /build.xml -text svneol=unset#text/plain
 /buildnum.xml -text
 /changelog.txt -text svneol=unset#text/plain
-/encodepassword.jnlp -text
+/configeditor.jnlp -text
+/deployDefaultConfig.xml -text svneol=unset#text/plain
 lib/jaxfront-2.71/jaxfront-core.jar -text
 lib/jaxfront-2.71/jaxfront-pdf.jar -text
 lib/jaxfront-2.71/jaxfront-swing.jar -text
+lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar -text
+lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar -text
 lib/netx-0.5/LICENSE.TXT -text
 lib/netx-0.5/netx-no-debug.jar -text
 lib/netx-0.5/netx.jar -text

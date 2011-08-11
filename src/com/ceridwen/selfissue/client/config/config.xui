@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=2.71;time=2011-08-09 23:28:33.743;xui=config.xui;xsd=config.xsd;nsMapping=%KEYhttp://www.jaxfront.com/xui%VAL%KEYhttp://www.w3.org/2001/XMLSchema%VALxsd%KEYhttp://www.w3.org/2001/XMLSchema-instance%VALxsi?>
+<?jaxfront version=2.71;time=2011-08-11 13:50:39.991;xui=config.xui;xsd=config.xsd;nsMapping=%KEYhttp://www.jaxfront.com/xui%VAL%KEYhttp://www.w3.org/2001/XMLSchema%VALxsd%KEYhttp://www.w3.org/2001/XMLSchema-instance%VALxsi?>
 <XUI  xsi:schemaLocation="http://www.jaxfront.com/xui jar:file:/C:/Program%20Files%20(x86)/JAXFront-2.71/lib/jaxfront-core.jar!/xui.xsd" xmlns="http://www.jaxfront.com/xui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
        <global>
               <general>
@@ -10,12 +10,17 @@
               <style>
                      <component>
                             <maxLengthString>160</maxLengthString>
+                            <showFixedValue>false</showFixedValue>
+                            <booleanType>checkBox</booleanType>
                             <leafSize>-2.0</leafSize>
                      </component>
                      <choiceAndEnumeration>
                             <choiceOrientation>vertical</choiceOrientation>
                             <enumerationOrientation>vertical</enumerationOrientation>
                      </choiceAndEnumeration>
+                     <caption>
+                            <hideIfOnlyOneVisibleChild>true</hideIfOnlyOneVisibleChild>
+                     </caption>
                      <editorPanel>
                             <showStatusBar>false</showStatusBar>
                             <showButtonBar>false</showButtonBar>

@@ -8,7 +8,6 @@
     <property environment="env"/>
     <property name="Circulation.location" value="../Circulation"/>
     <property name="Utilities.location" value="../Utilities"/>
-    <property name="ECLIPSE_HOME" value="../../../../../../Program Files/eclipse"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
@@ -19,10 +18,11 @@
         <pathelement location="${Utilities.location}/lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar"/>
         <pathelement location="${Utilities.location}/lib/commons-net-2.0/commons-net-2.0.jar"/>
         <pathelement location="${Utilities.location}/lib/commons-net-2.0/commons-net-ftp-2.0.jar"/>
+        <pathelement location="${Utilities.location}/lib/commons-lang3-3.0/commons-lang3-3.0.jar"/>
     </path>
     <path id="JUnit 4.libraryclasspath">
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.junit_4.8.1.v4_8_1_v20100427-1100/junit.jar"/>
-        <pathelement location="${ECLIPSE_HOME}/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
+        <pathelement location="../../../../../../eclipse/plugins/org.junit_4.8.2.v4_8_2_v20110321-1705/junit.jar"/>
+        <pathelement location="../../../../../../eclipse/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar"/>
     </path>
     <path id="Circulation.classpath">
         <pathelement location="${Circulation.location}/bin"/>
@@ -36,6 +36,7 @@
         <pathelement location="${Circulation.location}/lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar"/>
         <pathelement location="${Circulation.location}/lib/commons-beanutils-1.8.3/commons-beanutils-core-1.8.3.jar"/>
         <path refid="JUnit 4.libraryclasspath"/>
+        <pathelement location="${Utilities.location}/lib/commons-lang3-3.0/commons-lang3-3.0.jar"/>
     </path>
     <path id="SelfIssue.classpath">
         <pathelement location="bin"/>
@@ -53,18 +54,22 @@
         <pathelement location="lib/xalan-j_2_7_1/xalan.jar"/>
         <pathelement location="lib/xalan-j_2_7_1/xercesImpl.jar"/>
         <pathelement location="lib/xalan-j_2_7_1/xml-apis.jar"/>
+        <pathelement location="${Utilities.location}/lib/commons-lang3-3.0/commons-lang3-3.0.jar"/>
+        <pathelement location="lib/jaxfront-2.71/jaxfront-core.jar"/>
+        <pathelement location="lib/jaxfront-2.71/jaxfront-pdf.jar"/>
+        <pathelement location="lib/jaxfront-2.71/jaxfront-swing.jar"/>
+        <pathelement location="lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar"/>
+        <pathelement location="lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="src">
-                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
         <copy includeemptydirs="false" todir="bin">
             <fileset dir="res">
-                <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
             </fileset>
         </copy>
@@ -113,6 +118,11 @@
     <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
+    </target>
+    <target name="Editor (1)">
+        <java classname="com.ceridwen.selfissue.client.config.Editor" failonerror="true" fork="yes">
+            <classpath refid="SelfIssue.classpath"/>
+        </java>
     </target>
     <target name="SelfIssueClient">
         <java classname="com.ceridwen.selfissue.client.SelfIssueClient" failonerror="true" fork="yes">

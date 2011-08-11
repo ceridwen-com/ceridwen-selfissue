@@ -108,6 +108,12 @@ public class SelfIssueClient extends Thread {
   }
   
   private void StartUp() {
+	try {
+		UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
+	} catch (Throwable t) {
+	}
+	  
+	  
 	frame = new SelfIssueFrame();
 
     //Validate frames that have preset sizes

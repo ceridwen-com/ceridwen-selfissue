@@ -37,6 +37,8 @@ import com.jaxfront.core.util.io.cache.XUICache;
 import com.jaxfront.pdf.PDFGenerator;
 import com.jaxfront.swing.ui.editor.EditorPanel;
 import com.jaxfront.swing.ui.editor.ShowXMLDialog;
+import com.jgoodies.looks.HeaderStyle;
+import com.jgoodies.looks.Options;
 
 /*****************************************************************************************************************************************************
  * JAXFront Integration Example and use of the EditorPanel API.
@@ -153,6 +155,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 
 	private void initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.putClientProperty(Options.HEADER_STYLE_KEY, HeaderStyle.BOTH);		
 		JMenu applicationMenu = new JMenu("Configuration");
 		applicationMenu.add(_reloadAction);
 		applicationMenu.add(_saveAction);
@@ -169,6 +172,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 
 	private void initToolBar() {
 		JToolBar toolBar = new JToolBar();
+		toolBar.putClientProperty(Options.HEADER_STYLE_KEY, HeaderStyle.BOTH);		
 		toolBar.add(_reloadAction);
 		toolBar.add(_saveAction);
 		toolBar.addSeparator();

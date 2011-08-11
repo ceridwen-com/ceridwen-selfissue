@@ -291,7 +291,22 @@
         <!--
       E-mail based logger
       -->
-        <EventMask>108</EventMask>
+        <EventMask>
+        <!--  108  -->
+	        <CheckoutSuccess>false</CheckoutSuccess>
+	        <CheckoutFailure>false</CheckoutFailure>
+	        <CheckoutPending>true</CheckoutPending>
+	        <ManualCheckout>true</ManualCheckout>
+	        <Notification>false</Notification>
+	        <UnlockFailure>true</UnlockFailure>
+	        <CancelCheckoutFailure>true</CancelCheckoutFailure>
+	        <UnlockSuccess>false</UnlockSuccess>
+	        <CheckinSuccess>false</CheckinSuccess>
+	        <CheckinFailure>false</CheckinFailure>
+	        <CheckinPending>false</CheckinPending>
+	        <LockFailure>false</LockFailure>
+	        <LockSuccess>false</LockSuccess>        	
+        </EventMask>
         <!--
         Indicates which events generate messages to library staff. Logical OR of the following values:
 
@@ -357,7 +372,22 @@
         <!--
       E-mail based logger
       -->
-        <EventMask>108</EventMask>
+        <EventMask>
+        <!--  108  -->
+	        <CheckoutSuccess>false</CheckoutSuccess>
+	        <CheckoutFailure>false</CheckoutFailure>
+	        <CheckoutPending>true</CheckoutPending>
+	        <ManualCheckout>true</ManualCheckout>
+	        <Notification>false</Notification>
+	        <UnlockFailure>true</UnlockFailure>
+	        <CancelCheckoutFailure>true</CancelCheckoutFailure>
+	        <UnlockSuccess>false</UnlockSuccess>
+	        <CheckinSuccess>false</CheckinSuccess>
+	        <CheckinFailure>false</CheckinFailure>
+	        <CheckinPending>false</CheckinPending>
+	        <LockFailure>false</LockFailure>
+	        <LockSuccess>false</LockSuccess>
+		</EventMask>	                	
         <!--
         Indicates which events generate messages to library staff. Logical OR of the following values:
 

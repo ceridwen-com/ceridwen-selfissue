@@ -1,4 +1,4 @@
-Version 2.50: 10/08/2011 (371) - Public Release
+Version 2.50: 10/08/2011 (373) - Public Release
 Added configuration editor
 Required Ceridwen 3M SIP Circulation Library 2.7; Ceridwen Utilities Library 1.40
 

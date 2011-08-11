@@ -13,8 +13,8 @@ public class SyslogLogger extends OnlineLogLogger {
     
     public void initialise(Node config, OutOfOrderInterface ooo) {
       super.initialise(config, ooo);
-      host = Configuration.getSubProperty(config, "host");
-      port = Configuration.getIntSubProperty(config, "port");      
+      host = Configuration.getSubProperty(config, "Host");
+      port = Configuration.getIntSubProperty(config, "Port");      
     }
 
     public synchronized boolean sendSyslogMessage(String facility, int level, String msg) {

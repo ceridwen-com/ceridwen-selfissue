@@ -25,10 +25,10 @@ Remote invocation:
 java -Xbootclasspath/a:res -jar netx.jar -jnlp selfissue.jnlp
 
 
-Encode password (local):
+Configuration Editor (local):
 
-java -jar EncodePassword.jar [password]
+java -Xbootclasspath/a:res -jar configeditor.jar
 
 Encode password (remote):
 
-java -jar netx.jar -jnlp encodepassword.jnlp -arg [password]
+java -Xbootclasspath/a:res -jar netx.jar -jnlp configeditor.jnlp

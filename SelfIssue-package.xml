@@ -18,22 +18,26 @@
         <jar destfile="dist/SelfIssue.jar">
             <manifest>
                 <attribute name="Main-Class" value="com.ceridwen.selfissue.client.SelfIssueClient"/>
-                <attribute name="Class-Path" value=". lib/ceridwen-circulation.jar lib/ceridwen-utilities.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/commons-net-2.0.jar lib/commons-net-ftp-2.0.jar lib/commons-beanutils-bean-collections-1.8.3.jar lib/commons-beanutils-core-1.8.3.jar lib/commons-beanutils-1.8.3.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar"/>
+                <attribute name="Class-Path" value=". lib/ceridwen-circulation.jar lib/ceridwen-utilities.jar lib/commons-lang3-3.0.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/commons-net-2.0.jar lib/commons-net-ftp-2.0.jar lib/commons-beanutils-bean-collections-1.8.3.jar lib/commons-beanutils-core-1.8.3.jar lib/commons-beanutils-1.8.3.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar lib/jgoodies-common-1.2.1.jar lib/jgoodies-looks-2.4.2.jar"/>
                 <attribute name="Implementation-Title" value="${name}" />
                 <attribute name="Implementation-Version" value="${version}.${build}" />
                 <attribute name="Implementation-Vendor" value="${author}" />
             </manifest>
-            <fileset dir="bin" excludes="com/ceridwen/selfissue/client/config/config.* uk/**" />
+            <fileset dir="bin" excludes="com/ceridwen/selfissue/client/config/config.xml uk/**" />
         </jar>
-        <jar destfile="dist/EncodePassword.jar">
+        <jar destfile="dist/ConfigEditor.jar">
             <manifest>
-                <attribute name="Main-Class" value="com.ceridwen.selfissue.EncodePassword"/>
-                <attribute name="Class-Path" value=". lib/ceridwen-utilities.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar"/>
+                <attribute name="Main-Class" value="com.ceridwen.selfissue.client.config.Editor"/>
+                <attribute name="Class-Path" value=". lib/ceridwen-utilities.jar lib/commons-lang3-3.0.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar lib/jaxfront-core.jar lib/jaxfront-swing.jar lib/jaxfront-pdf.jar lib/jgoodies-common-1.2.1.jar lib/jgoodies-looks-2.4.2.jar"/>
+                <attribute name="Implementation-Title" value="${name}" />
+                <attribute name="Implementation-Version" value="${version}.${build}" />
+                <attribute name="Implementation-Vendor" value="${author}" />
             </manifest>
-            <fileset dir="bin" includes="com/ceridwen/selfissue/client/config/Configuration.class com/ceridwen/selfissue/EncodePassword.class" />
+            <fileset dir="bin" includes="com/ceridwen/selfissue/client/config/**" />
         </jar>    	
         <copy file="../Circulation/bin/ceridwen-circulation.jar" todir="dist/lib"/>
         <copy file="../Utilities/bin/ceridwen-utilities.jar" todir="dist/lib"/>
+        <copy file="../Utilities/lib/commons-lang3-3.0/commons-lang3-3.0.jar" todir="dist/lib"/>
         <copy file="../Utilities/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar" todir="dist/lib"/>
         <copy file="../Utilities/lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar" todir="dist/lib"/>
         <copy file="../Utilities/lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar" todir="dist/lib"/>
@@ -46,9 +50,14 @@
         <copy file="lib/xalan-j_2_7_1/serializer.jar" todir="dist/lib"/>
         <copy file="lib/xalan-j_2_7_1/xercesImpl.jar" todir="dist/lib"/>
         <copy file="lib/xalan-j_2_7_1/xalan.jar" todir="dist/lib"/>
+    	<copy file="lib/jaxfront-2.71/jaxfront-core.jar" todir="dist/lib"/>
+    	<copy file="lib/jaxfront-2.71/jaxfront-pdf.jar" todir="dist/lib"/>
+    	<copy file="lib/jaxfront-2.71/jaxfront-swing.jar" todir="dist/lib"/>
+    	<copy file="lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar" todir="dist/lib"/>
+    	<copy file="lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar" todir="dist/lib"/>
         <copy file="lib/netx-0.5/netx-no-debug.jar" tofile="dist/netx.jar"/>
         <copy file="selfissue.jnlp" todir="dist"/>
-        <copy file="encodepassword.jnlp" todir="dist"/>
+        <copy file="configeditor.jnlp" todir="dist"/>
         <copy file="Invocation.txt" todir="dist"/>
         <copy file="changelog.txt" todir="dist"/>
         <copy file="license.txt" todir="dist"/>

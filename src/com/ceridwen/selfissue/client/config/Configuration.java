@@ -203,6 +203,15 @@ public class Configuration {
 
   }
 
+  public static Node getSubPropertyNode(Node node, String key) {
+	try {
+		  return selectSingleNode(node,key);
+	  } catch (Exception ex) {
+	      fatal(ex, "Could not retrieve property sub-value: " + key);
+	      return null;
+	    }
+	}
+  
   public static String getSubProperty(Node node, String key) {
     try {
       Node value = selectSingleNode(node,key);
@@ -226,6 +235,13 @@ public class Configuration {
       return 0;
     }
   }
+  
+  public static boolean getBoolSubProperty(Node node, String key) {
+	    return (Configuration.getSubProperty(node, key) == null) ? false :
+	        (Configuration.getSubProperty(node, key).equalsIgnoreCase("true") ||
+	         Configuration.getSubProperty(node, key).equalsIgnoreCase("yes") ||
+	         Configuration.getSubProperty(node, key).equalsIgnoreCase("1"));
+	  }
 
   public static boolean getBoolProperty(String key) {
     return (Configuration.getProperty(key) == null) ? false :
