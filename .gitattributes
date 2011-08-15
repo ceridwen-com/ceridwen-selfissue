@@ -6,6 +6,7 @@
 .externalToolBuilders/Deploy[!!-~]Default[!!-~]Config.launch -text svneol=unset#text/plain
 /.project -text
 .settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
+.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
 /Invocation.txt -text svneol=unset#text/plain
 /SelfIssue-package.xml -text svneol=unset#text/plain
 /build.xml -text svneol=unset#text/plain
@@ -46,6 +47,8 @@ src/com/ceridwen/selfissue/client/ShutdownThread.java -text
 src/com/ceridwen/selfissue/client/config/Configuration.java -text
 src/com/ceridwen/selfissue/client/config/Editor.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/config/EncryptionVisualizer.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/config/FileChooser.java -text svneol=unset#text/plain
+src/com/ceridwen/selfissue/client/config/FontChooser.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/config/config.xsd -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/config/config.xui -text
 src/com/ceridwen/selfissue/client/config/default.xml -text svneol=unset#text/plain
