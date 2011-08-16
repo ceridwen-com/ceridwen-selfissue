@@ -69,7 +69,6 @@ public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProces
   private int generateEventMask(Node eventMask) {
 	  if (eventMask == null) { return 0; }
 	  int ret = 0;
-	  //@todo
 	  if (Configuration.getBoolSubProperty(eventMask, "CancelCheckoutFailure")) { ret += OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE; }
 	  if (Configuration.getBoolSubProperty(eventMask, "CheckinFailure")) { ret += OnlineLogEvent.STATUS_CHECKINFAILURE; }
 	  if (Configuration.getBoolSubProperty(eventMask, "CheckinPending")) { ret += OnlineLogEvent.STATUS_CHECKINPENDING; }
