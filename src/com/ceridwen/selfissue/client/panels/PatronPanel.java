@@ -35,11 +35,11 @@ import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.flagfields.PatronStatus;
-import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.config.Editor;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
+import com.ceridwen.selfissue.client.core.ConnectionFactory;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 
@@ -626,54 +626,58 @@ private static String strim(String string) {
             data.append(Configuration.getSubProperty(loggers.item(i), "@class") +
             "\r\n");
         }
-        Connection conn = SelfIssueClient.ConfigureConnection();
-        data.append("Host: " + conn.getHost());
-        data.append(": " + conn.getPort() + "\r\n");
-        data.append("Timeouts: " + conn.getConnectionTimeout() + ","
-        		+ conn.getIdleTimeout() + "\r\n");
-        data.append("Retries: " + conn.getRetryAttempts() + ","
-        		+ conn.getRetryWait() + "\r\n");
-        data.append("Error handling: ");
-        if (conn.getAddSequenceAndChecksum()) {
-        	data.append("AddChecksum|");
+        try {
+        	Connection conn = ConnectionFactory.getConnection(false);
+	        ConnectionFactory.releaseConnection(conn);
+	        data.append("Host: " + conn.getHost());
+	        data.append(": " + conn.getPort() + "\r\n");
+	        data.append("Timeouts: " + conn.getConnectionTimeout() + ","
+	        		+ conn.getIdleTimeout() + "\r\n");
+	        data.append("Retries: " + conn.getRetryAttempts() + ","
+	        		+ conn.getRetryWait() + "\r\n");
+	        data.append("Error handling: ");
+	        if (conn.getAddSequenceAndChecksum()) {
+	        	data.append("AddChecksum|");
+	        }
+	        if (conn.getStrictChecksumChecking()) {
+	        	data.append("CheckChecksum|");
+	        }
+	        if (conn.getStrictSequenceChecking()) {
+	        	data.append("CheckSequence");
+	        }
+	        data.append("\r\n");
+	        data.append("Modes: ");
+	        if (trustMode) {
+	          data.append("Trust|");
+	        }
+	        if (allowOffline) {
+	          data.append("Offline|");
+	        }
+	        if (retryPatronWhenError) {
+	          data.append("PatronRetry|");
+	        }
+	        if (retryItemWhenError) {
+	          data.append("ItemRetry|");
+	        }
+	        if (allowRenews) {
+	          data.append("Renews|");
+	        }
+	        if (useNoBlock) {
+	          data.append("NoBlocks|");
+	        }
+	        if (suppressSecurityFailureMessages) {
+	          data.append("SuppressSecurityMsgs");
+	        }
+	        data.append("\r\n");
+	        data.append("Spooler: " + handler.getSpoolSize() + "\r\n");
+	        data.append("Memory (Max, VM, Free): " + Runtime.getRuntime().maxMemory()/(1024*1024) + "MB, ");
+	        
+	        data.append(Runtime.getRuntime().totalMemory()/(1024*1024) + "MB, ");
+	        data.append(Runtime.getRuntime().freeMemory()/(1024*1024) + "MB\r\n");
+	
+	        this.PatronText.setText(data.toString());
+        } catch (Exception ex) {
         }
-        if (conn.getStrictChecksumChecking()) {
-        	data.append("CheckChecksum|");
-        }
-        if (conn.getStrictSequenceChecking()) {
-        	data.append("CheckSequence");
-        }
-        data.append("\r\n");
-        data.append("Modes: ");
-        if (trustMode) {
-          data.append("Trust|");
-        }
-        if (allowOffline) {
-          data.append("Offline|");
-        }
-        if (retryPatronWhenError) {
-          data.append("PatronRetry|");
-        }
-        if (retryItemWhenError) {
-          data.append("ItemRetry|");
-        }
-        if (allowRenews) {
-          data.append("Renews|");
-        }
-        if (useNoBlock) {
-          data.append("NoBlocks|");
-        }
-        if (suppressSecurityFailureMessages) {
-          data.append("SuppressSecurityMsgs");
-        }
-        data.append("\r\n");
-        data.append("Spooler: " + handler.getSpoolSize() + "\r\n");
-        data.append("Memory (Max, VM, Free): " + Runtime.getRuntime().maxMemory()/(1024*1024) + "MB, ");
-        
-        data.append(Runtime.getRuntime().totalMemory()/(1024*1024) + "MB, ");
-        data.append(Runtime.getRuntime().freeMemory()/(1024*1024) + "MB\r\n");
-
-        this.PatronText.setText(data.toString());
         return true;
       }
     } else if (command.equals("*Test Crash")) {

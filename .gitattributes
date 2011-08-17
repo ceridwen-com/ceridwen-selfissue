@@ -46,6 +46,7 @@ res/org/pdclipart/library_book_cart.png -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.num -text
 src/com/ceridwen/selfissue/client/SelfIssueFrame.java -text
+src/com/ceridwen/selfissue/client/SelfIssueThread.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/SelfIssueThreadGroup.java -text
 src/com/ceridwen/selfissue/client/ShutdownThread.java -text
 src/com/ceridwen/selfissue/client/config/Configuration.java -text
@@ -58,6 +59,7 @@ src/com/ceridwen/selfissue/client/config/config.xui -text
 src/com/ceridwen/selfissue/client/config/default.xml -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/core/CirculationHandler.java -text
 src/com/ceridwen/selfissue/client/core/CirculationHandlerImpl.java -text
+src/com/ceridwen/selfissue/client/core/ConnectionFactory.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/core/OutOfOrderInterface.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/devices/CirculationDevices.num -text
 src/com/ceridwen/selfissue/client/devices/FailureException.java -text
