@@ -26,6 +26,7 @@ import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.enumerations.ProtocolVersion;
 import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.ceridwen.selfissue.client.core.ConnectionFactory;
 import com.ceridwen.selfissue.client.devices.IDReaderDevice;
 import com.ceridwen.selfissue.client.devices.SecurityDevice;
 
@@ -70,13 +71,12 @@ public class ShutdownThread extends Thread {
     private void sendShutdownStatus() {
         if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
             try {
-                this.conn = SelfIssueClient.ConfigureConnection();
-                this.conn.connect();
+                this.conn = ConnectionFactory.getConnection(true);
                 SCStatus scstatus = new SCStatus();
                 scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
                 scstatus.setStatusCode(StatusCode.SHUTTING_DOWN);
                 this.conn.send(scstatus);
-                this.conn.disconnect();
+                ConnectionFactory.releaseConnection(conn);
             } catch (Exception ex) {
                 this.conn.disconnect();
             }
@@ -90,5 +90,6 @@ public class ShutdownThread extends Thread {
         ShutdownThread.shutdownSecurityDevice();
         ShutdownThread.shutdownRFIDDevice();
         this.sendShutdownStatus();
+        ConnectionFactory.releaseAll();
     }
 }

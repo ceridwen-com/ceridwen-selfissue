@@ -35,11 +35,11 @@ import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.flagfields.PatronStatus;
-import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.config.Editor;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
+import com.ceridwen.selfissue.client.core.ConnectionFactory;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 
@@ -626,7 +626,9 @@ private static String strim(String string) {
             data.append(Configuration.getSubProperty(loggers.item(i), "@class") +
             "\r\n");
         }
-        Connection conn = SelfIssueClient.ConfigureConnection();
+        try {
+        	Connection conn = ConnectionFactory.getConnection(false);
+	        ConnectionFactory.releaseConnection(conn);
         data.append("Host: " + conn.getHost());
         data.append(": " + conn.getPort() + "\r\n");
         data.append("Timeouts: " + conn.getConnectionTimeout() + ","
@@ -674,6 +676,8 @@ private static String strim(String string) {
         data.append(Runtime.getRuntime().freeMemory()/(1024*1024) + "MB\r\n");
 
         this.PatronText.setText(data.toString());
+        } catch (Exception ex) {
+        }
         return true;
       }
     } else if (command.equals("*Test Crash")) {

@@ -54,7 +54,6 @@ import com.ceridwen.circulation.SIP.messages.SCStatus;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.enumerations.ProtocolVersion;
 import com.ceridwen.circulation.SIP.types.enumerations.StatusCode;
-import com.ceridwen.selfissue.client.SelfIssueClient;
 import com.ceridwen.selfissue.client.ShutdownThread;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.devices.FailureException;
@@ -198,13 +197,11 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
     }
 
     private boolean connect() {
-        this.conn = SelfIssueClient.ConfigureConnection();
-        SelfIssueClient.EnterCriticalSection();
         try {
-            this.conn.connect();
+            this.conn = ConnectionFactory.getConnection(true);
             return this.doLogin();
         } catch (Exception ex) {
-            SelfIssueClient.LeaveCriticalSection();
+        	ConnectionFactory.releaseConnection(conn);
             CirculationHandlerImpl.logger.warn("Exception on connection", ex);
             return false;
         }
@@ -231,13 +228,12 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
     private void disconnect() {
         if (this.conn != null) {
             try {
-                this.conn.disconnect();
+            	ConnectionFactory.releaseConnection(conn);
             } catch (Exception ex) {
                 CirculationHandlerImpl.logger.warn("Exception on disconnection", ex);
             }
         }
         this.conn = null;
-        SelfIssueClient.LeaveCriticalSection();
     }
 
     private Boolean doEndPatronSession(Message request) {
@@ -464,14 +460,13 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
      * com.ceridwen.selfissue.client.core.CirculationHandler#checkStatus(int)
      */
     public String checkStatus(int statusCode) {
-        Connection c = SelfIssueClient.ConfigureConnection();
         try {
-            c.connect();
+            Connection c = ConnectionFactory.getConnection(true);
             SCStatus scstatus = new SCStatus();
             scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
             scstatus.setStatusCode(StatusCode.OK);
             ACSStatus response = (ACSStatus) c.send(scstatus);
-            c.disconnect();
+            ConnectionFactory.releaseConnection(c);
             return "DateTimeSync: " + response.getDateTimeSync() + " | " +
                     "InstId: " + response.getInstitutionId() + " | " +
                     "LibName: " + response.getLibraryName() + " | " +
@@ -490,7 +485,6 @@ public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcesso
                     "StatusUpdate: " + response.isStatusUpdateOk();
         } catch (Exception ex) {
             try {
-                c.disconnect();
             } catch (Exception inner) {
             }
             return "Error: " + ex.toString();
