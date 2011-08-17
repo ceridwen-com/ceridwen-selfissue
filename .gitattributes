@@ -22,9 +22,7 @@ lib/jgoodies-looks-2.4.2/LICENSE.txt -text svneol=unset#text/plain
 lib/jgoodies-looks-2.4.2/RELEASE-NOTES.txt -text svneol=unset#text/plain
 lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar -text
 lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar -text
-lib/netx-0.5/LICENSE.TXT -text
 lib/netx-0.5/LICENSE.txt -text svneol=unset#text/plain
-lib/netx-0.5/license.txt -text svneol=unset#text/plain
 lib/netx-0.5/netx-no-debug.jar -text
 lib/netx-0.5/netx.jar -text
 lib/xalan-j_2_7_1/LICENSE.txt -text svneol=unset#text/plain
