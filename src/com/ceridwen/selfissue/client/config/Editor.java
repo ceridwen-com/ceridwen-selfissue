@@ -1,3 +1,21 @@
+/*******************************************************************************
+ * Copyright (c) 2010 Matthew J. Dovey (www.ceridwen.com).
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Public License v3.0
+ * which accompanies this distribution, and is available at 
+ * <http://www.gnu.org/licenses/>
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * Contributors:
+ *     Matthew J. Dovey (www.ceridwen.com) - initial API and implementation
+ ******************************************************************************/
 package com.ceridwen.selfissue.client.config;
 
 import java.awt.BorderLayout;
@@ -34,7 +52,7 @@ import com.jaxfront.core.util.LicenseErrorException;
 import com.jaxfront.core.util.URLHelper;
 import com.jaxfront.core.util.io.BrowserControl;
 import com.jaxfront.core.util.io.cache.XUICache;
-import com.jaxfront.pdf.PDFGenerator;
+//import com.jaxfront.pdf.PDFGenerator;
 import com.jaxfront.swing.ui.editor.EditorPanel;
 import com.jaxfront.swing.ui.editor.ShowXMLDialog;
 import com.jgoodies.looks.HeaderStyle;
@@ -191,7 +209,8 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 
 	private void print() {
 		if (_currentDom != null) {
-			ByteArrayOutputStream bos = PDFGenerator.getInstance().print(_currentDom);
+//			ByteArrayOutputStream bos = PDFGenerator.getInstance().print(_currentDom);
+			ByteArrayOutputStream bos = null;
 			if (bos != null) {
 				try {
 					String tempPDFName = "c:\\temp\\test.pdf";
@@ -228,7 +247,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 		_centerPanel.add(_editor, BorderLayout.CENTER);
 		// activate actions
 		_saveAction.setEnabled(true);
-		_printAction.setEnabled(true);
+		_printAction.setEnabled(false);
 	}
 
 	private void save() {

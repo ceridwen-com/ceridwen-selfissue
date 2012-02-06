@@ -15,7 +15,6 @@
 /configeditor.jnlp -text
 /deployDefaultConfig.xml -text svneol=unset#text/plain
 lib/jaxfront-2.77/jaxfront-core.jar -text
-lib/jaxfront-2.77/jaxfront-pdf.jar -text
 lib/jaxfront-2.77/jaxfront-swing.jar -text
 lib/jaxfront-2.77/licence.txt -text svneol=unset#text/plain
 lib/jgoodies-looks-2.4.2/LICENSE.txt -text svneol=unset#text/plain
