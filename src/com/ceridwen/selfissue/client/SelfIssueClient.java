@@ -54,7 +54,7 @@ public class SelfIssueClient {
       }
 	}
       
-	private static void initiateLoggin() {
+	private static void initiateLogging() {
     NodeList loggingHandlers = Configuration.getPropertyList("Logging/LoggingHandler");
     for (int i = 0; i < loggingHandlers.getLength(); i++) {
           LoggingHandlerWrapper loggingHandlerWrapper;
@@ -86,7 +86,7 @@ public class SelfIssueClient {
 
 	public static void main(String[] args) {
 		checkExistingInstance();      
-		initiateLoggin();
+		initiateLogging();
 		initiateShutdownHooks();
 		startThreads();
 	}
