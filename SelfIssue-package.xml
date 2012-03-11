@@ -65,11 +65,10 @@
         <copy todir="dist/third-party-licenses/xalan-j_2_7_1">
         	<fileset dir="lib/xalan-j_2_7_1" includes="*.txt" />
         </copy>
-    	<copy file="lib/jaxfront-2.71/jaxfront-core.jar" todir="dist/lib"/>
-    	<copy file="lib/jaxfront-2.71/jaxfront-pdf.jar" todir="dist/lib"/>
-    	<copy file="lib/jaxfront-2.71/jaxfront-swing.jar" todir="dist/lib"/>
+    	<copy file="lib/jaxfront-2.77/jaxfront-core.jar" todir="dist/lib"/>
+    	<copy file="lib/jaxfront-2.77/jaxfront-swing.jar" todir="dist/lib"/>
         <copy todir="dist/third-party-licenses/jaxfront-2.71">
-        	<fileset dir="lib/jaxfront-2.71" includes="*.txt" />
+        	<fileset dir="lib/jaxfront-2.77" includes="*.txt" />
         </copy>
     	<copy file="lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar" todir="dist/lib"/>
     	<copy file="lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar" todir="dist/lib"/>

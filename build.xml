@@ -55,9 +55,8 @@
         <pathelement location="lib/xalan-j_2_7_1/xercesImpl.jar"/>
         <pathelement location="lib/xalan-j_2_7_1/xml-apis.jar"/>
         <pathelement location="${Utilities.location}/lib/commons-lang3-3.0/commons-lang3-3.0.jar"/>
-        <pathelement location="lib/jaxfront-2.71/jaxfront-core.jar"/>
-        <pathelement location="lib/jaxfront-2.71/jaxfront-pdf.jar"/>
-        <pathelement location="lib/jaxfront-2.71/jaxfront-swing.jar"/>
+        <pathelement location="lib/jaxfront-2.77/jaxfront-core.jar"/>
+        <pathelement location="lib/jaxfront-2.77/jaxfront-swing.jar"/>
         <pathelement location="lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar"/>
         <pathelement location="lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar"/>
     </path>
