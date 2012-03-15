@@ -54,8 +54,8 @@
         <copy todir="${distrib.dir}/res">
             <fileset dir="res"/>
         </copy>		
-        <copy file="selfissue.jnlp" todir="${distrib.dir}"/>
-        <copy file="configeditor.jnlp" todir="${distrib.dir}"/>
+        <copy file="SelfIssue.jnlp" todir="${distrib.dir}"/>
+        <copy file="ConfigEditor.jnlp" todir="${distrib.dir}"/>
 		<antcall target="distribution-complete" />
     </target>
 </project>

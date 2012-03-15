@@ -5,13 +5,14 @@
 /.project -text
 .settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
 .settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+/ConfigEditor.jnlp -text
+/SelfIssue.jnlp -text
 /build-data.properties -text
 /build-dirs.properties -text
 build-scripts/distribution-builder.xml -text
 build-scripts/jar-builder.xml -text
 build-scripts/version-builder.xml -text
 /build.xml -text svneol=unset#text/plain
-/configeditor.jnlp -text
 /create-distribution.xml -text
 /deploy-default-config.xml -text svneol=unset#text/plain
 doc/Invocation.txt -text svneol=unset#text/plain
@@ -69,7 +70,6 @@ res/org/freesound/8594__SpeedY__Strum_mute_down.wav -text
 res/org/pdclipart/book_stack_of_books_taller_ga_.png -text
 res/org/pdclipart/bookcase.png -text
 res/org/pdclipart/library_book_cart.png -text
-/selfissue.jnlp -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
 src/com/ceridwen/selfissue/client/SelfIssueFrame.java -text
 src/com/ceridwen/selfissue/client/SelfIssueThread.java -text svneol=unset#text/plain
