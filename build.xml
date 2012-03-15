@@ -15,8 +15,8 @@
         <pathelement location="lib/xalan-j_2_7_1/xalan.jar"/>
         <pathelement location="lib/xalan-j_2_7_1/xercesImpl.jar"/>
         <pathelement location="lib/xalan-j_2_7_1/xml-apis.jar"/>
-        <pathelement location="lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar"/>
-        <pathelement location="lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar"/>
+        <pathelement location="lib/jgoodies-looks-2.5.0/jgoodies-common-1.3.0.jar"/>
+        <pathelement location="lib/jgoodies-looks-2.5.0/jgoodies-looks-2.5.0.jar"/>
         <pathelement location="lib/jaxfront-2.77/jaxfront-core.jar"/>
         <pathelement location="lib/jaxfront-2.77/jaxfront-swing.jar"/>
         <pathelement location="lib/ceridwen-circulation-1.70/ceridwen-circulation.jar"/>

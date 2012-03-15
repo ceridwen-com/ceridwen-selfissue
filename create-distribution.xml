@@ -42,7 +42,7 @@
 			<param name="lib.name" value="junit-4.10" />
 		</antcall>
 		<antcall target="copy-library">
-			<param name="lib.name" value="jgoodies-looks-2.4.2" />
+			<param name="lib.name" value="jgoodies-looks-2.5.0" />
 		</antcall>
 		<antcall target="copy-library">
 			<param name="lib.name" value="netx-0.5" />
