@@ -601,7 +601,7 @@ private static String strim(String string) {
         return true;
       }
     } else if (command.equals("*About")) {
-      com.ceridwen.util.versioning.AboutDialog dlg = new com.ceridwen.util.versioning.AboutDialog(null, true, new LibraryIdentifier("ceridwen.com", "Ceridwen Self Issue Client"));
+      com.ceridwen.util.versioning.AboutDialog dlg = new com.ceridwen.util.versioning.AboutDialog(null, true, new LibraryIdentifier("com.ceridwen", "Ceridwen Self Issue Client"));
       SelfIssueFrame.setOnTop(false);
       dlg.setSize(800, 600);
       dlg.setVisible(true);
