@@ -23,9 +23,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -50,9 +48,7 @@ import com.jaxfront.core.ui.TypeVisualizerFactory;
 import com.jaxfront.core.util.JAXFrontProperties;
 import com.jaxfront.core.util.LicenseErrorException;
 import com.jaxfront.core.util.URLHelper;
-import com.jaxfront.core.util.io.BrowserControl;
 import com.jaxfront.core.util.io.cache.XUICache;
-//import com.jaxfront.pdf.PDFGenerator;
 import com.jaxfront.swing.ui.editor.EditorPanel;
 import com.jaxfront.swing.ui.editor.ShowXMLDialog;
 import com.jgoodies.looks.HeaderStyle;
@@ -74,6 +70,7 @@ import com.jgoodies.looks.Options;
  www.jaxfront.com
 
  */
+@SuppressWarnings("serial")
 public class Editor extends JFrame implements WindowListener, HelpListener {
 	private final static String APPLICATION_TITLE = "Self Issue Client Configuration Editor";
 	private final static int WINDOW_HEIGHT = 768;
@@ -208,21 +205,20 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 	}
 
 	private void print() {
-		if (_currentDom != null) {
+//		if (_currentDom != null) {
 //			ByteArrayOutputStream bos = PDFGenerator.getInstance().print(_currentDom);
-			ByteArrayOutputStream bos = null;
-			if (bos != null) {
-				try {
-					String tempPDFName = "c:\\temp\\test.pdf";
-					FileOutputStream fos = new FileOutputStream(tempPDFName);
-					bos.writeTo(fos);
-					fos.close();
-					BrowserControl.displayURL(tempPDFName);
-				} catch (Throwable t) {
-					t.printStackTrace();
-				}
-			}
-		}
+//			if (bos != null) {
+//				try {
+//					String tempPDFName = "c:\\temp\\test.pdf";
+//					FileOutputStream fos = new FileOutputStream(tempPDFName);
+//					bos.writeTo(fos);
+//					fos.close();
+//					BrowserControl.displayURL(tempPDFName);
+//				} catch (Throwable t) {
+//					t.printStackTrace();
+//				}
+//			}
+//		}
 	}
 
 	private void visualizeDOM() {

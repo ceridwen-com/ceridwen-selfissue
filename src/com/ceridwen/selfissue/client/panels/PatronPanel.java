@@ -37,7 +37,6 @@ import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.types.flagfields.PatronStatus;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
-import com.ceridwen.selfissue.client.config.Editor;
 import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.core.ConnectionFactory;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;

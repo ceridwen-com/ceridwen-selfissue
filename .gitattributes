@@ -1,19 +1,46 @@
 * text=auto !eol
 /.classpath -text
-.externalToolBuilders/Build[!!-~]Distribution.launch -text svneol=unset#text/plain
-.externalToolBuilders/Buildnum[!!-~]-[!!-~]CirculationDevices.launch -text svneol=unset#text/plain
-.externalToolBuilders/Buildnum[!!-~]-[!!-~]SelfIssue.launch -text svneol=unset#text/plain
+.externalToolBuilders/Create[!!-~]Distribution.launch -text
 .externalToolBuilders/Deploy[!!-~]Default[!!-~]Config.launch -text svneol=unset#text/plain
 /.project -text
 .settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
 .settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
-/Invocation.txt -text svneol=unset#text/plain
-/SelfIssue-package.xml -text svneol=unset#text/plain
+/build-data.properties -text
+/build-dirs.properties -text
+build-scripts/distribution-builder.xml -text
+build-scripts/jar-builder.xml -text
+build-scripts/version-builder.xml -text
 /build.xml -text svneol=unset#text/plain
-/buildnum.xml -text
-/changelog.txt -text svneol=unset#text/plain
 /configeditor.jnlp -text
-/deployDefaultConfig.xml -text svneol=unset#text/plain
+/create-distribution.xml -text
+/deploy-default-config.xml -text svneol=unset#text/plain
+doc/Invocation.txt -text svneol=unset#text/plain
+lib/ceridwen-circulation-1.70/ceridwen-circulation.jar -text
+lib/ceridwen-circulation-1.70/changelog.txt -text
+lib/ceridwen-circulation-1.70/license.txt -text
+lib/ceridwen-utilities-1.40/ceridwen-utilities.jar -text
+lib/ceridwen-utilities-1.40/changelog.txt -text
+lib/ceridwen-utilities-1.40/license.txt -text
+lib/commons-beanutils-1.8.3/LICENSE.txt -text
+lib/commons-beanutils-1.8.3/NOTICE.txt -text
+lib/commons-beanutils-1.8.3/RELEASE-NOTES.txt -text
+lib/commons-beanutils-1.8.3/commons-beanutils-1.8.3.jar -text
+lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar -text
+lib/commons-beanutils-1.8.3/commons-beanutils-core-1.8.3.jar -text
+lib/commons-lang3-3.0/LICENSE.txt -text
+lib/commons-lang3-3.0/NOTICE.txt -text
+lib/commons-lang3-3.0/RELEASE-NOTES.txt -text
+lib/commons-lang3-3.0/commons-lang3-3.0.jar -text
+lib/commons-logging-1.1.1/LICENSE.txt -text
+lib/commons-logging-1.1.1/NOTICE.txt -text
+lib/commons-logging-1.1.1/RELEASE-NOTES.txt -text
+lib/commons-logging-1.1.1/commons-logging-1.1.1.jar -text
+lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar -text
+lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar -text
+lib/commons-net-2.0/LICENSE.txt -text
+lib/commons-net-2.0/NOTICE.txt -text
+lib/commons-net-2.0/commons-net-2.0.jar -text
+lib/commons-net-2.0/commons-net-ftp-2.0.jar -text
 lib/jaxfront-2.77/jaxfront-core.jar -text
 lib/jaxfront-2.77/jaxfront-swing.jar -text
 lib/jaxfront-2.77/licence.txt -text svneol=unset#text/plain
@@ -21,6 +48,7 @@ lib/jgoodies-looks-2.4.2/LICENSE.txt -text svneol=unset#text/plain
 lib/jgoodies-looks-2.4.2/RELEASE-NOTES.txt -text svneol=unset#text/plain
 lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar -text
 lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar -text
+lib/junit-4.10/junit-4.10.jar -text
 lib/netx-0.5/LICENSE.txt -text svneol=unset#text/plain
 lib/netx-0.5/netx-no-debug.jar -text
 lib/netx-0.5/netx.jar -text
@@ -31,7 +59,8 @@ lib/xalan-j_2_7_1/serializer.jar -text
 lib/xalan-j_2_7_1/xalan.jar -text
 lib/xalan-j_2_7_1/xercesImpl.jar -text
 lib/xalan-j_2_7_1/xml-apis.jar -text
-/license.txt -text svneol=unset#text/plain
+readme/changelog.txt -text svneol=unset#text/plain
+readme/license.txt -text svneol=unset#text/plain
 res/com/ceridwen/selfissue/client/config/config.xml -text svneol=unset#text/plain
 res/com/ceridwen/selfissue/client/images/card.gif -text
 res/org/freesound/26034__ashassin__cassrol.wav -text

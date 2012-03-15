@@ -23,7 +23,6 @@ import java.awt.GraphicsEnvironment;
 
 import javax.swing.JComponent;
 import javax.swing.JComboBox;
-import javax.swing.ListSelectionModel;
 
 import com.jaxfront.core.type.SimpleType;
 import com.jaxfront.swing.ui.beans.AbstractSimpleVisualizer;
@@ -31,6 +30,10 @@ import com.jaxfront.swing.ui.beans.AbstractSimpleVisualizer;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class FontChooser extends AbstractSimpleVisualizer {
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5617887268768044397L;
 		private JComboBox<String> _fontChooser;
 			
 		public String getText() {

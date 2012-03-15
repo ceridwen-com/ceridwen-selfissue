@@ -2,25 +2,25 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Circulation"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Utilities"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/Circulation/lib/commons-beanutils-1.8.3/commons-beanutils-core-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-net-2.0/commons-net-2.0.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-net-2.0/commons-net-ftp-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/serializer.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xalan.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xml-apis.jar"/>
-	<classpathentry kind="lib" path="/Utilities/lib/commons-lang3-3.0/commons-lang3-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-looks-2.4.2/jgoodies-common-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/jgoodies-looks-2.4.2/jgoodies-looks-2.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/jaxfront-2.77/jaxfront-core.jar"/>
 	<classpathentry kind="lib" path="lib/jaxfront-2.77/jaxfront-swing.jar"/>
+	<classpathentry kind="lib" path="lib/ceridwen-circulation-1.70/ceridwen-circulation.jar"/>
+	<classpathentry kind="lib" path="lib/ceridwen-utilities-1.40/ceridwen-utilities.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.3/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-1.8.3/commons-beanutils-core-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.0/commons-lang3-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-2.0/commons-net-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-2.0/commons-net-ftp-2.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.7.0_02"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

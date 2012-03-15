@@ -28,6 +28,10 @@ import com.jaxfront.swing.ui.beans.AbstractSimpleVisualizer;
 
 
 public class EncryptionVisualizer extends AbstractSimpleVisualizer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -956743761694232016L;
 	private JPasswordField _textArea;
 		
 	public String getText() {

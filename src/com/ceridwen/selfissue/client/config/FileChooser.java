@@ -20,18 +20,7 @@ package com.ceridwen.selfissue.client.config;
 
 import java.awt.Font;
 import java.io.File;
-import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
-import java.nio.file.FileSystems;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.PathMatcher;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Iterator;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -40,6 +29,10 @@ import com.jaxfront.core.type.SimpleType;
 import com.jaxfront.swing.ui.beans.AbstractSimpleVisualizer;
 
 public class FileChooser extends AbstractSimpleVisualizer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2219930215862492984L;
 		private JComboBox<String> _fileChooser;
 		String _filter[];
 		
