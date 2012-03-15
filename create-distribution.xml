@@ -21,6 +21,9 @@
 			<param name="lib.name" value="ceridwen-utilities-1.40" />
 		</antcall>
 		<antcall target="copy-library">
+			<param name="lib.name" value="ceridwen-circulation-1.70" />
+		</antcall>
+		<antcall target="copy-library">
 			<param name="lib.name" value="commons-lang3-3.0" />
 		</antcall>
 		<antcall target="copy-library">
