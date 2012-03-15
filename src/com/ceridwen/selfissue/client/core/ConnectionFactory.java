@@ -71,8 +71,11 @@ public class ConnectionFactory {
 	}
 
 	public static void releaseAll() {
-		for (Connection conn = connections.firstElement(); !connections.isEmpty();) {
-			releaseConnection(conn);
+		if (connections == null) {
+			while (!connections.isEmpty()) {
+				Connection conn = connections.firstElement();
+				releaseConnection(conn);
+			}
 		}
 	}
 

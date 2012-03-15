@@ -51,6 +51,7 @@ public class ShutdownThread extends Thread {
 
     public static void shutdownSecurityDevice() {
         if (ShutdownThread.securityDevice != null) {
+            System.out.println("Shutting Down Security Devices");
             synchronized (ShutdownThread.securityDevice) {
                 ShutdownThread.securityDevice.deinit();
                 ShutdownThread.securityDevice = null;
@@ -60,6 +61,7 @@ public class ShutdownThread extends Thread {
 
     public static void shutdownRFIDDevice() {
         if (ShutdownThread.idReaderDevice != null) {
+            System.out.println("Shutting Down Reader Devices...");
             synchronized (ShutdownThread.idReaderDevice) {
                 ShutdownThread.idReaderDevice.stop();
                 ShutdownThread.idReaderDevice.deinit();
@@ -70,6 +72,7 @@ public class ShutdownThread extends Thread {
 
     private void sendShutdownStatus() {
         if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
+            System.out.println("Notifying Library System...");
             try {
                 this.conn = ConnectionFactory.getConnection(true);
                 SCStatus scstatus = new SCStatus();
@@ -78,7 +81,13 @@ public class ShutdownThread extends Thread {
                 this.conn.send(scstatus);
                 ConnectionFactory.releaseConnection(conn);
             } catch (Exception ex) {
-                this.conn.disconnect();
+            	try {
+            		if (this.conn != null) {
+            			this.conn.disconnect();
+            		}
+            	} catch (Exception exint) {
+            		
+            	}
             }
         }
     }
@@ -87,9 +96,11 @@ public class ShutdownThread extends Thread {
     public void run() {
         ShutdownThread.log.info("Shutting Down Self Issue Terminal");
         System.out.println("Shutting Down Self Issue Terminal...");
+        System.out.println("Closing Pending Connections...");
+        ConnectionFactory.releaseAll();
         ShutdownThread.shutdownSecurityDevice();
         ShutdownThread.shutdownRFIDDevice();
         this.sendShutdownStatus();
-        ConnectionFactory.releaseAll();
+        System.out.println("Self Issue Terminal Shutdown Complete.");
     }
 }
