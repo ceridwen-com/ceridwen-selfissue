@@ -28,8 +28,7 @@
         <pathelement location="lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
         <pathelement location="lib/commons-logging-1.1.1/commons-logging-adapters-1.1.1.jar"/>
         <pathelement location="lib/commons-logging-1.1.1/commons-logging-api-1.1.1.jar"/>
-        <pathelement location="lib/commons-net-2.0/commons-net-2.0.jar"/>
-        <pathelement location="lib/commons-net-2.0/commons-net-ftp-2.0.jar"/>
+        <pathelement location="lib/commons-net-3.1/commons-net-3.1.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
