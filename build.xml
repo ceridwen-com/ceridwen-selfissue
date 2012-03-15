@@ -19,7 +19,7 @@
         <pathelement location="lib/jgoodies-looks-2.5.0/jgoodies-looks-2.5.0.jar"/>
         <pathelement location="lib/jaxfront-2.77/jaxfront-core.jar"/>
         <pathelement location="lib/jaxfront-2.77/jaxfront-swing.jar"/>
-        <pathelement location="lib/ceridwen-circulation-1.70/ceridwen-circulation.jar"/>
+        <pathelement location="lib/ceridwen-circulation-2.80/ceridwen-circulation-2.80.jar"/>
         <pathelement location="lib/ceridwen-utilities-1.40/ceridwen-utilities.jar"/>
         <pathelement location="lib/commons-beanutils-1.8.3/commons-beanutils-1.8.3.jar"/>
         <pathelement location="lib/commons-beanutils-1.8.3/commons-beanutils-bean-collections-1.8.3.jar"/>

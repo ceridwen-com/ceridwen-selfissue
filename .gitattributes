@@ -15,9 +15,9 @@ build-scripts/version-builder.xml -text
 /create-distribution.xml -text
 /deploy-default-config.xml -text svneol=unset#text/plain
 doc/Invocation.txt -text svneol=unset#text/plain
-lib/ceridwen-circulation-1.70/ceridwen-circulation.jar -text
-lib/ceridwen-circulation-1.70/changelog.txt -text
-lib/ceridwen-circulation-1.70/license.txt -text
+lib/ceridwen-circulation-2.80/ceridwen-circulation-2.80.jar -text
+lib/ceridwen-circulation-2.80/changelog.txt -text
+lib/ceridwen-circulation-2.80/license.txt -text
 lib/ceridwen-utilities-1.40/ceridwen-utilities.jar -text
 lib/ceridwen-utilities-1.40/changelog.txt -text
 lib/ceridwen-utilities-1.40/license.txt -text
