@@ -18,9 +18,9 @@ doc/Invocation.txt -text svneol=unset#text/plain
 lib/ceridwen-circulation-2.80/ceridwen-circulation-2.80.jar -text
 lib/ceridwen-circulation-2.80/changelog.txt -text
 lib/ceridwen-circulation-2.80/license.txt -text
-lib/ceridwen-utilities-1.40/ceridwen-utilities.jar -text
-lib/ceridwen-utilities-1.40/changelog.txt -text
-lib/ceridwen-utilities-1.40/license.txt -text
+lib/ceridwen-utilities-1.50/ceridwen-utilities-1.50.jar -text
+lib/ceridwen-utilities-1.50/changelog.txt -text
+lib/ceridwen-utilities-1.50/license.txt -text
 lib/commons-beanutils-1.8.3/LICENSE.txt -text
 lib/commons-beanutils-1.8.3/NOTICE.txt -text
 lib/commons-beanutils-1.8.3/RELEASE-NOTES.txt -text
@@ -72,7 +72,6 @@ res/org/pdclipart/bookcase.png -text
 res/org/pdclipart/library_book_cart.png -text
 /selfissue.jnlp -text
 src/com/ceridwen/selfissue/client/SelfIssueClient.java -text
-src/com/ceridwen/selfissue/client/SelfIssueClient.num -text
 src/com/ceridwen/selfissue/client/SelfIssueFrame.java -text
 src/com/ceridwen/selfissue/client/SelfIssueThread.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/SelfIssueThreadGroup.java -text
@@ -89,7 +88,6 @@ src/com/ceridwen/selfissue/client/core/CirculationHandler.java -text
 src/com/ceridwen/selfissue/client/core/CirculationHandlerImpl.java -text
 src/com/ceridwen/selfissue/client/core/ConnectionFactory.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/core/OutOfOrderInterface.java -text svneol=unset#text/plain
-src/com/ceridwen/selfissue/client/devices/CirculationDevices.num -text
 src/com/ceridwen/selfissue/client/devices/FailureException.java -text
 src/com/ceridwen/selfissue/client/devices/IDReaderDevice.java -text
 src/com/ceridwen/selfissue/client/devices/IDReaderDeviceListener.java -text

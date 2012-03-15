@@ -22,8 +22,8 @@ import java.io.File;
 import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
-import com.ceridwen.util.PersistentQueue;
-import com.ceridwen.util.Spooler;
+import com.ceridwen.util.collections.PersistentQueue;
+import com.ceridwen.util.collections.Spooler;
 
 /**
  * <p>Title: RTSI</p>

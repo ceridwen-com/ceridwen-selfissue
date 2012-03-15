@@ -52,7 +52,8 @@ import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.core.CirculationHandlerImpl;
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
 import com.ceridwen.selfissue.client.panels.*;
-import com.ceridwen.util.versioning.ComponentRegistry;
+import com.ceridwen.util.versioning.LibraryIdentifier;
+import com.ceridwen.util.versioning.LibraryRegistry;
 
 public class SelfIssueFrame extends JFrame implements OutOfOrderInterface
 {
@@ -199,8 +200,10 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     BuildVersion.setForeground(VersionTextColour);
     BuildVersion.setBorder(border2);
     BuildVersion.setHorizontalAlignment(SwingConstants.RIGHT);
-    BuildVersion.setText(ComponentRegistry.getName(SelfIssueClient.class) + " " +
-                         ComponentRegistry.getVersionString(SelfIssueClient.class));
+    LibraryRegistry registry = new LibraryRegistry();
+    LibraryIdentifier selfissueID = new LibraryIdentifier("ceridwen.com", "Ceridwen Self Issue Client");
+    BuildVersion.setText(registry.getLibraryName(selfissueID) + " " +
+                         registry.getLibraryVersion(selfissueID));
     StatusPanel.setLayout(borderLayout1);
     StatusPanel.setOpaque(true);
     StatusPanel.setBackground(InnerBorderColour);
@@ -208,7 +211,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     Mode.setBorder(border3);
     Mode.setForeground(VersionTextColour);
     Mode.setHorizontalAlignment(SwingConstants.RIGHT);
-    Mode.setText(ComponentRegistry.getAuthor(SelfIssueClient.class));
+    Mode.setText(registry.getLibraryVendor(selfissueID));
     Ceridwen.setFont(new java.awt.Font("Dialog", 2, 10));
     Ceridwen.setBorder(border3);
     Ceridwen.setForeground(VersionTextColour);

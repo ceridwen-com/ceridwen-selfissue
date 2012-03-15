@@ -90,8 +90,4 @@ public class SelfIssueClient {
 		initiateShutdownHooks();
 		startThreads();
 	}
-
-  static {
-    com.ceridwen.util.versioning.ComponentRegistry.registerComponent(SelfIssueClient.class);
-  }
 }

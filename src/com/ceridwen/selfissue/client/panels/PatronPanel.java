@@ -41,6 +41,7 @@ import com.ceridwen.selfissue.client.core.CirculationHandler;
 import com.ceridwen.selfissue.client.core.ConnectionFactory;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
+import com.ceridwen.util.versioning.LibraryIdentifier;
 
 
 /**
@@ -600,7 +601,7 @@ private static String strim(String string) {
         return true;
       }
     } else if (command.equals("*About")) {
-      com.ceridwen.util.versioning.AboutDialog dlg = new com.ceridwen.util.versioning.AboutDialog(null, true, com.ceridwen.selfissue.client.SelfIssueClient.class);
+      com.ceridwen.util.versioning.AboutDialog dlg = new com.ceridwen.util.versioning.AboutDialog(null, true, new LibraryIdentifier("ceridwen.com", "Ceridwen Self Issue Client"));
       SelfIssueFrame.setOnTop(false);
       dlg.setSize(800, 600);
       dlg.setVisible(true);

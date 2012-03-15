@@ -27,6 +27,7 @@ import org.w3c.dom.Node;
 import com.ceridwen.circulation.SIP.messages.*;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
+import com.ceridwen.util.collections.SpoolerProcessor;
 
 /**
  * <p>Title: RTSI</p>
@@ -37,7 +38,7 @@ import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
  * @version 2.0
  */
 
-public abstract class OnlineLogLogger implements com.ceridwen.util.SpoolerProcessor {
+public abstract class OnlineLogLogger implements SpoolerProcessor {
   private static Log logger = LogFactory.getLog(OnlineLogLogger.class);
 
   protected int eventMask;

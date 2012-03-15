@@ -28,9 +28,9 @@ import java.io.File;
  * @author Matthew J. Dovey
  * @version 2.0
  */
-import com.ceridwen.util.PersistentQueue;
-import com.ceridwen.util.Spooler;
-import com.ceridwen.util.SpoolerProcessor;
+import com.ceridwen.util.collections.PersistentQueue;
+import com.ceridwen.util.collections.Spooler;
+import com.ceridwen.util.collections.SpoolerProcessor;
 
 public class OfflineSpoolerDevice implements OfflineSpooler {
   private Spooler spool;

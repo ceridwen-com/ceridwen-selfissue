@@ -68,6 +68,7 @@ import com.ceridwen.selfissue.client.log.OnlineLogManager;
 import com.ceridwen.selfissue.client.spooler.OfflineSpoolObject;
 import com.ceridwen.selfissue.client.spooler.OfflineSpooler;
 import com.ceridwen.selfissue.client.spooler.OfflineSpoolerDevice;
+import com.ceridwen.util.collections.SpoolerProcessor;
 
 /**
  * <p>Title: RTSI</p> <p>Description: Real Time Self Issue</p> <p>Copyright:
@@ -77,7 +78,7 @@ import com.ceridwen.selfissue.client.spooler.OfflineSpoolerDevice;
  * @version 2.0
  */
 
-public class CirculationHandlerImpl implements com.ceridwen.util.SpoolerProcessor, CirculationHandler {
+public class CirculationHandlerImpl implements SpoolerProcessor, CirculationHandler {
 
     private static Log logger = LogFactory.getLog(CirculationHandler.class);
 
