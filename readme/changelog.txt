@@ -1,3 +1,20 @@
+Version 2.60: 15/03/2012 (405)
+Update Ceridwen Utilities from 1.4 to 1.51
+Update Ceridwen Circulation from 2.7 to 2.8
+Update Apache Commons Lang3 from 3.0 to 3.1
+Update Apache Commons Net from 2.0 to 3.1
+Update jGoodies-looks from 2.4.2 to 2.5.0
+Dependencies: ceridwen circulation 2.80
+              ceridwen utilities 1.51
+              apache commons beanutils 1.8.3
+              apache commons lang 3.1
+              apache commons logging 1.1.1 
+              apache commons net 3.1
+              jaxfront 2.77
+              jgoodies-looks 2.5.0
+              xalan-j 2.7.1
+
+
 Version 2.50: 06/02/2012 (391) - Public Release
 Added configuration editor
 Requires Ceridwen 3M SIP Circulation Library 2.7; Ceridwen Utilities Library 1.40
