@@ -18,12 +18,12 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.log;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
-import com.ceridwen.util.collections.PersistentQueue;
 import com.ceridwen.util.collections.Spooler;
+import com.gaborcselle.persistent.PersistentQueue;
 
 /**
  * <p>Title: RTSI</p>
@@ -35,16 +35,16 @@ import com.ceridwen.util.collections.Spooler;
  */
 
 public class OnlineLogDevice implements OnlineLog {
-  private Spooler spool;
+  private Spooler<OnlineLogEvent> spool;
   private OnlineLogLogger processor;
   private static final long delay = 10000;
 
-  public OnlineLogDevice(File file, OnlineLogLogger processor, int period) {
+  public OnlineLogDevice(String file, OnlineLogLogger processor, int period) throws IOException {
     this.processor = processor;
-    spool = new Spooler(new PersistentQueue(file), this.processor, delay, period);
+    spool = new Spooler<OnlineLogEvent>(new PersistentQueue<OnlineLogEvent>(file), this.processor, delay, period);
   }
 
-  public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response) {
+  public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response) throws IOException {
     OnlineLogEvent ev = new OnlineLogEvent();
     ev.setLevel(level);
     ev.setOriginalTransactionTime(originalTransactionTime);

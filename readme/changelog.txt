@@ -1,4 +1,17 @@
-Version 2.60: 15/03/2012 (407)
+Version 2.62: 25/03/2012 () 
+
+Dependencies: ceridwen circulation 2.81
+              ceridwen utilities 1.60
+              apache commons beanutils 1.8.3
+              apache commons lang 3.1
+              apache commons logging 1.1.1 
+              apache commons net 3.1
+              jaxfront 2.77
+              jgoodies-looks 2.5.0
+              xalan-j 2.7.1
+
+
+Version 2.61: 15/03/2012 (407)
 Bugfix: Client hangs during shutdown
 Dependencies: ceridwen circulation 2.80
               ceridwen utilities 1.51

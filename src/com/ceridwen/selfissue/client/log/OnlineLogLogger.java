@@ -38,16 +38,15 @@ import com.ceridwen.util.collections.SpoolerProcessor;
  * @version 2.0
  */
 
-public abstract class OnlineLogLogger implements SpoolerProcessor {
+public abstract class OnlineLogLogger implements SpoolerProcessor<OnlineLogEvent> {
   private static Log logger = LogFactory.getLog(OnlineLogLogger.class);
 
   protected int eventMask;
   protected long overdueAgeOOO;
   protected OutOfOrderInterface ooo;
 
-  public boolean process(Object o) {
+  public boolean process(OnlineLogEvent ev) {
     try {
-      OnlineLogEvent ev = (OnlineLogEvent)o;
       if ((ev.getLevel() & eventMask) == 0) {
         return true;
       }

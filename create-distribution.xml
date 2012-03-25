@@ -8,17 +8,17 @@
 		<antcall target="create-app-jar">
 			<param name="jar.name" value="SelfIssue" />
 			<param name="main.class" value="com.ceridwen.selfissue.client.SelfIssueClient" />
-			<param name="class.path" value=". lib/ceridwen-circulation-2.80.jar lib/ceridwen-utilities-1.51.jar lib/commons-lang3-3.1.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/commons-net-3.1.jar lib/commons-beanutils-bean-collections-1.8.3.jar lib/commons-beanutils-core-1.8.3.jar lib/commons-beanutils-1.8.3.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar lib/jgoodies-common-1.3.0.jar lib/jgoodies-looks-2.5.0.jar" />
+			<param name="class.path" value=". lib/ceridwen-circulation-2.80.jar lib/ceridwen-utilities-1.60.jar lib/commons-lang3-3.1.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/commons-net-3.1.jar lib/commons-beanutils-bean-collections-1.8.3.jar lib/commons-beanutils-core-1.8.3.jar lib/commons-beanutils-1.8.3.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar lib/jgoodies-common-1.3.0.jar lib/jgoodies-looks-2.5.0.jar" />
 			<param name="excludes" value="**.jar com/ceridwen/selfissue/client/config/config.xml" />
 		</antcall>
 		<antcall target="create-app-jar-includes">
 			<param name="jar.name" value="ConfigEditor" />
 			<param name="main.class" value="com.ceridwen.selfissue.client.config.Editor" />
-			<param name="class.path" value=". lib/ceridwen-utilities-1.51.jar lib/commons-lang3-3.1.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar lib/jaxfront-core.jar lib/jaxfront-swing.jar lib/jgoodies-common-1.3.0.jar lib/jgoodies-looks-2.5.0.jar" />
+			<param name="class.path" value=". lib/ceridwen-utilities-1.60.jar lib/commons-lang3-3.1.jar lib/commons-logging-1.1.1.jar lib/commons-logging-adapters-1.1.1.jar lib/commons-logging-api-1.1.1.jar lib/xml-apis.jar lib/serializer.jar lib/xercesImpl.jar lib/xalan.jar lib/jaxfront-core.jar lib/jaxfront-swing.jar lib/jgoodies-common-1.3.0.jar lib/jgoodies-looks-2.5.0.jar" />
 			<param name="includes" value="com/ceridwen/selfissue/client/config/**" />
 		</antcall>
 		<antcall target="copy-library">
-			<param name="lib.name" value="ceridwen-utilities-1.51" />
+			<param name="lib.name" value="ceridwen-utilities-1.60" />
 		</antcall>
 		<antcall target="copy-library">
 			<param name="lib.name" value="ceridwen-circulation-2.80" />

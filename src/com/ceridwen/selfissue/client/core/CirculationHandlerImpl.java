@@ -27,6 +27,7 @@ import java.awt.geom.Point2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
@@ -78,7 +79,7 @@ import com.ceridwen.util.collections.SpoolerProcessor;
  * @version 2.0
  */
 
-public class CirculationHandlerImpl implements SpoolerProcessor, CirculationHandler {
+public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObject>, CirculationHandler {
 
     private static Log logger = LogFactory.getLog(CirculationHandler.class);
 
@@ -100,47 +101,39 @@ public class CirculationHandlerImpl implements SpoolerProcessor, CirculationHand
     }
 
     private void initiateOfflineSpooler() {
-        java.io.File spoolDir = null;
         try {
-            spoolDir = new java.io.File(Configuration.getProperty(
-                    "Systems/Spooler/Spool"));
-
-        } catch (Exception ex) {
-            CirculationHandlerImpl.logger.fatal("Can't create SpoolerDirectory", ex);
-        }
-        this.spool = new OfflineSpoolerDevice(spoolDir, this,
-                                     Configuration.getIntProperty(
-                                             "Systems/Spooler/ReplayPeriod") *
-                                     60000);
+			this.spool = new OfflineSpoolerDevice(Configuration.getProperty(
+			        "Systems/Spooler/Spool"), this,
+			                             Configuration.getIntProperty(
+			                                     "Systems/Spooler/ReplayPeriod") *
+			                             60000);
+		} catch (IOException e) {
+            CirculationHandlerImpl.logger.fatal("Problem opening offline spooler file", e);
+		}
     }
 
     private void initiateOnlineLoggers(OutOfOrderInterface ooo) {
         NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
         this.log = new OnlineLogManager();
         for (int i = 0; i < loggers.getLength(); i++) {
-            java.io.File onlineLogDir = null;
+            OnlineLogLogger onlineLogger;
             try {
-                onlineLogDir = new java.io.File(
-                        Configuration.getSubProperty(loggers.item(i), "Spool"));
-                OnlineLogLogger onlineLogger;
-                try {
-                    onlineLogger = (OnlineLogLogger) Class.forName(
-                            Configuration.getSubProperty(loggers.item(i), "@class")).
-                            newInstance();
-                    onlineLogger.initialise(loggers.item(i), ooo);
-                    OnlineLog alog = new com.ceridwen.selfissue.client.log.
-                            OnlineLogDevice(onlineLogDir,
-                                    onlineLogger,
-                                    Configuration.getIntSubProperty(loggers.item(i),
-                                            "ReplayPeriod") * 60000);
-                    this.log.addOnlineLogger(alog);
-                } catch (Exception ex) {
-                    CirculationHandlerImpl.logger.error(ex);
-                } catch (java.lang.NoClassDefFoundError ex) {
-                    CirculationHandlerImpl.logger.error(ex);
-                }
+                onlineLogger = (OnlineLogLogger) Class.forName(
+                        Configuration.getSubProperty(loggers.item(i), "@class")).
+                        newInstance();
+                onlineLogger.initialise(loggers.item(i), ooo);
+                OnlineLog alog = new com.ceridwen.selfissue.client.log.
+                        OnlineLogDevice(Configuration.getSubProperty(loggers.item(i), "Spool"),
+                                onlineLogger,
+                                Configuration.getIntSubProperty(loggers.item(i),
+                                        "ReplayPeriod") * 60000);
+                this.log.addOnlineLogger(alog);
+            } catch (java.lang.NoClassDefFoundError ex) {
+                CirculationHandlerImpl.logger.error(ex);
+    		} catch (IOException e) {
+                CirculationHandlerImpl.logger.fatal("Problem opening online log file", e);
             } catch (Exception ex) {
-                CirculationHandlerImpl.logger.fatal("Can't create OnlineLogDirectory", ex);
+                CirculationHandlerImpl.logger.error(ex);
             }
         }
     }
@@ -277,7 +270,11 @@ public class CirculationHandlerImpl implements SpoolerProcessor, CirculationHand
      */
     @Override
     public void spool(Message msg) {
-        this.spool.add(new OfflineSpoolObject(msg));
+        try {
+			this.spool.add(new OfflineSpoolObject(msg));
+		} catch (IOException e) {
+            CirculationHandlerImpl.logger.fatal("Problem persisting offline spool object", e);
+		}
     }
 
     /*
@@ -290,16 +287,9 @@ public class CirculationHandlerImpl implements SpoolerProcessor, CirculationHand
         return this.spool.size();
     }
 
-    public boolean process(Object o) {
-        OfflineSpoolObject obj;
-        if (o == null) {
+    public boolean process(OfflineSpoolObject obj) {
+        if (obj == null) {
             CirculationHandlerImpl.logger.error("Null spool object");
-            return true; // Whatever it is in the spool it isn't valid so delete
-        }
-        try {
-            obj = (OfflineSpoolObject) o;
-        } catch (Exception ex) {
-            CirculationHandlerImpl.logger.error("Invalid spool object: " + o);
             return true; // Whatever it is in the spool it isn't valid so delete
         }
         if (obj.getMessage() == null) {
@@ -598,7 +588,11 @@ public class CirculationHandlerImpl implements SpoolerProcessor, CirculationHand
 
     public void recordEvent(int level, String addInfo,
                           Date originalTransactionTime, Message request, Message response) {
-        this.log.recordEvent(level, Configuration.getProperty("Systems/SIP/InstitutionId"), addInfo, originalTransactionTime, request, response);
+        try {
+			this.log.recordEvent(level, Configuration.getProperty("Systems/SIP/InstitutionId"), addInfo, originalTransactionTime, request, response);
+		} catch (IOException e) {
+            CirculationHandlerImpl.logger.fatal("Problem persisting event log record", e);
+		}
     }
 
 }

@@ -18,7 +18,7 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.spooler;
 
-import java.io.File;
+import java.io.IOException;
 
 /**
  * <p>Title: RTSI</p>
@@ -28,19 +28,19 @@ import java.io.File;
  * @author Matthew J. Dovey
  * @version 2.0
  */
-import com.ceridwen.util.collections.PersistentQueue;
 import com.ceridwen.util.collections.Spooler;
 import com.ceridwen.util.collections.SpoolerProcessor;
+import com.gaborcselle.persistent.PersistentQueue;
 
 public class OfflineSpoolerDevice implements OfflineSpooler {
-  private Spooler spool;
+  private Spooler<OfflineSpoolObject> spool;
   private static final long delay = 10000;
 
-  public OfflineSpoolerDevice(File file, SpoolerProcessor processor, int period) {
-    spool = new Spooler(new PersistentQueue(file), processor, delay, period);
+  public OfflineSpoolerDevice(String file, SpoolerProcessor<OfflineSpoolObject> processor, int period) throws IOException {
+    spool = new Spooler<OfflineSpoolObject>(new PersistentQueue<OfflineSpoolObject>(file), processor, delay, period);
   }
 
-  public void add(OfflineSpoolObject m) {
+  public void add(OfflineSpoolObject m) throws IOException {
     spool.add(m);
   }
   public int size() {

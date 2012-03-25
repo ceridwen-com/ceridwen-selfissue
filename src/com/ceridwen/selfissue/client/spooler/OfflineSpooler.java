@@ -18,6 +18,8 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.spooler;
 
+import java.io.IOException;
+
 /**
  * <p>Title: RTSI</p>
  * <p>Description: Real Time Self Issue</p>
@@ -39,6 +41,6 @@ package com.ceridwen.selfissue.client.spooler;
  */
 
 public interface OfflineSpooler {
-  void add(OfflineSpoolObject m);
+  void add(OfflineSpoolObject m) throws IOException;
   int size();
 }

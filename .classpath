@@ -20,6 +20,6 @@
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xalan.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/xalan-j_2_7_1/xml-apis.jar"/>
-	<classpathentry kind="lib" path="lib/ceridwen-utilities-1.51/ceridwen-utilities-1.51.jar"/>
+	<classpathentry kind="lib" path="lib/ceridwen-utilities-1.60/ceridwen-utilities-1.60.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

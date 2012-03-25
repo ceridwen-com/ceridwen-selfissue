@@ -18,6 +18,7 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.log;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -37,7 +38,7 @@ public class OnlineLogManager implements OnlineLog {
   }
 
   public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request,
-                          Message response) {
+                          Message response) throws IOException {
     Enumeration<OnlineLog> enumerate = loggers.elements();
     while (enumerate.hasMoreElements()) {
       ((OnlineLog)enumerate.nextElement()).recordEvent(level, library, addInfo, originalTransactionTime, request, response);

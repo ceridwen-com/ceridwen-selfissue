@@ -26,7 +26,7 @@
 
     <jar href="lib/ceridwen-circulation-2.80.jar"/>
 
-    <jar href="lib/ceridwen-utilities-1.51.jar"/>
+    <jar href="lib/ceridwen-utilities-1.60.jar"/>
 
     <jar href="lib/commons-beanutils-bean-collections-1.8.3.jar"/>
 
