@@ -1,5 +1,7 @@
-Version 2.62: 25/03/2012 () 
-
+Version 2.62: 25/03/2012 (414)
+Bugfix: Wrong comparison in ConnectionFactory.releaseAll means that open connections will not be closed
+Update Ceridwen Utilities from 1.51 to 1.60
+Update Ceridwen Circulation from 2.80 to 2.81
 Dependencies: ceridwen circulation 2.81
               ceridwen utilities 1.60
               apache commons beanutils 1.8.3
