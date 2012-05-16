@@ -33,7 +33,7 @@ public class FileChooser extends AbstractSimpleVisualizer {
 	 * 
 	 */
 	private static final long serialVersionUID = 2219930215862492984L;
-		private JComboBox<String> _fileChooser;
+		private JComboBox _fileChooser;
 		String _filter[];
 		
 		public FileChooser() {
@@ -62,7 +62,7 @@ public class FileChooser extends AbstractSimpleVisualizer {
 		}
 		
 		protected JComponent createEditorComponent() {
-			_fileChooser = new JComboBox<String>();
+			_fileChooser = new JComboBox();
 			getFilePaths(_fileChooser);
 			_fileChooser.setEditable(false);
 			if (_fileChooser.getItemCount() > 0) {
@@ -75,7 +75,7 @@ public class FileChooser extends AbstractSimpleVisualizer {
 		}
 
 		
-		public void addFiles(File root, JComboBox<String> chooser, File input, String[] ext) {
+		public void addFiles(File root, JComboBox chooser, File input, String[] ext) {
 			if (input.isDirectory()) {
 				for (File file: input.listFiles()) {
 					addFiles(root, chooser, file, ext);
@@ -100,7 +100,7 @@ public class FileChooser extends AbstractSimpleVisualizer {
 			}
 		}
 				
-		protected void getFilePaths(JComboBox<String> chooser)		
+		protected void getFilePaths(JComboBox chooser)		
 		{
 			String CONFIG = "com/ceridwen/selfissue/client/config/config.xml";
 	        try {

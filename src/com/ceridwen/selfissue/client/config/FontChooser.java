@@ -34,7 +34,7 @@ public class FontChooser extends AbstractSimpleVisualizer {
 	 * 
 	 */
 	private static final long serialVersionUID = 5617887268768044397L;
-		private JComboBox<String> _fontChooser;
+		private JComboBox _fontChooser;
 			
 		public String getText() {
 			String value = null;
@@ -54,7 +54,7 @@ public class FontChooser extends AbstractSimpleVisualizer {
 		}
 		
 		protected JComponent createEditorComponent() {
-			_fontChooser = new JComboBox<String>(getFontNames());
+			_fontChooser = new JComboBox(getFontNames());
 			_fontChooser.setEditable(false);
 			if (_fontChooser.getItemCount() > 0) {			
 				_fontChooser.setSelectedIndex(0);
