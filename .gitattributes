@@ -4,9 +4,12 @@
 .externalToolBuilders/Deploy[!!-~]Default[!!-~]Config.launch -text svneol=unset#text/plain
 /.project -text
 .settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
-.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
+/ConfigEditor.bat -text
 /ConfigEditor.jnlp -text
+/ConfigEditor.sh -text
+/SelfIssue.bat -text
 /SelfIssue.jnlp -text
+/SelfIssue.sh -text
 /build-data.properties -text
 /build-dirs.properties -text
 build-scripts/distribution-builder.xml -text

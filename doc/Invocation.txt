@@ -16,19 +16,33 @@
 # Contributors:
 #     Matthew J. Dovey (www.ceridwen.com) - initial API and implementation
 #-------------------------------------------------------------------------------
-Local invocation:
 
-java -Xbootclasspath/a:res -jar selfissue.jar
+To run the configuration editor, run the following command in the directory
+into which you have extracted the zip distribution
 
-Remote invocation:
+java -Xbootclasspath/a:res -jar ConfigEditor.jar
 
-java -Xbootclasspath/a:res -jar netx.jar -jnlp selfissue.jnlp
+To run the client, run the following command in the directory into which
+you have extracted the zip distribution
+
+java -Xbootclasspath/a:res -jar SelfIssue.jar
 
 
-Configuration Editor (local):
 
-java -Xbootclasspath/a:res -jar configeditor.jar
+The Self Issue Client can also be run using NetX (an open source version of Java
+Web Start) to enable auto-updating of the client software. This is particularly
+useful for system administrators maintaining several client machines. 
 
-Encode password (remote):
+To configure this, unzip the client distribution to a central location on a web
+server, e.g. http://myserver/selfissueclient/
 
-java -Xbootclasspath/a:res -jar netx.jar -jnlp configeditor.jnlp
+Copy the netx.jar file and the res directory from the client distribution to
+the local machine.
+
+To run the configuration editor run:
+ java -Xbootclasspath/a:res -jar netx.jar -jnlp http://myserver/selfissueclient/ConfigEditor.jnlp
+
+Note: the configuration options are stored on the local machine
+
+To run the client, run: 
+ java -Xbootclasspath/a:res -jar netx.jar -jnlp  http://myserver/selfissueclient/SelfIssue.jnlp

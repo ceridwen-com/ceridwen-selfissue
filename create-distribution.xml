@@ -56,6 +56,10 @@
         </copy>		
         <copy file="SelfIssue.jnlp" todir="${distrib.dir}"/>
         <copy file="ConfigEditor.jnlp" todir="${distrib.dir}"/>
+        <copy file="SelfIssue.bat" todir="${distrib.dir}"/>
+        <copy file="ConfigEditor.bat" todir="${distrib.dir}"/>
+        <copy file="SelfIssue.sh" todir="${distrib.dir}"/>
+        <copy file="ConfigEditor.sh" todir="${distrib.dir}"/>
 		<antcall target="distribution-complete" />
     </target>
 </project>
