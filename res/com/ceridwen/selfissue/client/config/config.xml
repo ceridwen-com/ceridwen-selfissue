@@ -202,12 +202,6 @@
     <!--
   This section configures the connections for the various external communications.
   -->
-    <Printer>
-      <!--
-    This allows optional receipt printing
-    -->
-      <PrintReceipt>false</PrintReceipt>
-    </Printer>
     <SIP mode="Telnet">
       <!--
     This contains the connection details for the 3M SIP server (NISO CIP to be supported in a future version).
@@ -281,6 +275,12 @@
       <Retries>2</Retries>
       <Timeout>1</Timeout>
     </ItemSecurityDevice>
+    <Printer>
+      <!--
+    This allows optional receipt printing
+    -->
+      <PrintReceipt>false</PrintReceipt>
+    </Printer>
     <Loggers>
       <!--
     The self client will need to communicate to local library staff in certain circumstances.

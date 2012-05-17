@@ -229,13 +229,6 @@
         <xs:element name="Systems">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Printer">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="PrintReceipt" type="xs:boolean"/>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
               <xs:element name="SIP">
                 <xs:complexType>
                   <xs:sequence>
@@ -332,6 +325,13 @@
                   </xs:attribute>
                 </xs:complexType>
               </xs:element>
+              <xs:element name="Printer">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PrintReceipt" type="xs:boolean"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
               <xs:element name="Loggers">
                 <xs:complexType>
                   <xs:sequence>
@@ -416,12 +416,10 @@
         <xs:element name="CommandInterface">
           <xs:complexType>
             <xs:sequence>
-
               <xs:element name="AllowConnectionTest" type="xs:boolean"/>
               <xs:element name="AllowSystemsCheck" type="xs:boolean"/>
               <xs:element name="AllowLogTest" type="xs:boolean"/>
               <xs:element name="AllowSystemShutdown" type="xs:boolean"/>
-              <xs:element name="AllowEncodePassword" type="xs:boolean"/>
               <xs:element name="AllowOutOfOrder" type="xs:boolean"/>
               <xs:element name="AllowResetOutOfOrder" type="xs:boolean"/>
               <xs:element name="AllowCheckIn" type="xs:boolean"/>
