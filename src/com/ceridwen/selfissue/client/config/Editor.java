@@ -32,13 +32,17 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 
 import com.jaxfront.core.dom.DOMBuilder;
+import com.jaxfront.core.dom.DirtyChangeEvent;
+import com.jaxfront.core.dom.DirtyChangeListener;
 import com.jaxfront.core.dom.Document;
 import com.jaxfront.core.help.HelpEvent;
 import com.jaxfront.core.help.HelpListener;
@@ -71,12 +75,13 @@ import com.jgoodies.looks.Options;
 
  */
 @SuppressWarnings("serial")
-public class Editor extends JFrame implements WindowListener, HelpListener {
+public class Editor extends JFrame implements WindowListener, HelpListener, DirtyChangeListener {
 	private final static String APPLICATION_TITLE = "Self Issue Client Configuration Editor";
 	private final static int WINDOW_HEIGHT = 768;
 	private final static int WINDOW_WIDTH = 1024;
 	// Misc. Components
 	private Document _currentDom;
+	private boolean isDirty = false;
 	private JPanel _centerPanel;
     private JPanel _helpPanel;
     private JSplitPane _splitPane;
@@ -114,6 +119,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
             _splitPane.setTopComponent(_centerPanel);
             _splitPane.setBottomComponent(_helpPanel);
             getContentPane().add(_splitPane, BorderLayout.CENTER);
+            this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 			addWindowListener(this);
 			setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 			load(false);
@@ -244,12 +250,15 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 		// activate actions
 		_saveAction.setEnabled(true);
 		_printAction.setEnabled(false);
+		isDirty = false;
+		_currentDom.addDirtyChangeListener(this);
 	}
 
 	private void save() {
 		URL xmlUrl = URLHelper.getUserURL("com/ceridwen/selfissue/client/config/config.xml");
 			try {
 				_currentDom.saveAs(new File(xmlUrl.toURI()));
+				isDirty = false;
 			} catch (ValidationException e) {				
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -313,9 +322,15 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
     }
 
 	private void exit() {
-		System.exit(0);
+		if (isDirty) {
+			if (JOptionPane.showConfirmDialog(this, "Changes have not been saved. Do you wish to exit?", "Changes not saved", JOptionPane.YES_NO_OPTION) == 0) {
+				System.exit(0);
+			}
+		} else {
+			System.exit(0);
+		}
 	}
-
+	
 	public void windowActivated(WindowEvent e) {
 	}
 
@@ -337,5 +352,10 @@ public class Editor extends JFrame implements WindowListener, HelpListener {
 	}
 
 	public void windowOpened(WindowEvent e) {
+	}
+
+	@Override
+	public void dirtyChange(DirtyChangeEvent e) {
+		isDirty = e.hasChanged();		
 	}
 }
