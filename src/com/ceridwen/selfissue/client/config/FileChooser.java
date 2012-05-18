@@ -104,6 +104,7 @@ public class FileChooser extends AbstractSimpleVisualizer {
 		{
 			String CONFIG = "com/ceridwen/selfissue/client/config/config.xml";
 	        try {
+	        	chooser.addItem("");
 	        	URL resource = Configuration.LoadResource(CONFIG);
 	        	String base = resource.getPath().substring(0, resource.getPath().lastIndexOf(CONFIG));
 	        	addFiles(new File(base), chooser, new File(base), _filter);
