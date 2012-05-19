@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- =================================================== -->
-<!--         This file was created by XMLSeed.           -->
-<!--             Homepage: www.xmlseed.com               -->
-<!-- =================================================== -->
+<!--
+  Copyright (c) 2010 Matthew J. Dovey (www.ceridwen.com).
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the GNU Public License v3.0
+  which accompanies this distribution, and is available at 
+  <http://www.gnu.org/licenses/>
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  
+  Contributors:
+      Matthew J. Dovey (www.ceridwen.com) - initial API and implementation
+-->
+
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
   <xs:element name="SelfIssue">
     <xs:annotation>
@@ -346,7 +361,7 @@
               </xs:element>
               <xs:element name="Messages">
                 <xs:annotation>
-                  <xs:documentation>to display in the warning colour defined in the colour palette</xs:documentation>
+                  <xs:documentation>Allows configuration of the various messages displayed by the application. {0}, {1} etc. will be replaced by message specific strings. Some of the messages support limited html formatting using: &lt;strong&gt; for bold text; &lt;em&gt; to display in the warning colour defined in the colour palette</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -515,12 +530,12 @@
                   <xs:sequence>
                     <xs:element name="PatronBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
+                        <xs:documentation>The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="ItemBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>[\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
+                        <xs:documentation>The default value of [P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -822,17 +837,17 @@
                               <xs:sequence>
                                 <xs:element name="CheckoutSuccess" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkout Report: Checkout Success Notification (no action required)” will be sent whenever a checkout is successfully performed on the 3M server (and reported to the user). It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
+                                    <xs:documentation>E-Mail with subject "Self Issue Checkout Report: Checkout Success Notification (no action required)" will be sent whenever a checkout is successfully performed on the 3M server (and reported to the user). It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CheckoutFailure" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkout Report: Checkout Failure Notification (no action required)” whenever a checkout cannot be completed and the user is informed that the checkout has failed. This would normally be suppressed, but might be required to be recorded if there is a danger that the user would attempt to remove the item anyway.</xs:documentation>
+                                    <xs:documentation>E-Mail with subject "Self Issue Checkout Report: Checkout Failure Notification (no action required)" whenever a checkout cannot be completed and the user is informed that the checkout has failed. This would normally be suppressed, but might be required to be recorded if there is a danger that the user would attempt to remove the item anyway.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CheckoutPending" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkout Report: Checkout Pending Notification (no action required)”. An item has been issued to an user when the 3M system was unavailable, and the checkout request has been spooled for an abnormally long amount of time. This is a warning message that there may be a problem with the Self Issue client's communication with the 3M server, the 3M server has been unavailable for an abnormal amount of time, or there is a network problem. No action is required as the client will continue to attempt to commit the checkout, but these warning should be kept in case of a synchronisation mismatch (e.g. if the patron returns the item before the checkout can be committed)</xs:documentation>
+                                    <xs:documentation>E-Mail with subject "Self Issue Checkout Report: Checkout Pending Notification (no action required)". An item has been issued to an user when the 3M system was unavailable, and the checkout request has been spooled for an abnormally long amount of time. This is a warning message that there may be a problem with the Self Issue client's communication with the 3M server, the 3M server has been unavailable for an abnormal amount of time, or there is a network problem. No action is required as the client will continue to attempt to commit the checkout, but these warning should be kept in case of a synchronisation mismatch (e.g. if the patron returns the item before the checkout can be committed)</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="ManualCheckout" type="xs:boolean">
@@ -862,17 +877,17 @@
                                 </xs:element>
                                 <xs:element name="CheckinSuccess" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkin Report: Checkin Success Notification (no action required)” will be sent whenever a checkin is successfully performed on the 3M server (and reported to the user). It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
+                                    <xs:documentation>E-Mail with subject "Self Issue Checkin Report: Checkin Success Notification (no action required)" will be sent whenever a checkin is successfully performed on the 3M server (and reported to the user). It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CheckinFailure" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkin Report: Checkin Failure Notification (no action required)” whenever a checkin cannot be completed and the user is informed that the checkin has failed. This would normally be suppressed, but might be required to be recorded if there is a danger that the user would attempt to remove the item anyway.</xs:documentation>
+                                    <xs:documentation>E-Mail with subject "Self Issue Checkin Report: Checkin Failure Notification (no action required)" whenever a checkin cannot be completed and the user is informed that the checkin has failed. This would normally be suppressed, but might be required to be recorded if there is a danger that the user would attempt to remove the item anyway.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CheckinPending" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkin Report: Checkin Pending Notification (no action required)”. An item has been issued to an user when the 3M system was unavailable, and the checkout request has been spooled for an abnormally long amount of time. This is a warning message that there may be a problem with the Self Issue client's communication with the 3M server, the 3M server has been unavailable for an abnormal amount of time, or there is a network problem. No action is required as the client will continue to attempt to commit the checkin, but these warning should be kept in case of a synchronisation mismatch (e.g. if the patron returns the item before the checkin can be committed)</xs:documentation>
+                                    <xs:documentation>E-Mail with subject "Self Issue Checkin Report: Checkin Pending Notification (no action required)" An item has been issued to an user when the 3M system was unavailable, and the checkout request has been spooled for an abnormally long amount of time. This is a warning message that there may be a problem with the Self Issue client's communication with the 3M server, the 3M server has been unavailable for an abnormal amount of time, or there is a network problem. No action is required as the client will continue to attempt to commit the checkin, but these warning should be kept in case of a synchronisation mismatch (e.g. if the patron returns the item before the checkin can be committed)</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="LockFailure" type="xs:boolean">
@@ -1037,7 +1052,7 @@
               </xs:element>
               <xs:element name="EnableBarcodeAlii" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
+                  <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System�) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="EnableCheckIn" type="xs:boolean">
@@ -1056,37 +1071,37 @@
             <xs:sequence>
               <xs:element name="AllowConnectionTest" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allows *Test Connection¦ command in the patron panel (tests SIP connectivity)</xs:documentation>
+                  <xs:documentation>Allows *Test Connection� command in the patron panel (tests SIP connectivity)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowSystemsCheck" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Check Systems¦ command in the patron panel (indicates current modes, memory and spool use)</xs:documentation>
+                  <xs:documentation>Allow *Check Systems� command in the patron panel (indicates current modes, memory and spool use)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowLogTest" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Test Crash¦ command in the patron panel (tests unexpected error handling)</xs:documentation>
+                  <xs:documentation>Allow *Test Crash� command in the patron panel (tests unexpected error handling)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowSystemShutdown" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Shutdown System¦ command in the patron panel (closes Self Issue client after password check)</xs:documentation>
+                  <xs:documentation>Allow *Shutdown System� command in the patron panel (closes Self Issue client after password check)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowOutOfOrder" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Out Of Order¦ command to switch to Out of Order screen (after password confirmation)</xs:documentation>
+                  <xs:documentation>Allow *Out Of Order� command to switch to Out of Order screen (after password confirmation)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowResetOutOfOrder" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Reset Out Of Order¦ typed on Out of Order screen to reset to normal use (after password confirmation)</xs:documentation>
+                  <xs:documentation>Allow *Reset Out Of Order� typed on Out of Order screen to reset to normal use (after password confirmation)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowCheckIn" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Check In¦ to switch to check in screen from patron screen (after password).This allows public check out only station to also be a staff only check in station</xs:documentation>
+                  <xs:documentation>Allow *Check In� to switch to check in screen from patron screen (after password).This allows public check out only station to also be a staff only check in station</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="SystemPassword" type="xs:string">
