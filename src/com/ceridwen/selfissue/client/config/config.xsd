@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-  Copyright (c) 2010 Matthew J. Dovey (www.ceridwen.com).
-  All rights reserved. This program and the accompanying materials
-  are made available under the terms of the GNU Public License v3.0
-  which accompanies this distribution, and is available at 
-  <http://www.gnu.org/licenses/>
-  
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-  
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  
-  Contributors:
-      Matthew J. Dovey (www.ceridwen.com) - initial API and implementation
--->
+<!-- =================================================== -->
+<!--         This file was created by XMLSeed.           -->
+<!--             Homepage: www.xmlseed.com               -->
+<!-- =================================================== -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
   <xs:element name="SelfIssue">
+    <xs:annotation>
+      <xs:documentation>The SelfIssue Configuration Editor provides a GUI editor for the contents of the config.xml file for the Self Issue Client. On running the editor it will automatically load the current config.xml values.
+
+Reload - loads the values stored in the config.xml file (i.e. undoes any edits)
+Save - saves any changes to the config.xml file
+Default - loads the default settings (stored in default.xml)
+View XML - displays the XML file of the currently loaded values</xs:documentation>
+    </xs:annotation>
     <xs:complexType>
       <xs:sequence>
         <xs:element name="UI">
-          <xs:annotation>
-            <xs:documentation>This section determines various properties of the user interface including visual and audio elements.</xs:documentation>
-          </xs:annotation>
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SelfIssue">
                 <xs:annotation>
-                  <xs:documentation>Main window settings</xs:documentation>
+                  <xs:documentation>Determines the main window settings used throughout the client application</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element maxOccurs="1" name="RightIcon_Icon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Header right hand image file</xs:documentation>
+                        <xs:documentation>Header right hand image file. Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="LeftIcon_Icon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Header left hand image file</xs:documentation>
+                        <xs:documentation>Header left hand image file. Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="TitleText_Text" type="xs:string">
@@ -78,7 +69,7 @@
               </xs:element>
               <xs:element name="Palette">
                 <xs:annotation>
-                  <xs:documentation>Colour configuration</xs:documentation>
+                  <xs:documentation>Configures the colours used by the application</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -153,7 +144,7 @@
                     </xs:element>
                     <xs:element name="CardIcon_Icon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Main picture (typically an example reader card). Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronFieldLabel_Text" type="xs:string">
@@ -205,7 +196,11 @@
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="BooksIcon_Icon" type="xs:string"/>
+                    <xs:element name="BooksIcon_Icon" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element name="PatronText_DefaultText" type="xs:string"/>
                     <xs:element name="PatronText_ToolTipText" type="xs:string"/>
                     <xs:element name="StatusText_DefaultText" type="xs:string"/>
@@ -228,7 +223,11 @@
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="BooksIcon_Icon" type="xs:string"/>
+                    <xs:element name="BooksIcon_Icon" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element name="PatronText_DefaultText" type="xs:string"/>
                     <xs:element name="PatronText_ToolTipText" type="xs:string"/>
                     <xs:element name="StatusText_DefaultText" type="xs:string"/>
@@ -247,7 +246,14 @@
               </xs:element>
               <xs:element name="Messages">
                 <xs:annotation>
-                  <xs:documentation>{0}, {1] etc. will be replaced by message specific strings</xs:documentation>
+                  <xs:documentation>Allows configuration of the various messages displayed by the application.
+
+{0}, {1} etc. will be replaced by message specific strings.
+
+Some of the messages support limited html formatting using 
+
+&lt;strong&gt; for bold text
+&lt;em&gt; to display in the warning colour defined in the colour palette</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -268,7 +274,7 @@
                     </xs:element>
                     <xs:element name="InvalidPatronBarcode" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>{0} = borrower id</xs:documentation>
+                        <xs:documentation>{0} = patron barcode</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronRetry" type="xs:string">
@@ -278,12 +284,12 @@
                     </xs:element>
                     <xs:element name="PatronNetworkError" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>{0} = borrower id</xs:documentation>
+                        <xs:documentation>{0} = patron barcode</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InvalidPatronError" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>{0} = borrower id</xs:documentation>
+                        <xs:documentation>{0} = patron barcode</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BlockedPatronError" type="xs:string">
@@ -387,7 +393,7 @@
               <xs:element name="Audio">
                 <xs:annotation>
                   <xs:documentation>Audio feedback for messages
-Remove the entries for silent operation</xs:documentation>
+Remove the entries for silent operation. Audio files should be stored in the res directory</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -417,18 +423,30 @@ Remove the entries for silent operation</xs:documentation>
                   <xs:sequence>
                     <xs:element name="PatronBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>2 followed by 6 digits or name</xs:documentation>
+                        <xs:documentation>The default setting of 
+(2\d{6})|([1-9a-zA-Z][\w,. -]+
+
+will accept a barcode consisting of seven digits beginning with the digitl 2 or a name (alphabetical input including space)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="ItemBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>3 followed by 8 digits or P,T,R followed by 6 digits</xs:documentation>
+                        <xs:documentation>The default value of
+
+[P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+)
+
+will accept a 9 digit barcode beginning with 3, 
+a 7 digit barcode beginning with P, T or R,
+or an alphanumeric titles</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
               <xs:element name="Control">
+                <xs:annotation>
+                  <xs:documentation>Determines miscellaneous behaviour.</xs:documentation>
+                </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element maxOccurs="1" name="ResetTimeout" type="xs:nonNegativeInteger">
@@ -451,7 +469,7 @@ Remove the entries for silent operation</xs:documentation>
               </xs:element>
               <xs:element name="WatchDog">
                 <xs:annotation>
-                  <xs:documentation>Watch dog thread settings</xs:documentation>
+                  <xs:documentation>The SelfIssue client has a Watch dog thread which periodically checks the health of the client.</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -487,7 +505,6 @@ Remove the entries for silent operation</xs:documentation>
           </xs:complexType>
         </xs:element>
         <xs:element name="Systems">
-          <xs:annotation/>
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SIP">
@@ -687,7 +704,9 @@ Currently supports 3M SIP2 over Telnet or Socket</xs:documentation>
               </xs:element>
               <xs:element name="Loggers">
                 <xs:annotation>
-                  <xs:documentation>Can contain multiple loggers</xs:documentation>
+                  <xs:documentation>The loggers will log activity of the client via e-mail, syslog or a simple REST API. Typically these are used to alert staff when a manual intervention is required (for example a book checked out whilst offline cannot be automatically checked out by the 3M server). However, they can be used to log every activity of the client.
+
+Multiple loggers (for different purposes) can be defined.</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -721,8 +740,7 @@ It is anticipated that this would normally be suppressed unless a full record of
                                 </xs:element>
                                 <xs:element name="Notification" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkout Report: Notification (no action required)” will be sent whenever a message is successfully sent to the 3M server.
-It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
+                                    <xs:documentation>It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="UnlockFailure" type="xs:boolean">
@@ -830,6 +848,9 @@ It is anticipated that this would normally be suppressed unless a full record of
                           </xs:element>
                         </xs:sequence>
                         <xs:attribute name="class" use="required">
+                          <xs:annotation>
+                            <xs:documentation>Type of logger (SMTP, Syslog, REST, or null device)</xs:documentation>
+                          </xs:annotation>
                           <xs:simpleType>
                             <xs:restriction base="xs:string">
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.MailLogger"/>
@@ -930,7 +951,7 @@ If RetryItemWhenError is false, the Self Issue client will assume that the enter
               </xs:element>
               <xs:element name="EnableBarcodeAlii" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>EnableBarcodeAlii: If true allows aliaa for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes (e.g. can be entered from a command barcode sheet)</xs:documentation>
+                  <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="EnableCheckIn" type="xs:boolean">
@@ -943,7 +964,13 @@ If RetryItemWhenError is false, the Self Issue client will assume that the enter
         </xs:element>
         <xs:element name="CommandInterface">
           <xs:annotation>
-            <xs:documentation>Enable various debugging/testing features</xs:documentation>
+            <xs:documentation>Enable various debugging/testing features. The client supports various commands of the form
+
+*command|
+
+whilst at the patron screen. This can be disabled as required.
+
+(commands can also be entered as $command% if EnableBarcodeAlii is enabled under Modes)</xs:documentation>
           </xs:annotation>
           <xs:complexType>
             <xs:sequence>
@@ -992,7 +1019,7 @@ If RetryItemWhenError is false, the Self Issue client will assume that the enter
         </xs:element>
         <xs:element name="Logging">
           <xs:annotation>
-            <xs:documentation>Handles alerting of unexpected errors</xs:documentation>
+            <xs:documentation>Allows logging reporting of unexpected errors</xs:documentation>
           </xs:annotation>
           <xs:complexType>
             <xs:sequence>
@@ -1000,6 +1027,9 @@ If RetryItemWhenError is false, the Self Issue client will assume that the enter
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="level">
+                      <xs:annotation>
+                        <xs:documentation>Level of debug event to log (SEVERE, WARNING, INFO, CONFIG, FINE, FINER,FINEST, ALL)</xs:documentation>
+                      </xs:annotation>
                       <xs:simpleType>
                         <xs:restriction base="xs:string">
                           <xs:enumeration value="SEVERE"/>
@@ -1013,14 +1043,41 @@ If RetryItemWhenError is false, the Self Issue client will assume that the enter
                         </xs:restriction>
                       </xs:simpleType>
                     </xs:element>
-                    <xs:element name="smtpServer" type="xs:string"/>
-                    <xs:element name="sender" type="xs:string"/>
-                    <xs:element name="recipients" type="xs:string"/>
-                    <xs:element name="syslogHost" type="xs:string"/>
-                    <xs:element name="syslogPort" type="xs:nonNegativeInteger"/>
-                    <xs:element name="URL" type="xs:string"/>
+                    <xs:element name="smtpServer" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>SMTP server (for SMTP logging)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="sender" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>SMTP sender (for SMTP logging)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="recipients" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>SMTP recipients (for SMTP logging)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="syslogHost" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>syslog host (for syslog logging)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="syslogPort" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>syslog port (for syslog logging)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="URL" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>URL (for REST logging)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Type of logger: SMTP, Syslog, REST</xs:documentation>
+                    </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
