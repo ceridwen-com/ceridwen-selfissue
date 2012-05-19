@@ -1052,7 +1052,7 @@
               </xs:element>
               <xs:element name="EnableBarcodeAlii" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
+                  <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown SystemÂ¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="EnableCheckIn" type="xs:boolean">
@@ -1071,37 +1071,37 @@
             <xs:sequence>
               <xs:element name="AllowConnectionTest" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allows *Test Connection¦ command in the patron panel (tests SIP connectivity)</xs:documentation>
+                  <xs:documentation>Allows *Test ConnectionÂ¦ command in the patron panel (tests SIP connectivity)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowSystemsCheck" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Check Systems¦ command in the patron panel (indicates current modes, memory and spool use)</xs:documentation>
+                  <xs:documentation>Allow *Check SystemsÂ¦ command in the patron panel (indicates current modes, memory and spool use)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowLogTest" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Test Crash¦ command in the patron panel (tests unexpected error handling)</xs:documentation>
+                  <xs:documentation>Allow *Test CrashÂ¦ command in the patron panel (tests unexpected error handling)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowSystemShutdown" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Shutdown System¦ command in the patron panel (closes Self Issue client after password check)</xs:documentation>
+                  <xs:documentation>Allow *Shutdown SystemÂ¦ command in the patron panel (closes Self Issue client after password check)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowOutOfOrder" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Out Of Order¦ command to switch to Out of Order screen (after password confirmation)</xs:documentation>
+                  <xs:documentation>Allow *Out Of OrderÂ¦ command to switch to Out of Order screen (after password confirmation)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowResetOutOfOrder" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Reset Out Of Order¦ typed on Out of Order screen to reset to normal use (after password confirmation)</xs:documentation>
+                  <xs:documentation>Allow *Reset Out Of OrderÂ¦ typed on Out of Order screen to reset to normal use (after password confirmation)</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowCheckIn" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>Allow *Check In¦ to switch to check in screen from patron screen (after password).This allows public check out only station to also be a staff only check in station</xs:documentation>
+                  <xs:documentation>Allow *Check InÂ¦ to switch to check in screen from patron screen (after password).This allows public check out only station to also be a staff only check in station</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="SystemPassword" type="xs:string">

@@ -1,4 +1,4 @@
-Version 2.63: 19/05/2012 (432)
+Version 2.63: 19/05/2012 (433)
 Generate configuration editor documentation from config.xsd
 Added configuration help text to config.xsd (to display in editor)
 Editor will warn if you attempt to close with unsaved changes
