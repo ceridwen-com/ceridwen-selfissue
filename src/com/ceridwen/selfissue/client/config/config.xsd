@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- =================================================== -->
-<!--         This file was created by XMLSeed.           -->
-<!--             Homepage: www.xmlseed.com               -->
-<!-- =================================================== -->
+<!--
+  Copyright (c) 2010 Matthew J. Dovey (www.ceridwen.com).
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the GNU Public License v3.0
+  which accompanies this distribution, and is available at 
+  <http://www.gnu.org/licenses/>
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  
+  Contributors:
+      Matthew J. Dovey (www.ceridwen.com) - initial API and implementation
+-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
   <xs:element name="SelfIssue">
     <xs:complexType>
@@ -257,28 +271,116 @@
                         <xs:documentation>{0} = borrower id</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="PatronRetry" type="xs:string"/>
-                    <xs:element name="PatronNetworkError" type="xs:string"/>
-                    <xs:element name="InvalidPatronError" type="xs:string"/>
-                    <xs:element name="BlockedPatronError" type="xs:string"/>
-                    <xs:element name="UnexpectedPatronError" type="xs:string"/>
-                    <xs:element name="CheckoutPendingMessage" type="xs:string"/>
-                    <xs:element name="InvalidItemBarcode" type="xs:string"/>
-                    <xs:element name="CheckoutRetry" type="xs:string"/>
-                    <xs:element name="CheckOutSuccess" type="xs:string"/>
-                    <xs:element name="DueDateMessage" type="xs:string"/>
-                    <xs:element name="NoDueDateMessage" type="xs:string"/>
-                    <xs:element name="CheckoutNetworkError" type="xs:string"/>
-                    <xs:element name="CheckoutFailedError" type="xs:string"/>
-                    <xs:element name="UnexpectedCheckoutError" type="xs:string"/>
-                    <xs:element name="UnlockFailedError" type="xs:string"/>
-                    <xs:element name="UnlockFailedCheckInFailedError" type="xs:string"/>
-                    <xs:element name="CheckInSuccess" type="xs:string"/>
-                    <xs:element name="CheckinNetworkError" type="xs:string"/>
-                    <xs:element name="CheckinFailedError" type="xs:string"/>
-                    <xs:element name="UnexpectedCheckinError" type="xs:string"/>
-                    <xs:element name="LockFailedError" type="xs:string"/>
-                    <xs:element name="CheckinPendingMessage" type="xs:string"/>
+                    <xs:element name="PatronRetry" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronNetworkError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = borrower id</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InvalidPatronError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = borrower id</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BlockedPatronError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = message from server</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnexpectedPatronError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutPendingMessage" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InvalidItemBarcode" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutRetry" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckOutSuccess" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item title or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DueDateMessage" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = date due</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NoDueDateMessage" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutNetworkError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnexpectedCheckoutError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnlockFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnlockFailedCheckInFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckInSuccess" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode; {1] = message from server</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinNetworkError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode; {1] = message from server</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnexpectedCheckinError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LockFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item name or barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinPendingMessage" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = item barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -385,6 +487,7 @@ Remove the entries for silent operation</xs:documentation>
           </xs:complexType>
         </xs:element>
         <xs:element name="Systems">
+          <xs:annotation/>
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SIP">
@@ -584,11 +687,7 @@ Currently supports 3M SIP2 over Telnet or Socket</xs:documentation>
               </xs:element>
               <xs:element name="Loggers">
                 <xs:annotation>
-                  <xs:documentation>The self client will need to communicate to local library staff in certain circumstances.
-
-This contains Logger sections defining how to communicate to staff
-
-Can contain multiple loggers</xs:documentation>
+                  <xs:documentation>Can contain multiple loggers</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -617,9 +716,7 @@ It is anticipated that this would normally be suppressed unless a full record of
                                 </xs:element>
                                 <xs:element name="ManualCheckout" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkout Report: Manual Intervention Required (action required)” is generated if an item has been issued to an user, but the Self Issue client was unable to commit the checkout to the 3M server. This can occur in two cases: 
-(i) the user would not normally be allowed to checkout the item but the Self Issue client is running in Trust Mode or Offline Mode when the item was checked out;
-(ii) the item was spooled in Offline mode, but the 3M server has not been available for the designated maximum life an item can be kept in the spooler</xs:documentation>
+                                    <xs:documentation>(ii) the item was spooled in Offline mode, but the 3M server has not been available for the designated maximum life an item can be kept in the spooler</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="Notification" type="xs:boolean">

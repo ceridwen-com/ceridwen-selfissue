@@ -1,6 +1,7 @@
 * text=auto !eol
 /.classpath -text
 .externalToolBuilders/Create[!!-~]Distribution.launch -text
+.externalToolBuilders/Create[!!-~]Documentation.launch -text
 .externalToolBuilders/Deploy[!!-~]Default[!!-~]Config.launch -text svneol=unset#text/plain
 /.project -text
 .settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
@@ -17,8 +18,32 @@ build-scripts/jar-builder.xml -text
 build-scripts/version-builder.xml -text
 /build.xml -text svneol=unset#text/plain
 /create-distribution.xml -text
+/create-documentation.xml -text
 /deploy-default-config.xml -text svneol=unset#text/plain
 doc/Invocation.txt -text svneol=unset#text/plain
+doc/images/commandinterface.png -text
+doc/images/logging.png -text
+doc/images/modes.png -text
+doc/images/selfissue.png -text
+doc/images/systems-itemidreaderdevice.png -text
+doc/images/systems-itemsecuritydevice.png -text
+doc/images/systems-loggers.png -text
+doc/images/systems-patronidreaderdevice.png -text
+doc/images/systems-printer.png -text
+doc/images/systems-sip.png -text
+doc/images/systems-spooler.png -text
+doc/images/ui-audio.png -text
+doc/images/ui-checkinpanel.png -text
+doc/images/ui-checkoutpanel.png -text
+doc/images/ui-control.png -text
+doc/images/ui-messages.png -text
+doc/images/ui-palette.png -text
+doc/images/ui-patronpanel.png -text
+doc/images/ui-selfissue.png -text
+doc/images/ui-validation.png -text
+doc/images/ui-watchdog.png -text
+doc/readme.html -text
+/document-configeditor.xsl -text
 lib/ceridwen-circulation-2.81/ceridwen-circulation-2.81.jar -text
 lib/ceridwen-circulation-2.81/changelog.txt -text
 lib/ceridwen-circulation-2.81/license.txt -text
