@@ -197,19 +197,71 @@
                         <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="PatronText_DefaultText" type="xs:string"/>
-                    <xs:element name="PatronText_ToolTipText" type="xs:string"/>
-                    <xs:element name="StatusText_DefaultText" type="xs:string"/>
-                    <xs:element name="StatusText_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookFieldLabel_Text" type="xs:string"/>
-                    <xs:element name="BookFieldLabel_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookField_ToolTipText" type="xs:string"/>
-                    <xs:element name="CheckoutButton_Text" type="xs:string"/>
-                    <xs:element name="CheckoutButton_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookPanelNextButton_Text" type="xs:string"/>
-                    <xs:element name="BookPanelNextButton_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookPanelCheckinButton_Text" type="xs:string"/>
-                    <xs:element name="BookPanelCheckinButton_ToolTipText" type="xs:string"/>
+                    <xs:element name="PatronText_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronText_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="StatusText_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="StatusText_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookFieldLabel_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookFieldLabel_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookField_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutButton_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelNextButton_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelNextButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelCheckinButton_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelCheckinButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -224,25 +276,77 @@
                         <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="PatronText_DefaultText" type="xs:string"/>
-                    <xs:element name="PatronText_ToolTipText" type="xs:string"/>
-                    <xs:element name="StatusText_DefaultText" type="xs:string"/>
-                    <xs:element name="StatusText_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookFieldLabel_Text" type="xs:string"/>
-                    <xs:element name="BookFieldLabel_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookField_ToolTipText" type="xs:string"/>
-                    <xs:element name="CheckinButton_Text" type="xs:string"/>
-                    <xs:element name="CheckinButton_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookPanelNextButton_Text" type="xs:string"/>
-                    <xs:element name="BookPanelNextButton_ToolTipText" type="xs:string"/>
-                    <xs:element name="BookPanelCheckoutButton_Text" type="xs:string"/>
-                    <xs:element name="BookPanelCheckoutButton_ToolTipText" type="xs:string"/>
+                    <xs:element name="PatronText_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronText_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="StatusText_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="StatusText_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookFieldLabel_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookFieldLabel_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookField_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinButton_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelNextButton_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelNextButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelCheckoutButton_Text" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookPanelCheckoutButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation/>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
               <xs:element name="Messages">
                 <xs:annotation>
-                  <xs:documentation>Allows configuration of the various messages displayed by the application. {0}, {1} etc. will be replaced by message specific strings. Some of the messages support limited html formatting using: &lt;strong&gt; for bold text; &lt;em&gt; to display in the warning colour defined in the colour palette</xs:documentation>
+                  <xs:documentation>to display in the warning colour defined in the colour palette</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -411,12 +515,12 @@
                   <xs:sequence>
                     <xs:element name="PatronBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
+                        <xs:documentation>+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="ItemBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>The default value of [P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
+                        <xs:documentation>[\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -617,9 +721,16 @@
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="SmartCardReader" type="xs:string"/>
+                    <xs:element name="SmartCardReader" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Device name as defined in JavaSmart card API</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Implementation class (currently JavaSmartCard or null device)</xs:documentation>
+                    </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
                         <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice"/>
@@ -635,9 +746,16 @@
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="SmartCardReader" type="xs:string"/>
+                    <xs:element name="SmartCardReader" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Device name as defined in JavaSmart card API</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Implementation class (currently JavaSmartCard or null device)</xs:documentation>
+                    </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
                         <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice"/>
@@ -649,14 +767,25 @@
               </xs:element>
               <xs:element name="ItemSecurityDevice">
                 <xs:annotation>
-                  <xs:documentation>This allows optional support for local security tagging and gates. The included class works with JavaCard RFID devices.</xs:documentation>
+                  <xs:documentation>This allows optional support for local security tagging and gates.</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="Retries" type="xs:nonNegativeInteger"/>
-                    <xs:element name="Timeout" type="xs:nonNegativeInteger"/>
+                    <xs:element name="Retries" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Number of retries if initial attempt to desensitize device fails</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Timeout" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Time (ms) to wait for security device</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Implementation class</xs:documentation>
+                    </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
                         <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice"/>

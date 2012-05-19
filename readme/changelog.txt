@@ -1,4 +1,5 @@
-Version 2.63: 19/05/2012 (423)
+Version 2.63: 19/05/2012 (428)
+Generate configuration editor documentation from config.xsd
 Added configuration help text to config.xsd (to display in editor)
 Editor will warn if you attempt to close with unsaved changes
 Allowed empty string in file selection combobox in Configuration editor (Bugfix: not possible to disable audio prompts in editor)
