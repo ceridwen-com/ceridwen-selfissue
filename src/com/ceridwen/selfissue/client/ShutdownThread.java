@@ -29,6 +29,8 @@ import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.ConnectionFactory;
 import com.ceridwen.selfissue.client.devices.IDReaderDevice;
 import com.ceridwen.selfissue.client.devices.SecurityDevice;
+import com.ceridwen.util.versioning.LibraryIdentifier;
+import com.ceridwen.util.versioning.LibraryRegistry;
 
 public class ShutdownThread extends Thread {
     private static IDReaderDevice idReaderDevice = null;
@@ -39,6 +41,13 @@ public class ShutdownThread extends Thread {
 
     public ShutdownThread() {
         super();
+        LibraryRegistry registry = new LibraryRegistry();
+        System.out.println("Starting Up Self Issue Terminal...");
+        LibraryIdentifier selfissueID = new LibraryIdentifier("com.ceridwen", "Ceridwen Self Issue Client");     
+        System.out.println(registry.getLibraryName(selfissueID) + " " +
+                registry.getLibraryVersion(selfissueID) + " (" +
+				registry.getLibraryBuildDate(selfissueID) + ")");
+
     }
 
     public static void registerSecurityDeviceShutdown(SecurityDevice d) {

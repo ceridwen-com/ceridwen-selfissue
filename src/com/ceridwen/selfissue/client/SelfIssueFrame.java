@@ -203,7 +203,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     LibraryRegistry registry = new LibraryRegistry();
     LibraryIdentifier selfissueID = new LibraryIdentifier("com.ceridwen", "Ceridwen Self Issue Client");
     BuildVersion.setText(registry.getLibraryName(selfissueID) + " " +
-                         registry.getLibraryVersion(selfissueID));
+                         registry.getLibraryVersion(selfissueID) + " (" +
+    					 registry.getLibraryBuildDate(selfissueID) + ")");
     StatusPanel.setLayout(borderLayout1);
     StatusPanel.setOpaque(true);
     StatusPanel.setBackground(InnerBorderColour);
@@ -216,7 +217,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     Ceridwen.setBorder(border3);
     Ceridwen.setForeground(VersionTextColour);
     Ceridwen.setHorizontalAlignment(SwingConstants.LEFT);
-    Ceridwen.setText("Ceridwen.com");
+    Ceridwen.setText("ceridwen.com");
     TitlePanel.add(RightIcon, BorderLayout.EAST);
     TitlePanel.add(LeftIcon, BorderLayout.WEST);
     MainPane.add(TitlePanel, BorderLayout.NORTH);
