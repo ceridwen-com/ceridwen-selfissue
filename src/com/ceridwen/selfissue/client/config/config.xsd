@@ -1091,7 +1091,7 @@
               </xs:element>
               <xs:element name="SystemPassword" type="xs:string">
                 <xs:annotation>
-                  <xs:documentation>System password required to confirm staff actions such as shutdown and reset out of order (encrypted)</xs:documentation>
+                  <xs:documentation>System password required to confirm staff actions such as shutdown and reset out of order (encrypted). Default password is password.</xs:documentation>
                 </xs:annotation>
               </xs:element>
             </xs:sequence>
