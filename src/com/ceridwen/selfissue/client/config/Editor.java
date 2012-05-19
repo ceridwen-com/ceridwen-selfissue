@@ -316,7 +316,10 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
         JTextArea helpLabel = new JTextArea(helpText);
         helpLabel.setEditable(false);
         helpLabel.setOpaque(false);
+        helpLabel.setLineWrap(true);
+        helpLabel.setWrapStyleWord(true);
 //        JLabel helpLabel = new JLabel(helpText);
+        helpLabel.setBounds(_helpPanel.getBounds());
         _helpPanel.add(helpLabel, BorderLayout.CENTER);
         _helpPanel.updateUI();
     }
