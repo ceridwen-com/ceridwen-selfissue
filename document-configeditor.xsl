@@ -9,8 +9,9 @@
 
   <xsl:template match="/xs:schema/xs:element">
     <h2>SelfIssue Configuration Editor</h2>
+    <p><xsl:value-of select="xs:annotation/xs:documentation[1]" /></p>
     <img src="images/{translate(@name,$upperCase,$smallCase)}.png" />
-    <p><xsl:value-of select="xs:annotation/xs:documentation" /></p>
+    <p><xsl:value-of select="xs:annotation/xs:documentation[2]" /></p>
     <xsl:apply-templates />
   </xsl:template>
 

@@ -6,12 +6,8 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified">
   <xs:element name="SelfIssue">
     <xs:annotation>
-      <xs:documentation>The SelfIssue Configuration Editor provides a GUI editor for the contents of the config.xml file for the Self Issue Client. On running the editor it will automatically load the current config.xml values.
-
-Reload - loads the values stored in the config.xml file (i.e. undoes any edits)
-Save - saves any changes to the config.xml file
-Default - loads the default settings (stored in default.xml)
-View XML - displays the XML file of the currently loaded values</xs:documentation>
+      <xs:documentation>The SelfIssue Configuration Editor provides a GUI editor for the contents of the config.xml file for the Self Issue Client. On running the editor it will automatically load the current config.xml values.</xs:documentation>
+      <xs:documentation>Menu options: Reload - loads the values stored in the config.xml file (i.e. undoes any edits): Save - saves any changes to the config.xml file; Default - loads the default settings (stored in default.xml); View XML - displays the XML file of the currently loaded values</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -246,14 +242,7 @@ View XML - displays the XML file of the currently loaded values</xs:documentatio
               </xs:element>
               <xs:element name="Messages">
                 <xs:annotation>
-                  <xs:documentation>Allows configuration of the various messages displayed by the application.
-
-{0}, {1} etc. will be replaced by message specific strings.
-
-Some of the messages support limited html formatting using 
-
-&lt;strong&gt; for bold text
-&lt;em&gt; to display in the warning colour defined in the colour palette</xs:documentation>
+                  <xs:documentation>Allows configuration of the various messages displayed by the application. {0}, {1} etc. will be replaced by message specific strings. Some of the messages support limited html formatting using: &lt;strong&gt; for bold text; &lt;em&gt; to display in the warning colour defined in the colour palette</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -392,8 +381,7 @@ Some of the messages support limited html formatting using
               </xs:element>
               <xs:element name="Audio">
                 <xs:annotation>
-                  <xs:documentation>Audio feedback for messages
-Remove the entries for silent operation. Audio files should be stored in the res directory</xs:documentation>
+                  <xs:documentation>Audio feedback for messages. Remove the entries for silent operation. Audio files should be stored in the res directory</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -423,21 +411,12 @@ Remove the entries for silent operation. Audio files should be stored in the res
                   <xs:sequence>
                     <xs:element name="PatronBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>The default setting of 
-(2\d{6})|([1-9a-zA-Z][\w,. -]+
-
-will accept a barcode consisting of seven digits beginning with the digitl 2 or a name (alphabetical input including space)</xs:documentation>
+                        <xs:documentation>The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="ItemBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>The default value of
-
-[P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+)
-
-will accept a 9 digit barcode beginning with 3, 
-a 7 digit barcode beginning with P, T or R,
-or an alphanumeric titles</xs:documentation>
+                        <xs:documentation>The default value of [P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -509,9 +488,7 @@ or an alphanumeric titles</xs:documentation>
             <xs:sequence>
               <xs:element name="SIP">
                 <xs:annotation>
-                  <xs:documentation>This contains the connection details for the 3M SIP server (NISO CIP to be supported in a future version).
-
-Currently supports 3M SIP2 over Telnet or Socket</xs:documentation>
+                  <xs:documentation>This contains the connection details for the 3M SIP server. Currently supports 3M SIP2 over Telnet or Socket</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -704,9 +681,7 @@ Currently supports 3M SIP2 over Telnet or Socket</xs:documentation>
               </xs:element>
               <xs:element name="Loggers">
                 <xs:annotation>
-                  <xs:documentation>The loggers will log activity of the client via e-mail, syslog or a simple REST API. Typically these are used to alert staff when a manual intervention is required (for example a book checked out whilst offline cannot be automatically checked out by the 3M server). However, they can be used to log every activity of the client.
-
-Multiple loggers (for different purposes) can be defined.</xs:documentation>
+                  <xs:documentation>The loggers will log activity of the client via e-mail, syslog or a simple REST API. Typically these are used to alert staff when a manual intervention is required (for example a book checked out whilst offline cannot be automatically checked out by the 3M server). However, they can be used to log every activity of the client. Multiple loggers (for different purposes) can be defined.</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -718,9 +693,7 @@ Multiple loggers (for different purposes) can be defined.</xs:documentation>
                               <xs:sequence>
                                 <xs:element name="CheckoutSuccess" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkout Report: Checkout Success Notification (no action required)” will be sent whenever a checkout is successfully performed on the 3M server (and reported to the user).
-
-It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
+                                    <xs:documentation>E-Mail with subject “Self Issue Checkout Report: Checkout Success Notification (no action required)” will be sent whenever a checkout is successfully performed on the 3M server (and reported to the user). It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CheckoutFailure" type="xs:boolean">
@@ -745,9 +718,7 @@ It is anticipated that this would normally be suppressed unless a full record of
                                 </xs:element>
                                 <xs:element name="UnlockFailure" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>Applicable for security system support - sends a message if security device on item could not be unlocked successfully.
-
-Action may be required, but the user would be prompted to retry. An attempt is made to cancel the checkout.</xs:documentation>
+                                    <xs:documentation>Applicable for security system support - sends a message if security device on item could not be unlocked successfully. Action may be required, but the user would be prompted to retry. An attempt is made to cancel the checkout.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CancelCheckoutFailure" type="xs:boolean">
@@ -757,16 +728,12 @@ Action may be required, but the user would be prompted to retry. An attempt is m
                                 </xs:element>
                                 <xs:element name="UnlockSuccess" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>Applicable for security system support - sends a message if security device on item was unlocked successfully.
-
-It is anticipated that this would normally be suppressed unless a full record of activity is needed</xs:documentation>
+                                    <xs:documentation>Applicable for security system support - sends a message if security device on item was unlocked successfully. It is anticipated that this would normally be suppressed unless a full record of activity is needed</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CheckinSuccess" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>E-Mail with subject “Self Issue Checkin Report: Checkin Success Notification (no action required)” will be sent whenever a checkin is successfully performed on the 3M server (and reported to the user).
-
-It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
+                                    <xs:documentation>E-Mail with subject “Self Issue Checkin Report: Checkin Success Notification (no action required)” will be sent whenever a checkin is successfully performed on the 3M server (and reported to the user). It is anticipated that this would normally be suppressed unless a full record of activity is needed.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="CheckinFailure" type="xs:boolean">
@@ -781,16 +748,12 @@ It is anticipated that this would normally be suppressed unless a full record of
                                 </xs:element>
                                 <xs:element name="LockFailure" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>Applicable for security system support - sends a message if security device on item could not be locked successfully.
-
-Action may be required, but the user would be prompted to retry. An attempt is made to cancel the checkin.</xs:documentation>
+                                    <xs:documentation>Applicable for security system support - sends a message if security device on item could not be locked successfully. Action may be required, but the user would be prompted to retry. An attempt is made to cancel the checkin.</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                                 <xs:element name="LockSuccess" type="xs:boolean">
                                   <xs:annotation>
-                                    <xs:documentation>Applicable for security system support - sends a message if security device on item was locked successfully.
-
-It is anticipated that this would normally be suppressed unless a full record of activity is needed</xs:documentation>
+                                    <xs:documentation>Applicable for security system support - sends a message if security device on item was locked successfully. It is anticipated that this would normally be suppressed unless a full record of activity is needed</xs:documentation>
                                   </xs:annotation>
                                 </xs:element>
                               </xs:sequence>
@@ -905,9 +868,7 @@ It is anticipated that this would normally be suppressed unless a full record of
             <xs:sequence>
               <xs:element name="TrustMode" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>When false, an item will only be reported issued if the 3M server allows the item to be issued; if the 3M server fails the issue the reason will be reported to the end user.
-
-When true, an item will always be reported issued. If the issue cannot be committed by the client to the 3M server (e.g. if the borrower has too many items out), a message is sent to the librarian (using the method specified in the Systems/Loggers section) requesting manual intervention.</xs:documentation>
+                  <xs:documentation>When false, an item will only be reported issued if the 3M server allows the item to be issued; if the 3M server fails the issue the reason will be reported to the end user. When true, an item will always be reported issued. If the issue cannot be committed by the client to the 3M server (e.g. if the borrower has too many items out), a message is sent to the librarian (using the method specified in the Systems/Loggers section) requesting manual intervention.</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowOffline" type="xs:boolean">
@@ -922,16 +883,12 @@ When true, an item will always be reported issued. If the issue cannot be commit
               </xs:element>
               <xs:element name="RetryPatronWhenError" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the patron id is valid.
-
-If RetryPatronWhenError is false, the Self Issue client will assume that the entered patron id is always valid; if true the Self Issue client will request the patron id to be re-entered if it cannot confirm validity and only continue if the patron id is entered identically twice.</xs:documentation>
+                  <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the patron id is valid. If RetryPatronWhenError is false, the Self Issue client will assume that the entered patron id is always valid; if true the Self Issue client will request the patron id to be re-entered if it cannot confirm validity and only continue if the patron id is entered identically twice.</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="RetryItemWhenError" type="xs:boolean">
                 <xs:annotation>
-                  <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the item id is valid.
-
-If RetryItemWhenError is false, the Self Issue client will assume that the entered item id is always valid; if true the Self Issue client will request the item id to be re-entered if it cannot confirm validity and only continue if the item id is entered identically twice.</xs:documentation>
+                  <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the item id is valid. If RetryItemWhenError is false, the Self Issue client will assume that the entered item id is always valid; if true the Self Issue client will request the item id to be re-entered if it cannot confirm validity and only continue if the item id is entered identically twice.</xs:documentation>
                 </xs:annotation>
               </xs:element>
               <xs:element name="AllowRenews" type="xs:boolean">
@@ -964,13 +921,7 @@ If RetryItemWhenError is false, the Self Issue client will assume that the enter
         </xs:element>
         <xs:element name="CommandInterface">
           <xs:annotation>
-            <xs:documentation>Enable various debugging/testing features. The client supports various commands of the form
-
-*command|
-
-whilst at the patron screen. This can be disabled as required.
-
-(commands can also be entered as $command% if EnableBarcodeAlii is enabled under Modes)</xs:documentation>
+            <xs:documentation>Enable various debugging/testing features. The client supports various commands of the form *command| whilst at the patron screen. This can be disabled as required. (commands can also be entered as $command% if EnableBarcodeAlii is enabled under Modes)</xs:documentation>
           </xs:annotation>
           <xs:complexType>
             <xs:sequence>
