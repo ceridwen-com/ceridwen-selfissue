@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xsl:output method="html" omit-xml-declaration="yes" indent="yes" />
+  
   <xsl:variable name="smallCase" select="'abcdefghijklmnopqrstuvwxyz'"/>
   <xsl:variable name="upperCase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
 
   <xsl:template match="/xs:schema/xs:element">
     <h2>SelfIssue Configuration Editor</h2>
-    <p><xsl:value-of select="xs:annotation/xs:documentation" /></p>
     <img src="images/{translate(@name,$upperCase,$smallCase)}.png" />
+    <p><xsl:value-of select="xs:annotation/xs:documentation" /></p>
     <xsl:apply-templates />
   </xsl:template>
 
@@ -19,18 +21,18 @@
        <h3><xsl:value-of select="@name"/></h3>
        <p><xsl:value-of select="xs:annotation/xs:documentation" /></p>
        <img src="images/{translate(@name,$upperCase,$smallCase)}.png" />
-       <ul>
+       <p><ul>
        <xsl:apply-templates select="*[position() &gt; 1]" mode="list"/>
-       </ul>
+       </ul></p>
   </xsl:template>
 
   <xsl:template match="xs:element" mode="tabs">
     <h3><xsl:value-of select="../../../@name" /> - <xsl:value-of select="@name" /></h3>
     <p><xsl:value-of select="xs:annotation/xs:documentation" /></p>
     <img src="images/{translate(../../../@name,$upperCase,$smallCase)}-{translate(@name,$upperCase,$smallCase)}.png" />
-    <ul>
+    <p><ul>
     <xsl:apply-templates select="*[position() &gt; 1]" mode="list"/>
-    </ul>
+    </ul></p>
   </xsl:template>
 
   <xsl:template match="xs:documentation" mode="list">
