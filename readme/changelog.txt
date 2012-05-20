@@ -1,4 +1,4 @@
-Version 2.65: 20/05/2012 (439)
+Version 2.65: 20/05/2012 (440)
 Added PersistentQueueImplementation configuration option for backwards compatibility
 Generate configuration editor documentation from config.xsd
 Added configuration help text to config.xsd (to display in editor)
