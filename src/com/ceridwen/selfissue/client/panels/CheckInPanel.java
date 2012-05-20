@@ -300,7 +300,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.BookField.setPreferredSize(new Dimension(200, 27));
         this.BookField.setRequestFocusEnabled(true);
         this.BookField.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookField_ToolTipText"));
-        this.BookField.setText("");
+        this.BookField.setText(Configuration.getProperty("UI/CheckInPanel/BookField_DefaultText"));
         this.BookField.setHorizontalAlignment(SwingConstants.LEADING);
         this.BookField.addKeyListener(new CheckInPanel_BookField_keyAdapter(this));
         this.DataPanel.setLayout(this.DataFlowLayout);
@@ -499,7 +499,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             } catch (FailureException ex) {
                 throw new LockFailed();
             }
-            this.PlaySound("CheckInSuccess");
+            this.PlaySound("CheckinSuccess");
             this.appendCheckinText(Configuration.getMessage(
                     "CheckInSuccess",
                     new String[] {  StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
@@ -528,6 +528,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
                                     response.getItemIdentifier(), StringUtils.isNotEmpty(response.getScreenMessage()) ?
                                     response.getScreenMessage() : "" }));
         } catch (LockFailed ex) {
+//TODO: Check this - does it need a checkin undo?        	
             this.handler.recordEvent(OnlineLogEvent.STATUS_LOCKFAILURE, "", new Date(), request, response);
             this.PlaySound("LockFailedError");
             this.appendCheckinText(Configuration.getMessage("LockFailedError",

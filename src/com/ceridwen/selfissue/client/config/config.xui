@@ -71,7 +71,35 @@
                      </plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/Audio/CheckOutSuccess">
+       <component xpath="/SelfIssue/UI/Audio/CheckinSuccess">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="wav,au"/>
+                     </plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Audio/CheckinFailedError">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="wav,au"/>
+                     </plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Audio/CheckinNetworkError">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="wav,au"/>
+                     </plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Audio/CheckinRetry">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="wav,au"/>
+                     </plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Audio/CheckoutSuccess">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="wav,au"/>
@@ -120,6 +148,20 @@
                      </plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Audio/LockFailedCheckoutFailedError">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="wav,au"/>
+                     </plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Audio/LockFailedError">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="wav,au"/>
+                     </plugIn>
+              </style>
+       </component>
        <component xpath="/SelfIssue/UI/Audio/PatronNetworkError">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
@@ -128,6 +170,13 @@
               </style>
        </component>
        <component xpath="/SelfIssue/UI/Audio/PatronRetry">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="wav,au"/>
+                     </plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Audio/UnexpectedCheckinError">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="wav,au"/>
@@ -148,7 +197,7 @@
                      </plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/Audio/UnlockFailedCheckInFailedError">
+       <component xpath="/SelfIssue/UI/Audio/UnlockFailedCheckinFailedError">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="wav,au"/>

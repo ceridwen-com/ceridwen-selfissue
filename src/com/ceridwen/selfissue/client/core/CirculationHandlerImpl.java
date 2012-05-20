@@ -100,7 +100,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
         return this.spool.getClass();
     }
 
-    private void initiateOfflineSpooler() {
+    private void initiateOfflineSpooler(OutOfOrderInterface ooo) {
         try {
 			this.spool = new OfflineSpoolerDevice(Configuration.getProperty(
 			        "Systems/Spooler/Spool"), this,
@@ -108,7 +108,9 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
 			                                     "Systems/Spooler/ReplayPeriod") *
 			                             60000);
 		} catch (IOException e) {
+            System.out.println("Problem accessing spooler file: " + Configuration.getProperty("Systems/Spooler/Spool"));
             CirculationHandlerImpl.logger.fatal("Problem opening offline spooler file", e);
+            ooo.setOutOfOrder(true);
 		}
     }
 
@@ -131,7 +133,9 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
             } catch (java.lang.NoClassDefFoundError ex) {
                 CirculationHandlerImpl.logger.error(ex);
     		} catch (IOException e) {
+                System.out.println("Problem accessing spooler file: " + Configuration.getSubProperty(loggers.item(i), "Spool"));
                 CirculationHandlerImpl.logger.fatal("Problem opening online log file", e);
+                ooo.setOutOfOrder(true);
             } catch (Exception ex) {
                 CirculationHandlerImpl.logger.error(ex);
             }
@@ -139,7 +143,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
     }
 
     public CirculationHandlerImpl(OutOfOrderInterface ooo) {
-        this.initiateOfflineSpooler();
+        this.initiateOfflineSpooler(ooo);
         this.initiateOnlineLoggers(ooo);
     }
 

@@ -86,52 +86,53 @@
                   <xs:sequence>
                     <xs:element name="OuterBorderColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Colour of window outer border</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InnerBorderColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Colour of window inner border</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="TitleBackgroundColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Background colour of title area</xs:documentation>
+                      <xs:documentation/>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BackgroundColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Background colour of main window</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="TitleTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Colour of title at top of window</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="DefaultTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Default colour for text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="WarningTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Colour used in messages when indicated by &lt;em&gt;</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="VersionTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Colour for version text at bottom of window</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="ButtonTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Colour of text in buttons</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="ButtonBackgroundColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Colour of buttons</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -145,12 +146,7 @@
                   <xs:sequence>
                     <xs:element name="PatronSalutation_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="PatronField_DefaultText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Initial greeting to patron</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CardIcon_Icon" type="xs:string">
@@ -160,42 +156,47 @@
                     </xs:element>
                     <xs:element name="PatronFieldLabel_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Label for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronFieldLabel_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tooltip for patron barcode edit box label</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronField_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronField_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronPasswordPrompt" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Text if patron asked for password</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronPanelNextButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Next button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronPanelNextButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="PatronPanelResetButton_ToolTipText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Next button tool tip text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronPanelResetButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Reset button text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronPanelResetButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Reset button tool tip text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -214,67 +215,72 @@
                     </xs:element>
                     <xs:element name="PatronText_DefaultText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Default greeting to patrong</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronText_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tooltip text on patron information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="StatusText_DefaultText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Default status text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="StatusText_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tooltip text for status information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookFieldLabel_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Label for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookFieldLabel_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tooltip for book barcode edit box label</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookField_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Default text for book barcode edit box (normally blank)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookField_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckoutButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Checkout button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckoutButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Checkout button tool tip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelNextButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Finish button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelNextButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Finish button tooltip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelCheckinButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Start checkin button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelCheckinButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Start checkin button tooltip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -293,67 +299,72 @@
                     </xs:element>
                     <xs:element name="PatronText_DefaultText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Default greeting to patrong</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronText_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tooltip text on patron information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="StatusText_DefaultText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Default status text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="StatusText_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tooltip text for status information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookFieldLabel_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Label for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookFieldLabel_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tooltip for book barcode edit box label</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BookField_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Default text for book barcode edit box (normally blank)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookField_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CheckinButton_Text" type="xs:string">
+                    <xs:element name="CheckoutButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Checkout button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CheckinButton_ToolTipText" type="xs:string">
+                    <xs:element name="CheckoutButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Checkout button tool tip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelNextButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Finish button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelNextButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Finish button tooltip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelCheckoutButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Start checkout button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelCheckoutButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>Start checkout button tooltip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -387,7 +398,7 @@
                     </xs:element>
                     <xs:element name="PatronRetry" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>No substitutes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronNetworkError" type="xs:string">
@@ -407,7 +418,7 @@
                     </xs:element>
                     <xs:element name="UnexpectedPatronError" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>No substitutes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckoutPendingMessage" type="xs:string">
@@ -417,12 +428,12 @@
                     </xs:element>
                     <xs:element name="InvalidItemBarcode" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>No substitutes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckoutRetry" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>No substitutes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckOutSuccess" type="xs:string">
@@ -437,7 +448,7 @@
                     </xs:element>
                     <xs:element name="NoDueDateMessage" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation/>
+                        <xs:documentation>No substitutes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckoutNetworkError" type="xs:string">
@@ -504,21 +515,116 @@
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="ValidPatron" type="xs:string"/>
-                    <xs:element name="CheckOutSuccess" type="xs:string"/>
-                    <xs:element name="PatronRetry" type="xs:string"/>
-                    <xs:element name="CheckoutRetry" type="xs:string"/>
-                    <xs:element name="InvalidPatronBarcode" type="xs:string"/>
-                    <xs:element name="PatronNetworkError" type="xs:string"/>
-                    <xs:element name="InvalidPatronError" type="xs:string"/>
-                    <xs:element name="BlockedPatronError" type="xs:string"/>
-                    <xs:element name="UnexpectedPatronError" type="xs:string"/>
-                    <xs:element name="InvalidItemBarcode" type="xs:string"/>
-                    <xs:element name="CheckoutNetworkError" type="xs:string"/>
-                    <xs:element name="CheckoutFailedError" type="xs:string"/>
-                    <xs:element name="UnexpectedCheckoutError" type="xs:string"/>
-                    <xs:element name="UnlockFailedError" type="xs:string"/>
-                    <xs:element name="UnlockFailedCheckInFailedError" type="xs:string"/>
+                    <xs:element name="ValidPatron" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on valid patron</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutSuccess" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on check out</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinSuccess" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on check out</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronRetry" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on re enter patron id</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutRetry" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on re enter last book</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinRetry" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on re enter last book</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InvalidPatronBarcode" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on invalid patron barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronNetworkError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on network error checking patron</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InvalidPatronError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on invalid patron</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BlockedPatronError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on patron account blocked</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnexpectedPatronError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on unknown error checking patron id</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InvalidItemBarcode" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on invalid item barcode</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutNetworkError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on network error on check out</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckoutFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on checkout failed</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnexpectedCheckoutError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on unknown error during checkout</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnlockFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on unlock security on item failed</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnlockFailedCheckinFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on item unlocked but check out could not be undone</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinNetworkError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on network error on check in</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CheckinFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on checkin failed</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="UnexpectedCheckinError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on unknown error during checkin</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LockFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on lock security on item failed</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LockFailedCheckoutFailedError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on item locked but check in could not be undone</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>

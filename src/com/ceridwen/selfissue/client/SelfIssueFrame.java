@@ -97,15 +97,12 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   private JLabel LibraryText = new JLabel();
   private BorderLayout TitleTextBorderLayout = new BorderLayout();
 
-  private CirculationHandler handler = new CirculationHandlerImpl(this);
+  private CirculationHandler handler;
   private Border border2;
 
   //Construct the frame
   public SelfIssueFrame()
   {
-    log.info("RTSI Start Up:- Spooled: " + handler.getSpoolSize());
-
-
 //    backgroundTasks.scheduleAtFixedRate(logger, (long)10000, (long)10000);
 //    backgroundTasks.scheduleAtFixedRate(handler, (long)10000, (long)10000);
 
@@ -122,13 +119,27 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
         }
       }
       );
-      MainPanel = new PatronPanel(handler, ResetTimer);
       jbInit();
     } catch (Exception e) {
+      System.out.println("Self Issue Could not initialise user interface. Halting.");
       e.printStackTrace();
+      System.exit(1);
     }
 
     ResetTimer.start();
+    handler = new CirculationHandlerImpl(this); 
+	if (MainPanel == null) {
+		// If MainPanel has been set, it will be OutOfOrder due to CirculationHandlerImpl error
+	    this.setPatronPanel();
+	}
+//    MainPanel = new PatronPanel(handler, ResetTimer);
+//    MainPanel.addSelfIssuePanelListener(new
+//        SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
+//    MainPane.add(MainPanel, BorderLayout.CENTER);
+    
+
+    System.out.println("Self Issue Started:- Spooled: " + handler.getSpoolSize());
+    log.info("Self Issue Started:- Spooled: " + handler.getSpoolSize());
   }
 
   //Component initialization
@@ -169,8 +180,6 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     TitlePanel.setLayout(TitleBorderLayout);
     TitlePanel.setOpaque(true);
     TitlePanel.setBackground(TitleBackgroundColour);
-    MainPanel.addSelfIssuePanelListener(new
-        SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
     TitleBorderLayout.setHgap(2);
     TitleBorderLayout.setVgap(2);
     RightIcon.setIcon(Configuration.LoadImage("UI/SelfIssue/RightIcon_Icon"));
@@ -224,7 +233,6 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     TitlePanel.add(TitleTextPanel, BorderLayout.CENTER);
     TitleTextPanel.add(LibraryText, BorderLayout.CENTER);
     TitleTextPanel.add(TitleText, BorderLayout.NORTH);
-    MainPane.add(MainPanel, BorderLayout.CENTER);
     MainPane.add(StatusPanel, BorderLayout.SOUTH);
     StatusPanel.add(BuildVersion, BorderLayout.CENTER);
     StatusPanel.add(Mode, BorderLayout.EAST);
@@ -278,7 +286,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
   public void setPatronPanel()
   {
-    MainPane.remove(MainPanel);
+	if (MainPanel != null) {
+		MainPane.remove(MainPanel);
+	}
     MainPanel = new PatronPanel(this.handler, this.ResetTimer);
     MainPanel.addSelfIssuePanelListener(new
         SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
@@ -303,7 +313,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
   public void setCheckOutPanel(String id, String password, String name, String message)
   {
-    MainPane.remove(MainPanel);
+	if (MainPanel != null) {
+		MainPane.remove(MainPanel);
+	}
     MainPanel = new CheckOutPanel(handler, id, password, demangleName(name), message,
                                   this.ResetTimer);
     MainPanel.addSelfIssuePanelListener(new
@@ -315,7 +327,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
   public void setCheckInPanel(String id, String password, String name, String message)
   {
-    MainPane.remove(MainPanel);
+	if (MainPanel != null) {
+		MainPane.remove(MainPanel);
+	}
     MainPanel = new CheckInPanel(handler, id, password, demangleName(name), message,
             this.ResetTimer);
     MainPanel.addSelfIssuePanelListener(new
@@ -327,7 +341,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
   public void setOutOfOrderPanel()
   {
-    MainPane.remove(MainPanel);
+	if (MainPanel != null) {
+		MainPane.remove(MainPanel);
+	}
     MainPanel = new OutOfOrderPanel();
     MainPanel.addSelfIssuePanelListener(new
             SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));

@@ -77,12 +77,12 @@ public class SelfIssueClient {
 		SelfIssueClientThreadGroup tg;
 		SelfIssueThread th;
 
-    tg = new SelfIssueClientThreadGroup("SelfIssueClientThreadGroup");
-    Thread.setDefaultUncaughtExceptionHandler(tg);
-		th = new SelfIssueThread(tg, "SelfIssueClientThread");
-    th.setUncaughtExceptionHandler(tg);
-    th.start();
-  }
+	    tg = new SelfIssueClientThreadGroup("SelfIssueClientThreadGroup");
+	    Thread.setDefaultUncaughtExceptionHandler(tg);
+			th = new SelfIssueThread(tg, "SelfIssueClientThread");
+	    th.setUncaughtExceptionHandler(tg);
+	    th.start();
+	  }
 
 	public static void main(String[] args) {
 		checkExistingInstance();      

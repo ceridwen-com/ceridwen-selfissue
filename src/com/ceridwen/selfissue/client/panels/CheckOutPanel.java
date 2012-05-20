@@ -332,7 +332,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.BookField.setPreferredSize(new Dimension(200, 27));
         this.BookField.setRequestFocusEnabled(true);
         this.BookField.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookField_ToolTipText"));
-        this.BookField.setText("");
+        this.BookField.setText(Configuration.getProperty("UI/CheckOutPanel/BookField_DefaultText"));
         this.BookField.setHorizontalAlignment(SwingConstants.LEADING);
         this.BookField.addKeyListener(new BookPanel_BookField_keyAdapter(this));
         this.DataPanel.setLayout(this.DataFlowLayout);
@@ -452,7 +452,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     }
 
     private void reportSuccess(CheckOut request, CheckOutResponse response) {
-        this.PlaySound("CheckOutSuccess");
+        this.PlaySound("CheckoutSuccess");
         this.appendCheckoutText(Configuration.getMessage("CheckOutSuccess",
                 new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                         SelfIssuePanel.escapeHTML(response.getTitleIdentifier()) :
@@ -623,7 +623,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 if (SelfIssuePanel.suppressSecurityFailureMessages) {
                     this.reportSuccess(request, response);
                 } else {
-                    this.PlaySound("UnlockFailedCheckInFailedError");
+                    this.PlaySound("UnlockFailedCheckonFailedError");
                     this.appendCheckoutText(Configuration.getMessage(
                             "UnlockFailedCheckInFailedError",
                             new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
