@@ -97,7 +97,6 @@
                     <xs:element name="TitleBackgroundColour" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Background colour of title area</xs:documentation>
-                      <xs:documentation/>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BackgroundColour" type="xs:string">
