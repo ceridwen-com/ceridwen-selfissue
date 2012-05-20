@@ -1,4 +1,4 @@
-Version 2.65: 20/05/2012 (441)
+Version 2.65: 20/05/2012 (442)
 Added PersistentQueueImplementation configuration option for backwards compatibility
 Generate configuration editor documentation from config.xsd
 Added configuration help text to config.xsd (to display in editor)
@@ -8,7 +8,7 @@ Changed ordering under Systems tab in configuration editor
 Removed obsolete AllowEncodePassword in configuration editor command interfaces
 Roll back Java 1.7 dependencies
 Dependencies: ceridwen circulation 2.81
-              ceridwen utilities 1.60
+              ceridwen utilities 1.61
               apache commons beanutils 1.8.3
               apache commons lang 3.1
               apache commons logging 1.1.1 
