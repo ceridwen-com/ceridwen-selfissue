@@ -1,4 +1,4 @@
-Version 1.61: 20/05/2012 (406)
+Version 1.61: 20/05/2012 (407)
 Re-implemented com.ceridwen.util.collection.PersistentQueue for backwards compatibility
 Dependencies: apache commons lang 3.1
               apache commons net 3.1
