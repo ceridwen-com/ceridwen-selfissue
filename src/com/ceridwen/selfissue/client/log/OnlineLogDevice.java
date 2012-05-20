@@ -18,12 +18,15 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.log;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import com.ceridwen.circulation.SIP.messages.Message;
+import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.util.collections.Spooler;
-import com.gaborcselle.persistent.PersistentQueue;
+import com.ceridwen.util.collections.Queue;
 
 /**
  * <p>Title: RTSI</p>
@@ -39,9 +42,12 @@ public class OnlineLogDevice implements OnlineLog {
   private OnlineLogLogger processor;
   private static final long delay = 10000;
 
-  public OnlineLogDevice(String file, OnlineLogLogger processor, int period) throws IOException {
+  public OnlineLogDevice(String file, OnlineLogLogger processor, int period) throws IOException, ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
     this.processor = processor;
-    spool = new Spooler<OnlineLogEvent>(new PersistentQueue<OnlineLogEvent>(file), this.processor, delay, period);
+    
+    Queue<OnlineLogEvent> persistentQueue = (Queue<OnlineLogEvent>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file});
+    
+    spool = new Spooler<OnlineLogEvent>(persistentQueue, this.processor, delay, period);
   }
 
   public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response) throws IOException {

@@ -47,9 +47,9 @@ doc/readme.html -text
 lib/ceridwen-circulation-2.81/ceridwen-circulation-2.81.jar -text
 lib/ceridwen-circulation-2.81/changelog.txt -text
 lib/ceridwen-circulation-2.81/license.txt -text
-lib/ceridwen-utilities-1.60/ceridwen-utilities-1.60.jar -text
-lib/ceridwen-utilities-1.60/changelog.txt -text
-lib/ceridwen-utilities-1.60/license.txt -text
+lib/ceridwen-utilities-1.61/ceridwen-utilities-1.61.jar -text
+lib/ceridwen-utilities-1.61/changelog.txt -text
+lib/ceridwen-utilities-1.61/license.txt -text
 lib/commons-beanutils-1.8.3/LICENSE.txt -text
 lib/commons-beanutils-1.8.3/NOTICE.txt -text
 lib/commons-beanutils-1.8.3/RELEASE-NOTES.txt -text

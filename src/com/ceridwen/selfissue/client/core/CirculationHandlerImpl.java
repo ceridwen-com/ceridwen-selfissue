@@ -28,6 +28,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.AttributedCharacterIterator;
 import java.text.AttributedString;
@@ -111,6 +112,34 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
             System.out.println("Problem accessing spooler file: " + Configuration.getProperty("Systems/Spooler/Spool"));
             CirculationHandlerImpl.logger.fatal("Problem opening offline spooler file", e);
             ooo.setOutOfOrder(true);
+		} catch (IllegalArgumentException e) {
+            System.out.println("Problem initialising offline spooler");
+            CirculationHandlerImpl.logger.fatal(e);
+            ooo.setOutOfOrder(true);
+		} catch (SecurityException e) {
+            System.out.println("Problem initialising offline spooler");
+            CirculationHandlerImpl.logger.fatal(e);
+            ooo.setOutOfOrder(true);
+		} catch (InstantiationException e) {
+            System.out.println("Problem initialising offline spooler");
+            CirculationHandlerImpl.logger.fatal(e);
+            ooo.setOutOfOrder(true);
+		} catch (IllegalAccessException e) {
+            System.out.println("Problem initialising offline spooler");
+            CirculationHandlerImpl.logger.fatal(e);
+            ooo.setOutOfOrder(true);
+		} catch (InvocationTargetException e) {
+            System.out.println("Problem initialising offline spooler");
+            CirculationHandlerImpl.logger.fatal(e);
+            ooo.setOutOfOrder(true);
+		} catch (NoSuchMethodException e) {
+            System.out.println("Problem initialising offline spooler");
+            CirculationHandlerImpl.logger.fatal(e);
+            ooo.setOutOfOrder(true);
+		} catch (ClassNotFoundException e) {
+            System.out.println("Problem initialising offline spooler");
+            CirculationHandlerImpl.logger.fatal(e);
+            ooo.setOutOfOrder(true);
 		}
     }
 
@@ -130,15 +159,44 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
                                 Configuration.getIntSubProperty(loggers.item(i),
                                         "ReplayPeriod") * 60000);
                 this.log.addOnlineLogger(alog);
-            } catch (java.lang.NoClassDefFoundError ex) {
-                CirculationHandlerImpl.logger.error(ex);
     		} catch (IOException e) {
                 System.out.println("Problem accessing spooler file: " + Configuration.getSubProperty(loggers.item(i), "Spool"));
                 CirculationHandlerImpl.logger.fatal("Problem opening online log file", e);
                 ooo.setOutOfOrder(true);
-            } catch (Exception ex) {
-                CirculationHandlerImpl.logger.error(ex);
+            } catch (java.lang.NoClassDefFoundError e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
             }
+            catch (IllegalArgumentException e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
+			} catch (SecurityException e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
+			} catch (ClassNotFoundException e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
+			} catch (InstantiationException e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
+			} catch (IllegalAccessException e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
+			} catch (InvocationTargetException e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
+			} catch (NoSuchMethodException e) {
+                System.out.println("Problem initialising online logger: " + Configuration.getSubProperty(loggers.item(i), "@class"));
+                CirculationHandlerImpl.logger.fatal(e);
+                ooo.setOutOfOrder(true);
+			}
         }
     }
 
@@ -288,7 +346,11 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
      */
     @Override
     public int getSpoolSize() {
-        return this.spool.size();
+    	if (spool != null) {
+    		return this.spool.size();
+    	} else {
+    		return -1;
+    	}
     }
 
     public boolean process(OfflineSpoolObject obj) {

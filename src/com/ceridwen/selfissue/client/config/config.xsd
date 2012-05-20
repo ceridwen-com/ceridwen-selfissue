@@ -667,6 +667,17 @@
                         <xs:documentation>Remove final digit from item barcodes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="PersistentQueueImplementation">
+                      <xs:annotation>
+                        <xs:documentation>Implementation of persistent queue for spoolers. Default is com.gaborcselle.persistent.PersistentQueue. com.ceridwen.util.collections.PersistentQueue is deprecated but available for backwards compatibility for Self Issue 2.61 or earlier.</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+	                    <xs:restriction base="xs:string">
+    	                  <xs:enumeration value="com.gaborcselle.persistent.PersistentQueue"/>
+        	              <xs:enumeration value="com.ceridwen.util.collections.PersistentQueue"/>
+            	        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>

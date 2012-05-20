@@ -131,6 +131,7 @@
                      <ResetTimeout>120</ResetTimeout>
                      <StripPatronChecksumDigit>false</StripPatronChecksumDigit>
                      <StripItemChecksumDigit>false</StripItemChecksumDigit>
+                     <PersistentQueueImplementation>com.gaborcselle.persistent.PersistentQueue</PersistentQueueImplementation>
               </Control>
               <WatchDog>
                      <Timer>60</Timer>
