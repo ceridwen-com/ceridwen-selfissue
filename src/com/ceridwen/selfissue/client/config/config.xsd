@@ -669,7 +669,7 @@
                     </xs:element>
                     <xs:element name="PersistentQueueImplementation">
                       <xs:annotation>
-                        <xs:documentation>Implementation of persistent queue for spoolers. Default is com.gaborcselle.persistent.PersistentQueue. com.ceridwen.util.collections.PersistentQueue is deprecated but available for backwards compatibility for Self Issue 2.61 or earlier.</xs:documentation>
+                        <xs:documentation>Implementation of persistent queue for spoolers. Default is com.gaborcselle.persistent.PersistentQueue. com.ceridwen.util.collections.PersistentQueue is deprecated but available for backwards compatibility for Self Issue 2.61 or earlier. Note: these spooled object store is different for these implementations. You will need to use a different spool path, or delete the existing spools if you change the implementation.</xs:documentation>
                       </xs:annotation>
                       <xs:simpleType>
 	                    <xs:restriction base="xs:string">
