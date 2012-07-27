@@ -1,8 +1,10 @@
-Version 2.66: 27/07/2012 (442)
+Version 2.66: 27/07/2012 (447)
+Add warnings in ConfigEditor about configuration loss when resetting configuration to default or reloading configuration
+Add wait cursor when loading configuration in ConfigEditor
 Allow | as well as ¦ as command character for keyboards without ¦ character
 Update jgoodies-looks from 2.5.0 to 2.5.2
 Update jaxfront from 2.77 to 2.79
-Update ceridwen circulation from 2.81
+Update ceridwen circulation from 2.81 to 2.90
 Dependencies: ceridwen circulation 2.90
               ceridwen utilities 1.61
               apache commons beanutils 1.8.3
