@@ -1,3 +1,21 @@
+Version 2.66: 27/07/2012 (442)
+Allow | as well as ¦ as command character for keyboards without ¦ character
+Update jgoodies-looks from 2.5.0 to 2.5.2
+Update jaxfront from 2.77 to 2.79
+Update ceridwen circulation from 2.81
+Dependencies: ceridwen circulation 2.90
+              ceridwen utilities 1.61
+              apache commons beanutils 1.8.3
+              apache commons lang 2.6
+              apache commons lang 3.1
+              apache commons logging 1.1.1 
+              apache commons net 3.1
+              jaxfront 2.79
+              jgoodies-common 1.4.0
+              jgoodies-looks 2.5.2
+              xalan-j 2.7.1
+
+
 Version 2.65: 20/05/2012 (442)
 Added PersistentQueueImplementation configuration option for backwards compatibility
 Generate configuration editor documentation from config.xsd

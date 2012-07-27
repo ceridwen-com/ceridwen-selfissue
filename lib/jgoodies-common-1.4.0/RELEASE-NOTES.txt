@@ -1,0 +1,79 @@
+
+                           JGoodies Common
+                            Release Notes
+                        
+
+CHANGES in 1.4.0 -------------------------------------------------------------
+
+    o Replaced AbstractBean by Bean. The old class AbstractBean is still 
+      available, but will be removed from a future version.
+    o Introduced the StringLocalizer interface.
+    o Added the ActionProvider interface (in JSDL Common before).
+    o Added SystemUtils.IS_OS_WINDOWS_7 and IS_OS_WINDOWS_8;
+
+
+CHANGES in 1.3.1 -------------------------------------------------------------
+
+    This version is backwards compatible with the 1.3.0 release.
+    
+    o The javadocs, main and test sources are delivered as JARs.
+
+
+CHANGES in 1.3.0 -------------------------------------------------------------
+
+    o Requires Java 6.
+    o Removed SystemUtils#IS_JAVA_5
+    o Removed SystemUtils#IS_JAVA_6_OR_LATER
+    o Added null checks for the delegate format in AbstractWrappedDateFormat,
+      EmptyDateFormat, EmptyFormat, and EmptyNumberFormat.
+    o Added Strings#isTrimmed.
+    o Removed code that is obsolete in Java 6.
+      
+
+CHANGES in 1.2.1 -------------------------------------------------------------
+
+    o Fixed a bug in ArrayListModel and LinkedListModel with 
+      missing ListDataEvents in #removeAll and #retainAll.
+      The old code depends on a specific implementation of
+      #removeAll and #retainAll that may vary with the platform.
+      
+
+CHANGES in 1.2 ---------------------------------------------------------------
+
+    o Fixed missing contents change in LinkedListModel's list iterator.
+    o Removed SystemUtils#IS_JAVA_1_4
+    o Removed SystemUtils#IS_JAVA_5_OR_LATER
+    o Added SystemUtils#HAS_MODERN_RASTERIZER
+    o Added SystemUtils#IS_LAF_WINDOWS_XP_ENABLED
+    o Added SystemUtils#IS_LOW_RESOLUTION
+
+
+CHANGES in 1.1.1 -------------------------------------------------------------
+
+    o Added Objects#deepCopy(Object).
+    o Source code improvements.
+
+
+CHANGES in 1.1 ---------------------------------------------------------------
+
+    o Added interfaces ObservableBean and ObservableBean2.
+    o Removed generics from EmptyFormat.
+
+
+CHANGES in 1.0.1
+
+    o Empty*Format#format returns the 'toAppendTo' parameter
+      for the empty value instead of a new StringBuffer.
+
+
+CHANGES in 1.0
+
+    o Added Format wrappers:
+      - AbstractWrappedDateFormat
+      - EmptyDateFormat
+      - EmptyNumberFormat
+      - EmptyFormat
+    o Added tests for the empty formats.
+    o Added Preconditions#checkNotNull(String, String, Object...).
+    
+    
