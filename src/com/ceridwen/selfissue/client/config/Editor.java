@@ -298,6 +298,16 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 	}
 
 	private void load(boolean defaultXml) {
+		if (defaultXml) {
+			if (JOptionPane.showConfirmDialog(this, "This will lose all configuration. Do you wish to proceed?", "Changes will be lost", JOptionPane.YES_NO_OPTION) == 1) {
+				return;
+			}			
+		} else if (isDirty) {
+			if (JOptionPane.showConfirmDialog(this, "Recent changes will be lost. Do you wish to proceed?", "Changes will be lost", JOptionPane.YES_NO_OPTION) == 1) {
+				return;
+			}
+		}
+
 //		URL url = URLHelper.getUserURL("examples/purchaseOrder/po.xsd");
 //		URL xmlUrl = URLHelper.getUserURL("examples/purchaseOrder/po.xml");
 //		URL xuiUrl = URLHelper.getUserURL("examples/purchaseOrder/po.xui");
