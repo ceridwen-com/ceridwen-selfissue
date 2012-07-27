@@ -105,7 +105,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			setTitle(APPLICATION_TITLE);
 			setIconImage(JAXFrontProperties.getImage(SystemImages.ICON_XCENTRIC));
 			getContentPane().setLayout(new BorderLayout());
-			// initialize actions and gui components
+			// initialize actions and gui components			getContentPane().
 			initActions();
 			initMenuBar();
 			initToolBar();
@@ -122,8 +122,8 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
             this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 			addWindowListener(this);
 			setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-			load(false);
 			setVisible(true);
+			_reloadAction.actionPerformed(new ActionEvent(this, 0, ""));
 		} catch (LicenseErrorException licEx) {
 			licEx.showLicenseDialog(this);
 		} catch (Exception ex) {
@@ -140,31 +140,41 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 	}
 
 	private void initActions() {
-		_defaultAction = new AbstractAction("Default", JAXFrontProperties.getImageIcon(SystemImages.ICON_NEW_FILE)) {
-			public void actionPerformed(ActionEvent e) {
-				load(true);
+		_defaultAction = CursorController.createAction("Default", JAXFrontProperties.getImageIcon(SystemImages.ICON_NEW_FILE), this,
+			new AbstractAction() {
+				public void actionPerformed(ActionEvent e) {
+					load(true);
+				}
 			}
-		};
-		_reloadAction = new AbstractAction("Reload", JAXFrontProperties.getImageIcon(SystemImages.ICON_EDIT)) {
-			public void actionPerformed(ActionEvent e) {
-				load(false);
+		);
+		_reloadAction = CursorController.createAction("Reload", JAXFrontProperties.getImageIcon(SystemImages.ICON_EDIT), this,
+			new AbstractAction() {	
+				public void actionPerformed(ActionEvent e) {
+					load(false);
+				}
 			}
-		};
-		_saveAction = new AbstractAction("Save", JAXFrontProperties.getImageIcon(SystemImages.ICON_SAVE_FILE)) {
-			public void actionPerformed(ActionEvent e) {
-				save();
+		);
+		_saveAction = CursorController.createAction("Save", JAXFrontProperties.getImageIcon(SystemImages.ICON_SAVE_FILE), this,
+			new AbstractAction() {	
+				public void actionPerformed(ActionEvent e) {
+					save();
+				}
 			}
-		};
-		_printAction = new AbstractAction("Print PDF", JAXFrontProperties.getImageIcon(SystemImages.ICON_PDF)) {
-			public void actionPerformed(ActionEvent e) {
-				print();
+		);
+		_printAction = CursorController.createAction("Print PDF", JAXFrontProperties.getImageIcon(SystemImages.ICON_PDF), this,
+			new AbstractAction() {	
+				public void actionPerformed(ActionEvent e) {
+					print();
+				}
 			}
-		};
-		_previewAction = new AbstractAction("View XML", JAXFrontProperties.getImageIcon(SystemImages.ICON_EDIT_XML)) {
-			public void actionPerformed(ActionEvent e) {
-				serialize();
+		);
+		_previewAction = CursorController.createAction("View XML", JAXFrontProperties.getImageIcon(SystemImages.ICON_EDIT_XML), this,
+			new AbstractAction() {	
+				public void actionPerformed(ActionEvent e) {
+					serialize();
+				}
 			}
-		};
+		);
 		_exitAction = new AbstractAction("Exit", JAXFrontProperties.getImageIcon(SystemImages.ICON_CLOSE)) {
 			public void actionPerformed(ActionEvent e) {
 				exit();
@@ -247,6 +257,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 		_centerPanel.removeAll();
 		_editor = editorPanel;
 		_centerPanel.add(_editor, BorderLayout.CENTER);
+		_centerPanel.revalidate();
 		// activate actions
 		_saveAction.setEnabled(true);
 		_printAction.setEnabled(false);
