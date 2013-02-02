@@ -9,7 +9,7 @@
       <param name="jar.name" value="SelfIssue" />
       <param name="main.class" value="com.ceridwen.selfissue.client.SelfIssueClient" />
       <param name="class.path" value=". 
-lib/ceridwen-circulation-2.90.jar
+lib/ceridwen-circulation-2.91.jar
 lib/ceridwen-utilities-1.61.jar 
 lib/commons-lang3-3.1.jar 
 lib/commons-logging-1.1.1.jar 
@@ -31,6 +31,7 @@ lib/jgoodies-looks-2.5.2.jar" />
       <param name="jar.name" value="ConfigEditor" />
       <param name="main.class" value="com.ceridwen.selfissue.client.config.Editor" />
       <param name="class.path" value=". 
+lib/ceridwen-circulation-2.91.jar
 lib/ceridwen-utilities-1.61.jar 
 lib/commons-lang-2.6.jar 
 lib/commons-lang3-3.1.jar 
@@ -48,10 +49,10 @@ lib/jgoodies-looks-2.5.2.jar" />
       <param name="includes" value="com/ceridwen/selfissue/client/config/**" />
     </antcall>
     <antcall target="copy-library">
-      <param name="lib.name" value="ceridwen-utilities-1.61" />
+      <param name="lib.name" value="ceridwen-circulation-2.91" />
     </antcall>
     <antcall target="copy-library">
-      <param name="lib.name" value="ceridwen-circulation-2.90" />
+      <param name="lib.name" value="ceridwen-utilities-1.61" />
     </antcall>
     <antcall target="copy-library">
       <param name="lib.name" value="commons-lang-2.6" />

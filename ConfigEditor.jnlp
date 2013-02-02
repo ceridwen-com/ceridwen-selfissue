@@ -24,6 +24,8 @@
 
     <jar href="ConfigEditor.jar"/>
 
+    <jar href="lib/ceridwen-circulation-2.91.jar"/>
+
     <jar href="lib/ceridwen-utilities-1.61.jar"/>
 
     <jar href="lib/commons-lang-2.6.jar"/>

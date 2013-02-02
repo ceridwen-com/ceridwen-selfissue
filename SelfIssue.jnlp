@@ -24,7 +24,7 @@
 
     <jar href="SelfIssue.jar"/>
 
-    <jar href="lib/ceridwen-circulation-2.90.jar"/>
+    <jar href="lib/ceridwen-circulation-2.91.jar"/>
 
     <jar href="lib/ceridwen-utilities-1.61.jar"/>
 
