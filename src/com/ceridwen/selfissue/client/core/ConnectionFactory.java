@@ -21,16 +21,25 @@ package com.ceridwen.selfissue.client.core;
 
 import java.util.Vector;
 
+import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.transport.Connection;
 import com.ceridwen.circulation.SIP.transport.SocketConnection;
 import com.ceridwen.circulation.SIP.transport.TelnetConnection;
 import com.ceridwen.selfissue.client.config.Configuration;
+import com.jaxfront.core.util.StringUtil;
 
 public class ConnectionFactory {
 	private static Vector<Connection> connections = new Vector<Connection>();
 
 	public static Connection getConnection(boolean autoConnect) throws Exception {
 		Connection conn;
+		
+		String charset = Configuration.getProperty("Systems/SIP/CharsetEncoding");
+		
+		if (!StringUtil.isEmpty(charset)) {
+			System.setProperty(Message.PROP_CHARSET, charset);
+		}
+		
 
 		if (Configuration.getProperty("Systems/SIP/@mode").equalsIgnoreCase("Socket")) {
 			conn = new SocketConnection();

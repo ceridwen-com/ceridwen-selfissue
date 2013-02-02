@@ -64,6 +64,11 @@
                      <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/Systems/SIP/CharsetEncoding">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.CharsetChooser" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>
        <component xpath="/SelfIssue/UI/Audio/BlockedPatronError">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">

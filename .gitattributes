@@ -5,6 +5,7 @@
 .externalToolBuilders/Deploy[!!-~]Default[!!-~]Config.launch -text svneol=unset#text/plain
 /.project -text
 .settings/org.eclipse.core.resources.prefs -text svneol=unset#text/plain
+.settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
 /ConfigEditor.bat -text
 /ConfigEditor.jnlp -text
 /ConfigEditor.sh -text
@@ -111,6 +112,7 @@ src/com/ceridwen/selfissue/client/SelfIssueFrame.java -text
 src/com/ceridwen/selfissue/client/SelfIssueThread.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/SelfIssueThreadGroup.java -text
 src/com/ceridwen/selfissue/client/ShutdownThread.java -text
+src/com/ceridwen/selfissue/client/config/CharsetChooser.java -text svneol=unset#text/plain
 src/com/ceridwen/selfissue/client/config/Configuration.java -text
 src/com/ceridwen/selfissue/client/config/CursorController.java -text
 src/com/ceridwen/selfissue/client/config/Editor.java -text svneol=unset#text/plain

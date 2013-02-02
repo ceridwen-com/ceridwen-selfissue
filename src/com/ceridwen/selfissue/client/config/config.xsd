@@ -812,6 +812,11 @@
                         <xs:documentation>If true reject responses from 3M SIP2 server if the sequence check digit is not valid</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="CharsetEncoding" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Character set encoding</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element name="InstitutionId" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>If required, send an institutional id on 3M SIP2 messages to server</xs:documentation>

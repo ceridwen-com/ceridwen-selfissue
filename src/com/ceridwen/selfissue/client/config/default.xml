@@ -160,6 +160,7 @@
                      <AddSequenceAndChecksum>true</AddSequenceAndChecksum>
                      <StrictChecksumChecking>false</StrictChecksumChecking>
                      <StrictSequenceChecking>false</StrictSequenceChecking>
+                     <CharsetEncoding>cp850</CharsetEncoding>
                      <InstitutionId/>
                      <TerminalPassword/>
                      <SendEndPatronSession>false</SendEndPatronSession>

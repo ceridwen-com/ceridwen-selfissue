@@ -33,7 +33,8 @@ public class FileChooser extends AbstractSimpleVisualizer {
 	 * 
 	 */
 	private static final long serialVersionUID = 2219930215862492984L;
-		private JComboBox<String> _fileChooser;
+		@SuppressWarnings("rawtypes") // Targeting Java 1.6
+		private JComboBox _fileChooser;
 		String _filter[];
 		
 		public FileChooser() {
@@ -60,9 +61,10 @@ public class FileChooser extends AbstractSimpleVisualizer {
 				}
 			}
 		}
-		
+
+		@SuppressWarnings({ "rawtypes", "unchecked" }) // Targeting Java 1.6		
 		protected JComponent createEditorComponent() {
-			_fileChooser = new JComboBox<String>();
+			_fileChooser = new JComboBox();
 			getFilePaths(_fileChooser);
 			_fileChooser.setEditable(false);
 			if (_fileChooser.getItemCount() > 0) {
