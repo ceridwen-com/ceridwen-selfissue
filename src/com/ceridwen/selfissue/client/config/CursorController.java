@@ -19,7 +19,12 @@ public class CursorController {
     
     public static AbstractAction createAction(final String item, final ImageIcon icon, final Component component, final AbstractAction mainAbstractAction) {
     	AbstractAction abstractAction = new AbstractAction(item, icon) {
-            public void actionPerformed(final ActionEvent ae) {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -4837119342387430823L;
+
+			public void actionPerformed(final ActionEvent ae) {
                 
                 TimerTask timerTask = new TimerTask() {
                     public void run() {

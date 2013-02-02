@@ -39,7 +39,8 @@ public class OfflineSpoolerDevice implements OfflineSpooler {
   private static final long delay = 10000;
 
   public OfflineSpoolerDevice(String file, SpoolerProcessor<OfflineSpoolObject> processor, int period) throws IOException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
-    Queue<OfflineSpoolObject> persistentQueue = (Queue<OfflineSpoolObject>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file});
+    @SuppressWarnings("unchecked")
+	Queue<OfflineSpoolObject> persistentQueue = (Queue<OfflineSpoolObject>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file});
     spool = new Spooler<OfflineSpoolObject>(persistentQueue, processor, delay, period);
   }
 

@@ -18,7 +18,6 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client.log;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
@@ -45,7 +44,8 @@ public class OnlineLogDevice implements OnlineLog {
   public OnlineLogDevice(String file, OnlineLogLogger processor, int period) throws IOException, ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
     this.processor = processor;
     
-    Queue<OnlineLogEvent> persistentQueue = (Queue<OnlineLogEvent>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file});
+    @SuppressWarnings("unchecked")
+	Queue<OnlineLogEvent> persistentQueue = ((Queue<OnlineLogEvent>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file}));
     
     spool = new Spooler<OnlineLogEvent>(persistentQueue, this.processor, delay, period);
   }
