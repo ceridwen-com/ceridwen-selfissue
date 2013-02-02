@@ -45,9 +45,6 @@ doc/images/ui-validation.png -text
 doc/images/ui-watchdog.png -text
 doc/readme.html -text
 /document-configeditor.xsl -text
-lib/ceridwen-circulation-2.90/ceridwen-circulation-2.90.jar -text
-lib/ceridwen-circulation-2.90/changelog.txt -text
-lib/ceridwen-circulation-2.90/license.txt -text
 lib/ceridwen-circulation-2.91/ceridwen-circulation-2.91.jar -text
 lib/ceridwen-circulation-2.91/changelog.txt -text svneol=unset#text/plain
 lib/ceridwen-circulation-2.91/license.txt -text svneol=unset#text/plain

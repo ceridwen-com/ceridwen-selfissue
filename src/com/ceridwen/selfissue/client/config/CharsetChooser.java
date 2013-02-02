@@ -68,7 +68,7 @@ public class CharsetChooser extends AbstractSimpleVisualizer {
 		
 		@SuppressWarnings({ "rawtypes", "unchecked" }) // Targeting Java 1.6		
 		protected JComponent createEditorComponent() {
-			_model = new DefaultComboBoxModel<String>();
+			_model = new DefaultComboBoxModel();
 			_charsetChooser = new JComboBox(_model);
 			getCharsetPaths(_charsetChooser);
 			_charsetChooser.setEditable(false);
