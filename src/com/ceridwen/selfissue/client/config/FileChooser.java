@@ -62,7 +62,7 @@ public class FileChooser extends AbstractSimpleVisualizer {
 			}
 		}
 
-		@SuppressWarnings({ "rawtypes", "unchecked" }) // Targeting Java 1.6		
+		@SuppressWarnings({ "rawtypes" }) // Targeting Java 1.6		
 		protected JComponent createEditorComponent() {
 			_fileChooser = new JComboBox();
 			getFilePaths(_fileChooser);
@@ -77,7 +77,8 @@ public class FileChooser extends AbstractSimpleVisualizer {
 		}
 
 		
-		public void addFiles(File root, JComboBox<String> chooser, File input, String[] ext) {
+		@SuppressWarnings({ "rawtypes", "unchecked" }) // Targeting Java 1.6		
+		public void addFiles(File root, JComboBox chooser, File input, String[] ext) {
 			if (input.isDirectory()) {
 				for (File file: input.listFiles()) {
 					addFiles(root, chooser, file, ext);
@@ -102,7 +103,8 @@ public class FileChooser extends AbstractSimpleVisualizer {
 			}
 		}
 				
-		protected void getFilePaths(JComboBox<String> chooser)		
+		@SuppressWarnings({ "rawtypes", "unchecked" }) // Targeting Java 1.6		
+		protected void getFilePaths(JComboBox chooser)		
 		{
 			String CONFIG = "com/ceridwen/selfissue/client/config/config.xml";
 	        try {

@@ -39,7 +39,8 @@ public class CharsetChooser extends AbstractSimpleVisualizer {
 
 		@SuppressWarnings("rawtypes") // Targeting Java 1.6
 		private JComboBox _charsetChooser;
-		private DefaultComboBoxModel<String> _model;
+		@SuppressWarnings("rawtypes") // Targeting Java 1.6
+		private DefaultComboBoxModel _model;
 		
 		public CharsetChooser() {
 		}
