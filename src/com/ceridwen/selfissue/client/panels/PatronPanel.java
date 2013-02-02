@@ -31,6 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.NodeList;
 
+import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.circulation.SIP.messages.PatronInformation;
 import com.ceridwen.circulation.SIP.messages.PatronInformationResponse;
 import com.ceridwen.circulation.SIP.transport.Connection;
@@ -646,6 +647,7 @@ private static String strim(String string) {
         	data.append("CheckSequence");
         }
         data.append("\r\n");
+        data.append("Encoding: " + Message.getCharsetEncoding() + "\r\n");
         data.append("Modes: ");
         if (trustMode) {
           data.append("Trust|");
