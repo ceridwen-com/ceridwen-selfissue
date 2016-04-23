@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?jaxfront version=2.99.5;time=2016-04-23 15:38:54.296;xui=config.xui;xsd=config.xsd?>
+<SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
+       <UI>
+              <SelfIssue>
+                     <RightIcon_Icon>org/pdclipart/library_book_cart.png</RightIcon_Icon>
+                     <LeftIcon_Icon>org/pdclipart/bookcase.png</LeftIcon_Icon>
+                     <TitleText_Text>Self Issue</TitleText_Text>
+                     <TitleText_Font>Dialog</TitleText_Font>
+                     <TitleText_Size>48</TitleText_Size>
+                     <LibraryText_Text>Library</LibraryText_Text>
+                     <LibraryText_Font>Dialog</LibraryText_Font>
+                     <LibraryText_Size>40</LibraryText_Size>
+              </SelfIssue>
+              <Palette>
+                     <OuterBorderColour>176,43,44</OuterBorderColour>
+                     <InnerBorderColour>63,76,107</InnerBorderColour>
+                     <TitleBackgroundColour>63,76,107</TitleBackgroundColour>
+                     <BackgroundColour>195,217,255</BackgroundColour>
+                     <TitleTextColour>221,221,255</TitleTextColour>
+                     <DefaultTextColour>0,0,255</DefaultTextColour>
+                     <WarningTextColour>255,0,0</WarningTextColour>
+                     <VersionTextColour>136,136,136</VersionTextColour>
+                     <ButtonTextColour>0,0,255</ButtonTextColour>
+                     <ButtonBackgroundColour>238,238,238</ButtonBackgroundColour>
+              </Palette>
+              <PatronPanel>
+                     <PatronSalutation_Text>Hello </PatronSalutation_Text>
+                     <CardIcon_Icon>com/ceridwen/selfissue/client/images/card.gif</CardIcon_Icon>
+                     <PatronFieldLabel_Text>Please scan in your barcode number using the hand held scanner: </PatronFieldLabel_Text>
+                     <PatronFieldLabel_ToolTipText>Please enter the barcode number from your university card.</PatronFieldLabel_ToolTipText>
+                     <PatronField_DefaultText/>
+                     <PatronField_ToolTipText>Scan your University barcode using the hand held scanner.</PatronField_ToolTipText>
+                     <PatronPasswordPrompt>Please enter your password</PatronPasswordPrompt>
+                     <PatronPanelNextButton_Text>Next</PatronPanelNextButton_Text>
+                     <PatronPanelNextButton_ToolTipText>Next</PatronPanelNextButton_ToolTipText>
+                     <PatronPanelResetButton_Text>Clear</PatronPanelResetButton_Text>
+                     <PatronPanelResetButton_ToolTipText>Clear any entries</PatronPanelResetButton_ToolTipText>
+              </PatronPanel>
+              <CheckOutPanel>
+                     <BooksIcon_Icon>org/pdclipart/book_stack_of_books_taller_ga_.png</BooksIcon_Icon>
+                     <PatronText_DefaultText/>
+                     <PatronText_ToolTipText>List of books already checked out.</PatronText_ToolTipText>
+                     <StatusText_DefaultText/>
+                     <StatusText_ToolTipText>Status</StatusText_ToolTipText>
+                     <BookFieldLabel_Text>Please scan barcode of book to check out using the hand held scanner:</BookFieldLabel_Text>
+                     <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check out.</BookFieldLabel_ToolTipText>
+                     <BookField_DefaultText/>
+                     <BookField_ToolTipText>Please enter the barcode of the next book to check out.</BookField_ToolTipText>
+                     <CheckoutButton_Text>Check Out</CheckoutButton_Text>
+                     <CheckoutButton_ToolTipText>Check Out</CheckoutButton_ToolTipText>
+                     <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
+                     <BookPanelNextButton_ToolTipText>Login as new borrower.</BookPanelNextButton_ToolTipText>
+                     <BookPanelCheckinButton_Text>Check In</BookPanelCheckinButton_Text>
+                     <BookPanelCheckinButton_ToolTipText>Check in books.</BookPanelCheckinButton_ToolTipText>
+              </CheckOutPanel>
+              <CheckInPanel>
+                     <BooksIcon_Icon>org/pdclipart/book_stack_of_books_taller_ga_.png</BooksIcon_Icon>
+                     <PatronText_DefaultText>List of books already checked in</PatronText_DefaultText>
+                     <PatronText_ToolTipText/>
+                     <StatusText_DefaultText/>
+                     <StatusText_ToolTipText>Status</StatusText_ToolTipText>
+                     <BookFieldLabel_Text>Please scan barcode of book to check in using the hand held scanner:</BookFieldLabel_Text>
+                     <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check in.</BookFieldLabel_ToolTipText>
+                     <BookField_DefaultText/>
+                     <BookField_ToolTipText>Please enter the barcode of the next book to check in.</BookField_ToolTipText>
+                     <CheckoutButton_Text/>
+                     <CheckoutButton_ToolTipText/>
+                     <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
+                     <BookPanelNextButton_ToolTipText>Login as new borrower.</BookPanelNextButton_ToolTipText>
+                     <BookPanelCheckoutButton_Text>Check out</BookPanelCheckoutButton_Text>
+                     <BookPanelCheckoutButton_ToolTipText>Check out books.</BookPanelCheckoutButton_ToolTipText>
+              </CheckInPanel>
+              <Messages>
+                     <GreetPatronCheckout>Hello {0}^Please begin checking out your books.</GreetPatronCheckout>
+                     <GreetPatronCheckin>Hello {0}^Please begin checking in your books.</GreetPatronCheckin>
+                     <CheckingPatronMessage>Checking for barcode {0}^Please wait...</CheckingPatronMessage>
+                     <InvalidPatronBarcode>The barcode entered is not valid.</InvalidPatronBarcode>
+                     <PatronRetry>Please confirm your borrower id.</PatronRetry>
+                     <PatronNetworkError>Your borrower id {0} was not recognised.^Please check and re-enter.^(This error may occur if there are network problems)</PatronNetworkError>
+                     <InvalidPatronError>An account with id {0} could not be found - please check and re-enter.^^The error reported by the server is: {1}.</InvalidPatronError>
+                     <BlockedPatronError>There appears to be an problem with your account - please contact a member of staff.^^The error reported by the server is: {0}.</BlockedPatronError>
+                     <UnexpectedPatronError>An unexpected error occurred. Please contact a member of staff.</UnexpectedPatronError>
+                     <CheckoutPendingMessage>Checking barcode {0}. Please wait...</CheckoutPendingMessage>
+                     <InvalidItemBarcode>The barcode entered is not valid.</InvalidItemBarcode>
+                     <CheckoutRetry>Please re-enter item barcode.</CheckoutRetry>
+                     <CheckOutSuccess>&lt;em&gt;&lt;strong&gt;Item {0} has been checked out.&lt;/strong&gt;&lt;/em&gt;</CheckOutSuccess>
+                     <DueDateMessage>Due date is {0}.</DueDateMessage>
+                     <NoDueDateMessage>&lt;b&gt;Check your online patron record for the due date.&lt;/b&gt;</NoDueDateMessage>
+                     <CheckoutNetworkError>&lt;em&gt;Item ({0}) could not be checked out - please try again^(This error may occur if there are network problems).&lt;/em&gt;</CheckoutNetworkError>
+                     <CheckoutFailedError>&lt;em&gt;Item ({0}) could not be checked out. Server gave reason as: {1}.&lt;/em&gt;</CheckoutFailedError>
+                     <UnexpectedCheckoutError>&lt;em&gt;Item ({0}) could not be checked out due to an unexpected error.&lt;/em&gt;</UnexpectedCheckoutError>
+                     <UnlockFailedError>&lt;em&gt;&lt;strong&gt;Item ({0}) could not be checked out as it could not be de-alarmed - please try again.&lt;/strong&gt;&lt;/em&gt;</UnlockFailedError>
+                     <UnlockFailedCheckInFailedError>&lt;em&gt;&lt;strong&gt;Item ({0}) has been checked out but is still alarmed - please contact a member of staff.&lt;/strong&gt;&lt;/em&gt;</UnlockFailedCheckInFailedError>
+                     <CheckInSuccess>&lt;em&gt;&lt;strong&gt;Item {0} has been checked in. {1}&lt;/strong&gt;&lt;/em&gt;</CheckInSuccess>
+                     <CheckinNetworkError>&lt;em&gt;Item ({0}) could not be checked in - please try again^(This error may occur if there are network problems).&lt;/em&gt;</CheckinNetworkError>
+                     <CheckinFailedError>&lt;em&gt;Item ({0}) could not be checked in. Server gave reason as: {1}.&lt;/em&gt;</CheckinFailedError>
+                     <UnexpectedCheckinError>&lt;em&gt;Item ({0}) could not be checked in due to an unexpected error.&lt;/me&gt;</UnexpectedCheckinError>
+                     <LockFailedError>&lt;em&lt;strong&gt;Item ({0}) could not be alarmed.&lt;/strong&gt;&lt;/em&gt;</LockFailedError>
+                     <CheckinPendingMessage>Checking barcode {0}. Please wait...</CheckinPendingMessage>
+              </Messages>
+              <Audio>
+                     <ValidPatron>org/freesound/34804___zin___splash_bell_2.wav</ValidPatron>
+                     <CheckoutSuccess>org/freesound/34804___zin___splash_bell_2.wav</CheckoutSuccess>
+                     <CheckinSuccess>org/freesound/34804___zin___splash_bell_2.wav</CheckinSuccess>
+                     <PatronRetry>org/freesound/8594__SpeedY__Strum_mute_down.wav</PatronRetry>
+                     <CheckoutRetry>org/freesound/8594__SpeedY__Strum_mute_down.wav</CheckoutRetry>
+                     <CheckinRetry>org/freesound/8594__SpeedY__Strum_mute_down.wav</CheckinRetry>
+                     <InvalidPatronBarcode>org/freesound/26034__ashassin__cassrol.wav</InvalidPatronBarcode>
+                     <PatronNetworkError>org/freesound/26034__ashassin__cassrol.wav</PatronNetworkError>
+                     <InvalidPatronError>org/freesound/26034__ashassin__cassrol.wav</InvalidPatronError>
+                     <BlockedPatronError>org/freesound/26034__ashassin__cassrol.wav</BlockedPatronError>
+                     <UnexpectedPatronError>org/freesound/26034__ashassin__cassrol.wav</UnexpectedPatronError>
+                     <InvalidItemBarcode>org/freesound/26034__ashassin__cassrol.wav</InvalidItemBarcode>
+                     <CheckoutNetworkError>org/freesound/26034__ashassin__cassrol.wav</CheckoutNetworkError>
+                     <CheckoutFailedError>org/freesound/26034__ashassin__cassrol.wav</CheckoutFailedError>
+                     <UnexpectedCheckoutError>org/freesound/26034__ashassin__cassrol.wav</UnexpectedCheckoutError>
+                     <UnlockFailedError>org/freesound/26034__ashassin__cassrol.wav</UnlockFailedError>
+                     <UnlockFailedCheckinFailedError>org/freesound/26034__ashassin__cassrol.wav</UnlockFailedCheckinFailedError>
+                     <CheckinNetworkError>org/freesound/26034__ashassin__cassrol.wav</CheckinNetworkError>
+                     <CheckinFailedError>org/freesound/26034__ashassin__cassrol.wav</CheckinFailedError>
+                     <UnexpectedCheckinError>org/freesound/26034__ashassin__cassrol.wav</UnexpectedCheckinError>
+                     <LockFailedError>org/freesound/26034__ashassin__cassrol.wav</LockFailedError>
+                     <LockFailedCheckoutFailedError>org/freesound/26034__ashassin__cassrol.wav</LockFailedCheckoutFailedError>
+              </Audio>
+              <Validation>
+                     <PatronBarcodeMask>(2\d{6})|([1-9a-zA-Z][\w,. -]+)</PatronBarcodeMask>
+                     <ItemBarcodeMask>[P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+)</ItemBarcodeMask>
+              </Validation>
+              <Control>
+                     <ResetTimeout>120</ResetTimeout>
+                     <StripPatronChecksumDigit>false</StripPatronChecksumDigit>
+                     <StripItemChecksumDigit>false</StripItemChecksumDigit>
+                     <PersistentQueueImplementation>com.gaborcselle.persistent.PersistentQueue</PersistentQueueImplementation>
+              </Control>
+              <WatchDog>
+                     <Timer>60</Timer>
+                     <CriticalSectionThreshold>5</CriticalSectionThreshold>
+                     <MinimumMemory>4</MinimumMemory>
+                     <ShowOutOfOrderScreenOnWatchDogProblem>true</ShowOutOfOrderScreenOnWatchDogProblem>
+                     <ShowOutOfOrderScreenOnUnhandledException>true</ShowOutOfOrderScreenOnUnhandledException>
+              </WatchDog>
+       </UI>
+       <Systems>
+              <SIP mode="Telnet">
+                     <Host>CHANGEME</Host>
+                     <Port>23</Port>
+                     <TelnetUsername>CHANGEME</TelnetUsername>
+                     <TelnetPassword>CF36E3912E87A998</TelnetPassword>
+                     <LoggedOnText>Self-check</LoggedOnText>
+                     <LoginUserId/>
+                     <LoginPassword/>
+                     <LocationCode/>
+                     <UIDAlgorithm/>
+                     <PWDAlgorithm/>
+                     <ConnectionTimeout>1</ConnectionTimeout>
+                     <IdleTimeout>10</IdleTimeout>
+                     <RetryAttempts>2</RetryAttempts>
+                     <RetryWait>500</RetryWait>
+                     <AddSequenceAndChecksum>true</AddSequenceAndChecksum>
+                     <StrictChecksumChecking>false</StrictChecksumChecking>
+                     <StrictSequenceChecking>false</StrictSequenceChecking>
+                     <CharsetEncoding>cp850</CharsetEncoding>
+                     <InstitutionId/>
+                     <TerminalPassword/>
+                     <SendEndPatronSession>false</SendEndPatronSession>
+                     <RequirePatronPassword>false</RequirePatronPassword>
+              </SIP>
+              <PatronIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
+                     <SmartCardReader/>
+              </PatronIDReaderDevice>
+              <ItemIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
+                     <SmartCardReader/>
+              </ItemIDReaderDevice>
+              <ItemSecurityDevice class="com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice">
+                     <Retries>2</Retries>
+                     <Timeout>1</Timeout>
+              </ItemSecurityDevice>
+              <Printer>
+                     <PrintReceipt>false</PrintReceipt>
+              </Printer>
+              <Loggers>
+                     <Logger class="com.ceridwen.selfissue.client.log.MailLogger">
+                            <EventMask>
+                                   <CheckoutSuccess>false</CheckoutSuccess>
+                                   <CheckoutFailure>false</CheckoutFailure>
+                                   <CheckoutPending>true</CheckoutPending>
+                                   <ManualCheckout>true</ManualCheckout>
+                                   <Notification>false</Notification>
+                                   <UnlockFailure>true</UnlockFailure>
+                                   <CancelCheckoutFailure>true</CancelCheckoutFailure>
+                                   <UnlockSuccess>false</UnlockSuccess>
+                                   <CheckinSuccess>false</CheckinSuccess>
+                                   <CheckinFailure>false</CheckinFailure>
+                                   <CheckinPending>false</CheckinPending>
+                                   <LockFailure>false</LockFailure>
+                                   <LockSuccess>false</LockSuccess>
+                            </EventMask>
+                            <ReplayPeriod>15</ReplayPeriod>
+                            <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder>
+                            <Host/>
+                            <Port>0</Port>
+                            <To>CHANGEME</To>
+                            <From>CHANGEME</From>
+                            <Relay>CHANGEME</Relay>
+                            <ConnectionTimeout>1</ConnectionTimeout>
+                            <IdleTimeout>5</IdleTimeout>
+                            <Spool>c:/temp/spools/logger1</Spool>
+                     </Logger>
+                     <Logger class="com.ceridwen.selfissue.client.log.SyslogLogger">
+                            <EventMask>
+                                   <CheckoutSuccess>false</CheckoutSuccess>
+                                   <CheckoutFailure>false</CheckoutFailure>
+                                   <CheckoutPending>true</CheckoutPending>
+                                   <ManualCheckout>true</ManualCheckout>
+                                   <Notification>false</Notification>
+                                   <UnlockFailure>true</UnlockFailure>
+                                   <CancelCheckoutFailure>true</CancelCheckoutFailure>
+                                   <UnlockSuccess>false</UnlockSuccess>
+                                   <CheckinSuccess>false</CheckinSuccess>
+                                   <CheckinFailure>false</CheckinFailure>
+                                   <CheckinPending>false</CheckinPending>
+                                   <LockFailure>false</LockFailure>
+                                   <LockSuccess>false</LockSuccess>
+                            </EventMask>
+                            <ReplayPeriod>15</ReplayPeriod>
+                            <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder>
+                            <Host/>
+                            <Port>0</Port>
+                            <To/>
+                            <From/>
+                            <Relay/>
+                            <ConnectionTimeout>0</ConnectionTimeout>
+                            <IdleTimeout>0</IdleTimeout>
+                            <Spool>c:/temp/spools/logger2</Spool>
+                     </Logger>
+              </Loggers>
+              <Spooler>
+                     <ReplayPeriod>15</ReplayPeriod>
+                     <OverdueAgeWarn>24</OverdueAgeWarn>
+                     <OverdueAgeExpire>48</OverdueAgeExpire>
+                     <Spool>c:/temp/spools/spooler</Spool>
+              </Spooler>
+       </Systems>
+       <Modes>
+              <TrustMode>true</TrustMode>
+              <AllowOffline>true</AllowOffline>
+              <UseNoBlock>false</UseNoBlock>
+              <RetryPatronWhenError>false</RetryPatronWhenError>
+              <RetryItemWhenError>false</RetryItemWhenError>
+              <AllowRenews>true</AllowRenews>
+              <SuppressSecurityFailureMessages>true</SuppressSecurityFailureMessages>
+              <SendShutdownStatus>true</SendShutdownStatus>
+              <EnableBarcodeAlii>true</EnableBarcodeAlii>
+              <EnableCheckIn>false</EnableCheckIn>
+       </Modes>
+       <CommandInterface>
+              <AllowConnectionTest>true</AllowConnectionTest>
+              <AllowSystemsCheck>true</AllowSystemsCheck>
+              <AllowLogTest>true</AllowLogTest>
+              <AllowSystemShutdown>true</AllowSystemShutdown>
+              <AllowOutOfOrder>true</AllowOutOfOrder>
+              <AllowResetOutOfOrder>true</AllowResetOutOfOrder>
+              <AllowCheckIn>true</AllowCheckIn>
+              <SystemPassword>D279B47CE37BFB08</SystemPassword>
+       </CommandInterface>
+       <Logging>
+              <LoggingHandler class="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper">
+                     <level>ALL</level>
+                     <smtpServer/>
+                     <sender/>
+                     <recipients/>
+                     <syslogHost>CHANGEME</syslogHost>
+                     <syslogPort>514</syslogPort>
+                     <URL/>
+              </LoggingHandler>
+       </Logging>
+</SelfIssue>
