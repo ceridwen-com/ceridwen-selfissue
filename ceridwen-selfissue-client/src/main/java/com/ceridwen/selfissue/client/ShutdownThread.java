@@ -42,7 +42,7 @@ public class ShutdownThread extends Thread {
     public ShutdownThread() {
         super();
         LibraryRegistry registry = new LibraryRegistry();
-        LibraryIdentifier selfissueID = new LibraryIdentifier("com.ceridwen", "Ceridwen Self Issue Client");
+        LibraryIdentifier selfissueID = new LibraryIdentifier("com.ceridwen.selfissue", "Ceridwen SelfIssue Client");
         System.out.println(registry.getLibraryName(selfissueID) + " " +
                 registry.getLibraryVersion(selfissueID) + " (" +
 				registry.getLibraryBuildDate(selfissueID) + ")");

@@ -142,6 +142,7 @@
               <manifestEntries>
                 <Built-By>${user.name}</Built-By>
                 <Build-Date>${maven.build.timestamp}</Build-Date>
+                <Implementation-Build-Date>${maven.build.timestamp}</Implementation-Build-Date>
               </manifestEntries>
             </archive>
           </configuration>
