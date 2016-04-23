@@ -1,16 +1,6 @@
-﻿Version 2.7: 
-Update ceridwen circulation from 2.90 to 2.91
-Dependencies: ceridwen circulation 2.91
-              ceridwen utilities 1.61
-              apache commons beanutils 1.8.3
-              apache commons lang 2.6
-              apache commons lang 3.1
-              apache commons logging 1.1.1 
-              apache commons net 3.1
-              jaxfront 2.79
-              jgoodies-common 1.4.0
-              jgoodies-looks 2.5.2
-              xalan-j 2.7.1
+﻿Version 2.6.7: 23/04/2016  
+Added support for configuring different charset encodings in the underlying SIP2 library 
+Update dependencies 
 
 
 Version 2.66: 27/07/2012 (447)
