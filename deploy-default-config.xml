@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="deploy-default-config" name="Deploy Default Config">
-    <target name="deploy-default-config">
-        <copy tofile="res/com/ceridwen/selfissue/client/config/config.xml" file="src/com/ceridwen/selfissue/client/config/default.xml" overwrite="true"/>
-    </target>
-</project>    
-        

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<project default="create-documentation">
-	<target name="create-documentation">
-		<xslt in="src/com/ceridwen/selfissue/client/config/config.xsd" style="document-configeditor.xsl" out="doc/configuration-editor.html" />
-	</target>
-</project>
