@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=2.77;time=2012-05-20 10:37:14.556;xui=config.xui;xsd=config.xsd?>
+<?jaxfront version=2.99.5;time=2016-04-23 15:38:54.296;xui=config.xui;xsd=config.xsd?>
 <SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
        <UI>
               <SelfIssue>
@@ -166,11 +166,11 @@
                      <SendEndPatronSession>false</SendEndPatronSession>
                      <RequirePatronPassword>false</RequirePatronPassword>
               </SIP>
-              <PatronIDReaderDevice class="com.ceridwen.selfissue.client.devices.JavaSmartCardDevice">
-                     <SmartCardReader>Broadcom Corp Contacted SmartCard 0</SmartCardReader>
+              <PatronIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
+                     <SmartCardReader/>
               </PatronIDReaderDevice>
-              <ItemIDReaderDevice class="com.ceridwen.selfissue.client.devices.JavaSmartCardDevice">
-                     <SmartCardReader>Broadcom Corp Contactless SmartCard 0</SmartCardReader>
+              <ItemIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
+                     <SmartCardReader/>
               </ItemIDReaderDevice>
               <ItemSecurityDevice class="com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice">
                      <Retries>2</Retries>
@@ -262,7 +262,7 @@
               <AllowOutOfOrder>true</AllowOutOfOrder>
               <AllowResetOutOfOrder>true</AllowResetOutOfOrder>
               <AllowCheckIn>true</AllowCheckIn>
-              <SystemPassword>CF36E3912E87A998</SystemPassword>
+              <SystemPassword>D279B47CE37BFB08</SystemPassword>
        </CommandInterface>
        <Logging>
               <LoggingHandler class="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper">
@@ -272,15 +272,6 @@
                      <recipients/>
                      <syslogHost>CHANGEME</syslogHost>
                      <syslogPort>514</syslogPort>
-                     <URL/>
-              </LoggingHandler>
-              <LoggingHandler class="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper">
-                     <level>ALL</level>
-                     <smtpServer>CHANGEME</smtpServer>
-                     <sender>CHANGEME</sender>
-                     <recipients>CHANGEME</recipients>
-                     <syslogHost/>
-                     <syslogPort>0</syslogPort>
                      <URL/>
               </LoggingHandler>
        </Logging>
