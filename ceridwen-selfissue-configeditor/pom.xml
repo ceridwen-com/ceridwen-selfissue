@@ -1,0 +1,170 @@
+<!--
+ Copyright (c) 2016 Matthew J. Dovey (www.ceridwen.com).
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the GNU Public License v3.0
+ which accompanies this distribution, and is available at 
+ <http://www.gnu.org/licenses />
+  
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses />.
+ 
+ Contributors:
+     Matthew J. Dovey (www.ceridwen.com) - initial API and implementation
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.ceridwen.selfissue</groupId>
+    <artifactId>ceridwen-selfissue</artifactId>
+    <version>2.6.7-SNAPSHOT</version>
+  </parent>
+  <artifactId>ceridwen-selfissue-configeditor</artifactId>
+  
+  <name>Ceridwen SelfIssue Config Editor</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jaxfront</groupId>
+      <artifactId>jaxfront-core</artifactId>
+      <version>2.99.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jaxfront</groupId>
+      <artifactId>jaxfront-swing</artifactId>
+      <version>2.99.5</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jgoodies</groupId>
+      <artifactId>looks</artifactId>
+      <version>2.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <version>2.4.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.11.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.magicwerk</groupId>
+      <artifactId>brownies-collections</artifactId>
+      <version>0.9.13</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>ceridwen-selfissue-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ceridwen.circulation</groupId>
+      <artifactId>ceridwen-standard-interchange-protocol-library</artifactId>
+      <version>2.9.2</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.ceridwen.selfissue.client.config.Editor</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xml-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <transformationSets>
+            <transformationSet>
+              <dir>src\main\resources\com\ceridwen\selfissue\client\config</dir>
+              <includes>config.xsd</includes>
+              <stylesheet>src/site/document-configeditor.xsl</stylesheet>
+              <fileMappers>
+                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                  <targetExtension>.html</targetExtension>
+                </fileMapper>
+              </fileMappers>
+              <outputDir>${project.build.directory}/doc</outputDir>
+            </transformationSet>
+          </transformationSets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/doc/images</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>src/site/images</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>  
+      <plugin>
+        <groupId>com.coderplus.maven.plugins</groupId>
+        <artifactId>copy-rename-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <id>copy-file</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <sourceFile>src/main/resources/com/ceridwen/selfissue/client/config/default.xml</sourceFile>
+              <destinationFile>target/conf/com/ceridwen/selfissue/client/config/config.xml</destinationFile>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>    
+    </plugins>
+  </build>  
+  
+</project>

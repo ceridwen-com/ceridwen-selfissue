@@ -32,7 +32,7 @@ java -Xbootclasspath/a:res -jar SelfIssue.jar
 
 The Self Issue Client includes a GUI configuration tool which can change most aspects of the software including visual appearance, connection settings in order to connect to different library systems using 3M SIP over telnet or socket connections. The Client can also send error and logging messages via e-mail.
 
-See the documentation for the [Configuration Editor](configuration-editor.html).
+See the documentation for the [Configuration Editor](conf/config.html).
 
 The Client can be configured to run in two modes:
 
@@ -47,29 +47,6 @@ The Client has an plug-in API to integrate with patron barcode readers, item bar
 ## Problems and Issues
 
 For general problems please contact [development@ceridwen.com](mailto:development@ceridwen.com). For bugs and feature requests, please use our [online issue tracker]().
-
-## Automatic Updates - NetX
-
-The Self Issue Client can also be run using NetX (an open source version of Java Web Start) to enable auto-updating of the client software. This is particularly useful for system administrators maintaining several client machines. 
-
-To configure this, unzip the client distribution to a central location on a web server, e.g. `http://myserver/selfissueclient/`
-
-Copy the netx.jar file and the res directory from the client distribution to the local machine.
-
-To run the configuration editor run:
-
-```bash
- java -Xbootclasspath/a:res -jar netx.jar -jnlp http://myserver/selfissueclient/ConfigEditor.jnlp
-```
-
-Note: the configuration options are stored on the local machine
-
-To run the client, run: 
-```bash
-java -Xbootclasspath/a:res -jar netx.jar -jnlp  http://myserver/selfissueclient/SelfIssue.jnlp
-```
-
-<p>If you wish to run against a Ceridwen.com maintained distribution please contact [development@ceridwen.com](mailto:development@ceridwen.com).
 
 ## License
 

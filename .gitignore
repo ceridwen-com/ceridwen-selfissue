@@ -1,8 +1,8 @@
-/SelfIssue.bpgr.local
-/bak
-/bin
-/ceridwen-selfIssue.jar
-/classes
-/dist
-/distrib
-doc/configuration-editor.html
+target
+dependency-reduced-pom.xml
+.settings
+.project
+.classpath
+.idea
+*.iml
+.sonar_lock
