@@ -30,8 +30,8 @@ package com.ceridwen.selfissue.client.devices;
 public interface IDReaderDeviceListener {
 /**
  * Fire the detected RFID item id	
- * @param passcode
- * @param serial
+ * @param identifier identifier\barcode read by device
+ * @param passcode passcode\password read by device
  */
   void autoInputData(String identifier, String passcode);
 }

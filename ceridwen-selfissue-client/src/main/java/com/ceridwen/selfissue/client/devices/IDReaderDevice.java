@@ -32,7 +32,7 @@ import org.w3c.dom.Node;
 public interface IDReaderDevice {
 /**
  * Initialise the security/RFID device  
- * @param node 
+ * @param node configuration parameters
  */
   public abstract void init(Node node);
 /**

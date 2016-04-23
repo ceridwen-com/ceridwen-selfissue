@@ -48,7 +48,7 @@ public abstract class SecurityDevice {
   
 /**
  * Initialise the security device  
- * @param node 
+ * @param node configuration parameters
  */
   public abstract void init(Node node);
 /**
@@ -57,21 +57,21 @@ public abstract class SecurityDevice {
   public abstract void deinit();
 /**
  * Lock the currently detected item  
- * @throws TimeoutException
- * @throws FailureException
+ * @throws TimeoutException device timed out waiting for response
+ * @throws FailureException device defined error
  */  
   public abstract void lock() throws TimeoutException, FailureException;
 /**
  * Unlock the currently detected item  
- * @throws TimeoutException
- * @throws FailureException
+ * @throws TimeoutException device timed out waiting for response
+ * @throws FailureException device defined error
  */
   public abstract void unlock() throws TimeoutException, FailureException;
 /**
  * Report the locked state of the detected item  
- * @return
- * @throws TimeoutException
- * @throws FailureException
+ * @return is the item security tag set
+ * @throws TimeoutException device timed out waiting for response
+ * @throws FailureException device defined error
  */
   public abstract boolean isLocked() throws TimeoutException, FailureException;  
 }
