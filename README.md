@@ -38,7 +38,7 @@ The Client can be configured to run in two modes:
 
 * Trust Mode - in this mode, the Client will allow the issue of books which would normal be prevented by the library system. This is intended for use where there are no security systems to prevent unissued books being taken from the library. This was originally designed for use in Oxford Colleges to allow students a means of reconding when they had taken a book. When the Client cannot check the book out automatically on the library system, it will still allow the book to be issued, and will send an e-mail detailing the issue to the librarian to handle the issue on the system manually.</li>
 
-* Normal Mode - in this mode, the Client will report any denials to issue books from the library system to the user.</li>
+* Normal Mode - in this mode, the Client will report any denials to issue books from the library system to the user.
 
 The Client can also be configured to allow offline operations when the library system or network is unavailble. In this mode, books will still be issued, and the Client will inform the library system of the books issued when it can reconnect. If there are any problems it will e-mail the librarian for manual intervention.
 
@@ -47,6 +47,38 @@ The Client has an plug-in API to integrate with patron barcode readers, item bar
 ## Problems and Issues
 
 For general problems please contact [development@ceridwen.com](mailto:development@ceridwen.com). For bugs and feature requests, please use our [online issue tracker]().
+
+## Automatic updates
+
+The Self Issue Client can also be run using NetX (an open source version of Java Web Start) to enable auto-updating of the client software. This is particularly useful for system administrators maintaining several client machines. 
+
+To configure this, copy the jnlp subdirectory to a central location on a web server, e.g. http://myserver/selfissue/jnlp/
+
+Edit `SelfIssue.jnlp` and `ConfigEditor.jnlp` and change the following lines to reflect the web server address
+
+```xml
+<jnlp
+    spec="1.0+"
+    codebase="http://myserver/selfissue/jnlp"
+    href="SelfIssue.jnlp">
+```
+
+Copy the `netx/netx.jar` file and the `conf` directory from the client distribution to the local machine.
+
+To run the configuration editor run:
+```bash
+java -Xbootclasspath/a:res -jar netx.jar -jnlp http://myserver/selfissue/jnlp/ConfigEditor.jnlp
+```
+
+**Note: **the configuration options are stored on the local machine
+
+To run the client, run:
+
+```bash
+ java -Xbootclasspath/a:res -jar netx.jar -jnlp  http://myserver/selfissue/jnlp/SelfIssue.jnlp
+```
+
+If you wish to run against a Ceridwen.com maintained distribution please contact development@ceridwen.com.
 
 ## License
 

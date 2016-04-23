@@ -61,5 +61,26 @@
         </fileSets>
       </sources>
     </moduleSet>
+    <moduleSet>
+      <!-- Enable access to all projects in the current multimodule build! -->
+      <useAllReactorProjects>true</useAllReactorProjects>
+      
+      <!-- Now, select which projects to include in this module-set. -->
+      <includes>
+        <include>com.ceridwen.selfissue:ceridwen-selfissue-client</include>
+        <include>com.ceridwen.selfissue:ceridwen-selfissue-configeditor</include>
+      </includes>
+      <sources>
+        <includeModuleDirectory>false</includeModuleDirectory>
+        <fileSets>
+          <fileSet>
+            <includes>
+              <include>jnlp/</include>
+            </includes>
+            <directory>target/</directory>
+          </fileSet>
+        </fileSets>
+      </sources>
+    </moduleSet>
   </moduleSets>
 </assembly>

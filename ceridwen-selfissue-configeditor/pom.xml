@@ -26,7 +26,11 @@
   </parent>
   <artifactId>ceridwen-selfissue-configeditor</artifactId>
   
-  <name>Ceridwen SelfIssue Config Editor</name>
+  <name>Ceridwen Self Issue Client Config Editor</name>
+
+  <properties>
+    <jnlp.codebase>http://myserver/selfissue/jnlp</jnlp.codebase>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -68,11 +72,6 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>ceridwen-selfissue-common</artifactId>
       <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.ceridwen.circulation</groupId>
-      <artifactId>ceridwen-standard-interchange-protocol-library</artifactId>
-      <version>2.9.2</version>
     </dependency>
   </dependencies>
   
@@ -163,7 +162,53 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>    
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>package</id>
+            <phase>package</phase>
+            <goals>
+              <goal>jnlp-single</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <!--outputDirectory></outputDirectory--> <!-- not required?? -->
+
+          <!--
+          Set to true to exclude all transitive dependencies. Default is false.
+          -->
+          <excludeTransitive>false</excludeTransitive>
+
+          <!-- The path where the libraries are stored within the jnlp structure. not required. by default the libraries are within the working directory -->
+          <libPath>lib</libPath>
+
+          <!-- JNLP generation -->
+          <jnlp>
+            <!-- default values -->
+            <!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath-->
+            <!--inputTemplate>src/main/jnlp/template.vm</inputTemplate--> <!-- relative to inputTemplateResourcePath -->
+            <outputFile>ConfigEditor.jnlp</outputFile> <!-- defaults to launch.jnlp -->
+
+            <!-- used to automatically identify the jar containing the main class. -->
+            <!-- this is perhaps going to change -->
+            <mainClass>com.ceridwen.selfissue.client.config.Editor</mainClass>
+            <j2seVersion>1.8+</j2seVersion>
+            <allPermissions>true</allPermissions>
+            <offlineAllowed>true</offlineAllowed>
+          </jnlp>
+
+          <!-- causes a version attribute to be output in each jar resource element, optional, default is false -->
+          <outputJarVersions>false</outputJarVersions>
+
+          <!--install>false</install--> <!-- not yet supported -->
+          <verbose>false</verbose>
+
+        </configuration>
+      </plugin>
     </plugins>
   </build>  
   
