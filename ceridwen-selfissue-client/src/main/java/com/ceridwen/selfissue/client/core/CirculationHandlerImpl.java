@@ -516,9 +516,31 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
      * @see
      * com.ceridwen.selfissue.client.core.CirculationHandler#checkStatus(int)
      */
+    @Override
     public String checkStatus(int statusCode) {
+        Connection c = null;
         try {
-            Connection c = ConnectionFactory.getConnection(true);
+            c = ConnectionFactory.getConnection(true);
+
+            if (!StringUtils.isEmpty(Configuration.getProperty("Systems/SIP/LoginUserId")) && !StringUtils.isEmpty(Configuration.getProperty("Systems/SIP/LoginPassword"))) {
+              Login login = new Login();
+              login.setLoginUserId(Configuration.getProperty("Systems/SIP/LoginUserId"));
+              login.setLoginPassword(Configuration.Decrypt(Configuration.getProperty("Systems/SIP/LoginPassword")));
+              login.setLocationCode(Configuration.getProperty("Systems/SIP/LocationCode"));
+              login.setPWDAlgorithm(Configuration.getProperty("Systems/SIP/PWDAlgorithm"));
+              login.setUIDAlgorithm(Configuration.getProperty("Systems/SIP/UIDAlgorithm"));
+
+              LoginResponse response = (LoginResponse) c.send(login);
+              if (response.isOk() == null) {
+                ConnectionFactory.releaseConnection(c);
+                return "SIP2 Login failed";
+              }
+              if (response.isOk() == false) {
+                ConnectionFactory.releaseConnection(c);
+                return "SIP2 Login failed";
+              }
+            }
+            
             SCStatus scstatus = new SCStatus();
             scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
             scstatus.setStatusCode(StatusCode.OK);
@@ -541,10 +563,8 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
                     "Renewal: " + response.isACSRenewalPolicy() + " | " +
                     "StatusUpdate: " + response.isStatusUpdateOk();
         } catch (Exception ex) {
-            try {
-            } catch (Exception inner) {
-            }
-            return "Error: " + ex.toString();
+          ConnectionFactory.releaseConnection(c);
+          return "Error: " + ex.toString();
         }
     }
 
