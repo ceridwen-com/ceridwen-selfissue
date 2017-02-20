@@ -404,6 +404,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
 
     void CheckoutButton_actionPerformed(ActionEvent e) {
         this.stopItemIDReader();
+        this.lastCheckedInId = "";
         SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckOutPanel.class);
         // Need this to pass back id and password
         PatronInformation rq = new PatronInformation();
