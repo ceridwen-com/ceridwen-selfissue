@@ -404,6 +404,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
 
     void CheckoutButton_actionPerformed(ActionEvent e) {
         this.stopItemIDReader();
+        this.lastCheckedInId = "";
         SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckOutPanel.class);
         // Need this to pass back id and password
         PatronInformation rq = new PatronInformation();
@@ -459,6 +460,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
             request.setItemIdentifier(CheckInPanel.strim(this.BookField.getText()));
             request.setTransactionDate(new Date());
+            request.setReturnDate(new Date());
             request.setNoBlock(new Boolean(false));
             if (StringUtils.isEmpty(request.getItemIdentifier()) ||
                     request.getItemIdentifier().equals(this.lastCheckedInId)) {
@@ -565,7 +567,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         }
         if ((e.getKeyChar() == '\n') || (e.getKeyChar() == '^')) {
             e.consume();
-            this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+            this.CheckinButton_actionPerformed(new ActionEvent(this, 0, ""));
         }
     }
 
