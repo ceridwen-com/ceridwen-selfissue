@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.ceridwen.selfissue</groupId>
     <artifactId>ceridwen-selfissue</artifactId>
-    <version>2.7-SNAPSHOT</version>
+    <version>2.6.8</version>
   </parent>
   <artifactId>ceridwen-selfissue-bin</artifactId>
   <packaging>pom</packaging>
