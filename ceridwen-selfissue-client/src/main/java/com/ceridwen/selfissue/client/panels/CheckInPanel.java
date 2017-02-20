@@ -459,6 +459,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
             request.setItemIdentifier(CheckInPanel.strim(this.BookField.getText()));
             request.setTransactionDate(new Date());
+            request.setReturnDate(new Date());
             request.setNoBlock(new Boolean(false));
             if (StringUtils.isEmpty(request.getItemIdentifier()) ||
                     request.getItemIdentifier().equals(this.lastCheckedInId)) {
