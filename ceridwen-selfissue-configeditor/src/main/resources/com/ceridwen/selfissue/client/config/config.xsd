@@ -336,14 +336,14 @@
                         <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CheckoutButton_Text" type="xs:string">
+                    <xs:element name="CheckinButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Checkout button text</xs:documentation>
+                        <xs:documentation>Checkin button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CheckoutButton_ToolTipText" type="xs:string">
+                    <xs:element name="CheckinButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Checkout button tool tip</xs:documentation>
+                        <xs:documentation>Checkin button tool tip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelNextButton_Text" type="xs:string">
