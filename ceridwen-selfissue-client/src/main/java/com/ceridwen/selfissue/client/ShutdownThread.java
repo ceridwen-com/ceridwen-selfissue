@@ -18,6 +18,15 @@
  ******************************************************************************/
 package com.ceridwen.selfissue.client;
 
+import com.ceridwen.circulation.SIP.exceptions.ChecksumError;
+import com.ceridwen.circulation.SIP.exceptions.ConnectionFailure;
+import com.ceridwen.circulation.SIP.exceptions.InvalidFieldLength;
+import com.ceridwen.circulation.SIP.exceptions.MandatoryFieldOmitted;
+import com.ceridwen.circulation.SIP.exceptions.MessageNotUnderstood;
+import com.ceridwen.circulation.SIP.exceptions.RetriesExceeded;
+import com.ceridwen.circulation.SIP.exceptions.SequenceError;
+import com.ceridwen.circulation.SIP.messages.Login;
+import com.ceridwen.circulation.SIP.messages.LoginResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,6 +40,7 @@ import com.ceridwen.selfissue.client.devices.IDReaderDevice;
 import com.ceridwen.selfissue.client.devices.SecurityDevice;
 import com.ceridwen.util.versioning.LibraryIdentifier;
 import com.ceridwen.util.versioning.LibraryRegistry;
+import org.apache.commons.lang3.StringUtils;
 
 public class ShutdownThread extends Thread {
     private static IDReaderDevice idReaderDevice = null;
@@ -79,21 +89,43 @@ public class ShutdownThread extends Thread {
             }
         }
     }
+    
+    private boolean doLogin(Connection connection) throws RetriesExceeded, ConnectionFailure, ChecksumError, SequenceError, MessageNotUnderstood, MandatoryFieldOmitted, InvalidFieldLength {
+        if (StringUtils.isEmpty(Configuration.getProperty("Systems/SIP/LoginUserId"))) {
+            return true;
+        }
+        if (StringUtils.isEmpty(Configuration.getProperty("Systems/SIP/LoginPassword"))) {
+            return true;
+        }
+        Login login = new Login();
+        login.setLoginUserId(Configuration.getProperty("Systems/SIP/LoginUserId"));
+        login.setLoginPassword(Configuration.Decrypt(Configuration.getProperty("Systems/SIP/LoginPassword")));
+        login.setLocationCode(Configuration.getProperty("Systems/SIP/LocationCode"));
+        login.setPWDAlgorithm(Configuration.getProperty("Systems/SIP/PWDAlgorithm"));
+        login.setUIDAlgorithm(Configuration.getProperty("Systems/SIP/UIDAlgorithm"));
+
+        LoginResponse response = (LoginResponse) connection.send(login);
+        return ((response.isOk() != null) ? response.isOk().booleanValue() : false);
+    }
+    
 
     private void sendShutdownStatus() {
         if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
             System.out.println("Notifying Library System...");
             try {
-                this.conn = ConnectionFactory.getConnection(true);
+              this.conn = ConnectionFactory.getConnection(true);
+              if (this.doLogin(this.conn)) {
                 SCStatus scstatus = new SCStatus();
                 scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
                 scstatus.setStatusCode(StatusCode.SHUTTING_DOWN);
                 this.conn.send(scstatus);
-                ConnectionFactory.releaseConnection(conn);
+                ConnectionFactory.releaseConnection(this.conn);
+              }
             } catch (Exception ex) {
             	try {
             		if (this.conn != null) {
             			this.conn.disconnect();
+                  ConnectionFactory.releaseConnection(this.conn);
             		}
             	} catch (Exception exint) {
 
