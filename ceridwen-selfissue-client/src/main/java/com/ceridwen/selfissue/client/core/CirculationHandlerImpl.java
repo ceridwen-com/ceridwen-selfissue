@@ -41,8 +41,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.NodeList;
 
+import com.ceridwen.circulation.SIP.exceptions.ChecksumError;
 import com.ceridwen.circulation.SIP.exceptions.ConnectionFailure;
+import com.ceridwen.circulation.SIP.exceptions.InvalidFieldLength;
+import com.ceridwen.circulation.SIP.exceptions.MandatoryFieldOmitted;
+import com.ceridwen.circulation.SIP.exceptions.MessageNotUnderstood;
 import com.ceridwen.circulation.SIP.exceptions.RetriesExceeded;
+import com.ceridwen.circulation.SIP.exceptions.SequenceError;
 import com.ceridwen.circulation.SIP.messages.ACSStatus;
 import com.ceridwen.circulation.SIP.messages.CheckIn;
 import com.ceridwen.circulation.SIP.messages.CheckOut;
@@ -255,7 +260,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
     private boolean connect() {
         try {
             this.conn = ConnectionFactory.getConnection(true);
-            return this.doLogin();
+            return this.doLogin(this.conn);
         } catch (Exception ex) {
         	ConnectionFactory.releaseConnection(conn);
             CirculationHandlerImpl.logger.warn("Exception on connection", ex);
@@ -263,7 +268,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
         }
     }
 
-    private boolean doLogin() throws RetriesExceeded {
+    private boolean doLogin(Connection connection) throws RetriesExceeded, ConnectionFailure, ChecksumError, SequenceError, MessageNotUnderstood, MandatoryFieldOmitted, InvalidFieldLength {
         if (StringUtils.isEmpty(Configuration.getProperty("Systems/SIP/LoginUserId"))) {
             return true;
         }
@@ -277,7 +282,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
         login.setPWDAlgorithm(Configuration.getProperty("Systems/SIP/PWDAlgorithm"));
         login.setUIDAlgorithm(Configuration.getProperty("Systems/SIP/UIDAlgorithm"));
 
-        LoginResponse response = (LoginResponse) this.unprotectedSend(login);
+        LoginResponse response = (LoginResponse) connection.send(login);
         return ((response.isOk() != null) ? response.isOk().booleanValue() : false);
     }
 
@@ -516,9 +521,17 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
      * @see
      * com.ceridwen.selfissue.client.core.CirculationHandler#checkStatus(int)
      */
+    @Override
     public String checkStatus(int statusCode) {
+        Connection c = null;
         try {
-            Connection c = ConnectionFactory.getConnection(true);
+            c = ConnectionFactory.getConnection(true);
+            
+            if (!this.doLogin(c)) {
+                ConnectionFactory.releaseConnection(c);
+                return "SIP2 Login failed";
+            }
+            
             SCStatus scstatus = new SCStatus();
             scstatus.setProtocolVersion(ProtocolVersion.VERSION_2_00);
             scstatus.setStatusCode(StatusCode.OK);
@@ -541,10 +554,8 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
                     "Renewal: " + response.isACSRenewalPolicy() + " | " +
                     "StatusUpdate: " + response.isStatusUpdateOk();
         } catch (Exception ex) {
-            try {
-            } catch (Exception inner) {
-            }
-            return "Error: " + ex.toString();
+          ConnectionFactory.releaseConnection(c);
+          return "Error: " + ex.toString();
         }
     }
 
