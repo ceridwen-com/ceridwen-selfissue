@@ -160,11 +160,12 @@
                      <AddSequenceAndChecksum>true</AddSequenceAndChecksum>
                      <StrictChecksumChecking>false</StrictChecksumChecking>
                      <StrictSequenceChecking>false</StrictSequenceChecking>
-                     <CharsetEncoding>cp850</CharsetEncoding>
                      <InstitutionId/>
                      <TerminalPassword/>
                      <SendEndPatronSession>false</SendEndPatronSession>
                      <RequirePatronPassword>false</RequirePatronPassword>
+                     <CharsetEncoding>cp850</CharsetEncoding>
+                     <FieldOrdering>alphabetical</FieldOrdering>
               </SIP>
               <PatronIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
                      <SmartCardReader/>

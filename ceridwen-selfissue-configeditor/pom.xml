@@ -111,7 +111,9 @@
           <transformationSets>
             <transformationSet>
               <dir>src\main\resources\com\ceridwen\selfissue\client\config</dir>
-              <includes>config.xsd</includes>
+              <includes>
+                <include>config.xsd</include>
+              </includes>
               <stylesheet>src/site/document-configeditor.xsl</stylesheet>
               <fileMappers>
                 <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
