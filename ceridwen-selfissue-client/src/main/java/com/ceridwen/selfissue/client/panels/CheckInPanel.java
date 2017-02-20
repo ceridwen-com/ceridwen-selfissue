@@ -565,7 +565,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         }
         if ((e.getKeyChar() == '\n') || (e.getKeyChar() == '^')) {
             e.consume();
-            this.CheckoutButton_actionPerformed(new ActionEvent(this, 0, ""));
+            this.CheckinButton_actionPerformed(new ActionEvent(this, 0, ""));
         }
     }
 
