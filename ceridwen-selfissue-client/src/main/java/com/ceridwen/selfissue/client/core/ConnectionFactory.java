@@ -41,6 +41,16 @@ public class ConnectionFactory {
 			System.setProperty(Message.PROP_CHARSET, charset);
 		}		
 
+		String ordering = Configuration.getProperty("Systems/SIP/FieldOrdering");
+		
+		if (Message.PROP_VARIABLE_FIELD_ORDERING_ALPHABETICAL.equalsIgnoreCase(ordering)) {
+			System.setProperty(Message.PROP_VARIABLE_FIELD_ORDERING, Message.PROP_VARIABLE_FIELD_ORDERING_ALPHABETICAL);
+    } else if (Message.PROP_VARIABLE_FIELD_ORDERING_SPECIFICATION.equalsIgnoreCase(ordering)) {
+			System.setProperty(Message.PROP_VARIABLE_FIELD_ORDERING, Message.PROP_VARIABLE_FIELD_ORDERING_SPECIFICATION);
+    } else {
+			System.setProperty(Message.PROP_VARIABLE_FIELD_ORDERING, Message.PROP_VARIABLE_FIELD_ORDERING_DEFAULT);
+    }    
+    
 		if (Configuration.getProperty("Systems/SIP/@mode").equalsIgnoreCase("Socket")) {
 			conn = new SocketConnection();
 		} else {
