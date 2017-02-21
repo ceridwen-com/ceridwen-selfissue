@@ -1088,13 +1088,14 @@
                         </xs:sequence>
                         <xs:attribute name="class" use="required">
                           <xs:annotation>
-                            <xs:documentation>Type of logger (SMTP, Syslog, REST, or null device)</xs:documentation>
+                            <xs:documentation>Type of logger (SMTP, Syslog, REST, Console, or null device)</xs:documentation>
                           </xs:annotation>
                           <xs:simpleType>
                             <xs:restriction base="xs:string">
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.MailLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.SyslogLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.RestLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.ConsoleLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.OnlineLogLogger"/>
                             </xs:restriction>
                           </xs:simpleType>
@@ -1303,10 +1304,11 @@
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
                     <xs:annotation>
-                      <xs:documentation>Type of logger: SMTP, Syslog, REST</xs:documentation>
+                      <xs:documentation>Type of logger: SMTP, Syslog, REST, Console</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
+                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.RestLoggingHandlerWrapper"/>

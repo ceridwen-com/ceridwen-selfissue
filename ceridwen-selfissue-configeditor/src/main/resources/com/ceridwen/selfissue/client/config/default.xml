@@ -199,8 +199,8 @@
                             </EventMask>
                             <ReplayPeriod>15</ReplayPeriod>
                             <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder>
-                            <Host/>
-                            <Port>0</Port>
+                            <Host>localhost</Host>
+                            <Port>514</Port>
                             <To>CHANGEME</To>
                             <From>CHANGEME</From>
                             <Relay>CHANGEME</Relay>
@@ -266,13 +266,13 @@
               <SystemPassword>D279B47CE37BFB08</SystemPassword>
        </CommandInterface>
        <Logging>
-              <LoggingHandler class="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper">
-                     <level>ALL</level>
+              <LoggingHandler class="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper">
+                     <level>INFO</level>
                      <smtpServer/>
                      <sender/>
                      <recipients/>
-                     <syslogHost>CHANGEME</syslogHost>
-                     <syslogPort>514</syslogPort>
+                     <syslogHost></syslogHost>
+                     <syslogPort></syslogPort>
                      <URL/>
               </LoggingHandler>
        </Logging>
