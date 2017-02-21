@@ -1,6 +1,7 @@
 ﻿Version 2.7: 
 CheckIn Panel fixes
 Support variable field ordering
+Add console logging
 
 
 Version 2.6.8: 20/02/2017

@@ -29,6 +29,9 @@ import org.w3c.dom.NodeList;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.dialogs.ErrorDialog;
 import com.ceridwen.selfissue.client.logging.LoggingHandlerWrapper;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * <p>Title: RTSI</p>
@@ -56,16 +59,21 @@ public class SelfIssueClient {
       
 	private static void initiateLogging() {
     NodeList loggingHandlers = Configuration.getPropertyList("Logging/LoggingHandler");
+    Logger rootLogger = java.util.logging.LogManager.getLogManager().getLogger("");
     for (int i = 0; i < loggingHandlers.getLength(); i++) {
-          LoggingHandlerWrapper loggingHandlerWrapper;
-          try {
-              loggingHandlerWrapper = (LoggingHandlerWrapper) Class.forName(
-                Configuration.getSubProperty(loggingHandlers.item(i), "@class")).
-                newInstance();
-              java.util.logging.LogManager.getLogManager().getLogger("").addHandler(loggingHandlerWrapper.getLoggingHandler(loggingHandlers.item(i)));
-          } catch (Exception ex) {
-              log.fatal("Could not register logging handler", ex);
-          }
+      LoggingHandlerWrapper loggingHandlerWrapper;
+      try {
+        loggingHandlerWrapper = (LoggingHandlerWrapper) Class.forName(
+          Configuration.getSubProperty(loggingHandlers.item(i), "@class")).
+          newInstance();
+        Handler handler = loggingHandlerWrapper.getLoggingHandler(loggingHandlers.item(i));
+        rootLogger.addHandler(handler);
+        if (rootLogger.getLevel().intValue() > handler.getLevel().intValue()) {
+          rootLogger.setLevel(handler.getLevel());
+        }
+      } catch (Exception ex) {
+        log.fatal("Could not register logging handler", ex);
+      }
     }
 	}
 
