@@ -64,8 +64,8 @@
                      <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check in.</BookFieldLabel_ToolTipText>
                      <BookField_DefaultText/>
                      <BookField_ToolTipText>Please enter the barcode of the next book to check in.</BookField_ToolTipText>
-                     <CheckoutButton_Text/>
-                     <CheckoutButton_ToolTipText/>
+                     <CheckinButton_Text>Check In</CheckinButton_Text>
+                     <CheckinButton_ToolTipText>Check In</CheckinButton_ToolTipText>
                      <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
                      <BookPanelNextButton_ToolTipText>Login as new borrower.</BookPanelNextButton_ToolTipText>
                      <BookPanelCheckoutButton_Text>Check out</BookPanelCheckoutButton_Text>
@@ -160,11 +160,12 @@
                      <AddSequenceAndChecksum>true</AddSequenceAndChecksum>
                      <StrictChecksumChecking>false</StrictChecksumChecking>
                      <StrictSequenceChecking>false</StrictSequenceChecking>
-                     <CharsetEncoding>cp850</CharsetEncoding>
                      <InstitutionId/>
                      <TerminalPassword/>
                      <SendEndPatronSession>false</SendEndPatronSession>
                      <RequirePatronPassword>false</RequirePatronPassword>
+                     <CharsetEncoding>cp850</CharsetEncoding>
+                     <FieldOrdering>alphabetical</FieldOrdering>
               </SIP>
               <PatronIDReaderDevice class="com.ceridwen.selfissue.client.nulldevices.IDReaderDevice">
                      <SmartCardReader/>
@@ -198,8 +199,8 @@
                             </EventMask>
                             <ReplayPeriod>15</ReplayPeriod>
                             <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder>
-                            <Host/>
-                            <Port>0</Port>
+                            <Host>localhost</Host>
+                            <Port>514</Port>
                             <To>CHANGEME</To>
                             <From>CHANGEME</From>
                             <Relay>CHANGEME</Relay>
@@ -265,13 +266,13 @@
               <SystemPassword>D279B47CE37BFB08</SystemPassword>
        </CommandInterface>
        <Logging>
-              <LoggingHandler class="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper">
-                     <level>ALL</level>
+              <LoggingHandler class="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper">
+                     <level>INFO</level>
                      <smtpServer/>
                      <sender/>
                      <recipients/>
-                     <syslogHost>CHANGEME</syslogHost>
-                     <syslogPort>514</syslogPort>
+                     <syslogHost></syslogHost>
+                     <syslogPort></syslogPort>
                      <URL/>
               </LoggingHandler>
        </Logging>

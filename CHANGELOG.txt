@@ -1,4 +1,14 @@
-﻿Version 2.6.7: 23/04/2016  
+﻿Version 2.6.9: 16/06/2019 
+CheckIn Panel fixes
+Support variable field ordering
+Added console logging
+Updated dependencies
+
+
+Version 2.6.8: 20/02/2017
+Fixed Login SIP Message support
+
+Version 2.6.7: 23/04/2016  
 Added support for configuring different charset encodings in the underlying SIP2 library 
 Update dependencies 
 

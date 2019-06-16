@@ -286,13 +286,20 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
   public void setPatronPanel()
   {
-	if (MainPanel != null) {
-		MainPane.remove(MainPanel);
-	}
+    if (MainPanel != null) {
+      MainPane.remove(MainPanel);
+      MainPanel.clearSelfIssuePanelListeners();
+      MainPanel = null;
+      this.validate();
+    }
     MainPanel = new PatronPanel(this.handler, this.ResetTimer);
     MainPanel.addSelfIssuePanelListener(new
-        SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
+    SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
+    CheckInPanel = null;
+    CheckOutPanel = null;
     MainPane.add(MainPanel);
+    MainPane.revalidate();
+    MainPane.repaint();
     this.validate();
     MainPanel.grabFocus();
   }
@@ -310,31 +317,50 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
       return name;
     }
   }
+  
+  private SelfIssuePanel CheckInPanel = null;
+  private SelfIssuePanel CheckOutPanel = null;
 
   public void setCheckOutPanel(String id, String password, String name, String message)
   {
-	if (MainPanel != null) {
-		MainPane.remove(MainPanel);
-	}
-    MainPanel = new CheckOutPanel(handler, id, password, demangleName(name), message,
-                                  this.ResetTimer);
+    if (MainPanel != null) {
+      MainPane.remove(MainPanel);
+      MainPanel.clearSelfIssuePanelListeners();
+      MainPanel = null;
+      this.validate();
+    }
+    if (CheckOutPanel == null) {
+      CheckOutPanel = new CheckOutPanel(handler, id, password, demangleName(name), message,
+                                    this.ResetTimer);
+    }
+    MainPanel = CheckOutPanel;
     MainPanel.addSelfIssuePanelListener(new
-        SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
+    SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));    
     MainPane.add(MainPanel);
+    MainPane.revalidate();
+    MainPane.repaint();
     this.validate();
     MainPanel.grabFocus();
   }
 
   public void setCheckInPanel(String id, String password, String name, String message)
   {
-	if (MainPanel != null) {
-		MainPane.remove(MainPanel);
-	}
-    MainPanel = new CheckInPanel(handler, id, password, demangleName(name), message,
-            this.ResetTimer);
+    if (MainPanel != null) {
+      MainPane.remove(MainPanel);
+      MainPanel.clearSelfIssuePanelListeners();
+      MainPanel = null;
+      this.validate();
+    }
+    if (CheckInPanel == null) {
+      CheckInPanel = new CheckInPanel(handler, id, password, demangleName(name), message,
+                                    this.ResetTimer);
+    }
+    MainPanel = CheckInPanel;
     MainPanel.addSelfIssuePanelListener(new
-        SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));
+    SelfIssueFrame_MainPanel_selfIssuePanelAdapter(this));    
     MainPane.add(MainPanel);
+    MainPane.revalidate();
+    MainPane.repaint();
     this.validate();
     MainPanel.grabFocus();
   }

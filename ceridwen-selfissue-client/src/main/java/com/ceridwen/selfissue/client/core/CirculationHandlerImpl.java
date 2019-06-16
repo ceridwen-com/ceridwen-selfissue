@@ -497,9 +497,6 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
                     this.disconnect();
                     CirculationHandlerImpl.logger.warn("Repeated retries on request: " + request);
                     throw ex;
-                } catch (ConnectionFailure ex) {
-                    response = null;
-                    CirculationHandlerImpl.logger.warn("Connection Failure on request: " + request);
                 } catch (Exception ex) {
                     response = null;
                     CirculationHandlerImpl.logger.warn("Unexpected exception on request: " + request, ex);

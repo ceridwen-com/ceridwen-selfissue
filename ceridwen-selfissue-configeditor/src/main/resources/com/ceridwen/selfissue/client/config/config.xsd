@@ -336,14 +336,14 @@
                         <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CheckoutButton_Text" type="xs:string">
+                    <xs:element name="CheckinButton_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Checkout button text</xs:documentation>
+                        <xs:documentation>Checkin button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CheckoutButton_ToolTipText" type="xs:string">
+                    <xs:element name="CheckinButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Checkout button tool tip</xs:documentation>
+                        <xs:documentation>Checkin button tool tip</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookPanelNextButton_Text" type="xs:string">
@@ -812,11 +812,6 @@
                         <xs:documentation>If true reject responses from 3M SIP2 server if the sequence check digit is not valid</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CharsetEncoding" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Character set encoding</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
                     <xs:element name="InstitutionId" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>If required, send an institutional id on 3M SIP2 messages to server</xs:documentation>
@@ -837,6 +832,22 @@
                         <xs:documentation>Optional, prompt user for password after entering barcode and before allowing book issue.</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="CharsetEncoding" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Character set encoding</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FieldOrdering">
+                      <xs:annotation>
+                        <xs:documentation>Ordering of SIP2 fields in message</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                          <xs:enumeration value="alphabetical"/>
+                          <xs:enumeration value="specification"/>
+                        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
                   </xs:sequence>
                   <xs:attribute form="unqualified" name="mode" use="required">
                     <xs:annotation>
@@ -844,6 +855,7 @@
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
+                        <xs:enumeration value="SSLSocket"/>
                         <xs:enumeration value="Socket"/>
                         <xs:enumeration value="Telnet"/>
                       </xs:restriction>
@@ -1077,13 +1089,14 @@
                         </xs:sequence>
                         <xs:attribute name="class" use="required">
                           <xs:annotation>
-                            <xs:documentation>Type of logger (SMTP, Syslog, REST, or null device)</xs:documentation>
+                            <xs:documentation>Type of logger (SMTP, Syslog, REST, Console, or null device)</xs:documentation>
                           </xs:annotation>
                           <xs:simpleType>
                             <xs:restriction base="xs:string">
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.MailLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.SyslogLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.RestLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.ConsoleLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.OnlineLogLogger"/>
                             </xs:restriction>
                           </xs:simpleType>
@@ -1292,10 +1305,11 @@
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
                     <xs:annotation>
-                      <xs:documentation>Type of logger: SMTP, Syslog, REST</xs:documentation>
+                      <xs:documentation>Type of logger: SMTP, Syslog, REST, Console</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
+                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.RestLoggingHandlerWrapper"/>
