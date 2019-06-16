@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.ceridwen.selfissue</groupId>
     <artifactId>ceridwen-selfissue</artifactId>
-    <version>2.7-SNAPSHOT</version>
+    <version>2.7-update-sip2-and-jaxfront-dependencies-SNAPSHOT</version>
   </parent>
   <artifactId>ceridwen-selfissue-common</artifactId>
   
@@ -32,7 +32,7 @@
     <dependency>
       <groupId>com.ceridwen.circulation</groupId>
       <artifactId>ceridwen-standard-interchange-protocol-library</artifactId>
-      <version>2.9.4</version>
+      <version>2.9.6</version>
     </dependency>
     <dependency>
       <groupId>com.ceridwen.util</groupId>

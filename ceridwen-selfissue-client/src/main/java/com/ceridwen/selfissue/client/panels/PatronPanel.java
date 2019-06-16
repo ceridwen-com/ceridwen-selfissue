@@ -395,7 +395,7 @@ public class PatronPanelFocusTraversalPolicy
              request.getPatronIdentifier().equals(lastEnteredId))) {
           response = new PatronInformationResponse();
           response.setValidPatron(new Boolean(true));
-          response.getPatronStatus().unsetAll();
+          response.getPatronStatus().clear();
           response.setPersonalName(request.getPatronIdentifier());
           response.setPatronIdentifier(request.getPatronIdentifier());
         } else {
@@ -498,46 +498,46 @@ public class PatronPanelFocusTraversalPolicy
   }
 
   private boolean isBlocked(PatronStatus patronStatus) {
-	if (patronStatus.isSet(PatronStatus.CARD_REPORTED_LOST)) {
+	if (patronStatus.isCardReportedLost()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.CHARGE_PRIVILEGES_DENIED)) {
+	if (patronStatus.isChargePrivilegesDenied()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.EXCESSIVE_OUTSTANDING_FEES)) {
+	if (patronStatus.isExcessiveOutstandingFees()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.EXCESSIVE_OUTSTANDING_FINES)) {
+	if (patronStatus.isExcessiveOutstandingFines()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.HOLD_PRIVILIGES_DENIED)) {
+	if (patronStatus.isHoldPrivilegesDenied()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.RECALL_OVERDUE)) {
+	if (patronStatus.isRecallOverdue()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.RECALL_PRIVILIGES_DENIED)) {
+	if (patronStatus.isRecallPrivilegesDenied()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.RENEWAL_PRIVILIGES_DENIED)) {
+        if (patronStatus.isRenewalPrivilegesDenied()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOO_MANY_CLAIMS_OF_ITEMS_RETURNED)) {
+        if (patronStatus.isTooManyClaimsOfItemsReturned()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_BILLED)) {
+        if (patronStatus.isTooManyItemsBilled()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_CHARGED)) {
+        if (patronStatus.isTooManyItemsCharged()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_LOST)) {
+        if (patronStatus.isTooManyItemsLost()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOO_MANY_ITEMS_OVERDUE)) {
+        if (patronStatus.isTooManyItemsOverdue()) {
 		return true;
 	}
-	if (patronStatus.isSet(PatronStatus.TOO_MANY_RENEWALS)) {
+        if (patronStatus.isTooManyRenewals()) {
 		return true;
 	}
 	return false;

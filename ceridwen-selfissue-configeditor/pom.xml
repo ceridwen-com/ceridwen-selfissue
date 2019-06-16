@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.ceridwen.selfissue</groupId>
     <artifactId>ceridwen-selfissue</artifactId>
-    <version>2.7-SNAPSHOT</version>
+    <version>2.7-update-sip2-and-jaxfront-dependencies-SNAPSHOT</version>
   </parent>
   <artifactId>ceridwen-selfissue-configeditor</artifactId>
   
@@ -36,17 +36,17 @@
     <dependency>
       <groupId>org.jaxfront</groupId>
       <artifactId>jaxfront-core</artifactId>
-      <version>2.99.5</version>
+      <version>3.25</version>
     </dependency>
     <dependency>
       <groupId>org.jaxfront</groupId>
       <artifactId>jaxfront-swing</artifactId>
-      <version>2.99.5</version>
+      <version>3.25</version>
     </dependency>
     <dependency>
       <groupId>com.jgoodies</groupId>
-      <artifactId>looks</artifactId>
-      <version>2.2.2</version>
+      <artifactId>jgoodies-looks</artifactId>
+      <version>2.7.0</version>
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
@@ -72,6 +72,11 @@
       <groupId>${project.groupId}</groupId>
       <artifactId>ceridwen-selfissue-common</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.3</version>
     </dependency>
   </dependencies>
   
