@@ -855,6 +855,7 @@
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
+                        <xs:enumeration value="SSLSocket"/>
                         <xs:enumeration value="Socket"/>
                         <xs:enumeration value="Telnet"/>
                       </xs:restriction>
