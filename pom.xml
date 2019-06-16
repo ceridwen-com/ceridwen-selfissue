@@ -143,6 +143,8 @@
                                 <Built-By>${user.name}</Built-By>
                                 <Build-Date>${maven.build.timestamp}</Build-Date>
                                 <Implementation-Build-Date>${maven.build.timestamp}</Implementation-Build-Date>
+                                <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
+                                <Implementation-Built-By>${user.name}</Implementation-Built-By>
                             </manifestEntries>
                         </archive>
                     </configuration>
