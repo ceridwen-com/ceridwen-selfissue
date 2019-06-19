@@ -1,6 +1,7 @@
 **Version 2.6.10: 19/06/2019**
 Update pom to meet maven central requirments
 Deprecate netx
+Update copyright notices
 
 ﻿**Version 2.6.9: 16/06/2019 **
 CheckIn Panel fixes
