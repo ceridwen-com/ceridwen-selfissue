@@ -24,7 +24,7 @@
     <version>2.7.0-maven-central-prep-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Ceridwen SelfIssue</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>A Java Library Self Issue Client which can issue and return books via the 3M SIP2 Protocol</description>
     <inceptionYear>2004</inceptionYear>
     <url>https://software.ceridwen.com/redmine/projects/ceridwen-selfissue</url>
@@ -40,6 +40,15 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    
+    <developers>
+        <developer>
+            <name>Matthew J. Dovey</name>
+            <email>development@ceridwen.com</email>
+            <organization>Ceridwen Limited</organization>
+            <organizationUrl>http://www.ceridwen.com</organizationUrl>
+        </developer>
+    </developers>  
 
     <issueManagement>
         <system>Redmine</system>
@@ -48,7 +57,8 @@
 
     <scm>
         <url>https://software.ceridwen.com/redmine/projects/ceridwen-selfissue/repository</url>
-        <connection>scm:git:https://software.ceridwen.com/redmine/ceridwen-selfissue.git</connection>
+        <connection>scm:git:https://github.com/ceridwen-com/ceridwen-selfissue.git</connection>
+        <developerConnection>scm:git:https://software.ceridwen.com/redmine/cceridwen-selfissue.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -57,32 +67,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.build.timestamp.format>EEE, d MMMM, yyyy - HH:mm:ss zzz</maven.build.timestamp.format>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>ceridwen-libs-release</id>
-            <name>Ceridwen Release Repository</name>
-            <url>https://software.ceridwen.com/artifactory/libs-release</url>
-        </repository>
-        <repository>
-            <id>ceridwen-libs-snapshot</id>
-            <name>Ceridwen Snapshot Repository</name>
-            <url>https://software.ceridwen.com/artifactory/libs-snapshot</url>
-        </repository>
-    </repositories>
-  
-    <pluginRepositories>
-        <pluginRepository>
-            <id>ceridwen-plugins-release</id>
-            <name>Ceridwen Release Plugin Repository</name>
-            <url>https://software.ceridwen.com/artifactory/plugins-release</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>ceridwen-plugins-snapshot</id>
-            <name>Ceridwen Snapshot Plugin Repository</name>
-            <url>https://software.ceridwen.com/artifactory/plugins-snapshot</url>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -98,6 +82,15 @@
     </prerequisites> 
   
     <build>
+        <resources>
+            <resource>
+                <directory></directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>*.md</include>
+                </includes>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -163,11 +156,17 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.1.0</version>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.1.0</version>
+                    <configuration>
+                        <includePom>true</includePom>
+                    </configuration> 
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -268,6 +267,7 @@
         <module>ceridwen-selfissue-client</module>
         <module>ceridwen-selfissue-configeditor</module>
         <module>ceridwen-selfissue-bin</module>
+        <module>ceridwen-selfissue-thirdparty</module>
     </modules>
   
 </project>
