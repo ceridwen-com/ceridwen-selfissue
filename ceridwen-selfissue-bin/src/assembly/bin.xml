@@ -17,8 +17,8 @@
       <directory>../</directory>
       <includes>
         <include>README.md</include>
-        <include>LICENSE.txt</include>
-        <include>CHANGELOG.txt</include>
+        <include>LICENSE.md</include>
+        <include>CHANGELOG.md</include>
       </includes>
     </fileSet>  
   </fileSets>

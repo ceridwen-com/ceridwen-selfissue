@@ -1,19 +1,21 @@
-﻿Version 2.6.9: 16/06/2019 
+**Version 2.6.10: 19/06/2019**
+Update pom to meet maven central requirments
+Deprecate netx
+
+﻿**Version 2.6.9: 16/06/2019 **
 CheckIn Panel fixes
 Support variable field ordering
 Added console logging
 Updated dependencies
 
-
-Version 2.6.8: 20/02/2017
+**Version 2.6.8: 20/02/2017**
 Fixed Login SIP Message support
 
-Version 2.6.7: 23/04/2016  
+**Version 2.6.7: 23/04/2016**  
 Added support for configuring different charset encodings in the underlying SIP2 library 
 Update dependencies 
 
-
-Version 2.66: 27/07/2012 (447)
+**Version 2.66: 27/07/2012 (447)**
 Add warnings in ConfigEditor about configuration loss when resetting configuration to default or reloading configuration
 Add wait cursor when loading configuration in ConfigEditor
 Allow | as well as ¦ as command character for keyboards without ¦ character
@@ -32,8 +34,7 @@ Dependencies: ceridwen circulation 2.90
               jgoodies-looks 2.5.2
               xalan-j 2.7.1
 
-
-Version 2.65: 20/05/2012 (442)
+**Version 2.65: 20/05/2012 (442)**
 Added PersistentQueueImplementation configuration option for backwards compatibility
 Generate configuration editor documentation from config.xsd
 Added configuration help text to config.xsd (to display in editor)
@@ -52,8 +53,7 @@ Dependencies: ceridwen circulation 2.81
               jgoodies-looks 2.5.0
               xalan-j 2.7.1
 
-
-Version 2.62: 25/03/2012 (414)
+**Version 2.62: 25/03/2012 (414)**
 Bugfix: Wrong comparison in ConnectionFactory.releaseAll means that open connections will not be closed
 Update Ceridwen Utilities from 1.51 to 1.60
 Update Ceridwen Circulation from 2.80 to 2.81
@@ -67,8 +67,7 @@ Dependencies: ceridwen circulation 2.81
               jgoodies-looks 2.5.0
               xalan-j 2.7.1
 
-
-Version 2.61: 15/03/2012 (407)
+**Version 2.61: 15/03/2012 (407)**
 Bugfix: Client hangs during shutdown
 Dependencies: ceridwen circulation 2.80
               ceridwen utilities 1.51
@@ -80,7 +79,7 @@ Dependencies: ceridwen circulation 2.80
               jgoodies-looks 2.5.0
               xalan-j 2.7.1
 
-Version 2.60: 15/03/2012 (405)
+**Version 2.60: 15/03/2012 (405)**
 Update Ceridwen Utilities from 1.4 to 1.51
 Update Ceridwen Circulation from 2.7 to 2.8
 Update Apache Commons Lang3 from 3.0 to 3.1
@@ -96,13 +95,12 @@ Dependencies: ceridwen circulation 2.80
               jgoodies-looks 2.5.0
               xalan-j 2.7.1
 
-
-Version 2.50: 06/02/2012 (391) - Public Release
+**Version 2.50: 06/02/2012 (391) - Public Release**
 Added configuration editor
 Requires Ceridwen 3M SIP Circulation Library 2.7; Ceridwen Utilities Library 1.40
 Requires Java 7
 
-Version 2.40: 22/07/2011 (366)
+**Version 2.40: 22/07/2011 (366)**
 SelfIssue events can now be logged to Syslog
 SelfIssue exceptions can now be logged to Syslog
 Exceptions can now be sent to multiple log handlers
@@ -123,8 +121,7 @@ Bugfix: exception handlers are throttled if exceptions occur too rapidly
 Bugfix: Configuration error messages more informative
 Requires Ceridwen 3M SIP Circulation Library 2.60; Ceridwen Utilities Library 1.40
 
-
-Version 2.30: 3/11/2010 (255) - Public Release
+**Version 2.30: 3/11/2010 (255) - Public Release**
 Added new configuration options to conf.xml:
   Ability to change title text font and size
   New Palette section in UI to configure client colours
@@ -142,7 +139,7 @@ New commands added to command interface:
 Updated copyright notices to GPL3
 Requires Ceridwen 3M SIP Circulation Library 2.50; Ceridwen Utilities Library 1.20
 
-Version 2.20: 27/10/2010 (124)
+**Version 2.20: 27/10/2010 (124)**
 Added command line documentation and sample jnlp files for use with netx
 Updated deprecated Date.ToLocale() to use DateFormat.getDateInstance().format()
 Updated commons logging from 1.1 to 1.1.1
@@ -151,10 +148,10 @@ Updated commons beanutils from 1.7.0 to 1.8.3
 Updated xalan from 2.7.0 to 2.7.1
 Updated source code to JDK 1.6
 
-Version 2.15: 16/1/2007 (91)
+**Version 2.15: 16/1/2007 (91)**
 Bugfix: Added data and time of transaction in e-mailed events 
 
-Version 2.10: 3/6/2005 (66)
+**Version 2.10: 3/6/2005 (66)**
 Added support for InstitutionId in SIP messages (configured in conf.xml)
 Spooled SIP messages will now expire
 Added dialog for fatal configuration loading errors
@@ -163,4 +160,4 @@ Bugfix: Explicitly set TransactionDate in all messages (not just offline ones)
 Bugfix: changed handling of expiry of spooled objects to fix bug where object never expires
 Bugfix: Security device will be deactivated if BookPanel timesout
 
-Version 2.00: 25/10/2004 (58)
+**Version 2.00: 25/10/2004 (58)**
