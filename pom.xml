@@ -181,7 +181,7 @@
                             </goals>
                             <configuration>
                                 <descriptors>
-                                    <descriptor>src/assembly/bin.xml</descriptor>
+                                    <descriptor>src/main/assembly/bin.xml</descriptor>
                                 </descriptors>
                             </configuration>
                         </execution>
@@ -206,18 +206,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>2.7</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>webstart-maven-plugin</artifactId>
-                    <version>1.0-beta-7</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>keytool-api-1.7</artifactId>
-                            <version>1.5</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
                 <plugin>
                     <groupId>org.owasp</groupId>
