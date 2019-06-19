@@ -17,31 +17,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.ceridwen.selfissue</groupId>
         <artifactId>ceridwen-selfissue</artifactId>
         <version>2.7.0-maven-central-prep-SNAPSHOT</version>
     </parent>
-    <artifactId>ceridwen-selfissue-common</artifactId>
-  
+    <artifactId>ceridwen-selfissue-thirdparty</artifactId>
+    <packaging>pom</packaging>
+    
     <name>${project.groupId}:${project.artifactId}</name>
 
+    <repositories>
+        <repository>
+            <id>ceridwen-libs-release</id>
+            <name>Ceridwen Release Repository</name>
+            <url>https://software.ceridwen.com/artifactory/libs-release</url>
+ 
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <version>2.7.2</version>
+            <groupId>org.jaxfront</groupId>
+            <artifactId>jaxfront-core</artifactId>
+            <version>3.25</version>
         </dependency>
         <dependency>
-            <groupId>com.ceridwen.circulation</groupId>
-            <artifactId>ceridwen-standard-interchange-protocol-library</artifactId>
-            <version>2.9.7</version>
+            <groupId>org.jaxfront</groupId>
+            <artifactId>jaxfront-swing</artifactId>
+            <version>3.25</version>
         </dependency>
     </dependencies>
     <properties>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
     </properties>
-</project>  
-  
-  
+</project>
