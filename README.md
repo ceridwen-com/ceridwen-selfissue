@@ -48,38 +48,21 @@ The Client has an plug-in API to integrate with patron barcode readers, item bar
 
 For general problems please contact [development@ceridwen.com](mailto:development@ceridwen.com). For bugs and feature requests, please use our [online issue tracker]().
 
-## Automatic updates
-
-The Self Issue Client can also be run using NetX (an open source version of Java Web Start) to enable auto-updating of the client software. This is particularly useful for system administrators maintaining several client machines. 
-
-To configure this, copy the jnlp subdirectory to a central location on a web server, e.g. http://myserver/selfissue/jnlp/
-
-Edit `SelfIssue.jnlp` and `ConfigEditor.jnlp` and change the following lines to reflect the web server address
-
-```xml
-<jnlp
-    spec="1.0+"
-    codebase="http://myserver/selfissue/jnlp"
-    href="SelfIssue.jnlp">
-```
-
-Copy the `netx/netx.jar` file and the `conf` directory from the client distribution to the local machine.
-
-To run the configuration editor run:
-```bash
-java -Xbootclasspath/a:res -jar netx.jar -jnlp http://myserver/selfissue/jnlp/ConfigEditor.jnlp
-```
-
-**Note: **the configuration options are stored on the local machine
-
-To run the client, run:
-
-```bash
- java -Xbootclasspath/a:res -jar netx.jar -jnlp  http://myserver/selfissue/jnlp/SelfIssue.jnlp
-```
-
-If you wish to run against a Ceridwen.com maintained distribution please contact development@ceridwen.com.
-
 ## License
 
 The Ceridwen Self Issue Client is available as open source under [GPL v3](http://www.gnu.org/licenses/gpl.html). Contact [development@ceridwen.com](mailto:development@ceridwen.com) for other licensing options.
+
+> Copyright (C) 2019 Ceridwen Limited
+>
+> This program is free software: you can redistribute it and/or modify
+> it under the terms of the GNU General Public License as published by
+> the Free Software Foundation, either version 3 of the License, or
+> (at your option) any later version.
+>
+> This program is distributed in the hope that it will be useful,
+> but WITHOUT ANY WARRANTY; without even the implied warranty of
+> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> GNU General Public License for more details.
+>
+> You should have received a copy of the GNU General Public License
+> along with this program.  If not, see <http://www.gnu.org/licenses/>.
