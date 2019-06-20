@@ -82,15 +82,6 @@
     </prerequisites> 
   
     <build>
-        <resources>
-            <resource>
-                <directory></directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>*.md</include>
-                </includes>
-            </resource>
-        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
