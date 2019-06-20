@@ -208,8 +208,8 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     BuildVersion.setBorder(border2);
     BuildVersion.setHorizontalAlignment(SwingConstants.RIGHT);
     LibraryRegistry registry = new LibraryRegistry();
-    LibraryIdentifier selfissueID = new LibraryIdentifier("com.ceridwen.selfissue", "Ceridwen Self Issue Client");
-    BuildVersion.setText(registry.getLibraryName(selfissueID) + " " +
+    LibraryIdentifier selfissueID = new LibraryIdentifier("com.ceridwen.selfissue", "com.ceridwen.selfissue:ceridwen-selfissue-client");
+    BuildVersion.setText(registry.getLibraryVendorId(selfissueID) + " " +
                          registry.getLibraryVersion(selfissueID) + " (" +
     					 registry.getLibraryBuildDate(selfissueID) + ")");
     StatusPanel.setLayout(borderLayout1);
