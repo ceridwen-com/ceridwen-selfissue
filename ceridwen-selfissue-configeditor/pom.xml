@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
-            <version>2.12.0</version>
+            <version>2.12.2</version>
         </dependency>
         <dependency>
             <groupId>org.magicwerk</groupId>
