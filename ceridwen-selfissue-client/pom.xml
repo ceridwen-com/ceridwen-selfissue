@@ -37,19 +37,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-common</artifactId>
         </dependency>
-    </dependencies>
+	    <dependency>
+	        <groupId>net.java.dev.jna</groupId>
+	        <artifactId>jna-platform</artifactId>
+	        <version>5.14.0</version>
+	    </dependency>
+	</dependencies>
 
     <build>
         <plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<compilerArgs>
-						<arg>--add-modules</arg>
-						<arg>java.smartcardio</arg>
-					</compilerArgs>
-				</configuration>
-			</plugin>		
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgs>
+                        <arg>--add-modules</arg>
+                        <arg>java.smartcardio</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>		
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
