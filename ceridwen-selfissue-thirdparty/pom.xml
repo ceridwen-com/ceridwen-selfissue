@@ -26,13 +26,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <packaging>pom</packaging>
     
     <name>${project.groupId}:${project.artifactId}</name>
-
+	
+    <prerequisites>
+        <maven>3.9</maven>
+    </prerequisites> 
+    
     <repositories>
         <repository>
             <id>ceridwen-libs-release</id>
             <name>Ceridwen Release Repository</name>
-            <url>https://software.ceridwen.com/artifactory/libs-release</url>
- 
+            <url>https://artifactory.ceridwen.com/artifactory/libs-release</url>
         </repository>
     </repositories>
     <dependencies>
