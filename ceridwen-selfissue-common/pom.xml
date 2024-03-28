@@ -27,16 +27,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   
     <name>${project.groupId}:${project.artifactId}</name>
 
+   <prerequisites>
+        <maven>3.9</maven>
+    </prerequisites> 
+
     <dependencies>
         <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
-            <version>2.7.2</version>
+            <version>2.7.3</version>
         </dependency>
         <dependency>
             <groupId>com.ceridwen.circulation</groupId>
             <artifactId>ceridwen-standard-interchange-protocol-library</artifactId>
-            <version>2.9.7</version>
+            <version>2.10.0</version>
         </dependency>
     </dependencies>
     <properties>
