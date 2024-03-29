@@ -23,6 +23,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -55,6 +57,11 @@ import com.jaxfront.swing.ui.editor.EditorPanel;
 import com.jaxfront.swing.ui.editor.ShowXMLDialog;
 import com.jgoodies.looks.HeaderStyle;
 import com.jgoodies.looks.Options;
+
+class NullOutputStream extends OutputStream {
+  @Override
+  public void write(int b) throws IOException {}
+}
 
 /*****************************************************************************************************************************************************
  * JAXFront Integration Example and use of the EditorPanel API.
@@ -134,6 +141,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
 		} catch (Throwable t) {
 		}
+		System.setOut(new PrintStream((OutputStream)new NullOutputStream()));
 		new Editor();
 	}
 
