@@ -25,27 +25,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </parent>
     <artifactId>ceridwen-selfissue-common</artifactId>
   
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>${project.groupId}:${project.artifactId}</name> 
 
-   <prerequisites>
-        <maven>3.9</maven>
-    </prerequisites> 
+    <properties>
+        <netbeans.hint.license>gpl30</netbeans.hint.license>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
-            <version>2.7.3</version>
         </dependency>
         <dependency>
             <groupId>com.ceridwen.circulation</groupId>
             <artifactId>ceridwen-standard-interchange-protocol-library</artifactId>
-            <version>2.10.0</version>
         </dependency>
     </dependencies>
-    <properties>
-        <netbeans.hint.license>gpl30</netbeans.hint.license>
-    </properties>
+
 </project>  
   
   

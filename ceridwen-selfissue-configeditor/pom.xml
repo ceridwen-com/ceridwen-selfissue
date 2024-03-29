@@ -28,55 +28,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <name>${project.groupId}:${project.artifactId}</name>
 
     <properties>
-        <jnlp.codebase>http://myserver/selfissue/jnlp</jnlp.codebase>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
     </properties>
-	
-    <prerequisites>
-        <maven>3.9</maven>
-    </prerequisites> 
     
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-thirdparty</artifactId>
-            <version>${project.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
             <groupId>com.jgoodies</groupId>
             <artifactId>jgoodies-looks</artifactId>
-            <version>2.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xerces</artifactId>
-            <version>2.4.0</version>
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
-            <version>2.12.2</version>
         </dependency>
         <dependency>
-            <groupId>org.magicwerk</groupId>
+            <groupId>org.magicwerk.brownies</groupId>
             <artifactId>brownies-collections</artifactId>
-            <version>0.9.16</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
         </dependency>
     </dependencies>
   
