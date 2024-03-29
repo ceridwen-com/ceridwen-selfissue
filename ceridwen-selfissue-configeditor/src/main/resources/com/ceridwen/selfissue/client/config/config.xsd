@@ -20,7 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <xs:element name="SelfIssue">
     <xs:annotation>
       <xs:documentation>The SelfIssue Configuration Editor provides a GUI editor for the contents of the config.xml file for the Self Issue Client. On running the editor it will automatically load the current config.xml values.</xs:documentation>
-      <xs:documentation>Menu options: Reload - loads the values stored in the config.xml file (i.e. undoes any edits): Save - saves any changes to the config.xml file; Default - loads the default settings (stored in default.xml); View XML - displays the XML file of the currently loaded values</xs:documentation>
+      <xs:documentation>
+          Menu options:<br/> 
+          <img src="images/reload.png" style="width:32px"/>Reload - loads the values stored in the config.xml file (i.e. undoes any edits);<br/>
+          <img src="images/save.png" style="width:32px"/>Save - saves any changes to the config.xml file;<br/> 
+          <img src="images/default.png" style="width:32px"/>Default - loads the default settings (stored in default.xml);<br/> 
+          <img src="images/viewxml.png" style="width:32px"/>View XML - displays the XML file of the currently loaded values.
+      </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:sequence>
@@ -1300,10 +1306,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>URL (for REST logging)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="winEventServer" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Remote server (leave blank for local machine)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
                     <xs:annotation>
-                      <xs:documentation>Type of logger: SMTP, Syslog, REST, Console</xs:documentation>
+                      <xs:documentation>Type of logger: SMTP, Syslog, REST, Console, Windows Event Log</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
@@ -1311,6 +1322,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
                         <xs:enumeration value="com.ceridwen.selfissue.client.logging.RestLoggingHandlerWrapper"/>
+                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.WinEventLogLoggingHandlerWrapper"/>
                       </xs:restriction>
                     </xs:simpleType>
                   </xs:attribute>
