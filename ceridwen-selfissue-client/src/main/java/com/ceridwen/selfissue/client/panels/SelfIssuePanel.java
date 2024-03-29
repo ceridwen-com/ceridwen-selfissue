@@ -16,8 +16,7 @@
  */
 package com.ceridwen.selfissue.client.panels;
 
-import java.applet.Applet;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.swing.JPanel;
@@ -27,6 +26,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ceridwen.selfissue.client.config.Configuration;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * <p>Title: RTSI</p>
@@ -53,7 +58,7 @@ public class SelfIssuePanel extends JPanel {
 	 */
 	
 
-private static Log log = LogFactory.getLog(SelfIssuePanel.class);
+private static final Log log = LogFactory.getLog(SelfIssuePanel.class);
 
   public static final boolean trustMode = Configuration.getBoolProperty("Modes/TrustMode");
   public static final boolean allowOffline = Configuration.getBoolProperty("Modes/AllowOffline");
@@ -83,19 +88,23 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
       if (StringUtils.isEmpty(snd)) {
         return;
       }
-      Applet.newAudioClip(Configuration.LoadResource(snd)).play();
-    } catch (Exception ex) {
+      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Configuration.LoadResource(snd));
+      Clip clip = AudioSystem.getClip();
+      clip.open(audioInputStream);
+      clip.start();
+    } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
       log.debug("Sound object not found");
     }
   }
 
-  private transient Vector<SelfIssuePanelListener> selfIssuePanelListeners;
+  private transient ArrayList<SelfIssuePanelListener> selfIssuePanelListeners;
   
   public synchronized void addSelfIssuePanelListener(SelfIssuePanelListener l) {
     @SuppressWarnings("unchecked")
-	  Vector<SelfIssuePanelListener> v = ((selfIssuePanelListeners == null)?new Vector<SelfIssuePanelListener>(2):(Vector<SelfIssuePanelListener>)selfIssuePanelListeners.clone());
+    ArrayList<SelfIssuePanelListener> v;
+    v = ((selfIssuePanelListeners == null)?new ArrayList<>(2):(ArrayList<SelfIssuePanelListener>)selfIssuePanelListeners.clone());
     if (!v.contains(l)) {
-      v.addElement(l);
+      v.add(l);
       selfIssuePanelListeners = v;
     }
   }
@@ -103,8 +112,9 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   public synchronized void removeSelfIssuePanelListener(SelfIssuePanelListener l) {
     if (selfIssuePanelListeners != null && selfIssuePanelListeners.contains(l)) {
       @SuppressWarnings("unchecked")
-	    Vector<SelfIssuePanelListener> v = (Vector<SelfIssuePanelListener>) selfIssuePanelListeners.clone();
-      v.removeElement(l);
+      ArrayList<SelfIssuePanelListener> v;
+      v = (ArrayList<SelfIssuePanelListener>) selfIssuePanelListeners.clone();
+      v.remove(l);
       selfIssuePanelListeners = v;
     }
   }
@@ -115,10 +125,11 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   
   protected void firePanelChange(SelfIssuePanelEvent e) {
     if (selfIssuePanelListeners != null) {
-      Vector<SelfIssuePanelListener> listeners = selfIssuePanelListeners;
+      ArrayList<SelfIssuePanelListener> listeners;
+      listeners = selfIssuePanelListeners;
       int count = listeners.size();
       for (int i = 0; i < count; i++) {
-        ((SelfIssuePanelListener) listeners.elementAt(i)).PanelChange(e);
+        ((SelfIssuePanelListener) listeners.get(i)).PanelChange(e);
       }
     }
   }
@@ -127,7 +138,7 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
 	    if (StringUtils.isEmpty(s)) {
 	    	return "";
   		}
-	    StringBuffer sb = new StringBuffer();
+	    StringBuilder sb = new StringBuilder();
 	    int n = s.length();
 	    for (int i = 0; i < n ; i++) {
 	      char c = s.charAt(i);

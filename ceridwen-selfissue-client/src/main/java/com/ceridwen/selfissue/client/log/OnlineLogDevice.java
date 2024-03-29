@@ -24,6 +24,7 @@ import com.ceridwen.circulation.SIP.messages.Message;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.util.collections.Spooler;
 import com.ceridwen.util.collections.Queue;
+import java.net.UnknownHostException;
 
 /**
  * <p>Title: RTSI</p>
@@ -35,8 +36,8 @@ import com.ceridwen.util.collections.Queue;
  */
 
 public class OnlineLogDevice implements OnlineLog {
-  private Spooler<OnlineLogEvent> spool;
-  private OnlineLogLogger processor;
+  private final Spooler<OnlineLogEvent> spool;
+  private final OnlineLogLogger processor;
   private static final long delay = 10000;
 
   public OnlineLogDevice(String file, OnlineLogLogger processor, int period) throws IOException, ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
@@ -45,9 +46,10 @@ public class OnlineLogDevice implements OnlineLog {
     @SuppressWarnings("unchecked")
 	Queue<OnlineLogEvent> persistentQueue = ((Queue<OnlineLogEvent>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file}));
     
-    spool = new Spooler<OnlineLogEvent>(persistentQueue, this.processor, delay, period);
+    spool = new Spooler<>(persistentQueue, this.processor, delay, period);
   }
 
+  @Override
   public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response) throws IOException {
     OnlineLogEvent ev = new OnlineLogEvent();
     ev.setLevel(level);
@@ -58,7 +60,7 @@ public class OnlineLogDevice implements OnlineLog {
     ev.setAddInfo(addInfo);
     try {
       ev.setSource(java.net.InetAddress.getLocalHost().getHostName());
-    } catch (Exception ex) {
+    } catch (UnknownHostException ex) {
 
     }
     ev.setTimeStamp(new java.util.Date());
@@ -66,8 +68,9 @@ public class OnlineLogDevice implements OnlineLog {
       spool.add(ev);
     }
   }
-  protected void finalize() throws java.lang.Throwable {
+  
+  @Override
+  public void close() {
     spool.cancelScheduler();
-    super.finalize();
   }
 }

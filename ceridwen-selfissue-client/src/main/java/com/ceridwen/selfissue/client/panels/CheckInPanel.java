@@ -55,6 +55,7 @@ import com.ceridwen.selfissue.client.devices.FailureException;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.devices.TimeoutException;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
+import java.util.Arrays;
 
 public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListener {
     /**
@@ -241,7 +242,8 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             this.enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
             this.startItemIDReader();
         } catch (Exception e) {
-            e.printStackTrace();
+            CheckInPanel.log.fatal("Checkin Panel Failure: " + e.getMessage() + " - " +
+                    Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -450,7 +452,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             request.setItemIdentifier(CheckInPanel.strim(this.BookField.getText()));
             request.setTransactionDate(new Date());
             request.setReturnDate(new Date());
-            request.setNoBlock(new Boolean(false));
+            request.setNoBlock(false);
             if (StringUtils.isEmpty(request.getItemIdentifier()) ||
                     request.getItemIdentifier().equals(this.lastCheckedInId)) {
                 this.BookField.setText("");
@@ -477,7 +479,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
                 throw new CheckinConnectionFailed();
             }
 
-            if (!((response.isOk() != null) ? response.isOk().booleanValue() : false)) {
+            if (!((response.isOk() != null) ? response.isOk() : false)) {
                 throw new CheckinFailed();
             } else {
                 this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINSUCCESS, "", new Date(), request, response);
@@ -485,9 +487,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
 
             try {
                 this.lockItem();
-            } catch (TimeoutException ex) {
-                throw new LockFailed();
-            } catch (FailureException ex) {
+            } catch (TimeoutException | FailureException ex) {
                 throw new LockFailed();
             }
             this.PlaySound("CheckinSuccess");
@@ -497,7 +497,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
                                     response.getTitleIdentifier() :
                                     response.getItemIdentifier(), StringUtils.isNotEmpty(response.getScreenMessage()) ?
                                     response.getScreenMessage() : "" }));
-            this.lastCheckedInId = new String(request.getItemIdentifier());
+            this.lastCheckedInId = request.getItemIdentifier();
         } catch (InvalidItemBarcode ex) {
             this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Invalid Barcode Entered", new Date(), request, response);
             this.PlaySound("InvalidItemBarcode");
@@ -534,7 +534,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
                     request.getItemIdentifier()
             }));
             CheckInPanel.log.fatal("Checkin failure: " + ex.getMessage() + " - " +
-                    ex.getStackTrace());
+                    Arrays.toString(ex.getStackTrace()));
         }
         // lastEnteredId = new String(request.getItemIdentifier());
         this.StatusText.setText(finalStatusText);
@@ -570,12 +570,6 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
     public void requestFocus() {
         super.requestFocus();
         this.BookField.requestFocus();
-    }
-
-    @Override
-    protected void finalize() throws java.lang.Throwable {
-        this.stopItemIDReader();
-        super.finalize();
     }
 
     @Override

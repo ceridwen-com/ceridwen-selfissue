@@ -58,6 +58,7 @@ import com.ceridwen.selfissue.client.devices.FailureException;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.devices.TimeoutException;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
+import java.util.Arrays;
 
 public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListener {
     /**
@@ -76,6 +77,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     public class CheckOutPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
+        @Override
         public Component getComponentAfter(Container focusCycleRoot,
                                           Component aComponent) {
             if (aComponent.equals(CheckOutPanel.this.BookField)) {
@@ -88,6 +90,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             return CheckOutPanel.this.BookField;
         }
 
+        @Override
         public Component getComponentBefore(Container focusCycleRoot,
                                       Component aComponent) {
             if (aComponent.equals(CheckOutPanel.this.BookField)) {
@@ -100,14 +103,17 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             return CheckOutPanel.this.BookField;
         }
 
+        @Override
         public Component getDefaultComponent(Container focusCycleRoot) {
             return CheckOutPanel.this.BookField;
         }
 
+        @Override
         public Component getLastComponent(Container focusCycleRoot) {
             return CheckOutPanel.this.NextButton;
         }
 
+        @Override
         public Component getFirstComponent(Container focusCycleRoot) {
             return CheckOutPanel.this.BookField;
         }
@@ -273,7 +279,8 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             this.enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
             this.startItemIDReader();
         } catch (Exception e) {
-            e.printStackTrace();
+            CheckOutPanel.log.fatal("CheckOut Panel Failure: " + e.getMessage() + " - " +
+                    Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -456,7 +463,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                                      Configuration.getMessage("NoDueDateMessage",
                                              new String[] {}))
                              );
-        this.lastCheckedOutId = new String(request.getItemIdentifier());
+        this.lastCheckedOutId = request.getItemIdentifier();
     }
 
     void CheckoutButton_actionPerformed(ActionEvent e) {
@@ -488,10 +495,10 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             request.setPatronIdentifier(this.PatronID);
             request.setPatronPassword(this.PatronPassword);
             request.setItemIdentifier(CheckOutPanel.strim(this.BookField.getText()));
-            request.setSCRenewalPolicy(new Boolean(SelfIssuePanel.allowRenews || SelfIssuePanel.trustMode));
+            request.setSCRenewalPolicy(SelfIssuePanel.allowRenews || SelfIssuePanel.trustMode);
             request.setTransactionDate(new Date());
             if (SelfIssuePanel.trustMode) {
-                request.setNoBlock(new Boolean(SelfIssuePanel.useNoBlock));
+                request.setNoBlock(SelfIssuePanel.useNoBlock);
             }
             if (StringUtils.isEmpty(request.getItemIdentifier()) ||
                     request.getItemIdentifier().equals(this.lastCheckedOutId)) {
@@ -519,20 +526,20 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                     // Network failing so cache request and fake positive
                     // response
                     request.setTransactionDate(new Date());
-                    request.setNoBlock(new Boolean(SelfIssuePanel.useNoBlock));
+                    request.setNoBlock(SelfIssuePanel.useNoBlock);
                     this.handler.spool(request);
                     response = new CheckOutResponse();
                     response.setItemIdentifier(request.getItemIdentifier());
                     response.setTitleIdentifier(request.getItemIdentifier());
                     response.setPatronIdentifier(request.getPatronIdentifier());
                     response.setDueDate("");
-                    response.setOk(new Boolean(true));
+                    response.setOk(true);
                 } else {
                     throw new CheckoutConnectionFailed();
                 }
             }
 
-            if (!((response.isOk() != null) ? response.isOk().booleanValue() : false)) {
+            if (!((response.isOk() != null) ? response.isOk() : false)) {
                 if (SelfIssuePanel.trustMode &&
                         (!SelfIssuePanel.retryItemWhenError ||
                         request.getItemIdentifier().equals(this.lastEnteredId))) {
@@ -548,9 +555,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
 
             try {
                 this.unlockItem();
-            } catch (TimeoutException ex) {
-                throw new UnlockFailed();
-            } catch (FailureException ex) {
+            } catch (TimeoutException | FailureException ex) {
                 throw new UnlockFailed();
             }
 
@@ -592,12 +597,12 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             try {
                 CheckIn checkin = new CheckIn();
                 checkin.setItemIdentifier(request.getItemIdentifier());
-                checkin.setCancel(new Boolean(true));
+                checkin.setCancel(true);
                 checkinr = (CheckInResponse) this.handler.send(checkin);
                 if (checkinr == null) {
                     throw new CheckinConnectionFailed("Null response");
                 }
-                if (!((checkinr.isOk() != null) ? checkinr.isOk().booleanValue() : false)) {
+                if (!((checkinr.isOk() != null) ? checkinr.isOk() : false)) {
                     throw new CheckinConnectionFailed((checkinr.getScreenMessage() != null) ?
                                             checkinr.getScreenMessage() :
                                             "No message");
@@ -608,7 +613,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                         new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
                                 response.getTitleIdentifier() :
                                 response.getItemIdentifier() }));
-            } catch (Exception ex1) {
+            } catch (CheckinConnectionFailed ex1) {
                 this.handler.recordEvent(OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE, "", new Date(), request, checkinr);
                 if (SelfIssuePanel.suppressSecurityFailureMessages) {
                     this.reportSuccess(request, response);
@@ -621,7 +626,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                                     response.getItemIdentifier() }));
                 }
                 CheckOutPanel.log.fatal("Check back in failure: " + ex1.getMessage() + " - " +
-                        ex1.getStackTrace(), ex1);
+                        Arrays.toString(ex1.getStackTrace()), ex1);
             }
         } catch (Exception ex) {
             if (SelfIssuePanel.trustMode) {
@@ -636,9 +641,9 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 }));
             }
             CheckOutPanel.log.fatal("Unexpected checkout failure: " + ex.getMessage() + " - " +
-                    ex.getStackTrace(), ex);
+                    Arrays.toString(ex.getStackTrace()), ex);
         }
-        this.lastEnteredId = new String(request.getItemIdentifier());
+        this.lastEnteredId = request.getItemIdentifier();
         this.StatusText.setText(finalStatusText);
         this.BookField.setText("");
         this.BookField.requestFocus();
@@ -692,11 +697,13 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         }
     }
 
+    @Override
     public void grabFocus() {
         super.grabFocus();
         this.BookField.grabFocus();
     }
 
+    @Override
     public void requestFocus() {
         super.requestFocus();
         this.BookField.requestFocus();
@@ -718,12 +725,9 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.handler.deinitItemSecurityDevice();
     }
 
-    protected void finalize() throws java.lang.Throwable {
-        this.stopItemIDReader();
-        super.finalize();
-    }
-
-    Stack<String> repeatPreventer = new Stack<String>();
+    Stack<String> repeatPreventer = new Stack<>();
+    
+    @Override
     public void autoInputData(String serial, String passcode) {
         if (!repeatPreventer.contains(serial)) {
             repeatPreventer.push(serial);
@@ -734,48 +738,52 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
 }
 
 class BookPanel_NextButton_actionAdapter implements java.awt.event.ActionListener {
-    private CheckOutPanel adaptee;
+    private final CheckOutPanel adaptee;
 
     BookPanel_NextButton_actionAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         this.adaptee.NextButton_actionPerformed(e);
     }
 }
 
 class BookPanel_CheckinButton_actionAdapter implements java.awt.event.ActionListener {
-    private CheckOutPanel adaptee;
+    private final CheckOutPanel adaptee;
 
     BookPanel_CheckinButton_actionAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         this.adaptee.CheckinButton_actionPerformed(e);
     }
 }
 
 class BookPanel_CheckoutButton_actionAdapter implements java.awt.event.ActionListener {
-    private CheckOutPanel adaptee;
+    private final CheckOutPanel adaptee;
 
     BookPanel_CheckoutButton_actionAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         this.adaptee.CheckoutButton_actionPerformed(e);
     }
 }
 
 class BookPanel_BookField_keyAdapter extends java.awt.event.KeyAdapter {
-    private CheckOutPanel adaptee;
+    private final CheckOutPanel adaptee;
 
     BookPanel_BookField_keyAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void keyTyped(KeyEvent e) {
         this.adaptee.BookField_keyTyped(e);
     }
