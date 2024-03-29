@@ -32,4 +32,5 @@ import com.ceridwen.circulation.SIP.messages.Message;
 
 public interface OnlineLog {
   void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request, Message response) throws IOException;
+  void close();
 }

@@ -27,6 +27,9 @@ import javax.swing.SwingConstants;
 import com.ceridwen.selfissue.client.SelfIssueFrame;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
+import java.util.Arrays;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Title: </p>
@@ -53,6 +56,8 @@ public class OutOfOrderPanel extends SelfIssuePanel
 /**
 	 * 
 	 */
+        
+        private static final Log log = LogFactory.getLog(OutOfOrderPanel.class);
 	
 private BorderLayout borderLayout1 = new BorderLayout();
   private JLabel jLabel1 = new JLabel();
@@ -61,7 +66,8 @@ private BorderLayout borderLayout1 = new BorderLayout();
     try {
       jbInit();
     } catch (Exception exception) {
-      exception.printStackTrace();
+            OutOfOrderPanel.log.fatal("Checkin Panel Failure: " + exception.getMessage() + " - " +
+                    Arrays.toString(exception.getStackTrace()));        
     }
   }
 
@@ -90,39 +96,44 @@ private BorderLayout borderLayout1 = new BorderLayout();
   void OutOfOrderPanel_keyTyped(KeyEvent e){
       if (Configuration.getBoolProperty("CommandInterface/AllowResetOutOfOrder")) {
 		  char ch = e.getKeyChar();
-		  if (ch == '¦') {
-			  if (command.toString().equals("*Reset Out Of Order")) {
-			        SelfIssueFrame.setOnTop(false);
-			        PasswordDialog ResetConfirmation = new PasswordDialog("Please enter system password");
-			        ResetConfirmation.clearPassword();
-			        ResetConfirmation.setVisible(true);
-			        if (ResetConfirmation.getPassword().equals(Configuration.Decrypt(
-			            Configuration.getProperty(
-			                "CommandInterface/SystemPassword")))) {
-				        SelfIssueFrame.setOnTop(true);
-				        SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
-				        this.firePanelChange(ev);			  
-			        }
-			        SelfIssueFrame.setOnTop(true);
-			  }
-			  command.delete(0, command.length());
-		  } else if (ch == '*') {
-			  command.delete(0, command.length());
-			  command.append(ch);
-		  } else {
-			  command.append(ch);
-		  }
+          switch (ch) {
+              case '¦':
+                  if (command.toString().equals("*Reset Out Of Order")) {
+                      SelfIssueFrame.setOnTop(false);
+                      PasswordDialog ResetConfirmation = new PasswordDialog("Please enter system password");
+                      ResetConfirmation.clearPassword();
+                      ResetConfirmation.setVisible(true);
+                      if (ResetConfirmation.getPassword().equals(Configuration.Decrypt(
+                              Configuration.getProperty(
+                                      "CommandInterface/SystemPassword")))) {
+                          SelfIssueFrame.setOnTop(true);
+                          SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
+                          this.firePanelChange(ev);
+                      }
+                      SelfIssueFrame.setOnTop(true);
+                  }
+                  command.delete(0, command.length());
+                  break;
+              case '*':
+                  command.delete(0, command.length());
+                  command.append(ch);
+                  break;
+              default:
+                  command.append(ch);
+                  break;
+          }
       }
   }
 }
 
 
 class OutOfOrderPanel_keyAdapter extends java.awt.event.KeyAdapter {
-	  private OutOfOrderPanel adaptee;
+	  private final OutOfOrderPanel adaptee;
 
 	  OutOfOrderPanel_keyAdapter(OutOfOrderPanel adaptee) {
 	    this.adaptee = adaptee;
 	  }
+          @Override
 	  public void keyTyped(KeyEvent e) {
 	    adaptee.OutOfOrderPanel_keyTyped(e);
 	  }

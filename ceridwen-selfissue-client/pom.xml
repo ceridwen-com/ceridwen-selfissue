@@ -30,17 +30,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <properties>
         <jnlp.codebase>http://myserver/selfissue/jnlp/</jnlp.codebase>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
-    </properties>
-	
-    <prerequisites>
-        <maven>3.9</maven>
-    </prerequisites> 
+    </properties> 
     
 	<dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

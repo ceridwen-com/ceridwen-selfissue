@@ -41,6 +41,7 @@ import com.ceridwen.selfissue.client.core.ConnectionFactory;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 import com.ceridwen.util.versioning.LibraryIdentifier;
+import java.util.Arrays;
 
 
 /**
@@ -94,14 +95,17 @@ public class PatronPanelFocusTraversalPolicy
          return PatronField;
        }
 
+       @Override
        public Component getDefaultComponent(Container focusCycleRoot) {
            return PatronField;
        }
 
+       @Override
        public Component getLastComponent(Container focusCycleRoot) {
            return ResetButton;
        }
 
+       @Override
        public Component getFirstComponent(Container focusCycleRoot) {
            return PatronField;
        }
@@ -195,7 +199,7 @@ public class PatronPanelFocusTraversalPolicy
   }
 
 
-  private static Log log = LogFactory.getLog(PatronPanel.class);
+  private static final Log log = LogFactory.getLog(PatronPanel.class);
 
   private JPanel NavigationPanel = new JPanel();
   private BorderLayout PatronBorderLayout = new BorderLayout();
@@ -230,7 +234,8 @@ public class PatronPanelFocusTraversalPolicy
       this.startPatronIDReader();
     }
     catch(Exception e) {
-      e.printStackTrace();
+            PatronPanel.log.fatal("Patron Panel Failure: " + e.getMessage() + " - " +
+                    Arrays.toString(e.getStackTrace()));
     }
   }
   private void jbInit() throws Exception {
@@ -392,7 +397,7 @@ public class PatronPanelFocusTraversalPolicy
             (!retryPatronWhenError ||
              request.getPatronIdentifier().equals(lastEnteredId))) {
           response = new PatronInformationResponse();
-          response.setValidPatron(new Boolean(true));
+          response.setValidPatron(true);
           response.getPatronStatus().clear();
           response.setPersonalName(request.getPatronIdentifier());
           response.setPatronIdentifier(request.getPatronIdentifier());
@@ -401,7 +406,7 @@ public class PatronPanelFocusTraversalPolicy
         }
       }
       if (! ( (response.isValidPatron() != null) ?
-             response.isValidPatron().booleanValue() : false)) {
+              response.isValidPatron() : false)) {
         if (trustMode &&
             (!retryPatronWhenError ||
              request.getPatronIdentifier().equals(lastEnteredId))) {
@@ -535,10 +540,7 @@ public class PatronPanelFocusTraversalPolicy
         if (patronStatus.isTooManyItemsOverdue()) {
 		return true;
 	}
-        if (patronStatus.isTooManyRenewals()) {
-		return true;
-	}
-	return false;
+	return patronStatus.isTooManyRenewals();
   }
 private static String strim(String string) {
     String intermediate = string.trim();
@@ -557,170 +559,174 @@ private static String strim(String string) {
   }
 
   private static String convert(String command) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     boolean lowercase = false;
     for (int n = 0; n < command.length(); n++) {
-      if (command.charAt(n) == '$') {
-        buffer.append('*');
-      } else if (command.charAt(n) == '%') {
-        ; // i.e. strim
-      } else if (command.charAt(n) == ' ') {
-        buffer.append(' ');
-        lowercase = false;
-      } else {
-        if (lowercase) {
-          buffer.append(Character.toString(command.charAt(n)).toLowerCase());
-        } else {
-          buffer.append(command.charAt(n));
-          lowercase = true;
+        switch (command.charAt(n)) {
+            case '$':
+                buffer.append('*');
+                break;
+            case '%':
+                ; // i.e. strim
+                break;
+            case ' ':
+                buffer.append(' ');
+                lowercase = false;
+                break;
+            default:
+                if (lowercase) {
+                    buffer.append(Character.toString(command.charAt(n)).toLowerCase());
+                } else {
+                    buffer.append(command.charAt(n));
+                    lowercase = true;
+                }       break;
         }
-      }
     }
     return buffer.toString();
   }
 
   private boolean commandProcessor(String command) {
-    if (command.equals("*Test Connection")) {
-      if (Configuration.getBoolProperty("CommandInterface/AllowConnectionTest")) {
-        this.PatronText.setText(handler.checkStatus(0));
-        return true;
-      }
-    } else if (command.equals("*Shutdown System")) {
-      if (Configuration.getBoolProperty("CommandInterface/AllowSystemShutdown")) {
-        SelfIssueFrame.setOnTop(false);
-        PasswordDialog ShutdownConfirmation = new PasswordDialog("Please enter system password");
-        ShutdownConfirmation.clearPassword();
-        ShutdownConfirmation.setVisible(true);
-        if (ShutdownConfirmation.getPassword().equals(Configuration.Decrypt(
-            Configuration.getProperty(
-                "CommandInterface/SystemPassword")))) {
-          System.exit(0);
-        }
-        SelfIssueFrame.setOnTop(true);
-        return true;
-      }
-    } else if (command.equals("*About")) {
-      com.ceridwen.util.versioning.AboutDialog dlg = new com.ceridwen.util.versioning.AboutDialog(null, true, new LibraryIdentifier("com.ceridwen", "Ceridwen Self Issue Client"));
-      SelfIssueFrame.setOnTop(false);
-      dlg.setSize(800, 600);
-      dlg.setVisible(true);
-      SelfIssueFrame.setOnTop(true);
-      return true;
-    } else if (command.equals("*Check Systems")) {
-      if (Configuration.getBoolProperty("CommandInterface/AllowSystemsCheck")) {
-        StringBuffer data = new StringBuffer();
-/*TODO        
-        if (handler.getRFIDDeviceClass() != null) {
-          data.append("RFID: " +
-                      handler.getRFIDDeviceClass().getName() + "\r\n");
-        }
-        if (handler.getSecurityDeviceClass() != null) {
-            data.append("Security: " +
+            switch (command) {
+                case "*Test Connection":
+                    if (Configuration.getBoolProperty("CommandInterface/AllowConnectionTest")) {
+                        this.PatronText.setText(handler.checkStatus(0));
+                        return true;
+                    }             break;
+                case "*Shutdown System":
+                    if (Configuration.getBoolProperty("CommandInterface/AllowSystemShutdown")) {
+                        SelfIssueFrame.setOnTop(false);
+                        PasswordDialog ShutdownConfirmation = new PasswordDialog("Please enter system password");
+                        ShutdownConfirmation.clearPassword();
+                        ShutdownConfirmation.setVisible(true);
+                        if (ShutdownConfirmation.getPassword().equals(Configuration.Decrypt(
+                                Configuration.getProperty(
+                                        "CommandInterface/SystemPassword")))) {
+                            System.exit(0);
+                        }
+                        SelfIssueFrame.setOnTop(true);
+                        return true;
+                    }             break;
+                case "*About":
+                    com.ceridwen.util.versioning.AboutDialog dlg = new com.ceridwen.util.versioning.AboutDialog(null, true, new LibraryIdentifier("com.ceridwen", "Ceridwen Self Issue Client"));
+                    SelfIssueFrame.setOnTop(false);
+                    dlg.setSize(800, 600);
+                    dlg.setVisible(true);
+                    SelfIssueFrame.setOnTop(true);
+                    return true;
+                case "*Check Systems":
+                    if (Configuration.getBoolProperty("CommandInterface/AllowSystemsCheck")) {
+                        StringBuilder data = new StringBuilder();
+                        /*TODO
+                        if (handler.getRFIDDeviceClass() != null) {
+                        data.append("RFID: " +
+                        handler.getRFIDDeviceClass().getName() + "\r\n");
+                        }
+                        if (handler.getSecurityDeviceClass() != null) {
+                        data.append("Security: " +
                         handler.getSecurityDeviceClass().getName() + "\r\n");
-          }
-*/          
-        data.append("Loggers: ");
-        NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
-        for (int i = 0; i < loggers.getLength(); i++) {
-            data.append(Configuration.getSubProperty(loggers.item(i), "@class") +
-            "\r\n");
-        }
-        try {
-        	Connection conn = ConnectionFactory.getConnection(false);
-	        ConnectionFactory.releaseConnection(conn);
-        data.append("Host: " + conn.getHost());
-        data.append(": " + conn.getPort() + "\r\n");
-        data.append("Timeouts: " + conn.getConnectionTimeout() + ","
-        		+ conn.getIdleTimeout() + "\r\n");
-        data.append("Retries: " + conn.getRetryAttempts() + ","
-        		+ conn.getRetryWait() + "\r\n");
-        data.append("Error handling: ");
-        if (conn.getAddSequenceAndChecksum()) {
-        	data.append("AddChecksum|");
-        }
-        if (conn.getStrictChecksumChecking()) {
-        	data.append("CheckChecksum|");
-        }
-        if (conn.getStrictSequenceChecking()) {
-        	data.append("CheckSequence");
-        }
-        data.append("\r\n");
-        data.append("Encoding: " + Message.getCharsetEncoding() + "\r\n");
-        data.append("Modes: ");
-        if (trustMode) {
-          data.append("Trust|");
-        }
-        if (allowOffline) {
-          data.append("Offline|");
-        }
-        if (retryPatronWhenError) {
-          data.append("PatronRetry|");
-        }
-        if (retryItemWhenError) {
-          data.append("ItemRetry|");
-        }
-        if (allowRenews) {
-          data.append("Renews|");
-        }
-        if (useNoBlock) {
-          data.append("NoBlocks|");
-        }
-        if (suppressSecurityFailureMessages) {
-          data.append("SuppressSecurityMsgs");
-        }
-        data.append("\r\n");
-        data.append("Spooler: " + handler.getSpoolSize() + "\r\n");
-        data.append("Memory (Max, VM, Free): " + Runtime.getRuntime().maxMemory()/(1024*1024) + "MB, ");
-        
-        data.append(Runtime.getRuntime().totalMemory()/(1024*1024) + "MB, ");
-        data.append(Runtime.getRuntime().freeMemory()/(1024*1024) + "MB\r\n");
-
-        this.PatronText.setText(data.toString());
-        } catch (Exception ex) {
-        }
-        return true;
-      }
-    } else if (command.equals("*Test Crash")) {
-      if (Configuration.getBoolProperty("CommandInterface/AllowLogTest")) {
-        SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
-        this.firePanelChange(ev);
-        throw new java.lang.InternalError("Test");
-      }
-    } else if (command.equals("*Out Of Order")) {
-        if (Configuration.getBoolProperty("CommandInterface/AllowOutOfOrder")) {
-            SelfIssueFrame.setOnTop(false);
-            PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
-            OOOConfirmation.clearPassword();
-            OOOConfirmation.setVisible(true);
-            if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
-                Configuration.getProperty(
-                    "CommandInterface/SystemPassword")))) {
-                SelfIssueFrame.setOnTop(true);
-                SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, OutOfOrderPanel.class);
-                this.firePanelChange(ev);
+                        }
+                        */
+                        data.append("Loggers: ");
+                        NodeList loggers = Configuration.getPropertyList("Systems/Loggers/Logger");
+                        for (int i = 0; i < loggers.getLength(); i++) {
+                            data.append(Configuration.getSubProperty(loggers.item(i), "@class")).append("\r\n");
+                        }
+                        try {
+                            Connection conn = ConnectionFactory.getConnection(false);
+                            ConnectionFactory.releaseConnection(conn);
+                            data.append("Host: ").append(conn.getHost());
+                            data.append(": ").append(conn.getPort()).append("\r\n");
+                            data.append("Timeouts: ").append(conn.getConnectionTimeout()).append(",").append(conn.getIdleTimeout()).append("\r\n");
+                            data.append("Retries: ").append(conn.getRetryAttempts()).append(",").append(conn.getRetryWait()).append("\r\n");
+                            data.append("Error handling: ");
+                            if (conn.getAddSequenceAndChecksum()) {
+                                data.append("AddChecksum|");
+                            }
+                            if (conn.getStrictChecksumChecking()) {
+                                data.append("CheckChecksum|");
+                            }
+                            if (conn.getStrictSequenceChecking()) {
+                                data.append("CheckSequence");
+                            }
+                            data.append("\r\n");
+                            data.append("Encoding: ").append(Message.getCharsetEncoding()).append("\r\n");
+                            data.append("Modes: ");
+                            if (trustMode) {
+                                data.append("Trust|");
+                            }
+                            if (allowOffline) {
+                                data.append("Offline|");
+                            }
+                            if (retryPatronWhenError) {
+                                data.append("PatronRetry|");
+                            }
+                            if (retryItemWhenError) {
+                                data.append("ItemRetry|");
+                            }
+                            if (allowRenews) {
+                                data.append("Renews|");
+                            }
+                            if (useNoBlock) {
+                                data.append("NoBlocks|");
+                            }
+                            if (suppressSecurityFailureMessages) {
+                                data.append("SuppressSecurityMsgs");
+                            }
+                            data.append("\r\n");
+                            data.append("Spooler: ").append(handler.getSpoolSize()).append("\r\n");
+                            data.append("Memory (Max, VM, Free): ").append(Runtime.getRuntime().maxMemory()/(1024*1024)).append("MB, ");
+                            
+                            data.append(Runtime.getRuntime().totalMemory()/(1024*1024)).append("MB, ");
+                            data.append(Runtime.getRuntime().freeMemory()/(1024*1024)).append("MB\r\n");
+                            
+                            this.PatronText.setText(data.toString());
+                        } catch (Exception ex) {
+                        }
+                        return true;
+                    }             break;
+                case "*Test Crash":
+                    if (Configuration.getBoolProperty("CommandInterface/AllowLogTest")) {
+                        SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
+                        this.firePanelChange(ev);
+                        throw new java.lang.InternalError("Test");
+                    }             break;
+                case "*Out Of Order":
+                    if (Configuration.getBoolProperty("CommandInterface/AllowOutOfOrder")) {
+                        SelfIssueFrame.setOnTop(false);
+                        PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
+                        OOOConfirmation.clearPassword();
+                        OOOConfirmation.setVisible(true);
+                        if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
+                                Configuration.getProperty(
+                                        "CommandInterface/SystemPassword")))) {
+                            SelfIssueFrame.setOnTop(true);
+                            SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, OutOfOrderPanel.class);
+                            this.firePanelChange(ev);
+                        }
+                        SelfIssueFrame.setOnTop(true);
+                        return true;
+                    }           break;
+                case "*Check In":
+                    if (Configuration.getBoolProperty("CommandInterface/AllowCheckIn")) {
+                        SelfIssueFrame.setOnTop(false);
+                        PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
+                        OOOConfirmation.clearPassword();
+                        OOOConfirmation.setVisible(true);
+                        if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
+                                Configuration.getProperty(
+                                        "CommandInterface/SystemPassword")))) {
+                            SelfIssueFrame.setOnTop(true);
+                            SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
+                            ev.request = new PatronInformation();
+                            ev.response = new PatronInformationResponse();
+                            this.firePanelChange(ev);
+                        }
+                        SelfIssueFrame.setOnTop(true);
+                        return true;
+                    }             break;
+                default:
+                    break;
             }
-            SelfIssueFrame.setOnTop(true);
-            return true;
-        }         
-    } else if (command.equals("*Check In")) {
-      if (Configuration.getBoolProperty("CommandInterface/AllowCheckIn")) {
-          SelfIssueFrame.setOnTop(false);
-          PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
-          OOOConfirmation.clearPassword();
-          OOOConfirmation.setVisible(true);
-          if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
-              Configuration.getProperty(
-                  "CommandInterface/SystemPassword")))) {
-              SelfIssueFrame.setOnTop(true);
-              SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
-              ev.request = new PatronInformation();
-              ev.response = new PatronInformationResponse();
-              this.firePanelChange(ev);
-          }
-          SelfIssueFrame.setOnTop(true);
-          return true;
-      }
-    } 
 //    else if (command.startsWith("*Edit Configuration")) {
 //      if (Configuration.getBoolProperty("CommandInterface/AllowConfigurationEditor")) {
 //	      PasswordDialog EditorConfirmation = new PasswordDialog("Please enter system password");
@@ -755,10 +761,12 @@ private static String strim(String string) {
     }
   }
 
+        @Override
   public void grabFocus() {
     super.grabFocus();
     PatronField.grabFocus();
   }
+        @Override
   public void requestFocus() {
     super.requestFocus();
     PatronField.requestFocus();
@@ -774,12 +782,7 @@ private static String strim(String string) {
       this.handler.deinitIDReaderDevice();
   }
   
-  protected void finalize() throws java.lang.Throwable {
-      this.stopPatronIDReader();
-      super.finalize();
-  }
-  
-Stack<String> repeatPreventer = new Stack<String>();
+Stack<String> repeatPreventer = new Stack<>();
 
 @Override
 public void autoInputData(String identifier, String passcode) {
@@ -792,33 +795,36 @@ public void autoInputData(String identifier, String passcode) {
 }
 
 class PatronPanel_NextButton_actionAdapter implements java.awt.event.ActionListener {
-  private PatronPanel adaptee;
+  private final PatronPanel adaptee;
 
   PatronPanel_NextButton_actionAdapter(PatronPanel adaptee) {
     this.adaptee = adaptee;
   }
+  @Override
   public void actionPerformed(ActionEvent e) {
     adaptee.NextButton_actionPerformed(e);
   }
 }
 
 class PatronPanel_ResetButton_actionAdapter implements java.awt.event.ActionListener {
-  private PatronPanel adaptee;
+  private final PatronPanel adaptee;
 
   PatronPanel_ResetButton_actionAdapter(PatronPanel adaptee) {
     this.adaptee = adaptee;
   }
+  @Override
   public void actionPerformed(ActionEvent e) {
     adaptee.ResetButton_actionPerformed(e);
   }
 }
 
 class PatronPanel_PatronField_keyAdapter extends java.awt.event.KeyAdapter {
-  private PatronPanel adaptee;
+  private final PatronPanel adaptee;
 
   PatronPanel_PatronField_keyAdapter(PatronPanel adaptee) {
     this.adaptee = adaptee;
   }
+  @Override
   public void keyTyped(KeyEvent e) {
     adaptee.PatronField_keyTyped(e);
   }

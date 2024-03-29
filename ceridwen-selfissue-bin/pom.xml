@@ -27,21 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
-
-    <prerequisites>
-        <maven>3.9</maven>
-    </prerequisites> 
   
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-client</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-configeditor</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

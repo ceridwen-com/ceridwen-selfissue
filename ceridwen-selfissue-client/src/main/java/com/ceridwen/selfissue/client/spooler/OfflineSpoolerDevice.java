@@ -48,8 +48,4 @@ public class OfflineSpoolerDevice implements OfflineSpooler {
   public int size() {
     return spool.size();
   }
-  protected void finalize() throws java.lang.Throwable {
-    spool.cancelScheduler();
-    super.finalize();
-  }
 }

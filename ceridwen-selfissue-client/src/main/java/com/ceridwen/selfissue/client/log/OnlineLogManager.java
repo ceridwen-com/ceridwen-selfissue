@@ -18,13 +18,12 @@ package com.ceridwen.selfissue.client.log;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.ceridwen.circulation.SIP.messages.Message;
 
 public class OnlineLogManager implements OnlineLog {
-  private Vector<OnlineLog> loggers = new Vector<OnlineLog>();
+  private final ArrayList<OnlineLog> loggers = new ArrayList<>();
 
 
   public void addOnlineLogger(OnlineLog logger) {
@@ -32,14 +31,22 @@ public class OnlineLogManager implements OnlineLog {
   }
 
   public void removeOnlineLogger(OnlineLog logger) {
+    logger.close();
     loggers.remove(logger);
   }
 
+  @Override
   public void recordEvent(int level, String library, String addInfo, Date originalTransactionTime, Message request,
                           Message response) throws IOException {
-    Enumeration<OnlineLog> enumerate = loggers.elements();
-    while (enumerate.hasMoreElements()) {
-      ((OnlineLog)enumerate.nextElement()).recordEvent(level, library, addInfo, originalTransactionTime, request, response);
-    }
+        for (OnlineLog logger: loggers) {
+            logger.recordEvent(level, library, addInfo, originalTransactionTime, request, response);
+        }
   }
+
+    @Override
+    public void close() {
+        for (OnlineLog logger: loggers) {
+            removeOnlineLogger(logger);
+        }
+    }
 }
