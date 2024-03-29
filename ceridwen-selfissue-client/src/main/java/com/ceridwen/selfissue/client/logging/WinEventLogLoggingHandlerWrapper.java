@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
  *
  * @author Matthew.Dovey
  */
-public class WinEventLoggingHandlerWrapper extends LoggingHandlerWrapper {
+public class WinEventLogLoggingHandlerWrapper extends LoggingHandlerWrapper {
   @Override
   public Handler getLoggingHandler(Node item) {
     WinEventLogHandler handler = new WinEventLogHandler(Configuration.getSubProperty(item, "winEventServer"), "Ceridwen SelfIssue");
