@@ -32,17 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <netbeans.hint.license>gpl30</netbeans.hint.license>
     </properties> 
     
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-common</artifactId>
         </dependency>
-	    <dependency>
-	        <groupId>net.java.dev.jna</groupId>
-	        <artifactId>jna-platform</artifactId>
-	        <version>5.14.0</version>
-	    </dependency>
-	</dependencies>
+    </dependencies>
 
     <build>
         <plugins>
