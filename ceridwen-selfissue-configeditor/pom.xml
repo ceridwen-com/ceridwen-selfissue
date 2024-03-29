@@ -38,10 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>com.jgoodies</groupId>
-            <artifactId>jgoodies-looks</artifactId>
-        </dependency>
-        <dependency>
             <groupId>xerces</groupId>
             <artifactId>xercesImpl</artifactId>
         </dependency>
@@ -65,6 +61,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   
     <build>
         <plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerArgs>
+						<arg>--add-modules</arg>
+						<arg>java.desktop</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

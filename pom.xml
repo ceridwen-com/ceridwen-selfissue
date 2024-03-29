@@ -99,11 +99,6 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<groupId>com.jgoodies</groupId>
-				<artifactId>jgoodies-looks</artifactId>
-				<version>2.7.0</version>
-			</dependency>
-			<dependency>
 				<groupId>xerces</groupId>
 				<artifactId>xercesImpl</artifactId>
 				<version>2.12.2</version>
