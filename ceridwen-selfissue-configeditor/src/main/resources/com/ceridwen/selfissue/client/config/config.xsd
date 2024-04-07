@@ -286,9 +286,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="PatronPasswordPrompt" type="xs:string">
+                    <xs:element name="PasswordFieldLabel_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Text if patron asked for password</xs:documentation>
+                        <xs:documentation>Label for patron barcode edit box</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PasswordFieldLabel_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Tooltip for patron barcode edit box label</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PasswordField_DefaultText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PasswordField_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronPanelNextButton_Text" type="xs:string">
