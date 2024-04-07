@@ -229,14 +229,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="InputTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of text in buttons</xs:documentation>
+                        <xs:documentation>Colour of input text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InputBackgroundColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of buttons</xs:documentation>
+                        <xs:documentation>Colour of input text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="InputBorderColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of input text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
+                    <xs:element name="InputSelectionColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of input text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
+                    <xs:element name="InputSelectedTextColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of input text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InputCaretColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of input text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InputDisabledTextColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of input text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                        
                     <xs:element name="ButtonTextColour" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Colour of text in buttons</xs:documentation>

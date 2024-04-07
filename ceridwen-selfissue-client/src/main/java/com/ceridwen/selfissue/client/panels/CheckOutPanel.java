@@ -299,6 +299,11 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     Color InputTextColour = Configuration.getForegroundColour("InputTextColour");
     Font  InputTextFont = Configuration.getFont("InputText");
     Color InputBackgroundColour = Configuration.getBackgroundColour("InputBackgroundColour");
+    Color InputBorderColour = Configuration.getBackgroundColour("InputBorderColour");
+    Color InputSelectionColour = Configuration.getBackgroundColour("InputSelectionColour");
+    Color InputSelectedTextColour = Configuration.getBackgroundColour("InputSelectedTextColour");
+    Color InputCaretColour = Configuration.getBackgroundColour("InputCaretColour");
+    Color InputDisabledTextColour = Configuration.getBackgroundColour("InputDisabledTextColour");    
 
         this.border1 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         this.border2 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -332,6 +337,11 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.BookField.setFont(InputTextFont);
         this.BookField.setForeground(InputTextColour);
         this.BookField.setBackground(InputBackgroundColour);
+        this.BookField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+        this.BookField.setSelectionColor(InputSelectionColour);
+        this.BookField.setSelectedTextColor(InputSelectedTextColour);
+        this.BookField.setCaretColor(InputCaretColour);
+        this.BookField.setDisabledTextColor(InputDisabledTextColour);          
         this.BookField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
         // BookField.setNextFocusableComponent(CheckoutButton);
         this.BookField.setRequestFocusEnabled(true);

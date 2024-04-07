@@ -272,6 +272,11 @@ public class PatronPanelFocusTraversalPolicy
     Color InputTextColour = Configuration.getForegroundColour("InputTextColour");
     Font  InputTextFont = Configuration.getFont("InputText");
     Color InputBackgroundColour = Configuration.getBackgroundColour("InputBackgroundColour");
+    Color InputBorderColour = Configuration.getBackgroundColour("InputBorderColour");
+    Color InputSelectionColour = Configuration.getBackgroundColour("InputSelectionColour");
+    Color InputSelectedTextColour = Configuration.getBackgroundColour("InputSelectedTextColour");
+    Color InputCaretColour = Configuration.getBackgroundColour("InputCaretColour");
+    Color InputDisabledTextColour = Configuration.getBackgroundColour("InputDisabledTextColour");
 	      
     border1 = BorderFactory.createEmptyBorder(10,10,10,10);
     border2 = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -309,6 +314,11 @@ public class PatronPanelFocusTraversalPolicy
     PatronField.setFont(InputTextFont);
     PatronField.setBackground(InputBackgroundColour);
     PatronField.setForeground(InputTextColour);
+    PatronField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+    PatronField.setSelectionColor(InputSelectionColour);
+    PatronField.setSelectedTextColor(InputSelectedTextColour);
+    PatronField.setCaretColor(InputCaretColour);
+    PatronField.setDisabledTextColor(InputDisabledTextColour);
     PatronField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
 //    PatronField.setNextFocusableComponent(NextButton);
     ConfigForId();

@@ -269,6 +269,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Palette/InputBorderColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputSelectionColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputSelectedTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputCaretColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputDisabledTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/UI/Palette/ButtonBackgroundColour">
               <style>
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
