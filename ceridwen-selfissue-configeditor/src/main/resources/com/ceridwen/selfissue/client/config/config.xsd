@@ -286,6 +286,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="PatronSubmitButton_Text" type="xs:string">                 
+                      <xs:annotation>
+                        <xs:documentation>Next button text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PatronSubmitButton_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Next button tool tip text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element name="PasswordFieldLabel_Text" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Label for patron barcode edit box</xs:documentation>
@@ -306,12 +316,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="PatronPanelNextButton_Text" type="xs:string">
+                    <xs:element name="PasswordSubmitButton_Text" type="xs:string">                 
                       <xs:annotation>
                         <xs:documentation>Next button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="PatronPanelNextButton_ToolTipText" type="xs:string">
+                    <xs:element name="PasswordSubmitButton_ToolTipText" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Next button tool tip text</xs:documentation>
                       </xs:annotation>

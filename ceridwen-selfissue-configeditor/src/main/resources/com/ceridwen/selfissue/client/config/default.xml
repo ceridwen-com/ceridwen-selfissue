@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=3.25;time=2024-04-07 14:34:10.394;xui=config.xui;xsd=config.xsd?>
+<?jaxfront version=3.25;time=2024-04-07 15:57:43.719;xui=config.xui;xsd=config.xsd?>
 <SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
       <UI>
             <SelfIssue>
@@ -53,12 +53,14 @@
                   <PatronFieldLabel_ToolTipText>Please enter the barcode number from your university card.</PatronFieldLabel_ToolTipText>
                   <PatronField_DefaultText/>
                   <PatronField_ToolTipText>Scan your University barcode using the hand held scanner.</PatronField_ToolTipText>
+                  <PatronSubmitButton_Text>OK</PatronSubmitButton_Text>
+                  <PatronSubmitButton_ToolTipText>Enter Patron ID</PatronSubmitButton_ToolTipText>
                   <PasswordFieldLabel_Text>Please enter your password</PasswordFieldLabel_Text>
                   <PasswordFieldLabel_ToolTipText>Please enter your password</PasswordFieldLabel_ToolTipText>
-                  <PasswordField_DefaultText/>
+                  <PasswordField_DefaultText>Enter Password</PasswordField_DefaultText>
                   <PasswordField_ToolTipText>Please enter your password</PasswordField_ToolTipText>
-                  <PatronPanelNextButton_Text>Next</PatronPanelNextButton_Text>
-                  <PatronPanelNextButton_ToolTipText>Next</PatronPanelNextButton_ToolTipText>
+                  <PasswordSubmitButton_Text>OK</PasswordSubmitButton_Text>
+                  <PasswordSubmitButton_ToolTipText/>
                   <PatronPanelResetButton_Text>Clear</PatronPanelResetButton_Text>
                   <PatronPanelResetButton_ToolTipText>Clear any entries</PatronPanelResetButton_ToolTipText>
             </PatronPanel>

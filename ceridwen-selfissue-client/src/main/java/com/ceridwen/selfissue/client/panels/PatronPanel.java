@@ -284,8 +284,6 @@ public class PatronPanelFocusTraversalPolicy
     NextButton.setFont(ButtonTextFont);
     NextButton.setActionCommand(""); // We'll use Action Command to pass patron password if sent by IDReaderDevice
 //    NextButton.setNextFocusableComponent(ResetButton);
-    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_Text"));
-    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_ToolTipText"));
     NextButton.addActionListener(new PatronPanel_NextButton_actionAdapter(this));
     NextButton.setForeground(ButtonTextColour);
     NextButton.setBackground(ButtonBackgroundColour);
@@ -397,6 +395,8 @@ public class PatronPanelFocusTraversalPolicy
     PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_Text"));
     PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronField_ToolTipText"));
     PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));
+    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronSubmitButton_Text"));
+    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronSubmitButton_ToolTipText"));    
   }
   
   void ConfigForPassword() {
@@ -405,6 +405,8 @@ public class PatronPanelFocusTraversalPolicy
     PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PasswordFieldLabel_Text"));
     PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordField_ToolTipText"));
     PatronField.setText(Configuration.getProperty("UI/PatronPanel/PasswordField_DefaultText"));
+    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PassowrdSubmitButton_Text"));
+    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_ToolTipText"));    
   }
   
   void NextButton_actionPerformed(ActionEvent e) {
