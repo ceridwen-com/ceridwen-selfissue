@@ -415,7 +415,7 @@ public class PatronPanelFocusTraversalPolicy
     PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PasswordFieldLabel_Text"));
     PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordField_ToolTipText"));
     PatronField.setText(Configuration.getProperty("UI/PatronPanel/PasswordField_DefaultText"));
-    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PassowrdSubmitButton_Text"));
+    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_Text"));
     NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_ToolTipText"));    
   }
   
