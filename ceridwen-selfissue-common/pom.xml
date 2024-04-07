@@ -40,6 +40,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <groupId>com.ceridwen.circulation</groupId>
             <artifactId>ceridwen-standard-interchange-protocol-library</artifactId>
         </dependency>
+	<dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <type>jar</type>            
+        </dependency>        
     </dependencies>
 
 </project>  

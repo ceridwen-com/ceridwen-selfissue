@@ -20,16 +20,17 @@ import java.util.logging.Handler;
 
 import org.w3c.dom.Node;
 
-import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.util.logging.RESTLogHandler;
 
 public class RESTLoggingHandlerWrapper extends LoggingHandlerWrapper {
 
     @Override
-    public Handler getLoggingHandler(Node item) {
+    public Handler getLoggingHandler(Node config) {
         RESTLogHandler handler = new RESTLogHandler(
-                Configuration.getSubProperty(item, "URL"));
-        handler.setLevel(super.getLevel(item));
+            (this.getSSL(config)?"https":"http") + "://" + this.getHost(config) + ":" + 
+            ((this.getPort(config)==0)?(this.getSSL(config)?443:80):this.getPort(config)) + this.getTarget(config)
+        );
+        handler.setLevel(super.getLevel(config));
         handler.setThrottle(1, 1);
         return handler;
     }

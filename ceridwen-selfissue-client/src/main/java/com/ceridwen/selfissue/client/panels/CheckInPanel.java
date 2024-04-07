@@ -55,6 +55,7 @@ import com.ceridwen.selfissue.client.devices.FailureException;
 import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.devices.TimeoutException;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
+import java.awt.Font;
 import java.util.Arrays;
 
 public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListener {
@@ -248,11 +249,19 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
     }
 
     private void jbInit() throws Exception {
-        Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");
-        Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
-        Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
-        Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
-        Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
+    Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
+    Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
+    Font  DefaultTextFont = Configuration.getFont("DefaultText");
+    Color StatusTextColour = Configuration.getForegroundColour("StatusTextColour");
+    Font  StatusTextFont = Configuration.getFont("StatusText");
+    Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
+    Font  WarningTextFont = Configuration.getFont("WarningText");
+    Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
+    Font  ButtonTextFont = Configuration.getFont("ButtonText");
+    Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
+    Color InputTextColour = Configuration.getForegroundColour("InputTextColour");
+    Font  InputTextFont = Configuration.getFont("InputText");
+    Color InputBackgroundColour = Configuration.getBackgroundColour("InputBackgroundColour");
 
         this.border1 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         this.border2 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -260,14 +269,14 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.setLayout(this.BookBorderLayout);
         this.setOpaque(true);
         this.setBackground(BackgroundColour);
-        this.NextButton.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.NextButton.setFont(ButtonTextFont);
         // NextButton.setNextFocusableComponent(BookField);
         this.NextButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookPanelNextButton_ToolTipText"));
         this.NextButton.setText(Configuration.getProperty("UI/CheckInPanel/BookPanelNextButton_Text"));
         this.NextButton.addActionListener(new CheckInPanel_NextButton_actionAdapter(this));
         this.NextButton.setForeground(ButtonTextColour);
         this.NextButton.setBackground(ButtonBackgroundColour);
-        this.CheckoutButton.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.CheckoutButton.setFont(ButtonTextFont);
         // ResetButton.setNextFocusableComponent(BookField);
         this.CheckoutButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_ToolTipText"));
         this.CheckoutButton.setText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_Text"));
@@ -276,19 +285,18 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.CheckoutButton.setForeground(ButtonTextColour);
         this.CheckoutButton.setBackground(ButtonBackgroundColour);
         this.NavigationPanel.setLayout(this.NavigationBorderLayout);
-        this.BookFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.BookFieldLabel.setFont(DefaultTextFont);
         this.BookFieldLabel.setForeground(DefaultTextColour);
         this.BookFieldLabel.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookFieldLabel_ToolTipText"));
         this.BookFieldLabel.setLabelFor(this.BookField);
         this.BookFieldLabel.setText(Configuration.getProperty("UI/CheckInPanel/BookFieldLabel_Text"));
         this.InformationPanel.setLayout(this.InformationBorderLayout);
         this.InformationPanel.setOpaque(false);
-        this.BookField.setFont(new java.awt.Font("Dialog", 1, 16));
-        this.BookField.setForeground(DefaultTextColour);
-        this.BookField.setBackground(BackgroundColour);
-        this.BookField.setMinimumSize(new Dimension(200, 27));
+        this.BookField.setFont(InputTextFont);
+        this.BookField.setForeground(InputTextColour);
+        this.BookField.setBackground(InputBackgroundColour);
+        this.BookField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
         // BookField.setNextFocusableComponent(CheckinButton);
-        this.BookField.setPreferredSize(new Dimension(200, 27));
         this.BookField.setRequestFocusEnabled(true);
         this.BookField.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookField_ToolTipText"));
         this.BookField.setText(Configuration.getProperty("UI/CheckInPanel/BookField_DefaultText"));
@@ -302,10 +310,10 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.DataPanel.setBorder(this.border2);
         this.DataPanel.setOpaque(false);
         this.BooksIcon.setText("");
-        this.BooksIcon.setIcon(Configuration.LoadImage("UI/CheckInPanel/BooksIcon_Icon"));
+        this.BooksIcon.setIcon(Configuration.LoadImage("UI/CheckInPanel/BooksIcon"));
         this.ResponsePanel.setBorder(this.border3);
         this.ResponsePanel.setOpaque(false);
-        this.PatronText.setFont(new java.awt.Font("Dialog", 1, 18));
+        this.PatronText.setFont(DefaultTextFont);
         this.PatronText.setForeground(DefaultTextColour);
         this.PatronText.setBackground(BackgroundColour);
         this.PatronText.setOpaque(true);
@@ -320,7 +328,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.ResponseTextPanel.setLayout(this.ResponseTextBorderLayout);
         this.ResponseTextPanel.setOpaque(true);
         this.ResponseTextPanel.setBackground(BackgroundColour);
-        this.CheckinButton.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.CheckinButton.setFont(ButtonTextFont);
         // CheckinButton.setNextFocusableComponent(NextButton);
         this.CheckinButton.setText(Configuration.getProperty("UI/CheckInPanel/CheckinButton_Text"));
         this.CheckinButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/CheckinButton_ToolTipText"));
@@ -333,7 +341,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.CheckInScrollPane.setBorder(null);
         this.CheckInScrollPane.setBackground(BackgroundColour);
         this.CheckInScrollPane.setOpaque(true);
-        this.CheckinText.setFont(new java.awt.Font("Dialog", 1, 16));
+        this.CheckinText.setFont(DefaultTextFont);
         this.CheckinText.setForeground(DefaultTextColour);
         this.CheckinText.setBackground(BackgroundColour);
         this.CheckinText.setBorder(null);
@@ -342,18 +350,29 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.CheckinText.setEditable(false);
         HTMLEditorKit kit = new HTMLEditorKit();
         kit.getStyleSheet().addRule(
-                "body {font-family: Dialog; font-size: 16pt; background-color:#" + Configuration.getProperty("UI/Palette/BackgroundColour") + ";}");
-        kit.getStyleSheet().addRule("em {font-style: normal; color:#" + Configuration.getProperty("UI/Palette/WarningTextColour") + ";}");
+            "body {font-family: " + DefaultTextFont.getFamily() + "; " +
+                "font-size: " + DefaultTextFont.getSize() + "pt; " +
+                "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+        kit.getStyleSheet().addRule(
+            "em {font-family: " + StatusTextFont.getFamily() + "; " +
+                "font-size: " + StatusTextFont.getSize() + "pt; " +
+                "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
+        kit.getStyleSheet().addRule(
+            "strong {font-family: " + WarningTextFont.getFamily() + "; " +
+                "font-size: " + WarningTextFont.getSize() + "pt; " +
+                "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
         this.CheckinText.setEditorKit(kit);
         this.CheckinText.setContentType("text/html");
         // CheckoutText.setLineWrap(true);
         // CheckoutText.setWrapStyleWord(true);
-        this.StatusText.setFont(new java.awt.Font("Dialog", 1, 18));
-        this.StatusText.setForeground(WarningTextColour);
+        this.StatusText.setFont(StatusTextFont);
+        this.StatusText.setForeground(StatusTextColour);
         this.StatusText.setBackground(BackgroundColour);
-        this.StatusText.setMinimumSize(new Dimension(33, 15));
         this.StatusText.setOpaque(true);
-        this.StatusText.setPreferredSize(new Dimension(0, 24));
+        this.StatusText.setPreferredSize(new Dimension(Configuration.pt2Pixel(StatusTextFont.getSize())*16, Configuration.pt2Pixel(StatusTextFont.getSize())));
         this.StatusText.setToolTipText(Configuration.getProperty("UI/CheckInPanel/StatusText_ToolTipText"));
         this.StatusText.setText(Configuration.getProperty("UI/CheckInPanel/StatusText_DefaultText"));
         this.add(this.NavigationPanel, BorderLayout.SOUTH);
@@ -380,7 +399,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
 
     private static String strim(String string) {
         String intermediate = string.trim();
-        if (Configuration.getBoolProperty("UI/Control/StripItemChecksumDigit")) {
+        if (Configuration.getBoolProperty("UI/Advanced/StripItemChecksumDigit")) {
             if (StringUtils.isNotEmpty(intermediate)) {
                 intermediate = intermediate.substring(0, intermediate.length() - 1);
             }
@@ -438,7 +457,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         CheckInResponse response = null;
         String finalStatusText = "";
 
-        if (Configuration.getBoolProperty("Modes/EnableBarcodeAlii")) {
+        if (Configuration.getBoolProperty("Systems/Modes/EnableBarcodeAliases")) {
             if (this.BookField.getText().equals("$ESCAPE%")) {
                 this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
             }

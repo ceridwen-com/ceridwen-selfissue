@@ -108,7 +108,7 @@ public class ShutdownThread extends Thread {
     
 
     private void sendShutdownStatus() {
-        if (Configuration.getBoolProperty("Modes/SendShutdownStatus")) {
+        if (Configuration.getBoolProperty("Systems/Modes/SendShutdownStatus")) {
             System.out.println("Notifying Library System...");
             try {
               this.conn = ConnectionFactory.getConnection(true);

@@ -42,6 +42,7 @@ import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 import com.ceridwen.util.versioning.LibraryIdentifier;
 import java.util.Arrays;
+import javax.swing.text.html.HTMLEditorKit;
 
 
 /**
@@ -71,6 +72,7 @@ public class PatronPanel extends SelfIssuePanel implements IDReaderDeviceListene
 public class PatronPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
+       @Override
        public Component getComponentAfter(Container focusCycleRoot,
                                           Component aComponent) {
            if (aComponent.equals(NextButton)) {
@@ -83,6 +85,7 @@ public class PatronPanelFocusTraversalPolicy
            return PatronField;
        }
 
+       @Override
        public Component getComponentBefore(Container focusCycleRoot,
                                       Component aComponent) {
          if (aComponent.equals(ResetButton)) {
@@ -211,7 +214,7 @@ public class PatronPanelFocusTraversalPolicy
   private JPanel DataPanel = new JPanel();
   private BorderLayout InformationBorderLayout = new BorderLayout();
   private JTextField PatronField = new JTextField();
-  private BorderLayout DataBorderLayout = new BorderLayout();
+  private FlowLayout DataFlowLayout = new FlowLayout();
   private JPanel ResponsePanel = new JPanel();
   private BorderLayout ResponseBorderLayout = new BorderLayout();
   private Border border1;
@@ -239,12 +242,20 @@ public class PatronPanelFocusTraversalPolicy
     }
   }
   private void jbInit() throws Exception {
-	Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
-	Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
-	Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
-	Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
-	Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
-	  
+    Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
+    Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
+    Font  DefaultTextFont = Configuration.getFont("DefaultText");
+    Color StatusTextColour = Configuration.getForegroundColour("StatusTextColour");
+    Font  StatusTextFont = Configuration.getFont("StatusText");
+    Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
+    Font  WarningTextFont = Configuration.getFont("WarningText");
+    Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
+    Font  ButtonTextFont = Configuration.getFont("ButtonText");
+    Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
+    Color InputTextColour = Configuration.getForegroundColour("InputTextColour");
+    Font  InputTextFont = Configuration.getFont("InputText");
+    Color InputBackgroundColour = Configuration.getBackgroundColour("InputBackgroundColour");
+	      
     border1 = BorderFactory.createEmptyBorder(10,10,10,10);
     border2 = BorderFactory.createEmptyBorder(10,10,10,10);
     border3 = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -253,7 +264,7 @@ public class PatronPanelFocusTraversalPolicy
     this.setLayout(PatronBorderLayout);
     this.setOpaque(true);
     this.setBackground(BackgroundColour);
-    NextButton.setFont(new java.awt.Font("Dialog", 1, 16));
+    NextButton.setFont(ButtonTextFont);
     NextButton.setActionCommand(""); // We'll use Action Command to pass patron password if sent by IDReaderDevice
 //    NextButton.setNextFocusableComponent(ResetButton);
     NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_Text"));
@@ -261,8 +272,8 @@ public class PatronPanelFocusTraversalPolicy
     NextButton.addActionListener(new PatronPanel_NextButton_actionAdapter(this));
     NextButton.setForeground(ButtonTextColour);
     NextButton.setBackground(ButtonBackgroundColour);
-    ResetButton.setFont(new java.awt.Font("Dialog", 1, 16));
-    ResetButton.setForeground(Color.black);
+    ResetButton.setFont(ButtonTextFont);
+    ResetButton.setForeground(ButtonTextColour);
 //    ResetButton.setNextFocusableComponent(PatronField);
     ResetButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronPanelResetButton_ToolTipText"));
     ResetButton.setVerifyInputWhenFocusTarget(true);
@@ -275,52 +286,75 @@ public class PatronPanelFocusTraversalPolicy
     ResetButton.setBackground(ButtonBackgroundColour);
     NavigationPanel.setLayout(NavigationBorderLayout);
     NavigationPanel.setOpaque(false);
-    PatronFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
+    PatronFieldLabel.setFont(DefaultTextFont);
     PatronFieldLabel.setForeground(DefaultTextColour);
     PatronFieldLabel.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_ToolTipText"));
     PatronFieldLabel.setLabelFor(PatronField);
     PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_Text"));
     InformationPanel.setLayout(InformationBorderLayout);
     InformationPanel.setOpaque(false);
-    PatronField.setFont(new java.awt.Font("Dialog", 1, 16));
-    PatronField.setBackground(BackgroundColour);
-    PatronField.setForeground(DefaultTextColour);
+    PatronField.setFont(InputTextFont);
+    PatronField.setBackground(InputBackgroundColour);
+    PatronField.setForeground(InputTextColour);
+    PatronField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
 //    PatronField.setNextFocusableComponent(NextButton);
     PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronField_ToolTipText"));
     PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));
     PatronField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));
-    CardIcon.setIcon(Configuration.LoadImage("UI/PatronPanel/CardIcon_Icon"));
-    DataPanel.setLayout(DataBorderLayout);
+    CardIcon.setIcon(Configuration.LoadImage("UI/PatronPanel/CardIcon"));
+    DataPanel.setLayout(DataFlowLayout);
     DataPanel.setOpaque(false);
     ResponsePanel.setLayout(ResponseBorderLayout);
     ResponsePanel.setOpaque(false);
     NavigationPanel.setBorder(border1);
     DataPanel.setBorder(border2);
     ResponsePanel.setBorder(border3);
-    DataBorderLayout.setHgap(5);
-    DataBorderLayout.setVgap(5);
+    DataFlowLayout.setHgap(5);
+    DataFlowLayout.setVgap(5);
     PatronTextPanel.setLayout(PatronTextBorderLayout);
     PatronTextPanel.setOpaque(false);
     PatronTextPanel.setBorder(border7);
     PatronTextPanel.setDebugGraphicsOptions(0);
     PatronTextPanel.setDoubleBuffered(true);
     PatronTextPanel.setPreferredSize(new Dimension(100, 301));
-    PatronText.setForeground(WarningTextColour);
-    PatronText.setFont(new java.awt.Font("SansSerif", 1, 16));
+    PatronText.setForeground(StatusTextColour);
+    PatronText.setFont(StatusTextFont);
     PatronText.setBackground(BackgroundColour);
     PatronText.setBorder(border8);
     PatronText.setRequestFocusEnabled(false);
     PatronText.setEditable(false);
     PatronText.setText("");
-    PatronText.setLineWrap(true);
-    PatronText.setWrapStyleWord(true);
+    HTMLEditorKit kit = new HTMLEditorKit();
+    kit.getStyleSheet().addRule(
+        "body {font-family: " + DefaultTextFont.getFamily() + "; " +
+            "font-size: " + DefaultTextFont.getSize() + "pt; " +
+            "font-style: normal" +
+            "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
+            "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+    kit.getStyleSheet().addRule(
+        "em {font-family: " + StatusTextFont.getFamily() + "; " +
+            "font-size: " + StatusTextFont.getSize() + "pt; " +
+            "font-style: normal" +
+            "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
+            "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
+    kit.getStyleSheet().addRule(
+        "strong {font-family: " + WarningTextFont.getFamily() + "; " +
+            "font-size: " + WarningTextFont.getSize() + "pt; " +
+            "font-style: normal" +
+            "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
+            "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+    PatronText.setEditorKit(kit);
+    PatronText.setContentType("text/html");    
+//    PatronText.setLineWrap(true);
+//    PatronText.setWrapStyleWord(true);
     this.add(NavigationPanel,  BorderLayout.SOUTH);
-    NavigationPanel.add(ResetButton, BorderLayout.WEST);
-    NavigationPanel.add(NextButton,  BorderLayout.EAST);
+    NavigationPanel.add(ResetButton, BorderLayout.EAST);
+//    NavigationPanel.add(NextButton,  BorderLayout.EAST);
     this.add(InformationPanel,  BorderLayout.CENTER);
     InformationPanel.add(DataPanel,  BorderLayout.SOUTH);
-    DataPanel.add(PatronFieldLabel, BorderLayout.WEST);
-    DataPanel.add(PatronField, BorderLayout.CENTER);
+    DataPanel.add(PatronFieldLabel, null);
+    DataPanel.add(PatronField, null);
+    DataPanel.add(NextButton, null);
     InformationPanel.add(ResponsePanel,  BorderLayout.CENTER);
     ResponsePanel.add(CardIcon,  BorderLayout.EAST);
     ResponsePanel.add(PatronTextPanel, BorderLayout.CENTER);
@@ -336,13 +370,13 @@ public class PatronPanelFocusTraversalPolicy
   private JPanel PatronTextPanel = new JPanel();
   private BorderLayout PatronTextBorderLayout = new BorderLayout();
   private Border border7;
-  private JTextArea PatronText = new JTextArea();
+  private JEditorPane PatronText = new JEditorPane();
 
   void NextButton_actionPerformed(ActionEvent e) {
     PatronInformation request = new PatronInformation();
     PatronInformationResponse response = null;
     
-    if (Configuration.getBoolProperty("Modes/EnableBarcodeAlii")) {
+    if (Configuration.getBoolProperty("Systems/Modes/EnableBarcodeAliases")) {
       if (this.PatronField.getText().startsWith("$") && this.PatronField.getText().endsWith("%")) {
         this.commandProcessor(convert(this.PatronField.getText()));
         this.PatronField.setText("");
@@ -544,7 +578,7 @@ public class PatronPanelFocusTraversalPolicy
   }
 private static String strim(String string) {
     String intermediate = string.trim();
-    if (Configuration.getBoolProperty("UI/Control/StripPatronChecksumDigit")) {
+    if (Configuration.getBoolProperty("UI/Advanced/StripPatronChecksumDigit")) {
       if (StringUtils.isNotEmpty(intermediate)) {
         intermediate = intermediate.substring(0, intermediate.length()-1);
       }

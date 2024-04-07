@@ -72,20 +72,20 @@ private BorderLayout borderLayout1 = new BorderLayout();
   }
 
   private void jbInit() throws Exception
-  {
-	Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour"); //new Color(0xC9, 0xD3, 0xDD);  
-//	Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour"); //Color.black;
-	Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour"); //Color.gray;
+  {     
+    Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
+    Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
+    Font  WarningTextFont = Configuration.getFont("WarningText");
 	  
     setLayout(borderLayout1);
     this.setOpaque(true);
     this.setBackground(BackgroundColour);
-    jLabel1.setFont(new java.awt.Font("Tahoma", Font.BOLD, 64));
+    jLabel1.setFont(WarningTextFont);
     jLabel1.setForeground(WarningTextColour);
     jLabel1.setOpaque(false);
     jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
     jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
-    jLabel1.setText("Terminal Out Of Order");
+    jLabel1.setText(Configuration.getProperty("UI/SelfIssue/OutOfOrder_Text"));
     add(jLabel1, java.awt.BorderLayout.CENTER);
     
     this.addKeyListener(new OutOfOrderPanel_keyAdapter(this));

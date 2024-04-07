@@ -39,46 +39,135 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element maxOccurs="1" name="RightIcon_Icon" type="xs:string">
+                    <xs:element name="LeftIcon" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Header right hand image file. Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="LeftIcon_Icon" type="xs:string">
+                    <xs:element name="RightIcon" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Header left hand image file. Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="TitleText_Text" type="xs:string">
+                    <xs:element name="TitleText" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Main title text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="SubTitleText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Subtitle text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Styling">
+                <xs:annotation>
+                  <xs:documentation>Look and Feel and Fonts</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="LookAndFeel" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Java Look and Feel</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ReferenceDisplaySize" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Reference display size</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="BorderWidth" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Border width</xs:documentation>
+                      </xs:annotation>
+                    </xs:element> 
+                     <xs:element name="DividerWidth" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Border width</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                                                     
                     <xs:element name="TitleText_Font" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Main title text font</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="TitleText_Size" type="xs:string">
+                    <xs:element name="TitleText_Size" type="xs:nonNegativeInteger">
                       <xs:annotation>
                         <xs:documentation>Main title text size</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="LibraryText_Text" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Subtitle text</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="LibraryText_Font" type="xs:string">
+                    <xs:element name="SubTitleText_Font" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Subtitle text font</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="LibraryText_Size" type="xs:string">
+                    <xs:element name="SubTitleText_Size" type="xs:nonNegativeInteger">
                       <xs:annotation>
                         <xs:documentation>Subtitle text size</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="DefaultText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Default text font</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DefaultText_Size" type="xs:integer" >
+                      <xs:annotation>
+                        <xs:documentation>Default text size</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="StatusText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Status text font (or indicated by &lt;strong&gt;)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="StatusText_Size" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Status text size (or indicated by &lt;strong&gt;)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element> 
+                    <xs:element name="WarningText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Warning text font (or indicated by &lt;em&gt;)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="WarningText_Size" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Warning text size (or indicated by &lt;em&gt;)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>   
+                    <xs:element name="ButtonText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Button text font</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ButtonText_Size" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Button text size</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
+                    <xs:element name="InputText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Input text font</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InputText_Size" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Input text size</xs:documentation>
+                      </xs:annotation>
+                    </xs:element> 
+                    <xs:element name="VersionText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Font for version text at bottom of window</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="VersionText_Size" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Font size for version text at bottom of window</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                                           
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -113,19 +202,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Colour of title at top of window</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="SubTitleTextColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of sub-title at top of window</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="DefaultTextColour" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Default colour for text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="StatusTextColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour used in status updates (or indicated by &lt;strong&gt;)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element name="WarningTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour used in messages when indicated by &lt;em&gt;</xs:documentation>
+                        <xs:documentation>Colour used in warning messages (or indicated by &lt;em&gt;)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="VersionTextColour" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Colour for version text at bottom of window</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InputTextColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of text in buttons</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="InputBackgroundColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour of buttons</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="ButtonTextColour" type="xs:string">
@@ -152,7 +261,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Initial greeting to patron</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CardIcon_Icon" type="xs:string">
+                    <xs:element name="CardIcon" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Main picture (typically an example reader card). Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
@@ -211,7 +320,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="BooksIcon_Icon" type="xs:string">
+                    <xs:element name="BooksIcon" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
@@ -295,7 +404,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="BooksIcon_Icon" type="xs:string">
+                    <xs:element name="BooksIcon" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
                       </xs:annotation>
@@ -518,6 +627,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
+                    <xs:element name="AudioEnabled" type="xs:boolean">
+                      <xs:annotation>
+                        <xs:documentation>Enable/disable all audio prompts.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
                     <xs:element name="ValidPatron" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Audio cue on valid patron</xs:documentation>
@@ -642,6 +756,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="PatronPasswordMask" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a password consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="ItemBarcodeMask" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>The default value of [P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
@@ -650,13 +769,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="Control">
+              <xs:element name="Advanced">
                 <xs:annotation>
                   <xs:documentation>Determines miscellaneous behaviour.</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element maxOccurs="1" name="ResetTimeout" type="xs:nonNegativeInteger">
+                    <xs:element name="OutOfOrderText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Terminal out of order message text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>  
+                    <xs:element name="ResetTimeout" type="xs:nonNegativeInteger">
                       <xs:annotation>
                         <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
                       </xs:annotation>
@@ -669,51 +793,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <xs:element name="StripItemChecksumDigit" type="xs:boolean">
                       <xs:annotation>
                         <xs:documentation>Remove final digit from item barcodes</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="PersistentQueueImplementation">
-                      <xs:annotation>
-                        <xs:documentation>Implementation of persistent queue for spoolers. Default is com.gaborcselle.persistent.PersistentQueue. com.ceridwen.util.collections.PersistentQueue is deprecated but available for backwards compatibility for Self Issue 2.61 or earlier. Note: the spooled object store is not compatible between these implementations. You will need to use a different spool path, or delete the existing spools if you change the implementation.</xs:documentation>
-                      </xs:annotation>
-                      <xs:simpleType>
-	                    <xs:restriction base="xs:string">
-    	                  <xs:enumeration value="com.gaborcselle.persistent.PersistentQueue"/>
-        	              <xs:enumeration value="com.ceridwen.util.collections.PersistentQueue"/>
-            	        </xs:restriction>
-                      </xs:simpleType>
-                    </xs:element>
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="WatchDog">
-                <xs:annotation>
-                  <xs:documentation>The SelfIssue client has a Watch dog thread which periodically checks the health of the client.</xs:documentation>
-                </xs:annotation>
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="Timer" type="xs:nonNegativeInteger">
-                      <xs:annotation>
-                        <xs:documentation>How often to check health (seconds)</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="CriticalSectionThreshold" type="xs:nonNegativeInteger">
-                      <xs:annotation>
-                        <xs:documentation>Number of consecutive health checks in critical section (e.g. communication with 3M server still active) to cause fatal error log</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="MinimumMemory" type="xs:nonNegativeInteger">
-                      <xs:annotation>
-                        <xs:documentation>Minimum working memory before causing fatal error log</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="ShowOutOfOrderScreenOnWatchDogProblem" type="xs:boolean">
-                      <xs:annotation>
-                        <xs:documentation>Show Out Of Order screen if memory low or too long in critical section</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="ShowOutOfOrderScreenOnUnhandledException" type="xs:boolean">
-                      <xs:annotation>
-                        <xs:documentation>Show Out Of Order screen if unhandled exception happens</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -867,6 +946,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </xs:attribute>
                 </xs:complexType>
               </xs:element>
+                <xs:element name="Modes">
+                  <xs:annotation>
+                    <xs:documentation>This section configures the behaviour of the Self Issue client software</xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="TrustMode" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>When false, an item will only be reported issued if the 3M server allows the item to be issued; if the 3M server fails the issue the reason will be reported to the end user. When true, an item will always be reported issued. If the issue cannot be committed by the client to the 3M server (e.g. if the borrower has too many items out), a message is sent to the librarian (using the method specified in the Systems/Loggers section) requesting manual intervention.</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowOffline" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>When AllowOffline is true, any attempt to issue an item when the 3M server is unavailable will result in the item being reported issued to the user. These transactions are spooled on the client and then played back to the 3M server when it is available again (any items which cannot be committed automatically will generate a message to the librarian using the method specified in Systems/Loggers for manual intervention).</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="UseNoBlock" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Can be set to true if the 3M server supports NoBlock when running in Trust or Offline modes – in this case the 3M server is responsible for reporting cases where manual intervention is required rather than the self issue client.</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="RetryPatronWhenError" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the patron id is valid. If RetryPatronWhenError is false, the Self Issue client will assume that the entered patron id is always valid; if true the Self Issue client will request the patron id to be re-entered if it cannot confirm validity and only continue if the patron id is entered identically twice.</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="RetryItemWhenError" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the item id is valid. If RetryItemWhenError is false, the Self Issue client will assume that the entered item id is always valid; if true the Self Issue client will request the item id to be re-entered if it cannot confirm validity and only continue if the item id is entered identically twice.</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowRenews" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>If false the 3M server will return an error if an attempt is made to issue an item already checked out to that patron; if true the 3M server will be told to interpret the check-out as a renewal request.</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="SuppressSecurityFailureMessages" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Suppress errors from the Security device</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="SendShutdownStatus" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>If true will send a status update to the 3M server when client shuts down</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="EnableBarcodeAliases" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="EnableCheckIn" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Enables Check In screen as well as check out screen</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>              
               <xs:element name="PatronIDReaderDevice">
                 <xs:annotation>
                   <xs:documentation>This allows optional support for local security tagging and gates. The included class works with JavaCard RFID devices.</xs:documentation>
@@ -1060,19 +1198,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               <xs:documentation>Port to send messages to (not used for SMTP logger)</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="To" type="xs:string">
+                          <xs:element name="SSL" type="xs:boolean">
+                            <xs:annotation>
+                              <xs:documentation>Port to send messages to (not used for SMTP logger)</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="Target" type="xs:string">
                             <xs:annotation>
                               <xs:documentation>SMTP logger - e-mail address to send reports to</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="From" type="xs:string">
+                          <xs:element name="Source" type="xs:string">
                             <xs:annotation>
                               <xs:documentation>SMTP Logger: E-mail address from which reports originate (and to which bounce messages will be sent)</xs:documentation>
-                            </xs:annotation>
-                          </xs:element>
-                          <xs:element name="Relay" type="xs:string">
-                            <xs:annotation>
-                              <xs:documentation>SMTP Relay address</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="ConnectionTimeout" type="xs:nonNegativeInteger">
@@ -1101,6 +1239,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.SyslogLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.RestLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.log.ConsoleLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.WinEventLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.OnlineLogLogger"/>
                             </xs:restriction>
                           </xs:simpleType>
@@ -1136,196 +1275,191 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>File to store spooled request</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="PersistentQueueImplementation">
+                      <xs:annotation>
+                        <xs:documentation>Implementation of persistent queue for spoolers. Default is com.gaborcselle.persistent.PersistentQueue. com.ceridwen.util.collections.PersistentQueue is deprecated but available for backwards compatibility for Self Issue 2.61 or earlier. Note: the spooled object store is not compatible between these implementations. You will need to use a different spool path, or delete the existing spools if you change the implementation.</xs:documentation>
+                      </xs:annotation>
+                      <xs:simpleType>
+	                    <xs:restriction base="xs:string">
+    	                  <xs:enumeration value="com.gaborcselle.persistent.PersistentQueue"/>
+        	              <xs:enumeration value="com.ceridwen.util.collections.PersistentQueue"/>
+            	        </xs:restriction>
+                      </xs:simpleType>
+                    </xs:element>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Modes">
-          <xs:annotation>
-            <xs:documentation>This section configures the behaviour of the Self Issue client software</xs:documentation>
-          </xs:annotation>
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="TrustMode" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>When false, an item will only be reported issued if the 3M server allows the item to be issued; if the 3M server fails the issue the reason will be reported to the end user. When true, an item will always be reported issued. If the issue cannot be committed by the client to the 3M server (e.g. if the borrower has too many items out), a message is sent to the librarian (using the method specified in the Systems/Loggers section) requesting manual intervention.</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowOffline" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>When AllowOffline is true, any attempt to issue an item when the 3M server is unavailable will result in the item being reported issued to the user. These transactions are spooled on the client and then played back to the 3M server when it is available again (any items which cannot be committed automatically will generate a message to the librarian using the method specified in Systems/Loggers for manual intervention).</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="UseNoBlock" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Can be set to true if the 3M server supports NoBlock when running in Trust or Offline modes – in this case the 3M server is responsible for reporting cases where manual intervention is required rather than the self issue client.</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="RetryPatronWhenError" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the patron id is valid. If RetryPatronWhenError is false, the Self Issue client will assume that the entered patron id is always valid; if true the Self Issue client will request the patron id to be re-entered if it cannot confirm validity and only continue if the patron id is entered identically twice.</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="RetryItemWhenError" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>If running in Trust Mode or Offline Mode the Self Issue client may not be able to confirm that the item id is valid. If RetryItemWhenError is false, the Self Issue client will assume that the entered item id is always valid; if true the Self Issue client will request the item id to be re-entered if it cannot confirm validity and only continue if the item id is entered identically twice.</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowRenews" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>If false the 3M server will return an error if an attempt is made to issue an item already checked out to that patron; if true the 3M server will be told to interpret the check-out as a renewal request.</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="SuppressSecurityFailureMessages" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Suppress errors from the Security device</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="SendShutdownStatus" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>If true will send a status update to the 3M server when client shuts down</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="EnableBarcodeAlii" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="EnableCheckIn" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Enables Check In screen as well as check out screen</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="CommandInterface">
-          <xs:annotation>
-            <xs:documentation>Enable various debugging/testing features. The client supports various commands of the form *command| whilst at the patron screen. This can be disabled as required. (commands can also be entered as $command% if EnableBarcodeAlii is enabled under Modes)</xs:documentation>
-          </xs:annotation>
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="AllowConnectionTest" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Allows *Test Connection¦ command in the patron panel (tests SIP connectivity)</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowSystemsCheck" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Allow *Check Systems¦ command in the patron panel (indicates current modes, memory and spool use)</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowLogTest" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Allow *Test Crash¦ command in the patron panel (tests unexpected error handling)</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowSystemShutdown" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Allow *Shutdown System¦ command in the patron panel (closes Self Issue client after password check)</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowOutOfOrder" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Allow *Out Of Order¦ command to switch to Out of Order screen (after password confirmation)</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowResetOutOfOrder" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Allow *Reset Out Of Order¦ typed on Out of Order screen to reset to normal use (after password confirmation)</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="AllowCheckIn" type="xs:boolean">
-                <xs:annotation>
-                  <xs:documentation>Allow *Check In¦ to switch to check in screen from patron screen (after password).This allows public check out only station to also be a staff only check in station</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-              <xs:element name="SystemPassword" type="xs:string">
-                <xs:annotation>
-                  <xs:documentation>System password required to confirm staff actions such as shutdown and reset out of order (encrypted). Default password is password.</xs:documentation>
-                </xs:annotation>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="Logging">
+        <xs:element name="Admin">
           <xs:annotation>
             <xs:documentation>Allows logging reporting of unexpected errors</xs:documentation>
           </xs:annotation>
           <xs:complexType>
             <xs:sequence>
-              <xs:element maxOccurs="unbounded" name="LoggingHandler">
+                <xs:element name="CommandInterface">
+                  <xs:annotation>
+                    <xs:documentation>Enable various debugging/testing features. The client supports various commands of the form *command| whilst at the patron screen. This can be disabled as required. (commands can also be entered as $command% if EnableBarcodeAlii is enabled under Modes)</xs:documentation>
+                  </xs:annotation>
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="AllowConnectionTest" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Allows *Test Connection¦ command in the patron panel (tests SIP connectivity)</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowSystemsCheck" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Allow *Check Systems¦ command in the patron panel (indicates current modes, memory and spool use)</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowLogTest" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Allow *Test Crash¦ command in the patron panel (tests unexpected error handling)</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowSystemShutdown" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Allow *Shutdown System¦ command in the patron panel (closes Self Issue client after password check)</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowOutOfOrder" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Allow *Out Of Order¦ command to switch to Out of Order screen (after password confirmation)</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowResetOutOfOrder" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Allow *Reset Out Of Order¦ typed on Out of Order screen to reset to normal use (after password confirmation)</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="AllowCheckIn" type="xs:boolean">
+                        <xs:annotation>
+                          <xs:documentation>Allow *Check In¦ to switch to check in screen from patron screen (after password).This allows public check out only station to also be a staff only check in station</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                      <xs:element name="SystemPassword" type="xs:string">
+                        <xs:annotation>
+                          <xs:documentation>System password required to confirm staff actions such as shutdown and reset out of order (encrypted). Default password is password.</xs:documentation>
+                        </xs:annotation>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="WatchDog">
+                <xs:annotation>
+                  <xs:documentation>The SelfIssue client has a Watch dog thread which periodically checks the health of the client.</xs:documentation>
+                </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="level">
+                    <xs:element name="Timer" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Level of debug event to log (SEVERE, WARNING, INFO, CONFIG, FINE, FINER,FINEST, ALL)</xs:documentation>
-                      </xs:annotation>
-                      <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                          <xs:enumeration value="SEVERE"/>
-                          <xs:enumeration value="WARNING"/>
-                          <xs:enumeration value="INFO"/>
-                          <xs:enumeration value="CONFIG"/>
-                          <xs:enumeration value="FINE"/>
-                          <xs:enumeration value="FINER"/>
-                          <xs:enumeration value="FINEST"/>
-                          <xs:enumeration value="ALL"/>
-                        </xs:restriction>
-                      </xs:simpleType>
-                    </xs:element>
-                    <xs:element name="smtpServer" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>SMTP server (for SMTP logging)</xs:documentation>
+                        <xs:documentation>How often to check health (seconds)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="sender" type="xs:string">
+                    <xs:element name="CriticalSectionThreshold" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>SMTP sender (for SMTP logging)</xs:documentation>
+                        <xs:documentation>Number of consecutive health checks in critical section (e.g. communication with 3M server still active) to cause fatal error log</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="recipients" type="xs:string">
+                    <xs:element name="MinimumMemory" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>SMTP recipients (for SMTP logging)</xs:documentation>
+                        <xs:documentation>Minimum working memory before causing fatal error log</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="syslogHost" type="xs:string">
+                    <xs:element name="ShowOutOfOrderScreenOnWatchDogProblem" type="xs:boolean">
                       <xs:annotation>
-                        <xs:documentation>syslog host (for syslog logging)</xs:documentation>
+                        <xs:documentation>Show Out Of Order screen if memory low or too long in critical section</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="syslogPort" type="xs:nonNegativeInteger">
+                    <xs:element name="ShowOutOfOrderScreenOnUnhandledException" type="xs:boolean">
                       <xs:annotation>
-                        <xs:documentation>syslog port (for syslog logging)</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="URL" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>URL (for REST logging)</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="winEventServer" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Remote server (leave blank for local machine)</xs:documentation>
+                        <xs:documentation>Show Out Of Order screen if unhandled exception happens</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="class" use="required">
-                    <xs:annotation>
-                      <xs:documentation>Type of logger: SMTP, Syslog, REST, Console, Windows Event Log</xs:documentation>
-                    </xs:annotation>
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper"/>
-                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
-                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
-                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.RestLoggingHandlerWrapper"/>
-                        <xs:enumeration value="com.ceridwen.selfissue.client.logging.WinEventLogLoggingHandlerWrapper"/>
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LoggingHandlers">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="LoggingHandler">
+                      <xs:annotation>
+                        <xs:documentation>Allows logging reporting of unexpected errors</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="level">
+                            <xs:annotation>
+                              <xs:documentation>Level of debug event to log (SEVERE, WARNING, INFO, CONFIG, FINE, FINER,FINEST, ALL)</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="SEVERE"/>
+                                <xs:enumeration value="WARNING"/>
+                                <xs:enumeration value="INFO"/>
+                                <xs:enumeration value="CONFIG"/>
+                                <xs:enumeration value="FINE"/>
+                                <xs:enumeration value="FINER"/>
+                                <xs:enumeration value="FINEST"/>
+                                <xs:enumeration value="ALL"/>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="Host" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>SMTP server (for SMTP logging)</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="Port" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                              <xs:documentation>SMTP sender (for SMTP logging)</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="SSL" type="xs:boolean">
+                            <xs:annotation>
+                              <xs:documentation>Remote server (leave blank for local machine)</xs:documentation>
+                            </xs:annotation>                              
+                          </xs:element>
+                          <xs:element name="Target" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>SMTP recipients (for SMTP logging)</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="Source" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>syslog host (for syslog logging)</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="ConnectionTimeout" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                              <xs:documentation>Time (seconds) to wait during initial connection</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="IdleTimeout" type="xs:nonNegativeInteger">
+                            <xs:annotation>
+                              <xs:documentation>Time (seconds) to wait for responses</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>                          
+                        </xs:sequence>
+                        <xs:attribute name="class" use="required">
+                          <xs:annotation>
+                            <xs:documentation>Type of logger: SMTP, Syslog, REST, Console, Windows Event Log</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.RestLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.WinEventLogLoggingHandlerWrapper"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>

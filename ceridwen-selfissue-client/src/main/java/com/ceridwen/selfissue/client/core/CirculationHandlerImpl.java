@@ -572,7 +572,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
                     this.idReaderDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
                     break;                    
             }
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
             CirculationHandlerImpl.logger.warn("Could not initialise ID Reader Device - defaulting to null device", ex);
             this.idReaderDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
         }
@@ -609,7 +609,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
         try {
             this.itemSecurityDevice = (SecurityDevice) Class.forName(Configuration.getProperty(
                     "Systems/ItemSecurityDevice/@class")).newInstance();
-        } catch (Exception ex) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
             CirculationHandlerImpl.logger.warn("Could not initialise Item Security Device - defaulting to null device", ex);
             this.itemSecurityDevice = new com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice();
         }

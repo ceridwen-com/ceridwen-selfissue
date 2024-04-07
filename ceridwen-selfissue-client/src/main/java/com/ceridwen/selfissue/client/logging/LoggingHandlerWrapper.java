@@ -24,28 +24,56 @@ import org.w3c.dom.Node;
 import com.ceridwen.selfissue.client.config.Configuration;
 
 public abstract class LoggingHandlerWrapper {
-    public abstract Handler getLoggingHandler(Node item);
+    public abstract Handler getLoggingHandler(Node config);
     
-    protected Level getLevel(Node item) {
-        if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("SEVERE")) {
+    protected Level getLevel(Node config) {
+        if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("SEVERE")) {
             return java.util.logging.Level.SEVERE;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("WARNING")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("WARNING")) {
             return java.util.logging.Level.WARNING;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("INFO")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("INFO")) {
             return java.util.logging.Level.INFO;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("CONFIG")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("CONFIG")) {
             return java.util.logging.Level.CONFIG;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("FINE")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("FINE")) {
             return java.util.logging.Level.FINE;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("FINER")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("FINER")) {
             return java.util.logging.Level.FINER;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("FINEST")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("FINEST")) {
             return java.util.logging.Level.FINEST;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("ALL")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("ALL")) {
             return java.util.logging.Level.ALL;
           } else {
             return java.util.logging.Level.OFF;
           }
+    }
+    
+    protected String getHost(Node config) {
+        return Configuration.getSubProperty(config, "Host");
+    }
+    
+    protected int getPort(Node config) {
+        return Configuration.getIntSubProperty(config, "Port");
+    }
+    
+    protected boolean getSSL(Node config) {
+        return Configuration.getBoolSubProperty(config, "SSL");
+    }
+    
+    protected String getTarget(Node config) {
+        return Configuration.getSubProperty(config, "Target");
+    }
+    
+    protected String getSource(Node config) {
+        return Configuration.getSubProperty(config, "Source");
+    }
+    
+    protected int getConnectionTimeout(Node config) {
+        return Configuration.getIntSubProperty(config, "ConnectionTimeout");
+    }
+    
+    protected int getIdleTimeout(Node config) {
+        return Configuration.getIntSubProperty(config, "IdleTimeout");  
     }
 
 }

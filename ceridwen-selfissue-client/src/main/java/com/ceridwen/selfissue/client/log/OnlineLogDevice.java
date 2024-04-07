@@ -42,10 +42,7 @@ public class OnlineLogDevice implements OnlineLog {
 
   public OnlineLogDevice(String file, OnlineLogLogger processor, int period) throws IOException, ClassNotFoundException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
     this.processor = processor;
-    
-    @SuppressWarnings("unchecked")
-	Queue<OnlineLogEvent> persistentQueue = ((Queue<OnlineLogEvent>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file}));
-    
+    Queue<OnlineLogEvent> persistentQueue =  Configuration.getPersistentQueue(file);
     spool = new Spooler<>(persistentQueue, this.processor, delay, period);
   }
 

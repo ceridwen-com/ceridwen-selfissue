@@ -60,13 +60,13 @@ public class SelfIssuePanel extends JPanel {
 
 private static final Log log = LogFactory.getLog(SelfIssuePanel.class);
 
-  public static final boolean trustMode = Configuration.getBoolProperty("Modes/TrustMode");
-  public static final boolean allowOffline = Configuration.getBoolProperty("Modes/AllowOffline");
-  public static final boolean retryPatronWhenError = Configuration.getBoolProperty("Modes/RetryPatronWhenError");
-  public static final boolean retryItemWhenError = Configuration.getBoolProperty("Modes/RetryItemWhenError");
-  public static final boolean allowRenews = Configuration.getBoolProperty("Modes/AllowRenews");
+  public static final boolean trustMode = Configuration.getBoolProperty("Systems/Modes/TrustMode");
+  public static final boolean allowOffline = Configuration.getBoolProperty("Systems/Modes/AllowOffline");
+  public static final boolean retryPatronWhenError = Configuration.getBoolProperty("Systems/Modes/RetryPatronWhenError");
+  public static final boolean retryItemWhenError = Configuration.getBoolProperty("Systems/Modes/RetryItemWhenError");
+  public static final boolean allowRenews = Configuration.getBoolProperty("Systems/Modes/AllowRenews");
   public static final boolean useNoBlock = Configuration.getBoolProperty("Modes/UseNoBlock");
-  public static final boolean suppressSecurityFailureMessages = Configuration.getBoolProperty("Modes/SuppressSecurityFailureMessages");
+  public static final boolean suppressSecurityFailureMessages = Configuration.getBoolProperty("Systems/Modes/SuppressSecurityFailureMessages");
   /**@todo: find better name and functionality
    *
    */
@@ -83,17 +83,19 @@ private static final Log log = LogFactory.getLog(SelfIssuePanel.class);
   }
 
   void PlaySound(String sound) {
-    try {
-      String snd = Configuration.getProperty("UI/Audio/" + sound);
-      if (StringUtils.isEmpty(snd)) {
-        return;
-      }
-      AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Configuration.LoadResource(snd));
-      Clip clip = AudioSystem.getClip();
-      clip.open(audioInputStream);
-      clip.start();
-    } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
-      log.debug("Sound object not found");
+    if (Configuration.getBoolProperty("UI/Audio/AudioEnabled")) {
+        try {
+          String snd = Configuration.getProperty("UI/Audio/" + sound);
+          if (StringUtils.isEmpty(snd)) {
+            return;
+          }
+          AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Configuration.LoadResource(snd));
+          Clip clip = AudioSystem.getClip();
+          clip.open(audioInputStream);
+          clip.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+          log.debug("Sound object not found");
+        }
     }
   }
 

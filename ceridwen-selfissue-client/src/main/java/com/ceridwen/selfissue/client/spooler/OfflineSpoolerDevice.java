@@ -32,19 +32,21 @@ import com.ceridwen.util.collections.Queue;
 import com.ceridwen.util.collections.Spooler;
 import com.ceridwen.util.collections.SpoolerProcessor;
 
+
 public class OfflineSpoolerDevice implements OfflineSpooler {
-  private Spooler<OfflineSpoolObject> spool;
+  private final Spooler<OfflineSpoolObject> spool;
   private static final long delay = 10000;
 
   public OfflineSpoolerDevice(String file, SpoolerProcessor<OfflineSpoolObject> processor, int period) throws IOException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
-    @SuppressWarnings("unchecked")
-	Queue<OfflineSpoolObject> persistentQueue = (Queue<OfflineSpoolObject>)Class.forName(Configuration.getProperty("UI/Control/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file});
-    spool = new Spooler<OfflineSpoolObject>(persistentQueue, processor, delay, period);
+    Queue<OfflineSpoolObject> persistentQueue = Configuration.getPersistentQueue(file);
+    spool = new Spooler<>(persistentQueue, processor, delay, period); 
   }
 
+  @Override
   public void add(OfflineSpoolObject m) throws IOException {
     spool.add(m);
   }
+  @Override
   public int size() {
     return spool.size();
   }

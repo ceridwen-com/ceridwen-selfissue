@@ -29,19 +29,20 @@ import java.net.URLConnection;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Node;
 
-import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
+import java.io.IOException;
 
 public class RESTLogger extends OnlineLogLogger {
     String baseUrl;
 
+    @Override
     public void initialise(Node config, OutOfOrderInterface ooo) {
         super.initialise(config, ooo);
-        this.baseUrl = Configuration.getSubProperty(config, "URL");
+        this.baseUrl = (ssl?"https":"http") + "://" + host + ":" + ((port==0)?(ssl?443:80):port) + target;
     }
 
     public synchronized boolean sendRest(OnlineLogEvent event) { 
-        StringBuffer restString = new StringBuffer();
+        StringBuilder restString = new StringBuilder();
         try {
             BeanInfo bi = Introspector.getBeanInfo(event.getClass(), Object.class);
             boolean first = true;
@@ -57,9 +58,7 @@ public class RESTLogger extends OnlineLogLogger {
                         restString.append("=");
                         restString.append(value);
                     }
-                } catch (IllegalArgumentException ex) {
-                } catch (IllegalAccessException ex) {
-                } catch (InvocationTargetException ex) {
+                } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException ex) {
                 }
             }
             try {
@@ -74,14 +73,14 @@ public class RESTLogger extends OnlineLogLogger {
     
                 // Get the response
                 BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line = rd.readLine()) != null) {
                     sb.append(line);
                 }
                 rd.close();
                 return true;
-            } catch (Exception e) {
+            } catch (IOException e) {
                 return false;
             }
         } catch (IntrospectionException ex) {

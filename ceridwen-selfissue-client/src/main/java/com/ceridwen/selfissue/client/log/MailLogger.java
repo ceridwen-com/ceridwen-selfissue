@@ -21,37 +21,27 @@ import java.text.SimpleDateFormat;
 import org.apache.commons.net.smtp.SMTPClient;
 import org.w3c.dom.Node;
 
-import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
+import java.io.IOException;
 
 public class MailLogger extends OnlineLogLogger {
-  protected String relay;
-  protected String to;
-  protected int connectionTimeout;
-  protected int idleTimeout;
-  protected String from;
 
+  @Override
   public void initialise(Node config, OutOfOrderInterface ooo) {
     super.initialise(config, ooo);
-
-    relay = Configuration.getSubProperty(config, "Relay");
-    from = Configuration.getSubProperty(config, "From");
-    to = Configuration.getSubProperty(config, "To");
-    connectionTimeout = Configuration.getIntSubProperty(config, "ConnectionTimeout") * 1000;
-    idleTimeout = Configuration.getIntSubProperty(config, "IdleTimeout") * 1000;
   }
 
   public synchronized boolean sendSMTPMessage(String subject, String message) {
     try {
       SMTPClient smtp = new SMTPClient();
-      smtp.connect(relay);
+      smtp.connect(host);
       smtp.setSoTimeout(idleTimeout);
 
       if (smtp.login()) {
-        if (!smtp.sendSimpleMessage(from,
-                                    to,
-                                    "From: " + from + "\r\n" +
-                                    "To: " + to + "\r\n" +
+        if (!smtp.sendSimpleMessage(source,
+                                    target,
+                                    "From: " + source + "\r\n" +
+                                    "To: " + target + "\r\n" +
                                     "Date: " +
                                     new SimpleDateFormat("E, d MMM yyyy HH:mm:ss Z").
                                     format(new java.util.Date()) + "\r\n" +
@@ -67,11 +57,12 @@ public class MailLogger extends OnlineLogLogger {
       smtp.disconnect();
       return true;
     }
-    catch (Exception ex) {
+    catch (IOException ex) {
       return false;
     }
   }
 
+  @Override
   public boolean log(OnlineLogEvent event) {
     return this.sendSMTPMessage(this.getSubject(event), this.getMessage(event));
   }
