@@ -72,18 +72,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       <xs:annotation>
                         <xs:documentation>Java Look and Feel</xs:documentation>
                       </xs:annotation>
-                    </xs:element>
-                    <xs:element name="ReferenceDisplaySize" type="xs:nonNegativeInteger">
-                      <xs:annotation>
-                        <xs:documentation>Reference display size</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
+                    </xs:element>                   
                     <xs:element name="BorderWidth" type="xs:nonNegativeInteger">
                       <xs:annotation>
                         <xs:documentation>Border width</xs:documentation>
                       </xs:annotation>
                     </xs:element> 
-                     <xs:element name="DividerWidth" type="xs:nonNegativeInteger">
+                     <xs:element name="VerticalDividerWidth" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Border width</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                                                     
+                     <xs:element name="HorizontalDividerWidth" type="xs:nonNegativeInteger">
                       <xs:annotation>
                         <xs:documentation>Border width</xs:documentation>
                       </xs:annotation>
@@ -311,6 +311,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="PatronField_Length" type="xs:positiveInteger">
+                      <xs:annotation>
+                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="PatronSubmitButton_Text" type="xs:string">                 
                       <xs:annotation>
                         <xs:documentation>Next button text</xs:documentation>
@@ -341,6 +346,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="PasswordField_Length" type="xs:positiveInteger">
+                      <xs:annotation>
+                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="PasswordSubmitButton_Text" type="xs:string">                 
                       <xs:annotation>
                         <xs:documentation>Next button text</xs:documentation>
@@ -415,6 +425,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="BookField_Length" type="xs:positiveInteger">
+                      <xs:annotation>
+                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                        
                     <xs:element name="CheckoutButton_Text" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Checkout button text</xs:documentation>
@@ -499,6 +514,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="BookField_Length" type="xs:positiveInteger">
+                      <xs:annotation>
+                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                        
                     <xs:element name="CheckinButton_Text" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Checkin button text</xs:documentation>
@@ -830,7 +850,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Terminal out of order message text</xs:documentation>
                       </xs:annotation>
                     </xs:element>  
-                    <xs:element name="ResetTimeout" type="xs:nonNegativeInteger">
+                    <xs:element name="ResetTimeout" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
                       </xs:annotation>
@@ -845,6 +865,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Remove final digit from item barcodes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="ReferenceMonitor" type="xs:positiveInteger">
+                      <xs:annotation>
+                        <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>    
+                    <xs:element name="ReferenceDPI" type="xs:positiveInteger">
+                      <xs:annotation>
+                        <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                    
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -865,7 +895,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>IP address of 3M SIP server</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="Port" type="xs:nonNegativeInteger">
+                    <xs:element name="Port" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>IP Port of 3M SIP Server (typically 23 for telnet)</xs:documentation>
                       </xs:annotation>
@@ -910,22 +940,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>If required, the 3M SIP2 Algorithm used by the 3M Server for the 3M SIP2 Login message</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="ConnectionTimeout" type="xs:nonNegativeInteger">
+                    <xs:element name="ConnectionTimeout" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Time (seconds) to wait during initial connection</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="IdleTimeout" type="xs:nonNegativeInteger">
+                    <xs:element name="IdleTimeout" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Time (seconds) to wait when awaiting response to a transaction</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="RetryAttempts" type="xs:nonNegativeInteger">
+                    <xs:element name="RetryAttempts" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Number of reconnection attempts if initial connection fails</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="RetryWait" type="xs:nonNegativeInteger">
+                    <xs:element name="RetryWait" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Time (ms) to wait between connection retries</xs:documentation>
                       </xs:annotation>
@@ -1111,12 +1141,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="Retries" type="xs:nonNegativeInteger">
+                    <xs:element name="Retries" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Number of retries if initial attempt to desensitize device fails</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="Timeout" type="xs:nonNegativeInteger">
+                    <xs:element name="Timeout" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Time (ms) to wait for security device</xs:documentation>
                       </xs:annotation>
@@ -1228,7 +1258,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="ReplayPeriod" type="xs:nonNegativeInteger">
+                          <xs:element name="ReplayPeriod" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Messages may be spooled if the server to receive them is not available. This indicates how often the spool is checked for stored messages (minutes)</xs:documentation>
                             </xs:annotation>
@@ -1243,7 +1273,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               <xs:documentation>Server to send messages to (not used for SMTP logger)</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="Port" type="xs:integer">
+                          <xs:element name="Port" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Port to send messages to (not used for SMTP logger)</xs:documentation>
                             </xs:annotation>
@@ -1263,12 +1293,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               <xs:documentation>SMTP Logger: E-mail address from which reports originate (and to which bounce messages will be sent)</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="ConnectionTimeout" type="xs:nonNegativeInteger">
+                          <xs:element name="ConnectionTimeout" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Time (seconds) to wait during initial connection</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="IdleTimeout" type="xs:nonNegativeInteger">
+                          <xs:element name="IdleTimeout" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Time (seconds) to wait for responses</xs:documentation>
                             </xs:annotation>
@@ -1305,17 +1335,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="ReplayPeriod" type="xs:nonNegativeInteger">
+                    <xs:element name="ReplayPeriod" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Time (minutes) to replay spooler</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="OverdueAgeWarn" type="xs:nonNegativeInteger">
+                    <xs:element name="OverdueAgeWarn" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Time (hours) item can remain in spooler before generating warning message</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="OverdueAgeExpire" type="xs:nonNegativeInteger">
+                    <xs:element name="OverdueAgeExpire" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Time (hours) item can remain in spooler before generating manual intervention message</xs:documentation>
                       </xs:annotation>
@@ -1403,17 +1433,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="Timer" type="xs:nonNegativeInteger">
+                    <xs:element name="Timer" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>How often to check health (seconds)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="CriticalSectionThreshold" type="xs:nonNegativeInteger">
+                    <xs:element name="CriticalSectionThreshold" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Number of consecutive health checks in critical section (e.g. communication with 3M server still active) to cause fatal error log</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="MinimumMemory" type="xs:nonNegativeInteger">
+                    <xs:element name="MinimumMemory" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Minimum working memory before causing fatal error log</xs:documentation>
                       </xs:annotation>
@@ -1462,7 +1492,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               <xs:documentation>SMTP server (for SMTP logging)</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="Port" type="xs:nonNegativeInteger">
+                          <xs:element name="Port" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>SMTP sender (for SMTP logging)</xs:documentation>
                             </xs:annotation>
@@ -1482,12 +1512,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               <xs:documentation>syslog host (for syslog logging)</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="ConnectionTimeout" type="xs:nonNegativeInteger">
+                          <xs:element name="ConnectionTimeout" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Time (seconds) to wait during initial connection</xs:documentation>
                             </xs:annotation>
                           </xs:element>
-                          <xs:element name="IdleTimeout" type="xs:nonNegativeInteger">
+                          <xs:element name="IdleTimeout" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Time (seconds) to wait for responses</xs:documentation>
                             </xs:annotation>

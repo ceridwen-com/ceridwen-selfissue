@@ -53,7 +53,7 @@ public abstract class LoggingHandlerWrapper {
     }
     
     protected int getPort(Node config) {
-        return Configuration.getIntSubProperty(config, "Port");
+        return Configuration.getIntSubProperty(config, "Port", 80);
     }
     
     protected boolean getSSL(Node config) {
@@ -69,11 +69,11 @@ public abstract class LoggingHandlerWrapper {
     }
     
     protected int getConnectionTimeout(Node config) {
-        return Configuration.getIntSubProperty(config, "ConnectionTimeout");
+        return Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
     }
     
     protected int getIdleTimeout(Node config) {
-        return Configuration.getIntSubProperty(config, "IdleTimeout");  
+        return Configuration.getIntSubProperty(config, "IdleTimeout", 5);  
     }
 
 }

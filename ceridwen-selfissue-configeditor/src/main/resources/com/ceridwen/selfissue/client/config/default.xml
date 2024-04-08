@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=3.25;time=2024-04-07 16:22:20.13;xui=config.xui;xsd=config.xsd?>
+<?jaxfront version=3.25;time=2024-04-07 21:16:57.428;xui=config.xui;xsd=config.xsd?>
 <SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
       <UI>
             <SelfIssue>
@@ -10,9 +10,9 @@
             </SelfIssue>
             <Styling>
                   <LookAndFeel>com.formdev.flatlaf.FlatLightLaf</LookAndFeel>
-                  <ReferenceDisplaySize>24</ReferenceDisplaySize>
                   <BorderWidth>24</BorderWidth>
-                  <DividerWidth>8</DividerWidth>
+                  <VerticalDividerWidth>4</VerticalDividerWidth>
+                  <HorizontalDividerWidth>8</HorizontalDividerWidth>
                   <TitleText_Font>SansSerif</TitleText_Font>
                   <TitleText_Size>120</TitleText_Size>
                   <SubTitleText_Font>SansSerif</SubTitleText_Font>
@@ -28,7 +28,7 @@
                   <InputText_Font>SansSerif</InputText_Font>
                   <InputText_Size>32</InputText_Size>
                   <VersionText_Font>Serif</VersionText_Font>
-                  <VersionText_Size>10</VersionText_Size>
+                  <VersionText_Size>12</VersionText_Size>
             </Styling>
             <Palette>
                   <OuterBorderColour>214,214,255</OuterBorderColour>
@@ -58,12 +58,14 @@
                   <PatronFieldLabel_ToolTipText>Please enter the barcode number from your university card.</PatronFieldLabel_ToolTipText>
                   <PatronField_DefaultText/>
                   <PatronField_ToolTipText>Scan your University barcode using the hand held scanner.</PatronField_ToolTipText>
+                  <PatronField_Length>16</PatronField_Length>
                   <PatronSubmitButton_Text>OK</PatronSubmitButton_Text>
                   <PatronSubmitButton_ToolTipText>Enter Patron ID</PatronSubmitButton_ToolTipText>
                   <PasswordFieldLabel_Text>Please enter your password</PasswordFieldLabel_Text>
                   <PasswordFieldLabel_ToolTipText>Please enter your password</PasswordFieldLabel_ToolTipText>
                   <PasswordField_DefaultText>Enter Password</PasswordField_DefaultText>
                   <PasswordField_ToolTipText>Please enter your password</PasswordField_ToolTipText>
+                  <PasswordField_Length>16</PasswordField_Length>
                   <PasswordSubmitButton_Text>OK</PasswordSubmitButton_Text>
                   <PasswordSubmitButton_ToolTipText/>
                   <PatronPanelResetButton_Text>Clear</PatronPanelResetButton_Text>
@@ -79,6 +81,7 @@
                   <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check out.</BookFieldLabel_ToolTipText>
                   <BookField_DefaultText/>
                   <BookField_ToolTipText>Please enter the barcode of the next book to check out.</BookField_ToolTipText>
+                  <BookField_Length>16</BookField_Length>
                   <CheckoutButton_Text>Check Out</CheckoutButton_Text>
                   <CheckoutButton_ToolTipText>Check Out</CheckoutButton_ToolTipText>
                   <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
@@ -96,6 +99,7 @@
                   <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check in.</BookFieldLabel_ToolTipText>
                   <BookField_DefaultText/>
                   <BookField_ToolTipText>Please enter the barcode of the next book to check in.</BookField_ToolTipText>
+                  <BookField_Length>16</BookField_Length>
                   <CheckinButton_Text>Check In</CheckinButton_Text>
                   <CheckinButton_ToolTipText>Check In</CheckinButton_ToolTipText>
                   <BookPanelNextButton_Text>Finish</BookPanelNextButton_Text>
@@ -133,28 +137,28 @@
             </Messages>
             <Audio>
                   <AudioEnabled>true</AudioEnabled>
-                  <ValidPatron>org/freesound/34804___zin___splash_bell_2.wav</ValidPatron>
-                  <CheckoutSuccess>org/freesound/34804___zin___splash_bell_2.wav</CheckoutSuccess>
-                  <CheckinSuccess>org/freesound/34804___zin___splash_bell_2.wav</CheckinSuccess>
-                  <PatronRetry>org/freesound/8594__SpeedY__Strum_mute_down.wav</PatronRetry>
-                  <CheckoutRetry>org/freesound/8594__SpeedY__Strum_mute_down.wav</CheckoutRetry>
-                  <CheckinRetry>org/freesound/8594__SpeedY__Strum_mute_down.wav</CheckinRetry>
-                  <InvalidPatronBarcode>org/freesound/26034__ashassin__cassrol.wav</InvalidPatronBarcode>
-                  <PatronNetworkError>org/freesound/26034__ashassin__cassrol.wav</PatronNetworkError>
-                  <InvalidPatronError>org/freesound/26034__ashassin__cassrol.wav</InvalidPatronError>
-                  <BlockedPatronError>org/freesound/26034__ashassin__cassrol.wav</BlockedPatronError>
-                  <UnexpectedPatronError>org/freesound/26034__ashassin__cassrol.wav</UnexpectedPatronError>
-                  <InvalidItemBarcode>org/freesound/26034__ashassin__cassrol.wav</InvalidItemBarcode>
-                  <CheckoutNetworkError>org/freesound/26034__ashassin__cassrol.wav</CheckoutNetworkError>
-                  <CheckoutFailedError>org/freesound/26034__ashassin__cassrol.wav</CheckoutFailedError>
-                  <UnexpectedCheckoutError>org/freesound/26034__ashassin__cassrol.wav</UnexpectedCheckoutError>
-                  <UnlockFailedError>org/freesound/26034__ashassin__cassrol.wav</UnlockFailedError>
-                  <UnlockFailedCheckinFailedError>org/freesound/26034__ashassin__cassrol.wav</UnlockFailedCheckinFailedError>
-                  <CheckinNetworkError>org/freesound/26034__ashassin__cassrol.wav</CheckinNetworkError>
-                  <CheckinFailedError>org/freesound/26034__ashassin__cassrol.wav</CheckinFailedError>
-                  <UnexpectedCheckinError>org/freesound/26034__ashassin__cassrol.wav</UnexpectedCheckinError>
-                  <LockFailedError>org/freesound/26034__ashassin__cassrol.wav</LockFailedError>
-                  <LockFailedCheckoutFailedError>org/freesound/26034__ashassin__cassrol.wav</LockFailedCheckoutFailedError>
+                  <ValidPatron>org/freesound/success_bell.wav</ValidPatron>
+                  <CheckoutSuccess>org/freesound/success_bell.wav</CheckoutSuccess>
+                  <CheckinSuccess>org/freesound/success_bell.wav</CheckinSuccess>
+                  <PatronRetry>org/freesound/Pending Notification 1_1.wav</PatronRetry>
+                  <CheckoutRetry>org/freesound/Pending Notification 1_1.wav</CheckoutRetry>
+                  <CheckinRetry>org/freesound/Pending Notification 1_1.wav</CheckinRetry>
+                  <InvalidPatronBarcode>org/freesound/Failure Drum Sound Effect 3.wav</InvalidPatronBarcode>
+                  <PatronNetworkError>org/freesound/Failure Drum Sound Effect 3.wav</PatronNetworkError>
+                  <InvalidPatronError>org/freesound/Failure Drum Sound Effect 3.wav</InvalidPatronError>
+                  <BlockedPatronError>org/freesound/Failure Drum Sound Effect 3.wav</BlockedPatronError>
+                  <UnexpectedPatronError>org/freesound/Failure Drum Sound Effect 3.wav</UnexpectedPatronError>
+                  <InvalidItemBarcode>org/freesound/Failure Drum Sound Effect 3.wav</InvalidItemBarcode>
+                  <CheckoutNetworkError>org/freesound/Failure Drum Sound Effect 3.wav</CheckoutNetworkError>
+                  <CheckoutFailedError>org/freesound/Failure Drum Sound Effect 3.wav</CheckoutFailedError>
+                  <UnexpectedCheckoutError>org/freesound/Failure Drum Sound Effect 3.wav</UnexpectedCheckoutError>
+                  <UnlockFailedError>org/freesound/Failure Drum Sound Effect 3.wav</UnlockFailedError>
+                  <UnlockFailedCheckinFailedError>org/freesound/Failure Drum Sound Effect 3.wav</UnlockFailedCheckinFailedError>
+                  <CheckinNetworkError>org/freesound/Failure Drum Sound Effect 3.wav</CheckinNetworkError>
+                  <CheckinFailedError>org/freesound/Failure Drum Sound Effect 3.wav</CheckinFailedError>
+                  <UnexpectedCheckinError>org/freesound/Failure Drum Sound Effect 3.wav</UnexpectedCheckinError>
+                  <LockFailedError>org/freesound/Failure Drum Sound Effect 3.wav</LockFailedError>
+                  <LockFailedCheckoutFailedError>org/freesound/Failure Drum Sound Effect 3.wav</LockFailedCheckoutFailedError>
             </Audio>
             <Validation>
                   <PatronBarcodeMask>(2\d{6})|([1-9a-zA-Z][\w,. -]+)</PatronBarcodeMask>
@@ -166,6 +170,8 @@
                   <ResetTimeout>120</ResetTimeout>
                   <StripPatronChecksumDigit>false</StripPatronChecksumDigit>
                   <StripItemChecksumDigit>false</StripItemChecksumDigit>
+                  <ReferenceMonitor>25</ReferenceMonitor>
+                  <ReferenceDPI>96</ReferenceDPI>
             </Advanced>
       </UI>
       <Systems>
@@ -239,7 +245,7 @@
                         <ReplayPeriod>15</ReplayPeriod>
                         <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder>
                         <Host>localhost</Host>
-                        <Port>514</Port>
+                        <Port>25</Port>
                         <SSL/>
                         <Target/>
                         <Source/>

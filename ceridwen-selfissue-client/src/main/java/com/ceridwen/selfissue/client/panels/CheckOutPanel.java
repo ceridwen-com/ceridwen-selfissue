@@ -235,7 +235,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     private JLabel BookFieldLabel = new JLabel();
     private JPanel DataPanel = new JPanel();
     private BorderLayout InformationBorderLayout = new BorderLayout();
-    private JTextField BookField = new JTextField();
+    private JTextField BookField = new JTextField(Configuration.getIntProperty("UI/CheckOutPanel/BookField_Length", 8));
     private JPanel ResponsePanel = new JPanel();
     private BorderLayout ResponseBorderLayout = new BorderLayout();
     private Border border1;
@@ -342,7 +342,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.BookField.setSelectedTextColor(InputSelectedTextColour);
         this.BookField.setCaretColor(InputCaretColour);
         this.BookField.setDisabledTextColor(InputDisabledTextColour);          
-        this.BookField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
+        //this.BookField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
         // BookField.setNextFocusableComponent(CheckoutButton);
         this.BookField.setRequestFocusEnabled(true);
         this.BookField.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookField_ToolTipText"));

@@ -94,14 +94,14 @@ public abstract class OnlineLogLogger implements SpoolerProcessor<OnlineLogEvent
   public void initialise(Node config, OutOfOrderInterface ooo) {
     this.ooo = ooo;
     this.eventMask = this.generateEventMask(Configuration.getSubPropertyNode(config, "EventMask"));
-    this.overdueAgeOOO = Configuration.getIntSubProperty(config, "OverdueAgeOutOfOrder");    
+    this.overdueAgeOOO = Configuration.getIntSubProperty(config, "OverdueAgeOutOfOrder", 0);    
     this.host = Configuration.getSubProperty(config, "Host");
-    this.port = Configuration.getIntSubProperty(config, "Port");
+    this.port = Configuration.getIntSubProperty(config, "Port", 80);
     this.ssl = Configuration.getBoolSubProperty(config, "SSL");
     this.target = Configuration.getSubProperty(config, "Target");
     this.source = Configuration.getSubProperty(config, "Source");
-    this.connectionTimeout = Configuration.getIntSubProperty(config, "ConnectionTimeout");
-    this.idleTimeout = Configuration.getIntSubProperty(config, "IdleTimeout");    
+    this.connectionTimeout = Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
+    this.idleTimeout = Configuration.getIntSubProperty(config, "IdleTimeout", 5);    
   }
 
   public abstract boolean log(OnlineLogEvent event);

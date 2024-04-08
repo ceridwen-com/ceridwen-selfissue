@@ -130,9 +130,9 @@ public class SelfIssueThread extends Thread {
 
         @Override
 	public void run() {
-	    int WatchDogThreshold = Configuration.getIntProperty("Admin/WatchDog/CriticalSectionThreshold");
-	    int WatchDogTimer = Configuration.getIntProperty("Admin/WatchDog/Timer") * 1000;
-	    int WatchDogMinimumMemory = Configuration.getIntProperty("Admin/WatchDog/MinimumMemory");
+	    int WatchDogThreshold = Configuration.getIntProperty("Admin/WatchDog/CriticalSectionThreshold", 5);
+	    int WatchDogTimer = Configuration.getIntProperty("Admin/WatchDog/Timer", 60) * 1000;
+	    int WatchDogMinimumMemory = Configuration.getIntProperty("Admin/WatchDog/MinimumMemory", 4);
 	    boolean ooo = Configuration.getBoolProperty("Admin/WatchDog/ShowOutOfOrderScreenOnWatchDogProblem");
             String lafClass = Configuration.getProperty("UI/Styling/LookAndFeel");
 	    final int WatchDogMaximumErrors = 5;

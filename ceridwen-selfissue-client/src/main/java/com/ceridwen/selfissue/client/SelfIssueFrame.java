@@ -51,7 +51,11 @@ import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
 import com.ceridwen.selfissue.client.panels.*;
 import com.ceridwen.util.versioning.LibraryIdentifier;
 import com.ceridwen.util.versioning.LibraryRegistry;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.BoxLayout;
 
 public class SelfIssueFrame extends JFrame implements OutOfOrderInterface
 {
@@ -79,6 +83,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
   private JLabel RightIcon = new JLabel();
   private JLabel LeftIcon = new JLabel();
   private JPanel TitleTextPanel = new JPanel();
+  private JPanel TitleTextPanel2 = new JPanel();  
   private JLabel TitleText = new JLabel();
   private JLabel LibraryText = new JLabel();
   private static boolean onTop = true;
@@ -109,10 +114,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     enableEvents(AWTEvent.WINDOW_EVENT_MASK | AWTEvent.WINDOW_FOCUS_EVENT_MASK |
                  AWTEvent.WINDOW_STATE_EVENT_MASK);
     try {
-      int resetTime = Configuration.getIntProperty("UI/Advanced/ResetTimeout");
-      
-      if (resetTime < 5)
-          resetTime = 5;
+      int resetTime = Configuration.getIntProperty("UI/Advanced/ResetTimeout", 5);
       
       ResetTimer = new javax.swing.Timer( resetTime * 1000, (ActionEvent e) -> {
           ResetTimer_actionPerformed(e);
@@ -156,8 +158,10 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     Font VersionTextFont = Configuration.getFont("VersionText");
     int BorderWidthPt = Configuration.getScaledPointSize("UI/Styling/BorderWidth"); 
     int BorderWidthPxl = Configuration.pt2Pixel(BorderWidthPt);
-    int DividerWidthPt = Configuration.getScaledPointSize("UI/Styling/DividerWidth");
-    int DividerWidthPxl = Configuration.pt2Pixel(DividerWidthPt);
+    int VDividerWidthPt = Configuration.getScaledPointSize("UI/Styling/VerticalDividerWidth");
+    int VDividerWidthPxl = Configuration.pt2Pixel(VDividerWidthPt);    
+    int HDividerWidthPt = Configuration.getScaledPointSize("UI/Styling/HorizontalDividerWidth");
+    int HDividerWidthPxl = Configuration.pt2Pixel(HDividerWidthPt);
     
     MainPane = (JPanel)this.getContentPane();
     MainPane.setLayout(new BorderLayout());
@@ -190,7 +194,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     TitlePanel.setOpaque(true);
     TitlePanel.setBackground(TitleBackgroundColour);
     RightIcon.setIcon(Configuration.LoadImage("UI/SelfIssue/RightIcon"));
+    RightIcon.setBorder(BorderFactory.createMatteBorder(0, VDividerWidthPxl, 0 , 0, InnerBorderColour));
     LeftIcon.setIcon(Configuration.LoadImage("UI/SelfIssue/LeftIcon"));
+    LeftIcon.setBorder(BorderFactory.createMatteBorder(0, 0 , 0, VDividerWidthPxl, InnerBorderColour));
     TitleText.setEnabled(true);
     TitleText.setFont(TitleTextFont);
     TitleText.setForeground(TitleTextColour);
@@ -198,24 +204,36 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     TitleText.setRequestFocusEnabled(false);
     TitleText.setToolTipText("");
     TitleText.setHorizontalAlignment(SwingConstants.CENTER);
-    TitleText.setHorizontalTextPosition(SwingConstants.TRAILING);
+    TitleText.setHorizontalTextPosition(SwingConstants.CENTER);
     TitleText.setText(Configuration.getProperty("UI/SelfIssue/TitleText"));
     TitleText.setVerticalAlignment(SwingConstants.BOTTOM);
-    TitleText.setVerticalTextPosition(SwingConstants.CENTER);
+    TitleText.setVerticalTextPosition(SwingConstants.BOTTOM);
+    TitleText.setAlignmentX(Component.CENTER_ALIGNMENT);
     LibraryText.setFont(LibraryTextFont);
     LibraryText.setForeground(LibraryTextColour);
+    LibraryText.setHorizontalTextPosition(SwingConstants.CENTER);    
     LibraryText.setHorizontalAlignment(SwingConstants.CENTER);
     LibraryText.setText(Configuration.getProperty("UI/SelfIssue/SubTitleText"));
     LibraryText.setVerticalAlignment(SwingConstants.TOP);
-    TitleTextPanel.setLayout(new BorderLayout());
+    LibraryText.setVerticalTextPosition(SwingConstants.TOP);
+    LibraryText.setAlignmentX(Component.CENTER_ALIGNMENT);
+    TitleTextPanel.setLayout(new BoxLayout(TitleTextPanel, BoxLayout.Y_AXIS));
     TitleTextPanel.setOpaque(false);
+    TitleTextPanel.add(TitleText);
+    TitleTextPanel.add(LibraryText);
+    TitleTextPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    TitleTextPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+    TitleTextPanel2.setLayout(new GridBagLayout());
+    TitleTextPanel2.setOpaque(false);
+    GridBagConstraints c = new GridBagConstraints();
+    c.anchor = GridBagConstraints.CENTER;
+    TitleTextPanel2.add(TitleTextPanel, c);
     TitlePanel.add(RightIcon, BorderLayout.EAST);
     TitlePanel.add(LeftIcon, BorderLayout.WEST);
-    TitlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, DividerWidthPxl, 0, InnerBorderColour));
+    TitlePanel.setBorder(BorderFactory.createMatteBorder(0, 0, HDividerWidthPxl, 0, InnerBorderColour));
+    TitlePanel.add(TitleTextPanel2, BorderLayout.CENTER);
     MainPane.add(TitlePanel, BorderLayout.NORTH);
-    TitlePanel.add(TitleTextPanel, BorderLayout.CENTER);
-    TitleTextPanel.add(LibraryText, BorderLayout.CENTER);
-    TitleTextPanel.add(TitleText, BorderLayout.NORTH);
+
     MainPane.add(StatusPanel, BorderLayout.SOUTH);
   }
 

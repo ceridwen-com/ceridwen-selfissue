@@ -78,11 +78,11 @@ public class PatronPanelFocusTraversalPolicy
            if (aComponent.equals(NextButton)) {
                return ResetButton;
            } else if (aComponent.equals(ResetButton)) {
-               return PatronField;
-           } else if (aComponent.equals(PatronField)) {
+               return patronId.isBlank()?PatronField:PasswordField;
+           } else if (aComponent.equals(patronId.isBlank()?PatronField:PasswordField)) {
                return NextButton;
            }
-           return PatronField;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
 
        @Override
@@ -91,26 +91,26 @@ public class PatronPanelFocusTraversalPolicy
          if (aComponent.equals(ResetButton)) {
              return NextButton;
          } else if (aComponent.equals(NextButton)) {
-             return PatronField;
-         } else if (aComponent.equals(PatronField)) {
+             return patronId.isBlank()?PatronField:PasswordField;
+         } else if (aComponent.equals(patronId.isBlank()?PatronField:PasswordField)) {
              return ResetButton;
          }
-         return PatronField;
+         return patronId.isBlank()?PatronField:PasswordField;
        }
 
        @Override
        public Component getDefaultComponent(Container focusCycleRoot) {
-           return PatronField;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
 
        @Override
        public Component getLastComponent(Container focusCycleRoot) {
-           return ResetButton;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
 
        @Override
        public Component getFirstComponent(Container focusCycleRoot) {
-           return PatronField;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
    }
 
@@ -230,7 +230,8 @@ public class PatronPanelFocusTraversalPolicy
   private JLabel PatronFieldLabel = new JLabel();
   private JPanel DataPanel = new JPanel();
   private BorderLayout InformationBorderLayout = new BorderLayout();
-  private JTextField PatronField = new JTextField();
+  private JTextField PatronField = new JTextField(Configuration.getIntProperty("UI/PatronPanel/PatronField_Length", 8));
+  private JPasswordField PasswordField = new JPasswordField(Configuration.getIntProperty("UI/PatronPanel/PasswordField_Length", 8));
   private FlowLayout DataFlowLayout = new FlowLayout();
   private JPanel ResponsePanel = new JPanel();
   private BorderLayout ResponseBorderLayout = new BorderLayout();
@@ -308,21 +309,33 @@ public class PatronPanelFocusTraversalPolicy
     NavigationPanel.setOpaque(false);
     PatronFieldLabel.setFont(DefaultTextFont);
     PatronFieldLabel.setForeground(DefaultTextColour);
-    PatronFieldLabel.setLabelFor(PatronField);
     InformationPanel.setLayout(InformationBorderLayout);
     InformationPanel.setOpaque(false);
     PatronField.setFont(InputTextFont);
     PatronField.setBackground(InputBackgroundColour);
     PatronField.setForeground(InputTextColour);
-    PatronField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+    PatronField.setBorder(BorderFactory.createLineBorder(InputBorderColour,2));
     PatronField.setSelectionColor(InputSelectionColour);
     PatronField.setSelectedTextColor(InputSelectedTextColour);
     PatronField.setCaretColor(InputCaretColour);
     PatronField.setDisabledTextColor(InputDisabledTextColour);
-    PatronField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
-//    PatronField.setNextFocusableComponent(NextButton);
+//    PatronField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
+    PatronField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));    
+    PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronField_ToolTipText"));
+    PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));    
+    PasswordField.setFont(InputTextFont);
+    PasswordField.setBackground(InputBackgroundColour);
+    PasswordField.setForeground(InputTextColour);
+    PasswordField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+    PasswordField.setSelectionColor(InputSelectionColour);
+    PasswordField.setSelectedTextColor(InputSelectedTextColour);
+    PasswordField.setCaretColor(InputCaretColour);
+    PasswordField.setDisabledTextColor(InputDisabledTextColour);
+//    PasswordField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
+    PasswordField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));        
+    PasswordField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordField_ToolTipText"));
+    PasswordField.setText(Configuration.getProperty("UI/PatronPanel/PasswordField_DefaultText"));
     ConfigForId();
-    PatronField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));
     CardIcon.setIcon(Configuration.LoadImage("UI/PatronPanel/CardIcon"));
     DataPanel.setLayout(DataFlowLayout);
     DataPanel.setOpaque(false);
@@ -374,9 +387,6 @@ public class PatronPanelFocusTraversalPolicy
 //    NavigationPanel.add(NextButton,  BorderLayout.EAST);
     this.add(InformationPanel,  BorderLayout.CENTER);
     InformationPanel.add(DataPanel,  BorderLayout.SOUTH);
-    DataPanel.add(PatronFieldLabel, null);
-    DataPanel.add(PatronField, null);
-    DataPanel.add(NextButton, null);
     InformationPanel.add(ResponsePanel,  BorderLayout.CENTER);
     ResponsePanel.add(CardIcon,  BorderLayout.EAST);
     ResponsePanel.add(PatronTextPanel, BorderLayout.CENTER);
@@ -403,20 +413,26 @@ public class PatronPanelFocusTraversalPolicy
     patronPassword = "";
     PatronFieldLabel.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_ToolTipText"));
     PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_Text"));
-    PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronField_ToolTipText"));
-    PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));
     NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronSubmitButton_Text"));
-    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronSubmitButton_ToolTipText"));    
+    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronSubmitButton_ToolTipText")); 
+    PatronFieldLabel.setLabelFor(PatronField);
+    DataPanel.removeAll();
+    DataPanel.add(PatronFieldLabel, null);
+    DataPanel.add(PatronField, null);
+    DataPanel.add(NextButton, null);    
   }
   
   void ConfigForPassword() {
     patronPassword = "";
     PatronFieldLabel.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordFieldLabel_ToolTipText"));
     PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PasswordFieldLabel_Text"));
-    PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordField_ToolTipText"));
-    PatronField.setText(Configuration.getProperty("UI/PatronPanel/PasswordField_DefaultText"));
     NextButton.setText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_Text"));
-    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_ToolTipText"));    
+    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_ToolTipText"));   
+    PatronFieldLabel.setLabelFor(PasswordField);
+    DataPanel.removeAll();
+    DataPanel.add(PatronFieldLabel, null);
+    DataPanel.add(PasswordField, null);
+    DataPanel.add(NextButton, null);      
   }
   
   void NextButton_actionPerformed(ActionEvent e) {
@@ -424,6 +440,8 @@ public class PatronPanelFocusTraversalPolicy
     this.stopPatronIDReader();
     this.PatronField.setEditable(false);
     this.PatronField.setEnabled(false);
+    this.PasswordField.setEditable(false);
+    this.PasswordField.setEnabled(false);    
 
     try {
         if (patronId.isBlank()) {
@@ -450,7 +468,7 @@ public class PatronPanelFocusTraversalPolicy
             }
         } else {
             if (patronPassword.isBlank()) {
-                patronPassword = strim(this.PatronField.getText());
+                patronPassword = strim(String.valueOf(this.PasswordField.getPassword()));
                 if (!this.validateBarcode(patronPassword, Configuration.getProperty("UI/Validation/PatronPasswordMask"))) {
                     throw new InvalidPatronPassword();
                 }            
@@ -474,7 +492,10 @@ public class PatronPanelFocusTraversalPolicy
         this.PatronField.setEditable(true);
         this.PatronField.setEnabled(true);
         this.PatronField.setText("");
-        this.PatronField.requestFocus();
+        this.PasswordField.setEditable(true);
+        this.PasswordField.setEnabled(true);
+        this.PasswordField.setText("");
+        (patronId.isBlank()?PatronField:PasswordField).requestFocus();
         this.startPatronIDReader();
         ResetTimer.start();      
     }
@@ -847,23 +868,25 @@ private static String strim(String string) {
       e.consume();
       this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
     }
-    if (e.getKeyChar() == '¦' || e.getKeyChar() == '|') {
-      if (this.commandProcessor(this.PatronField.getText())) {
-        e.consume();
-        this.PatronField.setText("");
-      }
+    if (patronId.isBlank()) {
+        if (e.getKeyChar() == '¦' || e.getKeyChar() == '|') {
+          if (this.commandProcessor(this.PatronField.getText())) {
+            e.consume();
+            this.PatronField.setText("");
+          }
+        }
     }
   }
 
         @Override
   public void grabFocus() {
     super.grabFocus();
-    PatronField.grabFocus();
+    (patronId.isBlank()?PatronField:PasswordField).grabFocus();
   }
         @Override
   public void requestFocus() {
     super.requestFocus();
-    PatronField.requestFocus();
+    (patronId.isBlank()?PatronField:PasswordField).requestFocus();
   }
 
   private void startPatronIDReader() {

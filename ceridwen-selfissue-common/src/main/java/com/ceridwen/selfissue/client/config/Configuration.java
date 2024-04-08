@@ -224,12 +224,17 @@ public class Configuration {
     }
   }
 
-  public static int getIntSubProperty(Node node, String key) {
+//  public static int getIntSubProperty(Node node, String key) {
+//    return Configuration.getIntSubProperty(node, key, 0);
+//}
+
+  
+  public static int getIntSubProperty(Node node, String key, int def) {
     try {
       return (Configuration.getSubProperty(node, key) == null) ? 0 :
           Integer.parseInt(Configuration.getSubProperty(node, key));
     } catch (NumberFormatException ex) {
-      return 0;
+      return def;
     }
   }
   
@@ -247,12 +252,16 @@ public class Configuration {
          Configuration.getProperty(key).equalsIgnoreCase("1"));
   }
 
-  public static int getIntProperty(String key) {
+//  public static int getIntProperty(String key) {
+//      return Configuration.getIntProperty(key, 0);
+//  }  
+  
+  public static int getIntProperty(String key, int def) {
     try {
       return (Configuration.getProperty(key) == null) ? 0 :
           Integer.parseInt(Configuration.getProperty(key));
     } catch (NumberFormatException ex) {
-      return 0;
+      return def;
     }
   }
   
@@ -265,24 +274,16 @@ public class Configuration {
   }
   
   private static double getScalingFactor() {
-      int r = Configuration.getIntProperty("UI/Styling/ReferenceDisplaySize");
-      if (r < 1)
-          return 1.0;
-      int h = Toolkit.getDefaultToolkit().getScreenSize().height;
-      int w = Toolkit.getDefaultToolkit().getScreenSize().width;
-      double d = Math.sqrt(h*h + w*w);
-      double i = d/Toolkit.getDefaultToolkit().getScreenResolution();
-      return i/r;
+    double monitor = Configuration.getIntProperty("UI/Advanced/ReferenceMonitor", 25);
+    double dpi = Configuration.getIntProperty("UI/Advanced/ReferenceDPI", 96);
+      
+    return ((double)2.0*(double)Toolkit.getDefaultToolkit().getScreenSize().height)/(monitor*dpi);
   }
   
   public static int getScaledPointSize(String key) {
-      return (int)Math.round(Configuration.getIntProperty(key)*Configuration.getScalingFactor());
+      return (int)Math.round(Configuration.getIntProperty(key, 0)*Configuration.getScalingFactor());
   }
 
-//  public static int getScaledPixelSize(String key) {
-//    return (int)Math.round(Configuration.getIntProperty(key)*Configuration.getScalingFactor()*Toolkit.getDefaultToolkit().getScreenResolution()/72);
-//  }
-  
   public static int pt2Pixel(int pt) {
     return (int)Math.round(pt*Toolkit.getDefaultToolkit().getScreenResolution()/72);     
   }
@@ -357,9 +358,10 @@ public class Configuration {
       return new ImageIcon();
     } else {
       ImageIcon src = new ImageIcon(url);
+      double scaling = Configuration.getScalingFactor();
       return new ImageIcon(src.getImage().getScaledInstance( 
-        (int)Math.round(src.getIconWidth()*Configuration.getScalingFactor()), 
-        (int)Math.round(src.getIconHeight()*Configuration.getScalingFactor()), 
+        (int)Math.round(src.getIconWidth()*scaling), 
+        (int)Math.round(src.getIconHeight()*scaling), 
         Image.SCALE_SMOOTH));
     }
   }
