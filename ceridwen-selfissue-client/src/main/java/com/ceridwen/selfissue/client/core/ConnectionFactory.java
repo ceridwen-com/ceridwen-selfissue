@@ -62,11 +62,11 @@ public class ConnectionFactory {
         }
 
         conn.setHost(Configuration.getProperty("Systems/SIP/Host"));
-        conn.setPort(Configuration.getIntProperty("Systems/SIP/Port"));
-        conn.setConnectionTimeout(Configuration.getIntProperty("Systems/SIP/ConnectionTimeout") * 1000);
-        conn.setIdleTimeout(Configuration.getIntProperty("Systems/SIP/IdleTimeout") * 1000);
-        conn.setRetryAttempts(Configuration.getIntProperty("Systems/SIP/RetryAttempts"));
-        conn.setRetryWait(Configuration.getIntProperty("Systems/SIP/RetryWait"));
+        conn.setPort(Configuration.getIntProperty("Systems/SIP/Port", 23));
+        conn.setConnectionTimeout(Configuration.getIntProperty("Systems/SIP/ConnectionTimeout", 1) * 1000);
+        conn.setIdleTimeout(Configuration.getIntProperty("Systems/SIP/IdleTimeout", 10) * 1000);
+        conn.setRetryAttempts(Configuration.getIntProperty("Systems/SIP/RetryAttempts", 2));
+        conn.setRetryWait(Configuration.getIntProperty("Systems/SIP/RetryWait", 500));
         conn.setAddSequenceAndChecksum(Configuration.getBoolProperty("Systems/SIP/AddSequenceAndChecksum"));
         conn.setStrictChecksumChecking(Configuration.getBoolProperty("Systems/SIP/StrictChecksumChecking"));
         conn.setStrictSequenceChecking(Configuration.getBoolProperty("Systems/SIP/StrictSequenceChecking"));

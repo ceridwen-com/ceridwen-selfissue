@@ -22,7 +22,7 @@ import org.apache.commons.logging.Log;
 import com.ceridwen.selfissue.client.config.Configuration;
 
 class SelfIssueClientThreadGroup extends ThreadGroup {
-  private static boolean ooo = Configuration.getBoolProperty("UI/WatchDog/ShowOutOfOrderScreenOnUnhandledException"); 
+  private static boolean ooo = Configuration.getBoolProperty("Admin/WatchDog/ShowOutOfOrderScreenOnUnhandledException"); 
   private static Log log = LogFactory.getLog(SelfIssueClientThreadGroup.class);
   private static SelfIssueFrame frame = null;
 

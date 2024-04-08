@@ -42,6 +42,7 @@ import com.ceridwen.selfissue.client.devices.IDReaderDeviceListener;
 import com.ceridwen.selfissue.client.dialogs.PasswordDialog;
 import com.ceridwen.util.versioning.LibraryIdentifier;
 import java.util.Arrays;
+import javax.swing.text.html.HTMLEditorKit;
 
 
 /**
@@ -71,43 +72,45 @@ public class PatronPanel extends SelfIssuePanel implements IDReaderDeviceListene
 public class PatronPanelFocusTraversalPolicy
                 extends FocusTraversalPolicy {
 
+       @Override
        public Component getComponentAfter(Container focusCycleRoot,
                                           Component aComponent) {
            if (aComponent.equals(NextButton)) {
                return ResetButton;
            } else if (aComponent.equals(ResetButton)) {
-               return PatronField;
-           } else if (aComponent.equals(PatronField)) {
+               return patronId.isBlank()?PatronField:PasswordField;
+           } else if (aComponent.equals(patronId.isBlank()?PatronField:PasswordField)) {
                return NextButton;
            }
-           return PatronField;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
 
+       @Override
        public Component getComponentBefore(Container focusCycleRoot,
                                       Component aComponent) {
          if (aComponent.equals(ResetButton)) {
              return NextButton;
          } else if (aComponent.equals(NextButton)) {
-             return PatronField;
-         } else if (aComponent.equals(PatronField)) {
+             return patronId.isBlank()?PatronField:PasswordField;
+         } else if (aComponent.equals(patronId.isBlank()?PatronField:PasswordField)) {
              return ResetButton;
          }
-         return PatronField;
+         return patronId.isBlank()?PatronField:PasswordField;
        }
 
        @Override
        public Component getDefaultComponent(Container focusCycleRoot) {
-           return PatronField;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
 
        @Override
        public Component getLastComponent(Container focusCycleRoot) {
-           return ResetButton;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
 
        @Override
        public Component getFirstComponent(Container focusCycleRoot) {
-           return PatronField;
+           return patronId.isBlank()?PatronField:PasswordField;
        }
    }
 
@@ -180,6 +183,23 @@ public class PatronPanelFocusTraversalPolicy
 	 */
 	
   }
+  static class InvalidPatronPassword extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7260107670696287543L;
+
+	/**
+	 * 
+	 */
+	
+
+	/**
+	 * 
+	 */
+	
+  }
   static class PatronIdTooShort extends Exception {
 
 	/**
@@ -210,8 +230,9 @@ public class PatronPanelFocusTraversalPolicy
   private JLabel PatronFieldLabel = new JLabel();
   private JPanel DataPanel = new JPanel();
   private BorderLayout InformationBorderLayout = new BorderLayout();
-  private JTextField PatronField = new JTextField();
-  private BorderLayout DataBorderLayout = new BorderLayout();
+  private JTextField PatronField = new JTextField(Configuration.getIntProperty("UI/PatronPanel/PatronField_Length", 8));
+  private JPasswordField PasswordField = new JPasswordField(Configuration.getIntProperty("UI/PatronPanel/PasswordField_Length", 8));
+  private FlowLayout DataFlowLayout = new FlowLayout();
   private JPanel ResponsePanel = new JPanel();
   private BorderLayout ResponseBorderLayout = new BorderLayout();
   private Border border1;
@@ -239,12 +260,25 @@ public class PatronPanelFocusTraversalPolicy
     }
   }
   private void jbInit() throws Exception {
-	Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
-	Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
-	Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
-	Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
-	Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
-	  
+    Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
+    Color DefaultTextColour = Configuration.getForegroundColour("DefaultTextColour");
+    Font  DefaultTextFont = Configuration.getFont("DefaultText");
+    Color StatusTextColour = Configuration.getForegroundColour("StatusTextColour");
+    Font  StatusTextFont = Configuration.getFont("StatusText");
+    Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
+    Font  WarningTextFont = Configuration.getFont("WarningText");
+    Color ButtonTextColour = Configuration.getForegroundColour("ButtonTextColour");
+    Font  ButtonTextFont = Configuration.getFont("ButtonText");
+    Color ButtonBackgroundColour = Configuration.getBackgroundColour("ButtonBackgroundColour");
+    Color InputTextColour = Configuration.getForegroundColour("InputTextColour");
+    Font  InputTextFont = Configuration.getFont("InputText");
+    Color InputBackgroundColour = Configuration.getBackgroundColour("InputBackgroundColour");
+    Color InputBorderColour = Configuration.getBackgroundColour("InputBorderColour");
+    Color InputSelectionColour = Configuration.getBackgroundColour("InputSelectionColour");
+    Color InputSelectedTextColour = Configuration.getBackgroundColour("InputSelectedTextColour");
+    Color InputCaretColour = Configuration.getBackgroundColour("InputCaretColour");
+    Color InputDisabledTextColour = Configuration.getBackgroundColour("InputDisabledTextColour");
+	      
     border1 = BorderFactory.createEmptyBorder(10,10,10,10);
     border2 = BorderFactory.createEmptyBorder(10,10,10,10);
     border3 = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -253,16 +287,14 @@ public class PatronPanelFocusTraversalPolicy
     this.setLayout(PatronBorderLayout);
     this.setOpaque(true);
     this.setBackground(BackgroundColour);
-    NextButton.setFont(new java.awt.Font("Dialog", 1, 16));
+    NextButton.setFont(ButtonTextFont);
     NextButton.setActionCommand(""); // We'll use Action Command to pass patron password if sent by IDReaderDevice
 //    NextButton.setNextFocusableComponent(ResetButton);
-    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_Text"));
-    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronPanelNextButton_ToolTipText"));
     NextButton.addActionListener(new PatronPanel_NextButton_actionAdapter(this));
     NextButton.setForeground(ButtonTextColour);
     NextButton.setBackground(ButtonBackgroundColour);
-    ResetButton.setFont(new java.awt.Font("Dialog", 1, 16));
-    ResetButton.setForeground(Color.black);
+    ResetButton.setFont(ButtonTextFont);
+    ResetButton.setForeground(ButtonTextColour);
 //    ResetButton.setNextFocusableComponent(PatronField);
     ResetButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronPanelResetButton_ToolTipText"));
     ResetButton.setVerifyInputWhenFocusTarget(true);
@@ -275,52 +307,86 @@ public class PatronPanelFocusTraversalPolicy
     ResetButton.setBackground(ButtonBackgroundColour);
     NavigationPanel.setLayout(NavigationBorderLayout);
     NavigationPanel.setOpaque(false);
-    PatronFieldLabel.setFont(new java.awt.Font("Dialog", 1, 16));
+    PatronFieldLabel.setFont(DefaultTextFont);
     PatronFieldLabel.setForeground(DefaultTextColour);
-    PatronFieldLabel.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_ToolTipText"));
-    PatronFieldLabel.setLabelFor(PatronField);
-    PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_Text"));
     InformationPanel.setLayout(InformationBorderLayout);
     InformationPanel.setOpaque(false);
-    PatronField.setFont(new java.awt.Font("Dialog", 1, 16));
-    PatronField.setBackground(BackgroundColour);
-    PatronField.setForeground(DefaultTextColour);
-//    PatronField.setNextFocusableComponent(NextButton);
+    PatronField.setFont(InputTextFont);
+    PatronField.setBackground(InputBackgroundColour);
+    PatronField.setForeground(InputTextColour);
+    PatronField.setBorder(BorderFactory.createLineBorder(InputBorderColour,2));
+    PatronField.setSelectionColor(InputSelectionColour);
+    PatronField.setSelectedTextColor(InputSelectedTextColour);
+    PatronField.setCaretColor(InputCaretColour);
+    PatronField.setDisabledTextColor(InputDisabledTextColour);
+//    PatronField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
+    PatronField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));    
     PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronField_ToolTipText"));
-    PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));
-    PatronField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));
-    CardIcon.setIcon(Configuration.LoadImage("UI/PatronPanel/CardIcon_Icon"));
-    DataPanel.setLayout(DataBorderLayout);
+    PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));    
+    PasswordField.setFont(InputTextFont);
+    PasswordField.setBackground(InputBackgroundColour);
+    PasswordField.setForeground(InputTextColour);
+    PasswordField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+    PasswordField.setSelectionColor(InputSelectionColour);
+    PasswordField.setSelectedTextColor(InputSelectedTextColour);
+    PasswordField.setCaretColor(InputCaretColour);
+    PasswordField.setDisabledTextColor(InputDisabledTextColour);
+//    PasswordField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
+    PasswordField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));        
+    PasswordField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordField_ToolTipText"));
+    PasswordField.setText(Configuration.getProperty("UI/PatronPanel/PasswordField_DefaultText"));
+    ConfigForId();
+    CardIcon.setIcon(Configuration.LoadImage("UI/PatronPanel/CardIcon"));
+    DataPanel.setLayout(DataFlowLayout);
     DataPanel.setOpaque(false);
     ResponsePanel.setLayout(ResponseBorderLayout);
     ResponsePanel.setOpaque(false);
     NavigationPanel.setBorder(border1);
     DataPanel.setBorder(border2);
     ResponsePanel.setBorder(border3);
-    DataBorderLayout.setHgap(5);
-    DataBorderLayout.setVgap(5);
+    DataFlowLayout.setHgap(5);
+    DataFlowLayout.setVgap(5);
     PatronTextPanel.setLayout(PatronTextBorderLayout);
     PatronTextPanel.setOpaque(false);
     PatronTextPanel.setBorder(border7);
     PatronTextPanel.setDebugGraphicsOptions(0);
     PatronTextPanel.setDoubleBuffered(true);
     PatronTextPanel.setPreferredSize(new Dimension(100, 301));
-    PatronText.setForeground(WarningTextColour);
-    PatronText.setFont(new java.awt.Font("SansSerif", 1, 16));
+    PatronText.setForeground(StatusTextColour);
+    PatronText.setFont(StatusTextFont);
     PatronText.setBackground(BackgroundColour);
     PatronText.setBorder(border8);
     PatronText.setRequestFocusEnabled(false);
     PatronText.setEditable(false);
     PatronText.setText("");
-    PatronText.setLineWrap(true);
-    PatronText.setWrapStyleWord(true);
+    HTMLEditorKit kit = new HTMLEditorKit();
+    kit.getStyleSheet().addRule(
+        "body {font-family: " + DefaultTextFont.getFamily() + "; " +
+            "font-size: " + DefaultTextFont.getSize() + "pt; " +
+            "font-style: normal" +
+            "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
+            "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+    kit.getStyleSheet().addRule(
+        "em {font-family: " + StatusTextFont.getFamily() + "; " +
+            "font-size: " + StatusTextFont.getSize() + "pt; " +
+            "font-style: normal" +
+            "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
+            "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
+    kit.getStyleSheet().addRule(
+        "strong {font-family: " + WarningTextFont.getFamily() + "; " +
+            "font-size: " + WarningTextFont.getSize() + "pt; " +
+            "font-style: normal" +
+            "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
+            "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+    PatronText.setEditorKit(kit);
+    PatronText.setContentType("text/html");    
+//    PatronText.setLineWrap(true);
+//    PatronText.setWrapStyleWord(true);
     this.add(NavigationPanel,  BorderLayout.SOUTH);
-    NavigationPanel.add(ResetButton, BorderLayout.WEST);
-    NavigationPanel.add(NextButton,  BorderLayout.EAST);
+    NavigationPanel.add(ResetButton, BorderLayout.EAST);
+//    NavigationPanel.add(NextButton,  BorderLayout.EAST);
     this.add(InformationPanel,  BorderLayout.CENTER);
     InformationPanel.add(DataPanel,  BorderLayout.SOUTH);
-    DataPanel.add(PatronFieldLabel, BorderLayout.WEST);
-    DataPanel.add(PatronField, BorderLayout.CENTER);
     InformationPanel.add(ResponsePanel,  BorderLayout.CENTER);
     ResponsePanel.add(CardIcon,  BorderLayout.EAST);
     ResponsePanel.add(PatronTextPanel, BorderLayout.CENTER);
@@ -336,169 +402,218 @@ public class PatronPanelFocusTraversalPolicy
   private JPanel PatronTextPanel = new JPanel();
   private BorderLayout PatronTextBorderLayout = new BorderLayout();
   private Border border7;
-  private JTextArea PatronText = new JTextArea();
+  private JEditorPane PatronText = new JEditorPane();
 
+  
+  private String patronId = "";
+  private String patronPassword = "";
+  
+  void ConfigForId() {
+    patronId = "";
+    patronPassword = "";
+    PatronFieldLabel.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_ToolTipText"));
+    PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PatronFieldLabel_Text"));
+    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PatronSubmitButton_Text"));
+    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronSubmitButton_ToolTipText")); 
+    PatronFieldLabel.setLabelFor(PatronField);
+    DataPanel.removeAll();
+    DataPanel.add(PatronFieldLabel, null);
+    DataPanel.add(PatronField, null);
+    DataPanel.add(NextButton, null);    
+  }
+  
+  void ConfigForPassword() {
+    patronPassword = "";
+    PatronFieldLabel.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordFieldLabel_ToolTipText"));
+    PatronFieldLabel.setText(Configuration.getProperty("UI/PatronPanel/PasswordFieldLabel_Text"));
+    NextButton.setText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_Text"));
+    NextButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordSubmitButton_ToolTipText"));   
+    PatronFieldLabel.setLabelFor(PasswordField);
+    DataPanel.removeAll();
+    DataPanel.add(PatronFieldLabel, null);
+    DataPanel.add(PasswordField, null);
+    DataPanel.add(NextButton, null);      
+  }
+  
   void NextButton_actionPerformed(ActionEvent e) {
-    PatronInformation request = new PatronInformation();
-    PatronInformationResponse response = null;
-    
-    if (Configuration.getBoolProperty("Modes/EnableBarcodeAlii")) {
-      if (this.PatronField.getText().startsWith("$") && this.PatronField.getText().endsWith("%")) {
-        this.commandProcessor(convert(this.PatronField.getText()));
-        this.PatronField.setText("");
-        this.PatronField.requestFocus();
-        return;
-      }
-    }
+    ResetTimer.stop();
+    this.stopPatronIDReader();
+    this.PatronField.setEditable(false);
+    this.PatronField.setEnabled(false);
+    this.PasswordField.setEditable(false);
+    this.PasswordField.setEnabled(false);    
 
     try {
-      ResetTimer.stop();
-      this.stopPatronIDReader();
-      this.PatronField.setEditable(false);
-      this.PatronField.setEnabled(false);
-
-      request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
-      request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
-      request.setPatronIdentifier(strim(this.PatronField.getText()));
-      if (StringUtils.isEmpty(request.getPatronIdentifier())) {
-        throw new PatronIdTooShort();
-      }
-      if (!this.validateBarcode(request.getPatronIdentifier(), Configuration.getProperty("UI/Validation/PatronBarcodeMask"))) {
-        throw new InvalidPatronBarcode();
-      }
-      if (StringUtils.isNotEmpty(e.getActionCommand())) {
-    	  request.setPatronPassword(e.getActionCommand());
-      }
-      if (Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword") && (StringUtils.isEmpty(request.getPatronPassword()))) {
-          SelfIssueFrame.setOnTop(false);
-          PasswordDialog patronPasswordDialog = new PasswordDialog("Please enter your password");
-          patronPasswordDialog.clearPassword();
-          patronPasswordDialog.setVisible(true);
-          String password = strim(patronPasswordDialog.getPassword());
-          if (StringUtils.isEmpty(password)) {
-        	  throw new PatronIdTooShort();
-          }
-          request.setPatronPassword(password);
-          SelfIssueFrame.setOnTop(true);
-      }
-      this.PatronText.setText(Configuration.getMessage("CheckingPatronMessage", new String[]{request.getPatronIdentifier()}));
-      try {
-          this.PatronText.paint(this.PatronText.getGraphics());          
-      } catch (Exception ex) {
-          PatronPanel.log.warn("Error during redraw", ex);
-      }
-      try {
-        response = (PatronInformationResponse) handler.send(request);
-      } catch (java.lang.ClassCastException ex) {
-        response = null;
-      }
-      if (response == null) {
-        if ((trustMode || allowOffline) &&
-            (!retryPatronWhenError ||
-             request.getPatronIdentifier().equals(lastEnteredId))) {
-          response = new PatronInformationResponse();
-          response.setValidPatron(true);
-          response.getPatronStatus().clear();
-          response.setPersonalName(request.getPatronIdentifier());
-          response.setPatronIdentifier(request.getPatronIdentifier());
+        if (patronId.isBlank()) {
+            if (Configuration.getBoolProperty("Systems/Modes/EnableBarcodeAliases")) {
+                if (this.PatronField.getText().startsWith("$") && this.PatronField.getText().endsWith("%")) {
+                    this.commandProcessor(convert(this.PatronField.getText()));
+                    this.PatronField.setText("");
+                    this.PatronField.requestFocus();
+                    return;
+                }
+            }
+            patronId = strim(this.PatronField.getText());
+            if (StringUtils.isEmpty(patronId)) {
+                throw new PatronIdTooShort();
+            }
+            if (!this.validateBarcode(patronId, Configuration.getProperty("UI/Validation/PatronBarcodeMask"))) {
+                throw new InvalidPatronBarcode();
+            }
+            if (Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword")) {
+                ConfigForPassword();
+            } else {
+                SIPPatronLogon(patronId, patronPassword);  
+                ConfigForId();
+            }
         } else {
-          throw new PatronConnectionFailed();
+            if (patronPassword.isBlank()) {
+                patronPassword = strim(String.valueOf(this.PasswordField.getPassword()));
+                if (!this.validateBarcode(patronPassword, Configuration.getProperty("UI/Validation/PatronPasswordMask"))) {
+                    throw new InvalidPatronPassword();
+                }            
+            }
+            SIPPatronLogon(patronId, patronPassword); 
+            ConfigForId();            
         }
-      }
-      if (! ( (response.isValidPatron() != null) ?
-              response.isValidPatron() : false)) {
-        if (trustMode &&
-            (!retryPatronWhenError ||
-             request.getPatronIdentifier().equals(lastEnteredId))) {
-        } else {
-          throw new InvalidPatron();
-        }
-      }
-      if (isBlocked(response.getPatronStatus())) {
-        if (trustMode &&
-            (!retryPatronWhenError ||
-             request.getPatronIdentifier().equals(lastEnteredId))) {
-        } else {
-          throw new PatronBlocked();
-        }
-      }
-      SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckOutPanel.class);
-      // Sanity check
-      if (response.getPatronIdentifier() == null) {
-        response.setPatronIdentifier(request.getPatronIdentifier());
-      }
-      if (!request.getPatronIdentifier().equalsIgnoreCase(response.getPatronIdentifier())) {
-          log.error("Patron ID mismatch" + request.getPatronIdentifier() + " - " + response.getPatronIdentifier());
-      }
-      ev.request = request;
-      ev.response = response;
-      this.PlaySound("ValidPatron");
-      this.stopPatronIDReader();      
-      this.firePanelChange(ev);
     } catch (PatronIdTooShort ex) {
-      // nothing to do but allow to drop through
+        ConfigForId();
     } catch (InvalidPatronBarcode ex) {
-      this.PlaySound("InvalidPatronBarcode");
-      this.PatronText.setText(Configuration.getMessage("InvalidPatronBarcode",
-          new String[] {}));
-    } catch (PatronConnectionFailed ex) {
-      if (trustMode) {
-        this.PlaySound("PatronRetry");
-        this.PatronText.setText(Configuration.getMessage("PatronRetry",
-            new String[] {}));
-      } else {
-        this.PlaySound("PatronNetworkError");
-        this.PatronText.setText(Configuration.getMessage("PatronNetworkError",
-            new String[] {request.getPatronIdentifier()}));
-      }
-    } catch (PatronBlocked ex) {
-      if (trustMode) {
-        this.PlaySound("PatronRetry");
-        this.PatronText.setText(Configuration.getMessage("PatronRetry",
-            new String[] {}));
-      } else {
-        this.PlaySound("BlockedPatronError");
-        this.PatronText.setText(Configuration.getMessage("BlockedPatronError",
-            new String[] {response.getScreenMessage()}));
-      }
-    } catch (InvalidPatron ex) {
-      if (trustMode) {
-        this.PlaySound("PatronRetry");
-        this.PatronText.setText(Configuration.getMessage("PatronRetry",
-            new String[] {}));
-      } else {
-        this.PlaySound("InvalidPatronError");
-        this.PatronText.setText(Configuration.getMessage("InvalidPatronError",
-            new String[] {request.getPatronIdentifier(),
-                                response.getScreenMessage()}));
-      }
-    } catch (Exception ex) {
-      if (trustMode) {
-
-        /**@todo: This will loop if the error isn't transient!
-         *
-         */
-
-        this.PlaySound("PatronRetry");
-        this.PatronText.setText(Configuration.getMessage("PatronRetry",
-            new String[] {}));
-      } else {
-        this.PlaySound("UnexpectedPatronError");
-        this.PatronText.setText(Configuration.getMessage(
-            "UnexpectedPatronError",
-            new String[] {}));
-      }
-      log.fatal("Patron lookup failure: " + ex.getMessage() + ":" + ex.getLocalizedMessage() + " - " +
-                ex.getCause());
+        this.PlaySound("InvalidPatronBarcode");
+        this.PatronText.setText(Configuration.getMessage("InvalidPatronBarcode",
+                new String[] {}));
+        ConfigForId();
+    } catch (InvalidPatronPassword ex) {
+        this.PlaySound("InvalidPatronPassword");
+        this.PatronText.setText(Configuration.getMessage("InvalidPatronPassword",
+                new String[] {}));
+        ConfigForPassword();
+    } finally {
+        this.PatronField.setEditable(true);
+        this.PatronField.setEnabled(true);
+        this.PatronField.setText("");
+        this.PasswordField.setEditable(true);
+        this.PasswordField.setEnabled(true);
+        this.PasswordField.setText("");
+        (patronId.isBlank()?PatronField:PasswordField).requestFocus();
+        this.startPatronIDReader();
+        ResetTimer.start();      
     }
-    lastEnteredId = request.getPatronIdentifier();
-    this.PatronField.setEditable(true);
-    this.PatronField.setEnabled(true);
-    this.PatronField.setText("");
-    this.PatronField.requestFocus();
-    this.startPatronIDReader();
-    ResetTimer.start();
   }
+
+    private void SIPPatronLogon(String patronId, String patronPassword) {
+        PatronInformation request = new PatronInformation();
+        PatronInformationResponse response = null;
+        try {
+            request.setPatronIdentifier(patronId);
+            request.setPatronPassword(patronPassword);
+            request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
+            request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
+            this.PatronText.setText(Configuration.getMessage("CheckingPatronMessage", new String[]{request.getPatronIdentifier()}));
+            try {
+                this.PatronText.paint(this.PatronText.getGraphics());
+            } catch (Exception ex) {
+                PatronPanel.log.warn("Error during redraw", ex);
+            }
+            try {
+                response = (PatronInformationResponse) handler.send(request);
+            } catch (java.lang.ClassCastException ex) {
+                response = null;
+            }
+            if (response == null) {
+                if ((trustMode || allowOffline) &&
+                        (!retryPatronWhenError ||
+                        request.getPatronIdentifier().equals(lastEnteredId))) {
+                    response = new PatronInformationResponse();
+                    response.setValidPatron(true);
+                    response.getPatronStatus().clear();
+                    response.setPersonalName(request.getPatronIdentifier());
+                    response.setPatronIdentifier(request.getPatronIdentifier());
+                } else {
+                    throw new PatronConnectionFailed();
+                }
+            }
+            if (! ( (response.isValidPatron() != null) ?
+                    response.isValidPatron() : false)) {
+                if (trustMode &&
+                        (!retryPatronWhenError ||
+                        request.getPatronIdentifier().equals(lastEnteredId))) {
+                } else {
+                    throw new InvalidPatron();
+                }
+            }
+            if (isBlocked(response.getPatronStatus())) {
+                if (trustMode &&
+                        (!retryPatronWhenError ||
+                        request.getPatronIdentifier().equals(lastEnteredId))) {
+                } else {
+                    throw new PatronBlocked();
+                }
+            }
+            SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckOutPanel.class);
+            // Sanity check
+            if (response.getPatronIdentifier() == null) {
+                response.setPatronIdentifier(request.getPatronIdentifier());
+            }
+            if (!request.getPatronIdentifier().equalsIgnoreCase(response.getPatronIdentifier())) {
+                log.error("Patron ID mismatch" + request.getPatronIdentifier() + " - " + response.getPatronIdentifier());
+            }
+            ev.request = request;
+            ev.response = response;
+            this.PlaySound("ValidPatron");
+            this.stopPatronIDReader();
+            this.firePanelChange(ev);
+        } catch (PatronConnectionFailed ex) {
+            if (trustMode) {
+                this.PlaySound("PatronRetry");
+                this.PatronText.setText(Configuration.getMessage("PatronRetry",
+                        new String[] {}));
+            } else {
+                this.PlaySound("PatronNetworkError");
+                this.PatronText.setText(Configuration.getMessage("PatronNetworkError",
+                        new String[] {request.getPatronIdentifier()}));
+            }
+        } catch (PatronBlocked ex) {
+            if (trustMode) {
+                this.PlaySound("PatronRetry");
+                this.PatronText.setText(Configuration.getMessage("PatronRetry",
+                        new String[] {}));
+            } else {
+                this.PlaySound("BlockedPatronError");
+                this.PatronText.setText(Configuration.getMessage("BlockedPatronError",
+                        new String[] {response.getScreenMessage()}));
+            }
+        } catch (InvalidPatron ex) {
+            if (trustMode) {
+                this.PlaySound("PatronRetry");
+                this.PatronText.setText(Configuration.getMessage("PatronRetry",
+                        new String[] {}));
+            } else {
+                this.PlaySound("InvalidPatronError");
+                this.PatronText.setText(Configuration.getMessage("InvalidPatronError",
+                        new String[] {request.getPatronIdentifier(),
+                            response.getScreenMessage()}));
+            }
+        } catch (Exception ex) {
+            if (trustMode) {
+                
+                /**@todo: This will loop if the error isn't transient!
+                 *
+                 */
+                
+                this.PlaySound("PatronRetry");
+                this.PatronText.setText(Configuration.getMessage("PatronRetry",
+                        new String[] {}));
+            } else {
+                this.PlaySound("UnexpectedPatronError");
+                this.PatronText.setText(Configuration.getMessage(
+                        "UnexpectedPatronError",
+                        new String[] {}));
+            }
+            log.fatal("Patron lookup failure: " + ex.getMessage() + ":" + ex.getLocalizedMessage() + " - " +
+                    ex.getCause());
+        }   lastEnteredId = request.getPatronIdentifier();
+    }
 
   private boolean isBlocked(PatronStatus patronStatus) {
 	if (patronStatus.isCardReportedLost()) {
@@ -544,7 +659,7 @@ public class PatronPanelFocusTraversalPolicy
   }
 private static String strim(String string) {
     String intermediate = string.trim();
-    if (Configuration.getBoolProperty("UI/Control/StripPatronChecksumDigit")) {
+    if (Configuration.getBoolProperty("UI/Advanced/StripPatronChecksumDigit")) {
       if (StringUtils.isNotEmpty(intermediate)) {
         intermediate = intermediate.substring(0, intermediate.length()-1);
       }
@@ -753,23 +868,25 @@ private static String strim(String string) {
       e.consume();
       this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
     }
-    if (e.getKeyChar() == '¦' || e.getKeyChar() == '|') {
-      if (this.commandProcessor(this.PatronField.getText())) {
-        e.consume();
-        this.PatronField.setText("");
-      }
+    if (patronId.isBlank()) {
+        if (e.getKeyChar() == '¦' || e.getKeyChar() == '|') {
+          if (this.commandProcessor(this.PatronField.getText())) {
+            e.consume();
+            this.PatronField.setText("");
+          }
+        }
     }
   }
 
         @Override
   public void grabFocus() {
     super.grabFocus();
-    PatronField.grabFocus();
+    (patronId.isBlank()?PatronField:PasswordField).grabFocus();
   }
         @Override
   public void requestFocus() {
     super.requestFocus();
-    PatronField.requestFocus();
+    (patronId.isBlank()?PatronField:PasswordField).requestFocus();
   }
 
   private void startPatronIDReader() {
@@ -788,8 +905,9 @@ Stack<String> repeatPreventer = new Stack<>();
 public void autoInputData(String identifier, String passcode) {
     if (!repeatPreventer.contains(identifier)) {
         repeatPreventer.push(identifier);
-        this.PatronField.setText(identifier);
-        this.NextButton_actionPerformed(new ActionEvent(this, 0, (passcode==null?"":passcode)));
+        patronId = identifier;
+        patronPassword = passcode;
+        this.NextButton_actionPerformed(new ActionEvent(this, 0, ""));
     }
 }
 }

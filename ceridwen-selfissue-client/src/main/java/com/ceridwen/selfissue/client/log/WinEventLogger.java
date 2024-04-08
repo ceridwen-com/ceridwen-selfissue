@@ -1,5 +1,5 @@
-/* 
- * Copyright (C) 2019 Ceridwen Limited
+/*
+ * Copyright (C) 2024 Ceridwen Limited
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,32 +16,33 @@
  */
 package com.ceridwen.selfissue.client.log;
 
-
+import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
+import com.ceridwen.util.logging.WinEventLogHandler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 import org.w3c.dom.Node;
 
-import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
-import com.ceridwen.util.net.Syslog;
-import java.io.IOException;
-
-public class SyslogLogger extends OnlineLogLogger {
+/**
+ *
+ * @author Matthew
+ */
+public class WinEventLogger extends OnlineLogLogger {
     
     @Override
     public void initialise(Node config, OutOfOrderInterface ooo) {
-      super.initialise(config, ooo);    
+      super.initialise(config, ooo);
     }
 
-    public synchronized boolean sendSyslogMessage(String facility, int level, String msg) {
-      try {
-          Syslog.sendSyslog(host, port, facility, level , msg);
-          return true;
-      }
-      catch (IOException ex) {
-        return false;
-      }
+    public synchronized boolean sendWinEventMessage(String source, Level level, String msg) {
+        WinEventLogHandler handler = new WinEventLogHandler(host, source);
+        handler.setLevel(level);
+        LogRecord record = new LogRecord(level, msg);
+        handler.publish(record);
+        return true;
     }
 
     @Override
-    public boolean log(OnlineLogEvent event) {      
-      return this.sendSyslogMessage(source.isBlank()?"SelfIssue":source, event.isActionRequired()?Syslog.LOG_ALERT:Syslog.LOG_INFO, this.getMessage(event));
+    public boolean log(OnlineLogEvent event) { 
+      return this.sendWinEventMessage(source.isBlank()?"Ceridwen SelfIssue Logger":source, event.isActionRequired()?Level.WARNING:Level.INFO, this.getMessage(event));
     }
 }

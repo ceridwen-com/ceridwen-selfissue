@@ -37,12 +37,20 @@ import com.ceridwen.util.collections.SpoolerProcessor;
  */
 
 public abstract class OnlineLogLogger implements SpoolerProcessor<OnlineLogEvent> {
-  private static Log logger = LogFactory.getLog(OnlineLogLogger.class);
+  private static final Log logger = LogFactory.getLog(OnlineLogLogger.class);
 
   protected int eventMask;
   protected long overdueAgeOOO;
   protected OutOfOrderInterface ooo;
+  protected String host;
+  protected int port;
+  protected boolean ssl;
+  protected String target;
+  protected String source;
+  protected int connectionTimeout;
+  protected int idleTimeout;
 
+  @Override
   public boolean process(OnlineLogEvent ev) {
     try {
       if ((ev.getLevel() & eventMask) == 0) {
@@ -84,35 +92,39 @@ public abstract class OnlineLogLogger implements SpoolerProcessor<OnlineLogEvent
   }
 
   public void initialise(Node config, OutOfOrderInterface ooo) {
-    this.eventMask = this.generateEventMask(Configuration.getSubPropertyNode(config, "EventMask"));
-    this.overdueAgeOOO = Configuration.getIntSubProperty(config, "OverdueAgeOutOfOrder");
     this.ooo = ooo;
+    this.eventMask = this.generateEventMask(Configuration.getSubPropertyNode(config, "EventMask"));
+    this.overdueAgeOOO = Configuration.getIntSubProperty(config, "OverdueAgeOutOfOrder", 0);    
+    this.host = Configuration.getSubProperty(config, "Host");
+    this.port = Configuration.getIntSubProperty(config, "Port", 80);
+    this.ssl = Configuration.getBoolSubProperty(config, "SSL");
+    this.target = Configuration.getSubProperty(config, "Target");
+    this.source = Configuration.getSubProperty(config, "Source");
+    this.connectionTimeout = Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
+    this.idleTimeout = Configuration.getIntSubProperty(config, "IdleTimeout", 5);    
   }
 
   public abstract boolean log(OnlineLogEvent event);
 
   public String getSubjectType(OnlineLogEvent event) {
-	  if (event.getLevel() == OnlineLogEvent.STATUS_MANUALCHECKOUT) {
-	    return "Manual Intervention Required (action required)";
-	  }
-	  else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTFAILURE) {
-		return "Checkout Failure Notification (no action required)";
-	  }
-	  else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTSUCCESS) {
-		return "Checkout Success Notification (no action required)";
-	  }
-	  else if (event.getLevel() == OnlineLogEvent.STATUS_CHECKOUTPENDING) {
-		return "Checkout Pending Notification (no action required)";
-	  }
-	  else if (event.getLevel() == OnlineLogEvent.STATUS_NOTIFICATION) {
-	    return  "Notification (no action required)";
-	  }
-	  else if (event.getLevel() == OnlineLogEvent.STATUS_UNLOCKFAILURE) {
-		return "Unlock Failure (action may be required)";
-	  }
-	  else if (event.getLevel() == OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE) {
-		return "Cancel Checkout Failure (action may be required)";
-	  }
+      switch (event.getLevel()) {
+          case OnlineLogEvent.STATUS_MANUALCHECKOUT:
+              return "Manual Intervention Required (action required)";
+          case OnlineLogEvent.STATUS_CHECKOUTFAILURE:
+              return "Checkout Failure Notification (no action required)";
+          case OnlineLogEvent.STATUS_CHECKOUTSUCCESS:
+              return "Checkout Success Notification (no action required)";
+          case OnlineLogEvent.STATUS_CHECKOUTPENDING:
+              return "Checkout Pending Notification (no action required)";
+          case OnlineLogEvent.STATUS_NOTIFICATION:
+              return  "Notification (no action required)";
+          case OnlineLogEvent.STATUS_UNLOCKFAILURE:
+              return "Unlock Failure (action may be required)";
+          case OnlineLogEvent.STATUS_CANCELCHECKOUTFAILURE:
+              return "Cancel Checkout Failure (action may be required)";
+          default:
+              break;
+      }
 	  return null;
   }
   
@@ -122,8 +134,8 @@ public abstract class OnlineLogLogger implements SpoolerProcessor<OnlineLogEvent
   }
 
 protected MessageComponents getMessageComponents(OnlineLogEvent event) {
-    String subjectType = null;
-	String patronId = null;
+    String subjectType;
+    String patronId = null;
     String itemId = null;
     String addInfo = null;
     String type = null;

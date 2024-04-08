@@ -20,7 +20,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.logging.Log;
@@ -85,33 +84,21 @@ public class SelfIssueThread extends Thread {
      // TODO: Not implemented
 	}
 
-	private void setLookAndFeel() {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception ex) {    		
-		}
-		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
-		} catch (UnsupportedLookAndFeelException e) {
-		} catch (ClassNotFoundException e) {
-		} catch (InstantiationException e) {
-		} catch (IllegalAccessException e) {
-		}
+	private void setLookAndFeel(String lafClass) {
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException ex) {    		
+            }
+            if (lafClass != null) {
+                try {
+                    UIManager.setLookAndFeel(lafClass);
+                } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+                }
+            }
 	}
 
 	private void initiateUI() {
-		try {
-			UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
-		} catch (Throwable t) {
-		}
-		  
-		  
-		frame = new SelfIssueFrame();
+    	    frame = new SelfIssueFrame();
 	
 	    //Validate frames that have preset sizes
 	    //Pack frames that have useful preferred size info, e.g. from their layout
@@ -141,15 +128,17 @@ public class SelfIssueThread extends Thread {
 	    }
 	  }
 
+        @Override
 	public void run() {
-	    int WatchDogThreshold = Configuration.getIntProperty("UI/WatchDog/CriticalSectionThreshold");
-	    int WatchDogTimer = Configuration.getIntProperty("UI/WatchDog/Timer") * 1000;
-	    int WatchDogMinimumMemory = Configuration.getIntProperty("UI/WatchDog/MinimumMemory");
-	    boolean ooo = Configuration.getBoolProperty("UI/WatchDog/ShowOutOfOrderScreenOnWatchDogProblem");
+	    int WatchDogThreshold = Configuration.getIntProperty("Admin/WatchDog/CriticalSectionThreshold", 5);
+	    int WatchDogTimer = Configuration.getIntProperty("Admin/WatchDog/Timer", 60) * 1000;
+	    int WatchDogMinimumMemory = Configuration.getIntProperty("Admin/WatchDog/MinimumMemory", 4);
+	    boolean ooo = Configuration.getBoolProperty("Admin/WatchDog/ShowOutOfOrderScreenOnWatchDogProblem");
+            String lafClass = Configuration.getProperty("UI/Styling/LookAndFeel");
 	    final int WatchDogMaximumErrors = 5;
 	
 	    try {
-			this.setLookAndFeel();
+		this.setLookAndFeel(lafClass);
 	    	this.initiateTimeSync();	
 	    	this.initiateUI();
 	    	watchdog(WatchDogTimer, WatchDogThreshold, WatchDogMinimumMemory,
