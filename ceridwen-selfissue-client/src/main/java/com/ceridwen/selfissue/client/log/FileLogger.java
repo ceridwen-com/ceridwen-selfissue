@@ -16,17 +16,24 @@
  */
 package com.ceridwen.selfissue.client.log;
 
-import com.ceridwen.util.logging.WinEventLogHandler;
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 
 /**
  *
  * @author Matthew
  */
-public class WinEventLogger extends LogHandlerLogger {
+public class FileLogger extends LogHandlerLogger {
 
     @Override
     protected Handler getHandler(String source) {
-        return new WinEventLogHandler(host, source);
-    }    
+        try {
+            return new FileHandler(target);
+        } catch (IOException | SecurityException ex) {
+            return new ConsoleHandler();
+        }
+    }
+
 }

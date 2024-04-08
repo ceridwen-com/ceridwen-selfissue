@@ -1350,12 +1350,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                           </xs:annotation>
                           <xs:simpleType>
                             <xs:restriction base="xs:string">
-                              <xs:enumeration value="com.ceridwen.selfissue.client.log.MailLogger"/>
-                              <xs:enumeration value="com.ceridwen.selfissue.client.log.SyslogLogger"/>
-                              <xs:enumeration value="com.ceridwen.selfissue.client.log.RestLogger"/>
-                              <xs:enumeration value="com.ceridwen.selfissue.client.log.ConsoleLogger"/>
-                              <xs:enumeration value="com.ceridwen.selfissue.client.log.WinEventLogger"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.nulldevices.OnlineLogLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.ConsoleLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.FileLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.MailLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.RestLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.SocketLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.SyslogLogger"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.log.WinEventLogger"/>
                             </xs:restriction>
                           </xs:simpleType>
                         </xs:attribute>
@@ -1565,9 +1567,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                           <xs:simpleType>
                             <xs:restriction base="xs:string">
                               <xs:enumeration value="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper"/>
-                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
-                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.FileLoggingHandlerWrapper"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.logging.RestLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.SMTPLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.SocketLoggingHandlerWrapper"/>
+                              <xs:enumeration value="com.ceridwen.selfissue.client.logging.SyslogLoggingHandlerWrapper"/>
                               <xs:enumeration value="com.ceridwen.selfissue.client.logging.WinEventLogLoggingHandlerWrapper"/>
                             </xs:restriction>
                           </xs:simpleType>
