@@ -75,17 +75,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>                   
                     <xs:element name="BorderWidth" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Border width</xs:documentation>
+                        <xs:documentation>Border width (pxl)</xs:documentation>
                       </xs:annotation>
                     </xs:element> 
                      <xs:element name="VerticalDividerWidth" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Border width</xs:documentation>
+                        <xs:documentation>Divider width (pxl)</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                                                     
                      <xs:element name="HorizontalDividerWidth" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Border width</xs:documentation>
+                        <xs:documentation>Divider width (pxl)</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                                                     
                     <xs:element name="TitleText_Font" type="xs:string">
@@ -865,12 +865,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Remove final digit from item barcodes</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="ReferenceMonitor" type="xs:positiveInteger">
+                    <xs:element name="ReferenceMonitorWidth" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
                       </xs:annotation>
                     </xs:element>    
-                    <xs:element name="ReferenceDPI" type="xs:positiveInteger">
+                    <xs:element name="ReferenceMonitorHeight" type="xs:positiveInteger">
                       <xs:annotation>
                         <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
                       </xs:annotation>

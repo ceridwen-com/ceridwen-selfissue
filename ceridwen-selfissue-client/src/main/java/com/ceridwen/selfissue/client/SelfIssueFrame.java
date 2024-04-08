@@ -156,12 +156,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     Font TitleTextFont = Configuration.getFont("TitleText");
     Font LibraryTextFont = Configuration.getFont("SubTitleText");
     Font VersionTextFont = Configuration.getFont("VersionText");
-    int BorderWidthPt = Configuration.getScaledPointSize("UI/Styling/BorderWidth"); 
-    int BorderWidthPxl = Configuration.pt2Pixel(BorderWidthPt);
-    int VDividerWidthPt = Configuration.getScaledPointSize("UI/Styling/VerticalDividerWidth");
-    int VDividerWidthPxl = Configuration.pt2Pixel(VDividerWidthPt);    
-    int HDividerWidthPt = Configuration.getScaledPointSize("UI/Styling/HorizontalDividerWidth");
-    int HDividerWidthPxl = Configuration.pt2Pixel(HDividerWidthPt);
+    int BorderWidthPxl = Configuration.getScaledPixelSize("UI/Styling/BorderWidth", 24); 
+    int VDividerWidthPxl = Configuration.getScaledPixelSize("UI/Styling/VerticalDividerWidth", 4);
+    int HDividerWidthPxl = Configuration.getScaledPixelSize("UI/Styling/HorizontalDividerWidth", 8);
     
     MainPane = (JPanel)this.getContentPane();
     MainPane.setLayout(new BorderLayout());
@@ -180,7 +177,7 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     this.setTitle("SelfIssue Terminal: " + Configuration.getProperty("UI/SelfIssue/TitleText") + " - " + Configuration.getProperty("UI/SelfIssue/SubTitleText"));
     
     
-    jbStatusPanelInit(VersionTextFont, VersionTextColour, InnerBorderColour, BorderWidthPt);
+    jbStatusPanelInit(VersionTextFont, VersionTextColour, InnerBorderColour, BorderWidthPxl);
   
     MainPane.setBorder(BorderFactory.createCompoundBorder(BorderFactory.
                                                  createCompoundBorder(new
@@ -237,16 +234,16 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
     MainPane.add(StatusPanel, BorderLayout.SOUTH);
   }
 
-    private void jbStatusPanelInit(Font VersionTextFont, Color VersionTextColour, Color InnerBorderColour, int BorderWidthPt) {
+    private void jbStatusPanelInit(Font VersionTextFont, Color VersionTextColour, Color InnerBorderColour, int BorderWidthPxl) {
         final double RATIO = 0.3;
-        int StatusWidthPt = (int)Math.round(BorderWidthPt - VersionTextFont.getSize()*(1+RATIO));
-        int StatusWidthPxl = Configuration.pt2Pixel(StatusWidthPt);
-        int VSpacerPxl = Configuration.pt2Pixel((int)Math.round(VersionTextFont.getSize()*RATIO));
+        double VersionHeightPxl = (BorderWidthPxl - Configuration.pt2Pixel(VersionTextFont.getSize()));
+        int VUSpacerPxl = (int)Math.round(VersionHeightPxl*(1.0-RATIO));
+        int VLSpacerPxl = (int)Math.round(VersionHeightPxl*RATIO);
         int HSpacerPxl = Configuration.pt2Pixel(VersionTextFont.getSize());
         
         BuildVersion.setFont(VersionTextFont);
         BuildVersion.setForeground(VersionTextColour);
-        BuildVersion.setBorder(BorderFactory.createEmptyBorder(StatusWidthPxl, 0, VSpacerPxl, HSpacerPxl));
+        BuildVersion.setBorder(BorderFactory.createEmptyBorder(VUSpacerPxl, 0, VLSpacerPxl, HSpacerPxl));
         BuildVersion.setHorizontalAlignment(SwingConstants.RIGHT);
         LibraryRegistry registry = new LibraryRegistry();
         LibraryIdentifier selfissueID = new LibraryIdentifier("com.ceridwen.selfissue", "com.ceridwen.selfissue:ceridwen-selfissue-client");
@@ -257,12 +254,12 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
         StatusPanel.setOpaque(true);
         StatusPanel.setBackground(InnerBorderColour);
         Mode.setFont(VersionTextFont);
-        Mode.setBorder(BorderFactory.createEmptyBorder(StatusWidthPxl, 0, VSpacerPxl, HSpacerPxl));
+        Mode.setBorder(BorderFactory.createEmptyBorder(VUSpacerPxl, 0, VLSpacerPxl, HSpacerPxl));
         Mode.setForeground(VersionTextColour);
         Mode.setHorizontalAlignment(SwingConstants.RIGHT);
         Mode.setText(registry.getLibraryVendor(selfissueID));
         Ceridwen.setFont(VersionTextFont);
-        Ceridwen.setBorder(BorderFactory.createEmptyBorder(StatusWidthPxl, HSpacerPxl, VSpacerPxl, 0));
+        Ceridwen.setBorder(BorderFactory.createEmptyBorder(VUSpacerPxl, HSpacerPxl, VLSpacerPxl, 0));
         Ceridwen.setForeground(VersionTextColour);
         Ceridwen.setHorizontalAlignment(SwingConstants.LEFT);
         Ceridwen.setText("ceridwen.com");
