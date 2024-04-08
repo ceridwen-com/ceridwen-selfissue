@@ -274,17 +274,22 @@ public class Configuration {
   }
   
   private static double getScalingFactor() {
-    double monitor = Configuration.getIntProperty("UI/Advanced/ReferenceMonitor", 25);
-    double dpi = Configuration.getIntProperty("UI/Advanced/ReferenceDPI", 96);
-      
-    return ((double)2.0*(double)Toolkit.getDefaultToolkit().getScreenSize().height)/(monitor*dpi);
+    double mw = Configuration.getIntProperty("UI/Advanced/ReferenceMonitorWidth", 1920);
+    double mh = Configuration.getIntProperty("UI/Advanced/ReferenceMonitorHeight", 1200);
+    double hr = (double)Toolkit.getDefaultToolkit().getScreenSize().height/mh;
+    double wr = (double)Toolkit.getDefaultToolkit().getScreenSize().width/mw;
+    return Math.min(hr, wr);
   }
   
-  public static int getScaledPointSize(String key) {
+  private static int getScaledPointSize(String key) {
       return (int)Math.round(Configuration.getIntProperty(key, 0)*Configuration.getScalingFactor());
   }
 
-  public static int pt2Pixel(int pt) {
+  public static int getScaledPixelSize(String key, int def) {
+      return (int)Math.round(Configuration.getIntProperty(key, def)*Configuration.getScalingFactor());
+  }  
+  
+  public static int pt2Pixel(double pt) {
     return (int)Math.round(pt*Toolkit.getDefaultToolkit().getScreenResolution()/72);     
   }
   

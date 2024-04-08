@@ -10,7 +10,7 @@
             </SelfIssue>
             <Styling>
                   <LookAndFeel>com.formdev.flatlaf.FlatLightLaf</LookAndFeel>
-                  <BorderWidth>24</BorderWidth>
+                  <BorderWidth>32</BorderWidth>
                   <VerticalDividerWidth>4</VerticalDividerWidth>
                   <HorizontalDividerWidth>8</HorizontalDividerWidth>
                   <TitleText_Font>SansSerif</TitleText_Font>
@@ -170,8 +170,8 @@
                   <ResetTimeout>120</ResetTimeout>
                   <StripPatronChecksumDigit>false</StripPatronChecksumDigit>
                   <StripItemChecksumDigit>false</StripItemChecksumDigit>
-                  <ReferenceMonitor>25</ReferenceMonitor>
-                  <ReferenceDPI>96</ReferenceDPI>
+                  <ReferenceMonitorWidth>1920</ReferenceMonitorWidth>
+                  <ReferenceMonitorHeight>1080</ReferenceMonitorHeight>
             </Advanced>
       </UI>
       <Systems>
