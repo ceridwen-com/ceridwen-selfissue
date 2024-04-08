@@ -236,9 +236,9 @@ private static Log log = LogFactory.getLog(SelfIssueFrame.class);
 
     private void jbStatusPanelInit(Font VersionTextFont, Color VersionTextColour, Color InnerBorderColour, int BorderWidthPxl) {
         final double RATIO = 0.3;
-        double VersionHeightPxl = (BorderWidthPxl - Configuration.pt2Pixel(VersionTextFont.getSize()));
-        int VUSpacerPxl = (int)Math.round(VersionHeightPxl*(1.0-RATIO));
+        double VersionHeightPxl = Configuration.pt2Pixel(VersionTextFont.getSize());
         int VLSpacerPxl = (int)Math.round(VersionHeightPxl*RATIO);
+        int VUSpacerPxl = BorderWidthPxl - (VLSpacerPxl+(int)VersionHeightPxl);
         int HSpacerPxl = Configuration.pt2Pixel(VersionTextFont.getSize());
         
         BuildVersion.setFont(VersionTextFont);

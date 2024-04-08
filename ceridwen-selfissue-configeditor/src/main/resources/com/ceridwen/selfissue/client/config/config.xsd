@@ -138,14 +138,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Warning text size (or indicated by &lt;em&gt;)</xs:documentation>
                       </xs:annotation>
                     </xs:element>   
-                    <xs:element name="ButtonText_Font" type="xs:string">
+                    <xs:element name="LabelText_Font" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Button text font</xs:documentation>
+                        <xs:documentation>Label text font</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="ButtonText_Size" type="xs:nonNegativeInteger">
+                    <xs:element name="LabelText_Size" type="xs:integer" >
                       <xs:annotation>
-                        <xs:documentation>Button text size</xs:documentation>
+                        <xs:documentation>Label text size</xs:documentation>
                       </xs:annotation>
                     </xs:element>                    
                     <xs:element name="InputText_Font" type="xs:string">
@@ -157,7 +157,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       <xs:annotation>
                         <xs:documentation>Input text size</xs:documentation>
                       </xs:annotation>
-                    </xs:element> 
+                    </xs:element>
+                    <xs:element name="TextInset" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Text inset size (pt)</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
+                    <xs:element name="ButtonText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Button text font</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ButtonText_Size" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Button text size</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>   
+                    <xs:element name="ButtonBorder" type="xs:boolean">
+                      <xs:annotation>
+                        <xs:documentation>Show button border</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>   
                     <xs:element name="VersionText_Font" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Font for version text at bottom of window</xs:documentation>
@@ -222,9 +242,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Colour used in warning messages (or indicated by &lt;em&gt;)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="VersionTextColour" type="xs:string">
+                    <xs:element name="LabelTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour for version text at bottom of window</xs:documentation>
+                        <xs:documentation>Colour for input label text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InputTextColour" type="xs:string">
@@ -272,6 +292,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Colour of buttons</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="VersionTextColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour for version text at bottom of window</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -578,6 +603,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>{0} = patron barcode</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="InvalidPatronPassword" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>No substitutes</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="PatronRetry" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>No substitutes</xs:documentation>
@@ -610,7 +640,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="InvalidItemBarcode" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>No substitutes</xs:documentation>
+                        <xs:documentation>{0} = item barcode</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckoutRetry" type="xs:string">
@@ -737,6 +767,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Audio cue on invalid patron barcode</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="InvalidPatronPassword" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Audio cue on invalid patron password</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="PatronNetworkError" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Audio cue on network error checking patron</xs:documentation>

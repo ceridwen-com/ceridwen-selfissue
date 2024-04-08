@@ -267,6 +267,12 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
     Color InputSelectedTextColour = Configuration.getBackgroundColour("InputSelectedTextColour");
     Color InputCaretColour = Configuration.getBackgroundColour("InputCaretColour");
     Color InputDisabledTextColour = Configuration.getBackgroundColour("InputDisabledTextColour");    
+    Color LabelTextColour = Configuration.getForegroundColour("LabelTextColour");
+    Font  LabelTextFont = Configuration.getFont("LabelText");
+    
+    int insetPt = Configuration.getScaledPointSize("UI/Styling/InputInset", 1);
+    int insetPx = Configuration.pt2Pixel(insetPt);
+    Border inset = BorderFactory.createEmptyBorder(insetPx, insetPx, insetPx, insetPx);    
 
         this.border1 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         this.border2 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -281,6 +287,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.NextButton.addActionListener(new CheckInPanel_NextButton_actionAdapter(this));
         this.NextButton.setForeground(ButtonTextColour);
         this.NextButton.setBackground(ButtonBackgroundColour);
+        this.NextButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));                
         this.CheckoutButton.setFont(ButtonTextFont);
         // ResetButton.setNextFocusableComponent(BookField);
         this.CheckoutButton.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookPanelCheckoutButton_ToolTipText"));
@@ -289,9 +296,10 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.CheckoutButton.setVisible(this.CheckOutEnabled);
         this.CheckoutButton.setForeground(ButtonTextColour);
         this.CheckoutButton.setBackground(ButtonBackgroundColour);
+        this.CheckoutButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));                
         this.NavigationPanel.setLayout(this.NavigationBorderLayout);
-        this.BookFieldLabel.setFont(DefaultTextFont);
-        this.BookFieldLabel.setForeground(DefaultTextColour);
+        this.BookFieldLabel.setFont(LabelTextFont);
+        this.BookFieldLabel.setForeground(LabelTextColour);
         this.BookFieldLabel.setToolTipText(Configuration.getProperty("UI/CheckInPanel/BookFieldLabel_ToolTipText"));
         this.BookFieldLabel.setLabelFor(this.BookField);
         this.BookFieldLabel.setText(Configuration.getProperty("UI/CheckInPanel/BookFieldLabel_Text"));
@@ -300,7 +308,9 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.BookField.setFont(InputTextFont);
         this.BookField.setForeground(InputTextColour);
         this.BookField.setBackground(InputBackgroundColour);
-        this.BookField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+        this.BookField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(InputBorderColour,2),
+                inset));
         this.BookField.setSelectionColor(InputSelectionColour);
         this.BookField.setSelectedTextColor(InputSelectedTextColour);
         this.BookField.setCaretColor(InputCaretColour);
@@ -345,6 +355,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
         this.CheckinButton.addActionListener(new CheckInPanel_CheckinButton_actionAdapter(this));
         this.CheckinButton.setForeground(ButtonTextColour);
         this.CheckinButton.setBackground(ButtonBackgroundColour);
+        this.CheckinButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));                        
         this.CheckInScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.CheckInScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.CheckInScrollPane.setAutoscrolls(true);
@@ -531,7 +542,7 @@ public class CheckInPanel extends SelfIssuePanel implements IDReaderDeviceListen
             this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Invalid Barcode Entered", new Date(), request, response);
             this.PlaySound("InvalidItemBarcode");
             finalStatusText = Configuration.getMessage("InvalidItemBarcode",
-                                                new String[] {});
+                                                new String[] {request.getItemIdentifier()});
         } catch (CheckinConnectionFailed ex) {
             this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKINFAILURE, "Network Connection Failure", new Date(), request, response);
             this.PlaySound("CheckinNetworkError");

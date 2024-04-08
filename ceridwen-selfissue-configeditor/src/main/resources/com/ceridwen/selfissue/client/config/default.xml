@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=3.25;time=2024-04-07 21:16:57.428;xui=config.xui;xsd=config.xsd?>
+<?jaxfront version=3.25;time=2024-04-08 21:58:13.792;xui=config.xui;xsd=config.xsd?>
 <SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
       <UI>
             <SelfIssue>
@@ -18,15 +18,19 @@
                   <SubTitleText_Font>SansSerif</SubTitleText_Font>
                   <SubTitleText_Size>80</SubTitleText_Size>
                   <DefaultText_Font>SansSerif</DefaultText_Font>
-                  <DefaultText_Size>32</DefaultText_Size>
+                  <DefaultText_Size>24</DefaultText_Size>
                   <StatusText_Font>SansSerif</StatusText_Font>
-                  <StatusText_Size>32</StatusText_Size>
+                  <StatusText_Size>24</StatusText_Size>
                   <WarningText_Font>SansSerif</WarningText_Font>
-                  <WarningText_Size>32</WarningText_Size>
-                  <ButtonText_Font>SansSerif</ButtonText_Font>
-                  <ButtonText_Size>32</ButtonText_Size>
+                  <WarningText_Size>24</WarningText_Size>
+                  <LabelText_Font>SansSerif</LabelText_Font>
+                  <LabelText_Size>32</LabelText_Size>
                   <InputText_Font>SansSerif</InputText_Font>
                   <InputText_Size>32</InputText_Size>
+                  <TextInset>2</TextInset>
+                  <ButtonText_Font>SansSerif</ButtonText_Font>
+                  <ButtonText_Size>36</ButtonText_Size>
+                  <ButtonBorder>true</ButtonBorder>
                   <VersionText_Font>Serif</VersionText_Font>
                   <VersionText_Size>12</VersionText_Size>
             </Styling>
@@ -40,7 +44,7 @@
                   <DefaultTextColour>0,0,204</DefaultTextColour>
                   <StatusTextColour>0,102,51</StatusTextColour>
                   <WarningTextColour>153,0,0</WarningTextColour>
-                  <VersionTextColour>204,204,204</VersionTextColour>
+                  <LabelTextColour>51,0,153</LabelTextColour>
                   <InputTextColour>51,0,153</InputTextColour>
                   <InputBackgroundColour>224,224,255</InputBackgroundColour>
                   <InputBorderColour>204,204,255</InputBorderColour>
@@ -50,6 +54,7 @@
                   <InputDisabledTextColour>204,204,255</InputDisabledTextColour>
                   <ButtonTextColour>51,0,153</ButtonTextColour>
                   <ButtonBackgroundColour>204,204,255</ButtonBackgroundColour>
+                  <VersionTextColour>204,204,204</VersionTextColour>
             </Palette>
             <PatronPanel>
                   <PatronSalutation_Text>Hello</PatronSalutation_Text>
@@ -111,14 +116,15 @@
                   <GreetPatronCheckout>Hello {0}.&lt;br&gt;Please begin checking out your books.</GreetPatronCheckout>
                   <GreetPatronCheckin>Hello {0}.&lt;br&gt;Please begin checking in your books.</GreetPatronCheckin>
                   <CheckingPatronMessage>&lt;em&gt;Checking for barcode {0}.&lt;br&gt;Please wait...&lt;/em&gt;</CheckingPatronMessage>
-                  <InvalidPatronBarcode>&lt;strong&gt;The barcode entered is not valid.&lt;/strong&gt;</InvalidPatronBarcode>
+                  <InvalidPatronBarcode>&lt;strong&gt;The barcode entered, {0}, is not valid.&lt;/strong&gt;</InvalidPatronBarcode>
+                  <InvalidPatronPassword>&lt;strong&gt;The password entered is not valid.&lt;/strong&gt;</InvalidPatronPassword>
                   <PatronRetry>Please confirm your borrower id.</PatronRetry>
                   <PatronNetworkError>&lt;strong&gt;Your borrower id {0} was not recognised.&lt;br&gt;Please check and re-enter.&lt;br&gt;(This error may occur if there are network problems)&lt;/strong&gt;</PatronNetworkError>
                   <InvalidPatronError>&lt;strong&gt;An account with id {0} could not be found - please check and re-enter.&lt;br&gt;&lt;br&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronError>
                   <BlockedPatronError>&lt;strong&gt;There appears to be an problem with your account - please contact a member of staff.&lt;br&gt;&lt;br&gt;The error reported by the server is: {0}.&lt;/strong&gt;</BlockedPatronError>
                   <UnexpectedPatronError>&lt;strong&gt;An unexpected error occurred. Please contact a member of staff.&lt;/strong&gt;</UnexpectedPatronError>
                   <CheckoutPendingMessage>Checking barcode {0}. Please wait...</CheckoutPendingMessage>
-                  <InvalidItemBarcode>The barcode entered is not valid.</InvalidItemBarcode>
+                  <InvalidItemBarcode>&lt;strong&gt;The barcode entered, {0}, is not valid.&lt;/strong&gt;</InvalidItemBarcode>
                   <CheckoutRetry>Please re-enter item barcode.</CheckoutRetry>
                   <CheckOutSuccess>&lt;em&gt;Item {0} has been checked out.&lt;/em&gt;</CheckOutSuccess>
                   <DueDateMessage>Due date is {0}.</DueDateMessage>
@@ -144,6 +150,7 @@
                   <CheckoutRetry>org/freesound/Pending Notification 1_1.wav</CheckoutRetry>
                   <CheckinRetry>org/freesound/Pending Notification 1_1.wav</CheckinRetry>
                   <InvalidPatronBarcode>org/freesound/Failure Drum Sound Effect 3.wav</InvalidPatronBarcode>
+                  <InvalidPatronPassword>org/freesound/Failure Drum Sound Effect 3.wav</InvalidPatronPassword>
                   <PatronNetworkError>org/freesound/Failure Drum Sound Effect 3.wav</PatronNetworkError>
                   <InvalidPatronError>org/freesound/Failure Drum Sound Effect 3.wav</InvalidPatronError>
                   <BlockedPatronError>org/freesound/Failure Drum Sound Effect 3.wav</BlockedPatronError>

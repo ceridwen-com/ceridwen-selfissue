@@ -60,6 +60,7 @@ import com.ceridwen.selfissue.client.devices.TimeoutException;
 import com.ceridwen.selfissue.client.log.OnlineLogEvent;
 import java.awt.Font;
 import java.util.Arrays;
+import javax.swing.JTextPane;
 
 public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListener {
     /**
@@ -255,7 +256,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     private JScrollPane CheckOutScrollPane = new JScrollPane();
     // JTextArea CheckoutText = new JTextArea();
     private JEditorPane CheckoutText = new JEditorPane();
-    private JLabel StatusText = new JLabel();
+    private JTextPane StatusText = new JTextPane();
 
     private CirculationHandler handler;
 
@@ -303,7 +304,13 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     Color InputSelectionColour = Configuration.getBackgroundColour("InputSelectionColour");
     Color InputSelectedTextColour = Configuration.getBackgroundColour("InputSelectedTextColour");
     Color InputCaretColour = Configuration.getBackgroundColour("InputCaretColour");
-    Color InputDisabledTextColour = Configuration.getBackgroundColour("InputDisabledTextColour");    
+    Color InputDisabledTextColour = Configuration.getBackgroundColour("InputDisabledTextColour");
+    Color LabelTextColour = Configuration.getForegroundColour("LabelTextColour");
+    Font  LabelTextFont = Configuration.getFont("LabelText");    
+    
+    int insetPt = Configuration.getScaledPointSize("UI/Styling/InputInset", 2);
+    int insetPx = Configuration.pt2Pixel(insetPt);
+    Border inset = BorderFactory.createEmptyBorder(insetPx, insetPx, insetPx, insetPx);     
 
         this.border1 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         this.border2 = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -318,6 +325,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.NextButton.addActionListener(new BookPanel_NextButton_actionAdapter(this));
         this.NextButton.setForeground(ButtonTextColour);
         this.NextButton.setBackground(ButtonBackgroundColour);
+        this.NextButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));                
         this.CheckInButton.setFont(ButtonTextFont);
         // ResetButton.setNextFocusableComponent(BookField);
         this.CheckInButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_ToolTipText"));
@@ -326,9 +334,10 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.CheckInButton.setVisible(this.CheckInEnabled);
         this.CheckInButton.setForeground(ButtonTextColour);
         this.CheckInButton.setBackground(ButtonBackgroundColour);
+        this.CheckInButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));        
         this.NavigationPanel.setLayout(this.NavigationBorderLayout);
-        this.BookFieldLabel.setFont(DefaultTextFont);
-        this.BookFieldLabel.setForeground(DefaultTextColour);
+        this.BookFieldLabel.setFont(LabelTextFont);
+        this.BookFieldLabel.setForeground(LabelTextColour);
         this.BookFieldLabel.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookFieldLabel_ToolTipText"));
         this.BookFieldLabel.setLabelFor(this.BookField);
         this.BookFieldLabel.setText(Configuration.getProperty("UI/CheckOutPanel/BookFieldLabel_Text"));
@@ -337,7 +346,9 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.BookField.setFont(InputTextFont);
         this.BookField.setForeground(InputTextColour);
         this.BookField.setBackground(InputBackgroundColour);
-        this.BookField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+        this.BookField.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(InputBorderColour,2),
+                inset));
         this.BookField.setSelectionColor(InputSelectionColour);
         this.BookField.setSelectedTextColor(InputSelectedTextColour);
         this.BookField.setCaretColor(InputCaretColour);
@@ -382,6 +393,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.CheckoutButton.addActionListener(new BookPanel_CheckoutButton_actionAdapter(this));
         this.CheckoutButton.setForeground(ButtonTextColour);
         this.CheckoutButton.setBackground(ButtonBackgroundColour);
+        this.CheckoutButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));                
         this.CheckOutScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.CheckOutScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         this.CheckOutScrollPane.setAutoscrolls(true);
@@ -399,23 +411,25 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         kit.getStyleSheet().addRule(
             "body {font-family: " + DefaultTextFont.getFamily() + "; " +
                 "font-size: " + DefaultTextFont.getSize() + "pt; " +
-                "font-style: normal" +
+                "font-style: normal; " +
                 "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
         kit.getStyleSheet().addRule(
             "em {font-family: " + StatusTextFont.getFamily() + "; " +
                 "font-size: " + StatusTextFont.getSize() + "pt; " +
-                "font-style: normal" +
+                "font-style: normal; " +
                 "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
         kit.getStyleSheet().addRule(
             "strong {font-family: " + WarningTextFont.getFamily() + "; " +
                 "font-size: " + WarningTextFont.getSize() + "pt; " +
-                "font-style: normal" +
+                "font-style: normal; " +
                 "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
         this.CheckoutText.setEditorKit(kit);
         this.CheckoutText.setContentType("text/html");
+        this.CheckoutText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/CheckOutText_ToolTipText"));
+        this.CheckoutText.setText(Configuration.getProperty("UI/CheckOutPanel/CheckOutText_Default"));
         // CheckoutText.setLineWrap(true);
         // CheckoutText.setWrapStyleWord(true);
         this.StatusText.setFont(StatusTextFont);
@@ -425,6 +439,29 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.StatusText.setPreferredSize(new Dimension(Configuration.pt2Pixel(StatusTextFont.getSize())*16, Configuration.pt2Pixel(StatusTextFont.getSize())));
         this.StatusText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/StatusText_ToolTipText"));
         this.StatusText.setText(Configuration.getProperty("UI/CheckOutPanel/StatusText_DefaultText"));
+        this.StatusText.setRequestFocusEnabled(false);
+        this.StatusText.setEditable(false);
+        HTMLEditorKit kit2 = new HTMLEditorKit();
+        kit2.getStyleSheet().addRule(
+            "body {font-family: " + DefaultTextFont.getFamily() + "; " +
+                "font-size: " + DefaultTextFont.getSize() + "pt; " +
+                "font-style: normal; " +
+                "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+        kit2.getStyleSheet().addRule(
+            "em {font-family: " + StatusTextFont.getFamily() + "; " +
+                "font-size: " + StatusTextFont.getSize() + "pt; " +
+                "font-style: normal; " +
+                "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
+        kit2.getStyleSheet().addRule(
+            "strong {font-family: " + WarningTextFont.getFamily() + "; " +
+                "font-size: " + WarningTextFont.getSize() + "pt; " +
+                "font-style: normal; " +
+                "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+        this.StatusText.setEditorKit(kit2);
+        this.StatusText.setContentType("text/html");
         this.add(this.NavigationPanel, BorderLayout.SOUTH);
         this.NavigationPanel.add(this.CheckInButton, BorderLayout.WEST);
         this.NavigationPanel.add(this.NextButton, BorderLayout.EAST);
@@ -480,8 +517,8 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         if (msg == null) {
             msg = "";
         }
-        msg = this.stripHTML(msg) + entry + "<br>";
-        this.CheckoutText.setText(msg.replaceAll("\r\n", "<br>"));
+        msg = this.stripHTML(msg) + "<p>" + entry + "</p>";
+        this.CheckoutText.setText(msg);//.replaceAll("\r\n", "<br>"));
     }
 
     private void reportSuccess(CheckOut request, CheckOutResponse response) {
@@ -602,7 +639,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Invalid Barcode Entered", new Date(), request, response);
             this.PlaySound("InvalidItemBarcode");
             finalStatusText = Configuration.getMessage("InvalidItemBarcode",
-                                                new String[] {});
+                                                new String[] {request.getItemIdentifier()});
         } catch (CheckoutConnectionFailed ex) {
             if (SelfIssuePanel.trustMode) {
                 this.PlaySound("CheckoutRetry");
