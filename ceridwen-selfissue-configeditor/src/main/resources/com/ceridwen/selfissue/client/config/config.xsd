@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <xs:complexType>
       <xs:sequence>
         <xs:element name="UI">
+          <xs:annotation>
+            <xs:documentation>User interface settings</xs:documentation>
+          </xs:annotation>            
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SelfIssue">
@@ -41,12 +44,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <xs:sequence>
                     <xs:element name="LeftIcon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Header right hand image file. Images should be stored in the res directory</xs:documentation>
+                        <xs:documentation>Header right hand image file. Images should be stored in the conf directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="RightIcon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Header left hand image file. Images should be stored in the res directory</xs:documentation>
+                        <xs:documentation>Header left hand image file. Images should be stored in the conf directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="TitleText" type="xs:string">
@@ -56,7 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="SubTitleText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Subtitle text</xs:documentation>
+                        <xs:documentation>Sub-title text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -80,12 +83,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element> 
                      <xs:element name="VerticalDividerWidth" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Divider width (pxl)</xs:documentation>
+                        <xs:documentation>Vertical Divider width (pxl)</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                                                     
                      <xs:element name="HorizontalDividerWidth" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Divider width (pxl)</xs:documentation>
+                        <xs:documentation>Horizontal Divider width (pxl)</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                                                     
                     <xs:element name="TitleText_Font" type="xs:string">
@@ -100,12 +103,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="SubTitleText_Font" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Subtitle text font</xs:documentation>
+                        <xs:documentation>Sub-title text font</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="SubTitleText_Size" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Subtitle text size</xs:documentation>
+                        <xs:documentation>Sub-title text size</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="DefaultText_Font" type="xs:string">
@@ -120,22 +123,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="StatusText_Font" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Status text font (or indicated by &lt;strong&gt;)</xs:documentation>
+                        <xs:documentation>Status text font (or indicated by &lt;em&gt; in messages)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="StatusText_Size" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Status text size (or indicated by &lt;strong&gt;)</xs:documentation>
+                        <xs:documentation>Status text size (or indicated by &lt;em&gt; in message)</xs:documentation>
                       </xs:annotation>
                     </xs:element> 
                     <xs:element name="WarningText_Font" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Warning text font (or indicated by &lt;em&gt;)</xs:documentation>
+                        <xs:documentation>Warning text font (or indicated by &lt;strong&gt; in messages)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="WarningText_Size" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Warning text size (or indicated by &lt;em&gt;)</xs:documentation>
+                        <xs:documentation>Warning text size (or indicated by &lt;em&gt; in messages)</xs:documentation>
                       </xs:annotation>
                     </xs:element>   
                     <xs:element name="LabelText_Font" type="xs:string">
@@ -160,7 +163,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="TextInset" type="xs:nonNegativeInteger">
                       <xs:annotation>
-                        <xs:documentation>Text inset size (pt)</xs:documentation>
+                        <xs:documentation>Input box inset size (pt)</xs:documentation>
                       </xs:annotation>
                     </xs:element>                    
                     <xs:element name="ButtonText_Font" type="xs:string">
@@ -234,12 +237,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="StatusTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour used in status updates (or indicated by &lt;strong&gt;)</xs:documentation>
+                        <xs:documentation>Colour used in status updates (or indicated by &lt;em&gt; in messages)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="WarningTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour used in warning messages (or indicated by &lt;em&gt;)</xs:documentation>
+                        <xs:documentation>Colour used in warning messages (or indicated by &lt;strong&gt; in messages)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="LabelTextColour" type="xs:string">
@@ -254,32 +257,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="InputBackgroundColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of input text</xs:documentation>
+                        <xs:documentation>Colour of input background</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InputBorderColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of input text</xs:documentation>
+                        <xs:documentation>Colour of input border</xs:documentation>
                       </xs:annotation>
                     </xs:element>                    
                     <xs:element name="InputSelectionColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of input text</xs:documentation>
+                        <xs:documentation>Colour of selected text background</xs:documentation>
                       </xs:annotation>
                     </xs:element>                    
                     <xs:element name="InputSelectedTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of input text</xs:documentation>
+                        <xs:documentation>Colour of selected text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InputCaretColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of input text</xs:documentation>
+                        <xs:documentation>Colour of input caret</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InputDisabledTextColour" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Colour of input text</xs:documentation>
+                        <xs:documentation>Colour of disabled input text</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                        
                     <xs:element name="ButtonTextColour" type="xs:string">
@@ -306,29 +309,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="PatronSalutation_Text" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Initial greeting to patron</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
                     <xs:element name="CardIcon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Main picture (typically an example reader card). Images should be stored in the res directory</xs:documentation>
+                        <xs:documentation>Main picture (typically an example reader card). Images should be stored in the conf directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="PatronText_ToolTipText" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Tooltip for patron status</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="PatronFieldLabel_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Label for patron barcode edit box</xs:documentation>
+                        <xs:documentation>Label for patron barcode edit box label</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronFieldLabel_ToolTipText" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Tooltip for patron barcode edit box label</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="PatronField_DefaultText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronField_ToolTipText" type="xs:string">
@@ -338,52 +336,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="PatronField_Length" type="xs:positiveInteger">
                       <xs:annotation>
-                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                        <xs:documentation>Default length of patron barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>                    
                     <xs:element name="PatronSubmitButton_Text" type="xs:string">                 
                       <xs:annotation>
-                        <xs:documentation>Next button text</xs:documentation>
+                        <xs:documentation>Submit barcode button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronSubmitButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Next button tool tip text</xs:documentation>
+                        <xs:documentation>Submit barcode button tool tip text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PasswordFieldLabel_Text" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Label for patron barcode edit box</xs:documentation>
+                        <xs:documentation>Label for password barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PasswordFieldLabel_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Tooltip for patron barcode edit box label</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="PasswordField_DefaultText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                        <xs:documentation>Tooltip for password barcode edit box label</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PasswordField_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Tool tip for patron barcode edit box</xs:documentation>
+                        <xs:documentation>Tool tip for password barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PasswordField_Length" type="xs:positiveInteger">
                       <xs:annotation>
-                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                        <xs:documentation>Default length of patron password edit box (normally blank)</xs:documentation>
                       </xs:annotation>
                     </xs:element>                    
                     <xs:element name="PasswordSubmitButton_Text" type="xs:string">                 
                       <xs:annotation>
-                        <xs:documentation>Next button text</xs:documentation>
+                        <xs:documentation>Submit password button text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PasswordSubmitButton_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Next button tool tip text</xs:documentation>
+                        <xs:documentation>Submit password button tool tip text</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronPanelResetButton_Text" type="xs:string">
@@ -407,12 +400,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <xs:sequence>
                     <xs:element name="BooksIcon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="PatronText_DefaultText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Default greeting to patrong</xs:documentation>
+                        <xs:documentation>Main image. Images should be stored in the conf directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronText_ToolTipText" type="xs:string">
@@ -420,14 +408,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tooltip text on patron information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="StatusText_DefaultText" type="xs:string">
+                    <xs:element name="CheckoutText_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Default status text</xs:documentation>
+                        <xs:documentation>Tooltip text on checkout information</xs:documentation>
                       </xs:annotation>
-                    </xs:element>
+                    </xs:element>                    
                     <xs:element name="StatusText_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Tooltip text for status information</xs:documentation>
+                        <xs:documentation>Tooltip text on status information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="BookFieldLabel_Text" type="xs:string">
@@ -440,11 +428,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tooltip for book barcode edit box label</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="BookField_DefaultText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Default text for book barcode edit box (normally blank)</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
                     <xs:element name="BookField_ToolTipText" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
@@ -452,7 +435,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="BookField_Length" type="xs:positiveInteger">
                       <xs:annotation>
-                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                        <xs:documentation>Default length for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                        
                     <xs:element name="CheckoutButton_Text" type="xs:string">
@@ -496,12 +479,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   <xs:sequence>
                     <xs:element name="BooksIcon" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Main image.  Images should be stored in the res directory</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
-                    <xs:element name="PatronText_DefaultText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Default greeting to patrong</xs:documentation>
+                        <xs:documentation>Main image. Images should be stored in the conf directory</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronText_ToolTipText" type="xs:string">
@@ -509,9 +487,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tooltip text on patron information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="StatusText_DefaultText" type="xs:string">
+                    <xs:element name="CheckInText_ToolTipText" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Default status text</xs:documentation>
+                        <xs:documentation>Tooltip text on checkin information</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="StatusText_ToolTipText" type="xs:string">
@@ -529,11 +507,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Tooltip for book barcode edit box label</xs:documentation>
                       </xs:annotation>
                     </xs:element>
-                    <xs:element name="BookField_DefaultText" type="xs:string">
-                      <xs:annotation>
-                        <xs:documentation>Default text for book barcode edit box (normally blank)</xs:documentation>
-                      </xs:annotation>
-                    </xs:element>
                     <xs:element name="BookField_ToolTipText" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Tool tip for book barcode edit box</xs:documentation>
@@ -541,7 +514,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="BookField_Length" type="xs:positiveInteger">
                       <xs:annotation>
-                        <xs:documentation>Default text in patron barcode edit box (normally blank)</xs:documentation>
+                        <xs:documentation>Default length for book barcode edit box</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                        
                     <xs:element name="CheckinButton_Text" type="xs:string">
@@ -579,7 +552,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               </xs:element>
               <xs:element name="Messages">
                 <xs:annotation>
-                  <xs:documentation>Allows configuration of the various messages displayed by the application. {0}, {1} etc. will be replaced by message specific strings. Some of the messages support limited html formatting using: &lt;strong&gt; for bold text; &lt;em&gt; to display in the warning colour defined in the colour palette</xs:documentation>
+                  <xs:documentation>Allows configuration of the various messages displayed by the application.
+{0}, {1} etc. will be replaced by message specific strings.
+Messages support limited html formatting:
+&lt;br&gt; - for line breaks;
+&lt;em&gt; - for status (uses status font and colour);
+ &lt;strong&gt; - for warnings (uses warning font and colour).</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -744,22 +722,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="CheckinSuccess" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Audio cue on check out</xs:documentation>
+                        <xs:documentation>Audio cue on check in</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronRetry" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Audio cue on re enter patron id</xs:documentation>
+                        <xs:documentation>Audio cue on re-enter patron id</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckoutRetry" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Audio cue on re enter last book</xs:documentation>
+                        <xs:documentation>Audio cue on re-enter last book</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckinRetry" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>Audio cue on re enter last book</xs:documentation>
+                        <xs:documentation>Audio cue on re-enter last book</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="InvalidPatronBarcode" type="xs:string">
@@ -852,23 +830,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               </xs:element>
               <xs:element name="Validation">
                 <xs:annotation>
-                  <xs:documentation>Pattern matching check on entered barcodes - remove for no validation</xs:documentation>
+                  <xs:documentation>Pattern matching regex check on entered barcodes - remove for no validation</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="PatronBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
+                        <xs:documentation>Mask for patron barcodes.The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a barcode consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="PatronPasswordMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a password consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
+                        <xs:documentation>Mask for patron passwords. The default setting of (2\d{6})|([1-9a-zA-Z][\w,. -]+ will accept a password consisting of seven digits beginning with the digit 2; or a name (alphabetical input including space)</xs:documentation>
                       </xs:annotation>
                     </xs:element>                    
                     <xs:element name="ItemBarcodeMask" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>The default value of [P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
+                        <xs:documentation>Mask for book barcodes. The default value of [P|T|R]\d{6}|3\d{8}|([1-9a-zA-Z][\w,. -]+) will accept a 9 digit barcode beginning with 3; a 7 digit barcode beginning with P, T or R; or an alphanumeric titles</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                   </xs:sequence>
@@ -876,7 +854,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               </xs:element>
               <xs:element name="Advanced">
                 <xs:annotation>
-                  <xs:documentation>Determines miscellaneous behaviour.</xs:documentation>
+                  <xs:documentation>Advanced UI configuration.</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
@@ -902,12 +880,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="ReferenceMonitorWidth" type="xs:positiveInteger">
                       <xs:annotation>
-                        <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
+                        <xs:documentation>Reference monitor width (pixels). Images and fonts will not be resized on reference monitor size.</xs:documentation>
                       </xs:annotation>
                     </xs:element>    
                     <xs:element name="ReferenceMonitorHeight" type="xs:positiveInteger">
                       <xs:annotation>
-                        <xs:documentation>Idle time in seconds before the software resets to the patron screen</xs:documentation>
+                        <xs:documentation>Reference monitor height (pixels). Images and fonts will not be resized on reference monitor size.</xs:documentation>
                       </xs:annotation>
                     </xs:element>                                    
                   </xs:sequence>
@@ -917,6 +895,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
           </xs:complexType>
         </xs:element>
         <xs:element name="Systems">
+         <xs:annotation>
+          <xs:documentation>Configure the behaviour of the client</xs:documentation>
+         </xs:annotation>            
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SIP">
@@ -1063,7 +1044,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               </xs:element>
                 <xs:element name="Modes">
                   <xs:annotation>
-                    <xs:documentation>This section configures the behaviour of the Self Issue client software</xs:documentation>
+                    <xs:documentation>Configure the operation of the client</xs:documentation>
                   </xs:annotation>
                   <xs:complexType>
                     <xs:sequence>
@@ -1109,7 +1090,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       </xs:element>
                       <xs:element name="EnableBarcodeAliases" type="xs:boolean">
                         <xs:annotation>
-                          <xs:documentation>If true allows alii for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
+                          <xs:documentation>If true allows aliases for command interfaces of the form $Command% (e.g. $Shutdown System% for *Shutdown System¦) This allows commands to be encoded as barcodes e.g. can be entered from a command barcode sheet ($ and % are available in most barcode encoding schemes).</xs:documentation>
                         </xs:annotation>
                       </xs:element>
                       <xs:element name="EnableCheckIn" type="xs:boolean">
@@ -1134,7 +1115,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
                     <xs:annotation>
-                      <xs:documentation>Implementation class (currently JavaSmartCard or null device)</xs:documentation>
+                      <xs:documentation>Implementation class or null device</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
@@ -1159,7 +1140,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
                     <xs:annotation>
-                      <xs:documentation>Implementation class (currently JavaSmartCard or null device)</xs:documentation>
+                      <xs:documentation>Implementation class or null device</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
@@ -1189,7 +1170,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                   </xs:sequence>
                   <xs:attribute name="class" use="required">
                     <xs:annotation>
-                      <xs:documentation>Implementation class</xs:documentation>
+                      <xs:documentation>Implementation class or null device</xs:documentation>
                     </xs:annotation>
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
@@ -1305,27 +1286,62 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                           </xs:element>
                           <xs:element name="Host" type="xs:string">
                             <xs:annotation>
-                              <xs:documentation>Server to send messages to (not used for SMTP logger)</xs:documentation>
+                              <xs:documentation>Logger dependent setting:
+ConsoleLogger - not used;
+FileLogger - not used;
+MailLogger - STMP relay ip;
+RestLogger - REST server ip;
+SocketLogger - Socket server ip;
+SyslogLogger - Syslog server ip;
+WinEventLogger - optional Windows host.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="Port" type="xs:positiveInteger">
                             <xs:annotation>
-                              <xs:documentation>Port to send messages to (not used for SMTP logger)</xs:documentation>
+                              <xs:documentation>Logger dependent setting: <br/>
+ConsoleLogger - not used;
+FileLogger - not used;
+MailLogger - STMP relay port;
+RestLogger - REST server port;
+SocketLogger - Socket server port;
+SyslogLogger - Syslog server port;
+WinEventLogger - not used.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="SSL" type="xs:boolean">
                             <xs:annotation>
-                              <xs:documentation>Port to send messages to (not used for SMTP logger)</xs:documentation>
+                              <xs:documentation>Logger dependent setting:
+ConsoleLogger - not used; 
+FileLogger - not used; 
+MailLogger - not used; 
+RestLogger - use https; 
+SocketLogger - not used; 
+SyslogLogger - not used; 
+WinEventLogger - not used.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="Target" type="xs:string">
                             <xs:annotation>
-                              <xs:documentation>SMTP logger - e-mail address to send reports to</xs:documentation>
+                              <xs:documentation>Logger dependent setting:
+ConsoleLogger - not used;
+FileLogger - not used; 
+MailLogger - To e-mail address; 
+RestLogger - path part of URL; 
+SocketLogger - not used; 
+SyslogLogger - not used; 
+WinEventLogger - not used.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="Source" type="xs:string">
                             <xs:annotation>
-                              <xs:documentation>SMTP Logger: E-mail address from which reports originate (and to which bounce messages will be sent)</xs:documentation>
+                              <xs:documentation>Logger dependent setting: 
+ConsoleLogger - not used;
+FileLogger - not used;
+MailLogger - From e-mail address;
+RestLogger - not used;
+SocketLogger - not used;
+SyslogLogger - not used; 
+WinEventLogger - WinEvent source.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="ConnectionTimeout" type="xs:positiveInteger">
@@ -1346,7 +1362,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </xs:sequence>
                         <xs:attribute name="class" use="required">
                           <xs:annotation>
-                            <xs:documentation>Type of logger (SMTP, Syslog, REST, Console, or null device)</xs:documentation>
+                            <xs:documentation>Type of logger or null device</xs:documentation>
                           </xs:annotation>
                           <xs:simpleType>
                             <xs:restriction base="xs:string">
@@ -1394,7 +1410,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </xs:element>
                     <xs:element name="PersistentQueueImplementation">
                       <xs:annotation>
-                        <xs:documentation>Implementation of persistent queue for spoolers. Default is com.gaborcselle.persistent.PersistentQueue. com.ceridwen.util.collections.PersistentQueue is deprecated but available for backwards compatibility for Self Issue 2.61 or earlier. Note: the spooled object store is not compatible between these implementations. You will need to use a different spool path, or delete the existing spools if you change the implementation.</xs:documentation>
+                        <xs:documentation>Implementation of persistent queue for spoolers.
+Default is com.gaborcselle.persistent.PersistentQueue.
+com.ceridwen.util.collections.PersistentQueue is deprecated but available for backwards compatibility for Self Issue 2.61 or earlier.
+Note: the spooled object store is not compatible between these implementations. You will need to use a different spool path, or delete the existing spools if you change the implementation.</xs:documentation>
                       </xs:annotation>
                       <xs:simpleType>
 	                    <xs:restriction base="xs:string">
@@ -1411,7 +1430,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </xs:element>
         <xs:element name="Admin">
           <xs:annotation>
-            <xs:documentation>Allows logging reporting of unexpected errors</xs:documentation>
+            <xs:documentation>Configure error handling and logging</xs:documentation>
           </xs:annotation>
           <xs:complexType>
             <xs:sequence>
@@ -1499,11 +1518,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </xs:complexType>
               </xs:element>
               <xs:element name="LoggingHandlers">
+                <xs:annotation>
+                  <xs:documentation>Configure java logging handlers</xs:documentation>
+                </xs:annotation>                  
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element maxOccurs="unbounded" name="LoggingHandler">
                       <xs:annotation>
-                        <xs:documentation>Allows logging reporting of unexpected errors</xs:documentation>
+                        <xs:documentation>Type of logging handler</xs:documentation>
                       </xs:annotation>
                       <xs:complexType>
                         <xs:sequence>
@@ -1526,27 +1548,62 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                           </xs:element>
                           <xs:element name="Host" type="xs:string">
                             <xs:annotation>
-                              <xs:documentation>SMTP server (for SMTP logging)</xs:documentation>
+                              <xs:documentation>LoggingHandler dependent setting:
+ConsoleLoggingHandlerWrapper - not used;
+FileLoggingHandlerWrapper - not used;
+MailLoggingHandlerWrapper - STMP relay ip;
+RestLoggingHandlerWrapper - REST server ip;
+SocketLoggingHandlerWrapper - Socket server ip;
+SyslogLoggingHandlerWrapper - Syslog server ip;
+WinEventLoggingHandlerWrapper - optional Windows host.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="Port" type="xs:positiveInteger">
                             <xs:annotation>
-                              <xs:documentation>SMTP sender (for SMTP logging)</xs:documentation>
+                              <xs:documentation>LoggingHandler dependent setting:
+ConsoleLoggingHandlerWrapper - not used;
+FileLoggingHandlerWrapper - not used;
+MailLoggingHandlerWrapper - STMP relay port;
+RestLoggingHandlerWrapper - REST server port;
+SocketLoggingHandlerWrapper - Socket server port; 
+SyslogLoggingHandlerWrapper - Syslog server port;
+WinEventLoggingHandlerWrapper - not used.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="SSL" type="xs:boolean">
                             <xs:annotation>
-                              <xs:documentation>Remote server (leave blank for local machine)</xs:documentation>
-                            </xs:annotation>                              
+                              <xs:documentation>LoggingHandler dependent setting:
+ConsoleLoggingHandlerWrapper - not used; 
+FileLoggingHandlerWrapper - not used; 
+MailLoggingHandlerWrapper - not used;
+RestLoggingHandlerWrapper - use https; 
+SocketLoggingHandlerWrapper - not used;
+SyslogLoggingHandlerWrapper - not used; 
+WinEventLoggingHandlerWrapper - not used.</xs:documentation>
+                            </xs:annotation>
                           </xs:element>
                           <xs:element name="Target" type="xs:string">
                             <xs:annotation>
-                              <xs:documentation>SMTP recipients (for SMTP logging)</xs:documentation>
+                              <xs:documentation>LoggingHandler dependent setting: 
+ConsoleLoggingHandlerWrapper - not used;
+FileLoggingHandlerWrapper - not used; 
+MailLoggingHandlerWrapper - To e-mail address;
+RestLoggingHandlerWrapper - path part of URL;
+SocketLoggingHandlerWrapper - not used;
+SyslogLoggingHandlerWrapper - not used;
+WinEventLoggingHandlerWrapper - not used.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="Source" type="xs:string">
                             <xs:annotation>
-                              <xs:documentation>syslog host (for syslog logging)</xs:documentation>
+                              <xs:documentation>LoggingHandler dependent setting:
+ConsoleLoggingHandlerWrapper - not used; 
+FileLoggingHandlerWrapper - not used;
+MailLoggingHandlerWrapper - From e-mail address;
+RestLoggingHandlerWrapper- not used;
+SocketLoggingHandlerWrapper - not used;
+SyslogLoggingHandlerWrapper - not used;
+WinEventLoggingHandlerWrapper - WinEvent source.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="ConnectionTimeout" type="xs:positiveInteger">
@@ -1562,7 +1619,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </xs:sequence>
                         <xs:attribute name="class" use="required">
                           <xs:annotation>
-                            <xs:documentation>Type of logger: SMTP, Syslog, REST, Console, Windows Event Log</xs:documentation>
+                            <xs:documentation>Type of logging handler</xs:documentation>
                           </xs:annotation>
                           <xs:simpleType>
                             <xs:restriction base="xs:string">

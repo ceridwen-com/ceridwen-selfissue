@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=3.25;time=2024-04-08 21:58:13.792;xui=config.xui;xsd=config.xsd?>
+<?jaxfront version=3.25;time=2024-04-09 11:49:25.637;xui=config.xui;xsd=config.xsd?>
 <SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
       <UI>
             <SelfIssue>
@@ -57,34 +57,30 @@
                   <VersionTextColour>204,204,204</VersionTextColour>
             </Palette>
             <PatronPanel>
-                  <PatronSalutation_Text>Hello</PatronSalutation_Text>
                   <CardIcon>com/ceridwen/selfissue/client/images/card.png</CardIcon>
+                  <PatronText_ToolTipText>Patron identification status</PatronText_ToolTipText>
                   <PatronFieldLabel_Text>Please scan in your barcode number using the hand held scanner:</PatronFieldLabel_Text>
                   <PatronFieldLabel_ToolTipText>Please enter the barcode number from your university card.</PatronFieldLabel_ToolTipText>
-                  <PatronField_DefaultText/>
                   <PatronField_ToolTipText>Scan your University barcode using the hand held scanner.</PatronField_ToolTipText>
                   <PatronField_Length>16</PatronField_Length>
                   <PatronSubmitButton_Text>OK</PatronSubmitButton_Text>
-                  <PatronSubmitButton_ToolTipText>Enter Patron ID</PatronSubmitButton_ToolTipText>
+                  <PatronSubmitButton_ToolTipText>Send  Patron ID</PatronSubmitButton_ToolTipText>
                   <PasswordFieldLabel_Text>Please enter your password</PasswordFieldLabel_Text>
                   <PasswordFieldLabel_ToolTipText>Please enter your password</PasswordFieldLabel_ToolTipText>
-                  <PasswordField_DefaultText>Enter Password</PasswordField_DefaultText>
                   <PasswordField_ToolTipText>Please enter your password</PasswordField_ToolTipText>
                   <PasswordField_Length>16</PasswordField_Length>
                   <PasswordSubmitButton_Text>OK</PasswordSubmitButton_Text>
-                  <PasswordSubmitButton_ToolTipText/>
+                  <PasswordSubmitButton_ToolTipText>Send Patron Password</PasswordSubmitButton_ToolTipText>
                   <PatronPanelResetButton_Text>Clear</PatronPanelResetButton_Text>
                   <PatronPanelResetButton_ToolTipText>Clear any entries</PatronPanelResetButton_ToolTipText>
             </PatronPanel>
             <CheckOutPanel>
                   <BooksIcon>com/free-images/books.png</BooksIcon>
-                  <PatronText_DefaultText/>
-                  <PatronText_ToolTipText>List of books already checked out.</PatronText_ToolTipText>
-                  <StatusText_DefaultText/>
-                  <StatusText_ToolTipText>Status</StatusText_ToolTipText>
+                  <PatronText_ToolTipText>Patron greeting</PatronText_ToolTipText>
+                  <CheckoutText_ToolTipText>List of books already checked out.</CheckoutText_ToolTipText>
+                  <StatusText_ToolTipText>Check out status</StatusText_ToolTipText>
                   <BookFieldLabel_Text>Please scan barcode of book to check out using the hand held scanner:</BookFieldLabel_Text>
                   <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check out.</BookFieldLabel_ToolTipText>
-                  <BookField_DefaultText/>
                   <BookField_ToolTipText>Please enter the barcode of the next book to check out.</BookField_ToolTipText>
                   <BookField_Length>16</BookField_Length>
                   <CheckoutButton_Text>Check Out</CheckoutButton_Text>
@@ -96,13 +92,11 @@
             </CheckOutPanel>
             <CheckInPanel>
                   <BooksIcon>com/free-images/books.png</BooksIcon>
-                  <PatronText_DefaultText/>
-                  <PatronText_ToolTipText>List of books already checked in</PatronText_ToolTipText>
-                  <StatusText_DefaultText/>
-                  <StatusText_ToolTipText>Status</StatusText_ToolTipText>
+                  <PatronText_ToolTipText>Patron greeting</PatronText_ToolTipText>
+                  <CheckInText_ToolTipText>List of books already checked in.</CheckInText_ToolTipText>
+                  <StatusText_ToolTipText>Check in status</StatusText_ToolTipText>
                   <BookFieldLabel_Text>Please scan barcode of book to check in using the hand held scanner:</BookFieldLabel_Text>
                   <BookFieldLabel_ToolTipText>Please enter the barcode of the next book to check in.</BookFieldLabel_ToolTipText>
-                  <BookField_DefaultText/>
                   <BookField_ToolTipText>Please enter the barcode of the next book to check in.</BookField_ToolTipText>
                   <BookField_Length>16</BookField_Length>
                   <CheckinButton_Text>Check In</CheckinButton_Text>
@@ -118,17 +112,17 @@
                   <CheckingPatronMessage>&lt;em&gt;Checking for barcode {0}.&lt;br&gt;Please wait...&lt;/em&gt;</CheckingPatronMessage>
                   <InvalidPatronBarcode>&lt;strong&gt;The barcode entered, {0}, is not valid.&lt;/strong&gt;</InvalidPatronBarcode>
                   <InvalidPatronPassword>&lt;strong&gt;The password entered is not valid.&lt;/strong&gt;</InvalidPatronPassword>
-                  <PatronRetry>Please confirm your borrower id.</PatronRetry>
+                  <PatronRetry>&lt;em&gt;Please confirm your borrower id.&lt;/em&gt;</PatronRetry>
                   <PatronNetworkError>&lt;strong&gt;Your borrower id {0} was not recognised.&lt;br&gt;Please check and re-enter.&lt;br&gt;(This error may occur if there are network problems)&lt;/strong&gt;</PatronNetworkError>
                   <InvalidPatronError>&lt;strong&gt;An account with id {0} could not be found - please check and re-enter.&lt;br&gt;&lt;br&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronError>
                   <BlockedPatronError>&lt;strong&gt;There appears to be an problem with your account - please contact a member of staff.&lt;br&gt;&lt;br&gt;The error reported by the server is: {0}.&lt;/strong&gt;</BlockedPatronError>
                   <UnexpectedPatronError>&lt;strong&gt;An unexpected error occurred. Please contact a member of staff.&lt;/strong&gt;</UnexpectedPatronError>
-                  <CheckoutPendingMessage>Checking barcode {0}. Please wait...</CheckoutPendingMessage>
+                  <CheckoutPendingMessage>&lt;em&gt;Checking barcode {0}. Please wait...&lt;/em&gt;</CheckoutPendingMessage>
                   <InvalidItemBarcode>&lt;strong&gt;The barcode entered, {0}, is not valid.&lt;/strong&gt;</InvalidItemBarcode>
-                  <CheckoutRetry>Please re-enter item barcode.</CheckoutRetry>
+                  <CheckoutRetry>&lt;em&gt;Please re-enter item barcode.&lt;/em&gt;</CheckoutRetry>
                   <CheckOutSuccess>&lt;em&gt;Item {0} has been checked out.&lt;/em&gt;</CheckOutSuccess>
                   <DueDateMessage>Due date is {0}.</DueDateMessage>
-                  <NoDueDateMessage>&lt;b&gt;Check your online patron record for the due date.&lt;/b&gt;</NoDueDateMessage>
+                  <NoDueDateMessage>Check your online patron record for the due date.</NoDueDateMessage>
                   <CheckoutNetworkError>&lt;strong&gt;Item ({0}) could not be checked out - please try again^(This error may occur if there are network problems).&lt;/strong&gt;</CheckoutNetworkError>
                   <CheckoutFailedError>&lt;strong&gt;Item ({0}) could not be checked out. Server gave reason as: {1}.&lt;/strong&gt;</CheckoutFailedError>
                   <UnexpectedCheckoutError>&lt;strong&gt;Item ({0}) could not be checked out due to an unexpected error.&lt;/strong&gt;</UnexpectedCheckoutError>
@@ -233,7 +227,7 @@
                   <PrintReceipt>false</PrintReceipt>
             </Printer>
             <Loggers>
-                  <Logger class="com.ceridwen.selfissue.client.log.MailLogger">
+                  <Logger class="com.ceridwen.selfissue.client.log.FileLogger">
                         <EventMask>
                               <CheckoutSuccess>false</CheckoutSuccess>
                               <CheckoutFailure>false</CheckoutFailure>
@@ -251,10 +245,10 @@
                         </EventMask>
                         <ReplayPeriod>15</ReplayPeriod>
                         <OverdueAgeOutOfOrder>0</OverdueAgeOutOfOrder>
-                        <Host>localhost</Host>
-                        <Port>25</Port>
+                        <Host/>
+                        <Port/>
                         <SSL/>
-                        <Target/>
+                        <Target>c:/temp/selfissuelogger.log</Target>
                         <Source/>
                         <ConnectionTimeout>1</ConnectionTimeout>
                         <IdleTimeout>5</IdleTimeout>
@@ -289,11 +283,21 @@
             </WatchDog>
             <LoggingHandlers>
                   <LoggingHandler class="com.ceridwen.selfissue.client.logging.ConsoleLoggingHandlerWrapper">
-                        <level>INFO</level>
+                        <level>SEVERE</level>
                         <Host/>
                         <Port/>
                         <SSL/>
                         <Target/>
+                        <Source/>
+                        <ConnectionTimeout/>
+                        <IdleTimeout/>
+                  </LoggingHandler>
+                  <LoggingHandler class="com.ceridwen.selfissue.client.logging.FileLoggingHandlerWrapper">
+                        <level>INFO</level>
+                        <Host/>
+                        <Port/>
+                        <SSL/>
+                        <Target>c:/temp/selfissue.log</Target>
                         <Source/>
                         <ConnectionTimeout/>
                         <IdleTimeout/>

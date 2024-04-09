@@ -38,7 +38,7 @@
   </xsl:template>
 
   <xsl:template match="xs:documentation" mode="list">
-    <li><b><xsl:value-of select="../../@name"/></b>: <xsl:value-of select="text()" /></li>
+    <li><b><xsl:value-of select="../../@name"/></b>: <pre style="white-space: pre-wrap;"><xsl:value-of select="text()" /></pre></li>
   </xsl:template>
 
   <xsl:template match="xs:documentation" mode="tabs">
