@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=3.25;time=2024-04-09 11:49:25.637;xui=config.xui;xsd=config.xsd?>
+<?jaxfront version=3.25;time=2024-04-09 17:37:16.321;xui=config.xui;xsd=config.xsd?>
 <SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
       <UI>
             <SelfIssue>
@@ -114,7 +114,8 @@
                   <InvalidPatronPassword>&lt;strong&gt;The password entered is not valid.&lt;/strong&gt;</InvalidPatronPassword>
                   <PatronRetry>&lt;em&gt;Please confirm your borrower id.&lt;/em&gt;</PatronRetry>
                   <PatronNetworkError>&lt;strong&gt;Your borrower id {0} was not recognised.&lt;br&gt;Please check and re-enter.&lt;br&gt;(This error may occur if there are network problems)&lt;/strong&gt;</PatronNetworkError>
-                  <InvalidPatronError>&lt;strong&gt;An account with id {0} could not be found - please check and re-enter.&lt;br&gt;&lt;br&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronError>
+                  <InvalidPatronError>&lt;strong&gt;Account with id {0} could not be logged in - please check and re-enter.&lt;br&gt;&lt;br&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronError>
+                  <InvalidPatronPasswordError>&lt;strong&gt;Account with id {0} could not be logged in - please check and re-enter.&lt;br&gt;&lt;br&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronPasswordError>
                   <BlockedPatronError>&lt;strong&gt;There appears to be an problem with your account - please contact a member of staff.&lt;br&gt;&lt;br&gt;The error reported by the server is: {0}.&lt;/strong&gt;</BlockedPatronError>
                   <UnexpectedPatronError>&lt;strong&gt;An unexpected error occurred. Please contact a member of staff.&lt;/strong&gt;</UnexpectedPatronError>
                   <CheckoutPendingMessage>&lt;em&gt;Checking barcode {0}. Please wait...&lt;/em&gt;</CheckoutPendingMessage>
