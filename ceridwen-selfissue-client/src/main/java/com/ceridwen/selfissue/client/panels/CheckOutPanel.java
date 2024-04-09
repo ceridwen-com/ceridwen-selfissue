@@ -35,7 +35,6 @@ import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
@@ -244,25 +243,26 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     private JLabel BooksIcon = new JLabel();
     private Border border3;
     private JPanel ResponseTextPanel = new JPanel();
-    private JTextArea PatronText = new JTextArea();
+    private JTextPane PatronText = new JTextPane();
     private BorderLayout ResponseTextBorderLayout = new BorderLayout();
     private JButton CheckoutButton = new JButton();
     private FlowLayout DataFlowLayout = new FlowLayout();
-    private String PatronID;
-    private String PatronName;
     private javax.swing.Timer ResetTimer;
     private String lastEnteredId = "";
     private String lastCheckedOutId = "";
     private JScrollPane CheckOutScrollPane = new JScrollPane();
-    // JTextArea CheckoutText = new JTextArea();
     private JEditorPane CheckoutText = new JEditorPane();
     private JTextPane StatusText = new JTextPane();
 
     private CirculationHandler handler;
 
+    private String PatronID;
+
     private String PatronPassword;
 
-    private boolean CheckInEnabled;
+    private String PatronName;
+
+    private Boolean CheckInEnabled;
 
     public CheckOutPanel() {
     }
@@ -276,7 +276,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             this.PatronName = PatronName;
             this.ResetTimer = ResetTimer;
             this.jbInit();
-            this.setPatronText(Configuration.getMessage("GreetPatronCheckout", new String[] { this.PatronName, ((message == null) ? "" : message) }));
+            this.PatronText.setText(Configuration.getMessage("GreetPatronCheckout", new String[] { this.PatronName, ((message == null) ? "" : message) }));
             ResetTimer.restart();
             this.enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
             this.startItemIDReader();
@@ -319,18 +319,16 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.setOpaque(true);
         this.setBackground(BackgroundColour);
         this.NextButton.setFont(ButtonTextFont);
-        // NextButton.setNextFocusableComponent(BookField);
         this.NextButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelNextButton_ToolTipText"));
         this.NextButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelNextButton_Text"));
-        this.NextButton.addActionListener(new BookPanel_NextButton_actionAdapter(this));
+        this.NextButton.addActionListener(new CheckOutPanel_NextButton_actionAdapter(this));
         this.NextButton.setForeground(ButtonTextColour);
         this.NextButton.setBackground(ButtonBackgroundColour);
         this.NextButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));                
         this.CheckInButton.setFont(ButtonTextFont);
-        // ResetButton.setNextFocusableComponent(BookField);
         this.CheckInButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_ToolTipText"));
         this.CheckInButton.setText(Configuration.getProperty("UI/CheckOutPanel/BookPanelCheckinButton_Text"));
-        this.CheckInButton.addActionListener(new BookPanel_CheckinButton_actionAdapter(this));
+        this.CheckInButton.addActionListener(new CheckOutPanel_CheckinButton_actionAdapter(this));
         this.CheckInButton.setVisible(this.CheckInEnabled);
         this.CheckInButton.setForeground(ButtonTextColour);
         this.CheckInButton.setBackground(ButtonBackgroundColour);
@@ -353,13 +351,11 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.BookField.setSelectedTextColor(InputSelectedTextColour);
         this.BookField.setCaretColor(InputCaretColour);
         this.BookField.setDisabledTextColor(InputDisabledTextColour);          
-        //this.BookField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
-        // BookField.setNextFocusableComponent(CheckoutButton);
         this.BookField.setRequestFocusEnabled(true);
         this.BookField.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/BookField_ToolTipText"));
-        this.BookField.setText(Configuration.getProperty("UI/CheckOutPanel/BookField_DefaultText"));
+        this.BookField.setText("");
         this.BookField.setHorizontalAlignment(SwingConstants.LEADING);
-        this.BookField.addKeyListener(new BookPanel_BookField_keyAdapter(this));
+        this.BookField.addKeyListener(new CheckOutPanel_BookField_keyAdapter(this));
         this.DataPanel.setLayout(this.DataFlowLayout);
         this.ResponsePanel.setLayout(this.ResponseBorderLayout);
         this.ResponsePanel.setOpaque(false);
@@ -377,20 +373,38 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.PatronText.setOpaque(true);
         this.PatronText.setRequestFocusEnabled(false);
         this.PatronText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/PatronText_ToolTipText"));
+        this.PatronText.setPreferredSize(new Dimension(Configuration.pt2Pixel(DefaultTextFont.getSize())*32, Configuration.pt2Pixel(DefaultTextFont.getSize())*2));
         this.PatronText.setEditable(false);
-        this.setPatronText(Configuration.getProperty("UI/CheckOutPanel/PatronText_DefaultText"));
-        this.PatronText.setLineWrap(true);
-        this.PatronText.setRows(2);
+        HTMLEditorKit PatronTextHtml = new HTMLEditorKit();
+        PatronTextHtml.getStyleSheet().addRule(
+            "body {font-family: " + DefaultTextFont.getFamily() + "; " +
+                "font-size: " + DefaultTextFont.getSize() + "pt; " +
+                "font-style: normal; " +
+                "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+        PatronTextHtml.getStyleSheet().addRule(
+            "em {font-family: " + StatusTextFont.getFamily() + "; " +
+                "font-size: " + StatusTextFont.getSize() + "pt; " +
+                "font-style: normal; " +
+                "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
+        PatronTextHtml.getStyleSheet().addRule(
+            "strong {font-family: " + WarningTextFont.getFamily() + "; " +
+                "font-size: " + WarningTextFont.getSize() + "pt; " +
+                "font-style: normal; " +
+                "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
+                "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
+        this.PatronText.setEditorKit(PatronTextHtml);
+        this.PatronText.setContentType("text/html");        
+        this.PatronText.setText("");
         this.PatronText.setBorder(null);
-        // CheckoutText.setLineWrap(true);
         this.ResponseTextPanel.setLayout(this.ResponseTextBorderLayout);
         this.ResponseTextPanel.setOpaque(true);
         this.ResponseTextPanel.setBackground(BackgroundColour);
         this.CheckoutButton.setFont(ButtonTextFont);
-        // CheckoutButton.setNextFocusableComponent(NextButton);
         this.CheckoutButton.setText(Configuration.getProperty("UI/CheckOutPanel/CheckoutButton_Text"));
         this.CheckoutButton.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/CheckoutButton_ToolTipText"));
-        this.CheckoutButton.addActionListener(new BookPanel_CheckoutButton_actionAdapter(this));
+        this.CheckoutButton.addActionListener(new CheckOutPanel_CheckoutButton_actionAdapter(this));
         this.CheckoutButton.setForeground(ButtonTextColour);
         this.CheckoutButton.setBackground(ButtonBackgroundColour);
         this.CheckoutButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));                
@@ -407,62 +421,60 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.CheckoutText.setOpaque(true);
         this.CheckoutText.setRequestFocusEnabled(false);
         this.CheckoutText.setEditable(false);
-        HTMLEditorKit kit = new HTMLEditorKit();
-        kit.getStyleSheet().addRule(
+        HTMLEditorKit CheckoutTextHtml = new HTMLEditorKit();
+        CheckoutTextHtml.getStyleSheet().addRule(
             "body {font-family: " + DefaultTextFont.getFamily() + "; " +
                 "font-size: " + DefaultTextFont.getSize() + "pt; " +
                 "font-style: normal; " +
                 "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
-        kit.getStyleSheet().addRule(
+        CheckoutTextHtml.getStyleSheet().addRule(
             "em {font-family: " + StatusTextFont.getFamily() + "; " +
                 "font-size: " + StatusTextFont.getSize() + "pt; " +
                 "font-style: normal; " +
                 "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
-        kit.getStyleSheet().addRule(
+        CheckoutTextHtml.getStyleSheet().addRule(
             "strong {font-family: " + WarningTextFont.getFamily() + "; " +
                 "font-size: " + WarningTextFont.getSize() + "pt; " +
                 "font-style: normal; " +
                 "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
-        this.CheckoutText.setEditorKit(kit);
+        this.CheckoutText.setEditorKit(CheckoutTextHtml);
         this.CheckoutText.setContentType("text/html");
         this.CheckoutText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/CheckOutText_ToolTipText"));
-        this.CheckoutText.setText(Configuration.getProperty("UI/CheckOutPanel/CheckOutText_Default"));
-        // CheckoutText.setLineWrap(true);
-        // CheckoutText.setWrapStyleWord(true);
+        this.CheckoutText.setText("");
         this.StatusText.setFont(StatusTextFont);
         this.StatusText.setForeground(StatusTextColour);
         this.StatusText.setBackground(BackgroundColour);
         this.StatusText.setOpaque(true);
         this.StatusText.setPreferredSize(new Dimension(Configuration.pt2Pixel(StatusTextFont.getSize())*16, Configuration.pt2Pixel(StatusTextFont.getSize())));
         this.StatusText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/StatusText_ToolTipText"));
-        this.StatusText.setText(Configuration.getProperty("UI/CheckOutPanel/StatusText_DefaultText"));
+        this.StatusText.setText("");
         this.StatusText.setRequestFocusEnabled(false);
         this.StatusText.setEditable(false);
-        HTMLEditorKit kit2 = new HTMLEditorKit();
-        kit2.getStyleSheet().addRule(
+        HTMLEditorKit StatusTextHtml = new HTMLEditorKit();
+        StatusTextHtml.getStyleSheet().addRule(
             "body {font-family: " + DefaultTextFont.getFamily() + "; " +
                 "font-size: " + DefaultTextFont.getSize() + "pt; " +
                 "font-style: normal; " +
                 "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
-        kit2.getStyleSheet().addRule(
+        StatusTextHtml.getStyleSheet().addRule(
             "em {font-family: " + StatusTextFont.getFamily() + "; " +
                 "font-size: " + StatusTextFont.getSize() + "pt; " +
                 "font-style: normal; " +
                 "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
-        kit2.getStyleSheet().addRule(
+        StatusTextHtml.getStyleSheet().addRule(
             "strong {font-family: " + WarningTextFont.getFamily() + "; " +
                 "font-size: " + WarningTextFont.getSize() + "pt; " +
                 "font-style: normal; " +
                 "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
-        this.StatusText.setEditorKit(kit2);
-        this.StatusText.setContentType("text/html");
-        this.add(this.NavigationPanel, BorderLayout.SOUTH);
+        this.StatusText.setEditorKit(StatusTextHtml);
+		this.StatusText.setContentType("text/html");
+		this.add(this.NavigationPanel, BorderLayout.SOUTH);
         this.NavigationPanel.add(this.CheckInButton, BorderLayout.WEST);
         this.NavigationPanel.add(this.NextButton, BorderLayout.EAST);
         this.add(this.InformationPanel, BorderLayout.CENTER);
@@ -492,7 +504,30 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                          + "\r\n\r\n" + new Date());
         this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
     }
+    
+    private void appendCheckoutText(String entry) {
+        String msg = this.CheckoutText.getText();
+        if (msg == null) {
+            msg = "";
+        }
+        msg = this.stripHTML(msg) + "<p>" + entry + "</p>";
+        this.CheckoutText.setText(msg);
+    }
 
+    private void reportSuccess(CheckOut request, CheckOutResponse response) {
+        this.PlaySound("CheckoutSuccess");
+        this.appendCheckoutText(Configuration.getMessage("CheckOutSuccess",
+        	new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
+            	SelfIssuePanel.escapeHTML(response.getTitleIdentifier()) :
+                        SelfIssuePanel.escapeHTML(response.getItemIdentifier()) }) + " " +
+						(StringUtils.isNotEmpty(response.getDueDate()) ?
+                         Configuration.getMessage("DueDateMessage",
+                         	new String[] {this.demangleDate(response.getDueDate()) }) :
+                            Configuration.getMessage("NoDueDateMessage",new String[] {})
+		));
+        this.lastCheckedOutId = request.getItemIdentifier();
+    }
+    
     void CheckinButton_actionPerformed(ActionEvent e) {
         this.stopItemIDReader();
         this.lastCheckedOutId = "";
@@ -506,39 +541,8 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         ev.request = rq;
         ev.response = rp;
         this.firePanelChange(ev);
-    }
+	}
     
-    private void setPatronText(String msg) {
-        this.PatronText.setText(msg.replaceAll("<br>", "\r\n").replaceAll("<br/>", "\r\n").replaceAll("</br>", ""));
-    }
-
-    private void appendCheckoutText(String entry) {
-        String msg = this.CheckoutText.getText();
-        if (msg == null) {
-            msg = "";
-        }
-        msg = this.stripHTML(msg) + "<p>" + entry + "</p>";
-        this.CheckoutText.setText(msg);//.replaceAll("\r\n", "<br>"));
-    }
-
-    private void reportSuccess(CheckOut request, CheckOutResponse response) {
-        this.PlaySound("CheckoutSuccess");
-        this.appendCheckoutText(Configuration.getMessage("CheckOutSuccess",
-                new String[] { StringUtils.isNotEmpty(response.getTitleIdentifier()) ?
-                        SelfIssuePanel.escapeHTML(response.getTitleIdentifier()) :
-                        SelfIssuePanel.escapeHTML(response.getItemIdentifier()) }) +
-                             " " +
-                             (StringUtils.isNotEmpty(response.getDueDate()) ?
-                                     Configuration.
-                                             getMessage("DueDateMessage",
-                                                     new String[] {
-                                                     this.demangleDate(response.getDueDate()) }) :
-                                     Configuration.getMessage("NoDueDateMessage",
-                                             new String[] {}))
-                             );
-        this.lastCheckedOutId = request.getItemIdentifier();
-    }
-
     void CheckoutButton_actionPerformed(ActionEvent e) {
         CheckOut request = new CheckOut();
         CheckOutResponse response = null;
@@ -555,14 +559,6 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             this.stopItemIDReader();
             this.BookField.setEditable(true);
             this.BookField.setEnabled(true);
-/*
-             try {
- 
-                this.DataPanel.paint(this.DataPanel.getGraphics());
-            } catch (Exception ex) {
-                CheckOutPanel.log.warn("Error during redraw", ex);
-            }
-*/
             request.setInstitutionId(Configuration.getProperty("Systems/SIP/InstitutionId"));
             request.setTerminalPassword(Configuration.getProperty("Systems/SIP/TerminalPassword"));
             request.setPatronIdentifier(this.PatronID);
@@ -611,7 +607,6 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                     throw new CheckoutConnectionFailed();
                 }
             }
-
             if (!((response.isOk() != null) ? response.isOk() : false)) {
                 if (SelfIssuePanel.trustMode &&
                         (!SelfIssuePanel.retryItemWhenError ||
@@ -625,15 +620,13 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             } else {
                 this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTSUCCESS, "", new Date(), request, response);
             }
-
             try {
                 this.unlockItem();
             } catch (TimeoutException | FailureException ex) {
                 throw new UnlockFailed();
             }
-
             this.reportSuccess(request, response);
-        } catch (RepeatedOrTooShortItemId ex) {
+		} catch (RepeatedOrTooShortItemId ex) {
             // don't need to do anything for this - just let if fall through
         } catch (InvalidItemBarcode ex) {
             this.handler.recordEvent(OnlineLogEvent.STATUS_CHECKOUTFAILURE, "Invalid Barcode Entered", new Date(), request, response);
@@ -714,35 +707,18 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 }));
             }
             CheckOutPanel.log.fatal("Unexpected checkout failure: " + ex.getMessage() + " - " +
-                    Arrays.toString(ex.getStackTrace()), ex);
+			                    Arrays.toString(ex.getStackTrace()), ex);
         }
         this.lastEnteredId = request.getItemIdentifier();
         this.StatusText.setText(finalStatusText);
         this.BookField.setText("");
         this.BookField.requestFocus();
-/*
-        try {
-            this.DataPanel.paint(this.DataPanel.getGraphics());
-        } catch (Exception ex) {
-            CheckOutPanel.log.warn("Error during redraw", ex);
-        }
-        try {
-            this.ResponseTextPanel.paint(this.ResponseTextPanel.getGraphics());
-        } catch (Exception ex) {
-            CheckOutPanel.log.warn("Error during redraw", ex);
-        }
-        try {
-            this.ResponsePanel.paint(this.ResponsePanel.getGraphics());
-        } catch (Exception ex) {
-            CheckOutPanel.log.warn("Error during redraw", ex);
-        }
-*/
         this.BookField.setEditable(true);
         this.BookField.setEnabled(true);
         this.startItemIDReader();
         this.ResetTimer.start();
-
     }
+
 
     private static String strim(String string) {
         String intermediate = string.trim();
@@ -810,10 +786,10 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
     }
 }
 
-class BookPanel_NextButton_actionAdapter implements java.awt.event.ActionListener {
+class CheckOutPanel_NextButton_actionAdapter implements java.awt.event.ActionListener {
     private final CheckOutPanel adaptee;
 
-    BookPanel_NextButton_actionAdapter(CheckOutPanel adaptee) {
+    CheckOutPanel_NextButton_actionAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -823,10 +799,10 @@ class BookPanel_NextButton_actionAdapter implements java.awt.event.ActionListene
     }
 }
 
-class BookPanel_CheckinButton_actionAdapter implements java.awt.event.ActionListener {
+class CheckOutPanel_CheckinButton_actionAdapter implements java.awt.event.ActionListener {
     private final CheckOutPanel adaptee;
 
-    BookPanel_CheckinButton_actionAdapter(CheckOutPanel adaptee) {
+    CheckOutPanel_CheckinButton_actionAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -836,10 +812,10 @@ class BookPanel_CheckinButton_actionAdapter implements java.awt.event.ActionList
     }
 }
 
-class BookPanel_CheckoutButton_actionAdapter implements java.awt.event.ActionListener {
+class CheckOutPanel_CheckoutButton_actionAdapter implements java.awt.event.ActionListener {
     private final CheckOutPanel adaptee;
 
-    BookPanel_CheckoutButton_actionAdapter(CheckOutPanel adaptee) {
+    CheckOutPanel_CheckoutButton_actionAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
@@ -849,10 +825,10 @@ class BookPanel_CheckoutButton_actionAdapter implements java.awt.event.ActionLis
     }
 }
 
-class BookPanel_BookField_keyAdapter extends java.awt.event.KeyAdapter {
+class CheckOutPanel_BookField_keyAdapter extends java.awt.event.KeyAdapter {
     private final CheckOutPanel adaptee;
 
-    BookPanel_BookField_keyAdapter(CheckOutPanel adaptee) {
+    CheckOutPanel_BookField_keyAdapter(CheckOutPanel adaptee) {
         this.adaptee = adaptee;
     }
 
