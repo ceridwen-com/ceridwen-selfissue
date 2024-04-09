@@ -557,7 +557,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Messages support limited html formatting:
 &lt;br&gt; - for line breaks;
 &lt;em&gt; - for status (uses status font and colour);
- &lt;strong&gt; - for warnings (uses warning font and colour).</xs:documentation>
+&lt;strong&gt; - for warnings (uses warning font and colour).</xs:documentation>
                 </xs:annotation>
                 <xs:complexType>
                   <xs:sequence>
