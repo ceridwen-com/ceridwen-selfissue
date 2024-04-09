@@ -1,5 +1,15 @@
+**Version 2.8.0: 10/04/2024**
+Major UI overhaul
+Monitor scaling support
+Restructure configuration settings (config files not backwards compatible)
+
+**Version 2.7.0: 19/06/2019**
+Updated dependencies to latest versions
+Tidied pom file
+Move to JDK 9 as minimum requirement
+
 **Version 2.6.10: 19/06/2019**
-Update pom to meet maven central requirments
+Update pom to meet maven central requirements
 Deprecate netx
 Update copyright notices
 
