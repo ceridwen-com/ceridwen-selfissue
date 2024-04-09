@@ -281,8 +281,8 @@ public class Configuration {
     return Math.min(hr, wr);
   }
   
-  private static int getScaledPointSize(String key) {
-      return (int)Math.round(Configuration.getIntProperty(key, 0)*Configuration.getScalingFactor());
+  public static int getScaledPointSize(String key, int def) {
+      return (int)Math.round(Configuration.getIntProperty(key, def)*Configuration.getScalingFactor());
   }
 
   public static int getScaledPixelSize(String key, int def) {
@@ -294,7 +294,7 @@ public class Configuration {
   }
   
   public static Font getFont(String key) {
-    return new java.awt.Font(Configuration.getProperty("UI/Styling/" + key + "_Font"), 1, Configuration.getScaledPointSize("UI/Styling/" + key + "_Size"));
+    return new java.awt.Font(Configuration.getProperty("UI/Styling/" + key + "_Font"), 1, Configuration.getScaledPointSize("UI/Styling/" + key + "_Size", 16));
   }
   
   private static Color getColour(String colour, Color defaultColour) {

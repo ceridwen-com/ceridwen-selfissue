@@ -186,7 +186,7 @@ protected MessageComponents getMessageComponents(OnlineLogEvent event) {
     if (addInfo == null) {
       addInfo = event.getAddInfo();
     }
-    return new MessageComponents(patronId, itemId, addInfo, type, subjectType,  DateFormat.getDateInstance().format(event.getOriginalTransactionTime()), null);
+    return new MessageComponents(patronId, itemId, addInfo, type, subjectType,  DateFormat.getDateTimeInstance().format(event.getOriginalTransactionTime()), null);
   }
 
   public String getMessage(OnlineLogEvent event) {
@@ -194,7 +194,7 @@ protected MessageComponents getMessageComponents(OnlineLogEvent event) {
     return 
         "Type: " + msg.subjectType + "\r\n" +
         "Action: " + msg.type + "\r\n" +
-        "Transaction Time:" + msg.originalTransactionTime + "\r\n" +
+        "Transaction Time: " + msg.originalTransactionTime + "\r\n" +
         "Patron: " + msg.patronId + "\r\n" +
         "Item: " + msg.itemId + "\r\n" +
         ( (msg.addInfo == null) ? "" : "Additional Information: " + msg.addInfo) + "\r\n";

@@ -14,19 +14,28 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.ceridwen.selfissue.client.log;
+package com.ceridwen.selfissue.client.logging;
 
-import com.ceridwen.util.logging.WinEventLogHandler;
+import java.io.IOException;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
 import java.util.logging.Handler;
+import org.w3c.dom.Node;
 
 /**
  *
  * @author Matthew
  */
-public class WinEventLogger extends LogHandlerLogger {
-
-    @Override
-    protected Handler getHandler(String source) {
-        return new WinEventLogHandler(host, source);
-    }    
+public class FileLoggingHandlerWrapper extends LoggingHandlerWrapper {
+  @Override
+  public Handler getLoggingHandler(Node config) {
+      Handler handler;
+      try {
+          handler = new FileHandler(this.getTarget(config));
+      } catch (IOException | SecurityException ex) {
+          handler = new ConsoleHandler();
+      }
+    handler.setLevel(super.getLevel(config));
+    return handler;
+  }  
 }

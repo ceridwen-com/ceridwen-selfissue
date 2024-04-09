@@ -57,6 +57,9 @@ import com.jaxfront.core.util.io.cache.XUICache;
 import com.jaxfront.swing.ui.editor.EditorPanel;
 import com.jaxfront.swing.ui.editor.ShowXMLDialog;
 import java.util.Arrays;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.text.html.HTMLEditorKit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -86,8 +89,8 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 	private Document _currentDom;
 	private boolean isDirty = false;
 	private JPanel _centerPanel;
-    private JPanel _helpPanel;
-    private JSplitPane _splitPane;
+        private JScrollPane _helpPanel;
+        private JSplitPane _splitPane;
 	private EditorPanel _editor;
 	private final String _currentLanguage = "en"; // english as default
 	private AbstractAction _defaultAction;
@@ -116,10 +119,12 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			initToolBar();
 			_centerPanel = new JPanel(new BorderLayout());
 			_centerPanel.setBorder(null);
-            _helpPanel = new JPanel();			
+            _helpPanel = new JScrollPane();	
+            _helpPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            _helpPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             _splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
             _splitPane.setDividerSize(4);
-            _splitPane.setDividerLocation(500);
+            _splitPane.setDividerLocation(550);
             _splitPane.setBorder(null);
             _splitPane.setTopComponent(_centerPanel);
             _splitPane.setBottomComponent(_helpPanel);
@@ -257,7 +262,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			editorPanel.selectNode(lastSelectedType);
 		}
 		editorPanel.setBorder(null);
-        editorPanel.addHelpListener(this);
+                editorPanel.addHelpListener(this);
 		JPanel validationErrorPanel = new JPanel(new BorderLayout());
 		validationErrorPanel.setBorder(null);
 		editorPanel.setTargetMessageTable(validationErrorPanel);
@@ -340,16 +345,13 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 
         @Override
     public void showHelp( HelpEvent event ) {
-        _helpPanel.removeAll();
         String helpText = event.getHelpID();
-        JTextArea helpLabel = new JTextArea(helpText);
+        JTextPane helpLabel = new JTextPane();        
+        helpLabel.setText(helpText);
         helpLabel.setEditable(false);
         helpLabel.setOpaque(false);
-        helpLabel.setLineWrap(true);
-        helpLabel.setWrapStyleWord(true);
-//        JLabel helpLabel = new JLabel(helpText);
-        helpLabel.setBounds(_helpPanel.getBounds());
-        _helpPanel.add(helpLabel, BorderLayout.CENTER);
+        helpLabel.setPreferredSize(_helpPanel.getSize());
+        _helpPanel.setViewportView(helpLabel);
         _helpPanel.updateUI();
     }
 

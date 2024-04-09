@@ -278,6 +278,12 @@ public class PatronPanelFocusTraversalPolicy
     Color InputSelectedTextColour = Configuration.getBackgroundColour("InputSelectedTextColour");
     Color InputCaretColour = Configuration.getBackgroundColour("InputCaretColour");
     Color InputDisabledTextColour = Configuration.getBackgroundColour("InputDisabledTextColour");
+    Color LabelTextColour = Configuration.getForegroundColour("LabelTextColour");
+    Font  LabelTextFont = Configuration.getFont("LabelText");
+    
+    int insetPt = Configuration.getScaledPointSize("UI/Styling/InputInset", 2);
+    int insetPx = Configuration.pt2Pixel(insetPt);
+    Border inset = BorderFactory.createEmptyBorder(insetPx, insetPx, insetPx, insetPx);
 	      
     border1 = BorderFactory.createEmptyBorder(10,10,10,10);
     border2 = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -289,13 +295,12 @@ public class PatronPanelFocusTraversalPolicy
     this.setBackground(BackgroundColour);
     NextButton.setFont(ButtonTextFont);
     NextButton.setActionCommand(""); // We'll use Action Command to pass patron password if sent by IDReaderDevice
-//    NextButton.setNextFocusableComponent(ResetButton);
     NextButton.addActionListener(new PatronPanel_NextButton_actionAdapter(this));
     NextButton.setForeground(ButtonTextColour);
     NextButton.setBackground(ButtonBackgroundColour);
+    NextButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));
     ResetButton.setFont(ButtonTextFont);
     ResetButton.setForeground(ButtonTextColour);
-//    ResetButton.setNextFocusableComponent(PatronField);
     ResetButton.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronPanelResetButton_ToolTipText"));
     ResetButton.setVerifyInputWhenFocusTarget(true);
     ResetButton.setActionCommand("jButton2");
@@ -305,36 +310,41 @@ public class PatronPanelFocusTraversalPolicy
     ResetButton.addActionListener(new PatronPanel_ResetButton_actionAdapter(this));
     ResetButton.setForeground(ButtonTextColour);
     ResetButton.setBackground(ButtonBackgroundColour);
+    ResetButton.setBorderPainted(Configuration.getBoolProperty("UI/Styling/ButtonBorder"));
     NavigationPanel.setLayout(NavigationBorderLayout);
     NavigationPanel.setOpaque(false);
-    PatronFieldLabel.setFont(DefaultTextFont);
-    PatronFieldLabel.setForeground(DefaultTextColour);
+    PatronFieldLabel.setFont(LabelTextFont);
+    PatronFieldLabel.setForeground(LabelTextColour);
     InformationPanel.setLayout(InformationBorderLayout);
     InformationPanel.setOpaque(false);
     PatronField.setFont(InputTextFont);
     PatronField.setBackground(InputBackgroundColour);
     PatronField.setForeground(InputTextColour);
-    PatronField.setBorder(BorderFactory.createLineBorder(InputBorderColour,2));
+    PatronField.setBorder(
+        BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(InputBorderColour,2), 
+            inset));
     PatronField.setSelectionColor(InputSelectionColour);
     PatronField.setSelectedTextColor(InputSelectedTextColour);
     PatronField.setCaretColor(InputCaretColour);
     PatronField.setDisabledTextColor(InputDisabledTextColour);
-//    PatronField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
     PatronField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));    
     PatronField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronField_ToolTipText"));
-    PatronField.setText(Configuration.getProperty("UI/PatronPanel/PatronField_DefaultText"));    
+    PatronField.setText(""); 
     PasswordField.setFont(InputTextFont);
     PasswordField.setBackground(InputBackgroundColour);
     PasswordField.setForeground(InputTextColour);
-    PasswordField.setBorder(BorderFactory.createLineBorder(InputBorderColour));
+    PasswordField.setBorder(
+        BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(InputBorderColour,2), 
+            inset));
     PasswordField.setSelectionColor(InputSelectionColour);
     PasswordField.setSelectedTextColor(InputSelectedTextColour);
     PasswordField.setCaretColor(InputCaretColour);
     PasswordField.setDisabledTextColor(InputDisabledTextColour);
-//    PasswordField.setPreferredSize(new Dimension(Configuration.pt2Pixel(InputTextFont.getSize())*8, Configuration.pt2Pixel(InputTextFont.getSize())));
     PasswordField.addKeyListener(new PatronPanel_PatronField_keyAdapter(this));        
     PasswordField.setToolTipText(Configuration.getProperty("UI/PatronPanel/PasswordField_ToolTipText"));
-    PasswordField.setText(Configuration.getProperty("UI/PatronPanel/PasswordField_DefaultText"));
+    PasswordField.setText("");
     ConfigForId();
     CardIcon.setIcon(Configuration.LoadImage("UI/PatronPanel/CardIcon"));
     DataPanel.setLayout(DataFlowLayout);
@@ -352,39 +362,37 @@ public class PatronPanelFocusTraversalPolicy
     PatronTextPanel.setDebugGraphicsOptions(0);
     PatronTextPanel.setDoubleBuffered(true);
     PatronTextPanel.setPreferredSize(new Dimension(100, 301));
-    PatronText.setForeground(StatusTextColour);
-    PatronText.setFont(StatusTextFont);
+    PatronText.setForeground(DefaultTextColour);
+    PatronText.setFont(DefaultTextFont);
     PatronText.setBackground(BackgroundColour);
     PatronText.setBorder(border8);
     PatronText.setRequestFocusEnabled(false);
     PatronText.setEditable(false);
     PatronText.setText("");
-    HTMLEditorKit kit = new HTMLEditorKit();
-    kit.getStyleSheet().addRule(
+    HTMLEditorKit PatronHtml = new HTMLEditorKit();
+    PatronHtml.getStyleSheet().addRule(
         "body {font-family: " + DefaultTextFont.getFamily() + "; " +
             "font-size: " + DefaultTextFont.getSize() + "pt; " +
-            "font-style: normal" +
+            "font-style: normal; " +
             "color: " + Configuration.colorEncode(DefaultTextColour) + "; " + 
             "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
-    kit.getStyleSheet().addRule(
+    PatronHtml.getStyleSheet().addRule(
         "em {font-family: " + StatusTextFont.getFamily() + "; " +
             "font-size: " + StatusTextFont.getSize() + "pt; " +
-            "font-style: normal" +
+            "font-style: normal; " +
             "color: " + Configuration.colorEncode(StatusTextColour) + "; " + 
             "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");        
-    kit.getStyleSheet().addRule(
+    PatronHtml.getStyleSheet().addRule(
         "strong {font-family: " + WarningTextFont.getFamily() + "; " +
             "font-size: " + WarningTextFont.getSize() + "pt; " +
-            "font-style: normal" +
+            "font-style: normal; " +
             "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
             "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
-    PatronText.setEditorKit(kit);
-    PatronText.setContentType("text/html");    
-//    PatronText.setLineWrap(true);
-//    PatronText.setWrapStyleWord(true);
+    PatronText.setEditorKit(PatronHtml);
+    PatronText.setContentType("text/html"); 
+    PatronText.setToolTipText(Configuration.getProperty("UI/PatronPanel/PatronText_ToolTipText"));
     this.add(NavigationPanel,  BorderLayout.SOUTH);
     NavigationPanel.add(ResetButton, BorderLayout.EAST);
-//    NavigationPanel.add(NextButton,  BorderLayout.EAST);
     this.add(InformationPanel,  BorderLayout.CENTER);
     InformationPanel.add(DataPanel,  BorderLayout.SOUTH);
     InformationPanel.add(ResponsePanel,  BorderLayout.CENTER);
@@ -481,7 +489,7 @@ public class PatronPanelFocusTraversalPolicy
     } catch (InvalidPatronBarcode ex) {
         this.PlaySound("InvalidPatronBarcode");
         this.PatronText.setText(Configuration.getMessage("InvalidPatronBarcode",
-                new String[] {}));
+                new String[] {patronId}));
         ConfigForId();
     } catch (InvalidPatronPassword ex) {
         this.PlaySound("InvalidPatronPassword");
