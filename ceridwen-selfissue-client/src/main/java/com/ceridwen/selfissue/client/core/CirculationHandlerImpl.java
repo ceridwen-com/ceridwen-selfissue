@@ -130,7 +130,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
             try {
                 onlineLogger = (OnlineLogLogger) Class.forName(
                         Configuration.getSubProperty(loggers.item(i), "@class")).
-                        newInstance();
+                        getDeclaredConstructor().newInstance();
                 onlineLogger.initialise(loggers.item(i), ooo);
                 OnlineLog alog = new com.ceridwen.selfissue.client.log.
                         OnlineLogDevice(Configuration.getSubProperty(loggers.item(i), "Spool"),
@@ -507,19 +507,19 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
             switch (type) {
                 case ITEM_IDREADER:
                     this.idReaderDevice = (IDReaderDevice) Class.forName(Configuration.getProperty(
-                    "Systems/ItemIDReaderDevice/@class")).newInstance();
+                    "Systems/ItemIDReaderDevice/@class")).getDeclaredConstructor().newInstance();
                     this.idReaderDevice.init(Configuration.getPropertyNode("Systems/ItemIDReaderDevice"));
                     break;
                 case PATRON_IDREADER:
                     this.idReaderDevice = (IDReaderDevice) Class.forName(Configuration.getProperty(
-                    "Systems/PatronIDReaderDevice/@class")).newInstance();
+                    "Systems/PatronIDReaderDevice/@class")).getDeclaredConstructor().newInstance();
                     this.idReaderDevice.init(Configuration.getPropertyNode("Systems/PatronIDReaderDevice"));
                     break;
                 default:
                     this.idReaderDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
                     break;                    
             }
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
             CirculationHandlerImpl.logger.warn("Could not initialise ID Reader Device - defaulting to null device", ex);
             this.idReaderDevice = new com.ceridwen.selfissue.client.nulldevices.IDReaderDevice();
         }
@@ -555,8 +555,8 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
     public void initItemSecurityDevice() {
         try {
             this.itemSecurityDevice = (SecurityDevice) Class.forName(Configuration.getProperty(
-                    "Systems/ItemSecurityDevice/@class")).newInstance();
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
+                    "Systems/ItemSecurityDevice/@class")).getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException ex) {
             CirculationHandlerImpl.logger.warn("Could not initialise Item Security Device - defaulting to null device", ex);
             this.itemSecurityDevice = new com.ceridwen.selfissue.client.nulldevices.ItemSecurityDevice();
         }
