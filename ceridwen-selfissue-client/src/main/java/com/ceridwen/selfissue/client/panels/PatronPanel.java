@@ -361,7 +361,6 @@ public class PatronPanelFocusTraversalPolicy
     PatronTextPanel.setBorder(border7);
     PatronTextPanel.setDebugGraphicsOptions(0);
     PatronTextPanel.setDoubleBuffered(true);
-    PatronTextPanel.setPreferredSize(new Dimension(100, 301));
     PatronText.setForeground(DefaultTextColour);
     PatronText.setFont(DefaultTextFont);
     PatronText.setBackground(BackgroundColour);
