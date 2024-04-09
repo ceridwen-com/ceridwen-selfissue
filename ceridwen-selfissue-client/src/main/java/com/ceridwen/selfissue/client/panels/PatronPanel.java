@@ -534,6 +534,7 @@ public class PatronPanelFocusTraversalPolicy
                         request.getPatronIdentifier().equals(lastEnteredId))) {
                     response = new PatronInformationResponse();
                     response.setValidPatron(true);
+                    response.setValidPatronPassword(true);
                     response.getPatronStatus().clear();
                     response.setPersonalName(request.getPatronIdentifier());
                     response.setPatronIdentifier(request.getPatronIdentifier());
@@ -541,8 +542,8 @@ public class PatronPanelFocusTraversalPolicy
                     throw new PatronConnectionFailed();
                 }
             }
-            if (! ( (response.isValidPatron() != null) ?
-                    response.isValidPatron() : false)) {
+            if (! ((response.isValidPatron() != null) ? response.isValidPatron() : false))
+            {
                 if (trustMode &&
                         (!retryPatronWhenError ||
                         request.getPatronIdentifier().equals(lastEnteredId))) {
@@ -550,6 +551,16 @@ public class PatronPanelFocusTraversalPolicy
                     throw new InvalidPatron();
                 }
             }
+            if (! (((response.isValidPatronPassword() != null) ? response.isValidPatronPassword() : false) ||
+                    !Configuration.getBoolProperty("Systems/SIP/RequirePatronPassword")))
+            {
+                if (trustMode &&
+                        (!retryPatronWhenError ||
+                        request.getPatronIdentifier().equals(lastEnteredId))) {
+                } else {
+                    throw new InvalidPatronPassword();
+                }
+            }            
             if (isBlocked(response.getPatronStatus())) {
                 if (trustMode &&
                         (!retryPatronWhenError ||
@@ -599,6 +610,17 @@ public class PatronPanelFocusTraversalPolicy
             } else {
                 this.PlaySound("InvalidPatronError");
                 this.PatronText.setText(Configuration.getMessage("InvalidPatronError",
+                        new String[] {request.getPatronIdentifier(),
+                            response.getScreenMessage()}));
+            }
+        } catch (InvalidPatronPassword ex) {
+            if (trustMode) {
+                this.PlaySound("PatronRetry");
+                this.PatronText.setText(Configuration.getMessage("PatronRetry",
+                        new String[] {}));
+            } else {
+                this.PlaySound("InvalidPatronError");
+                this.PatronText.setText(Configuration.getMessage("InvalidPatronPasswordError",
                         new String[] {request.getPatronIdentifier(),
                             response.getScreenMessage()}));
             }

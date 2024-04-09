@@ -598,9 +598,14 @@ Messages support limited html formatting:
                     </xs:element>
                     <xs:element name="InvalidPatronError" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>{0} = patron barcode</xs:documentation>
+                        <xs:documentation>{0} = patron barcode; {1} = message from server</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="InvalidPatronPasswordError" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>{0} = patron barcode; {1} = message from server</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                    
                     <xs:element name="BlockedPatronError" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>{0} = message from server</xs:documentation>

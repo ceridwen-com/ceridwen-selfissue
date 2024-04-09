@@ -350,7 +350,7 @@ public class CirculationHandlerImpl implements SpoolerProcessor<OfflineSpoolObje
         try {
             response = this.unprotectedSend(request);
         } catch (RetriesExceeded ex) {
-            CirculationHandlerImpl.logger.fatal("Invalid spool message: " + request);
+            CirculationHandlerImpl.logger.warn("Repeated retries sending spool message: " + request);
             return false;
         }
 
