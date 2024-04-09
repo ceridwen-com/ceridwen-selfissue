@@ -64,7 +64,7 @@
                   <PatronField_ToolTipText>Scan your University barcode using the hand held scanner.</PatronField_ToolTipText>
                   <PatronField_Length>16</PatronField_Length>
                   <PatronSubmitButton_Text>OK</PatronSubmitButton_Text>
-                  <PatronSubmitButton_ToolTipText>Send  Patron ID</PatronSubmitButton_ToolTipText>
+                  <PatronSubmitButton_ToolTipText>Send Patron ID</PatronSubmitButton_ToolTipText>
                   <PasswordFieldLabel_Text>Please enter your password</PasswordFieldLabel_Text>
                   <PasswordFieldLabel_ToolTipText>Please enter your password</PasswordFieldLabel_ToolTipText>
                   <PasswordField_ToolTipText>Please enter your password</PasswordField_ToolTipText>
@@ -107,19 +107,19 @@
                   <BookPanelCheckoutButton_ToolTipText>Check out books.</BookPanelCheckoutButton_ToolTipText>
             </CheckInPanel>
             <Messages>
-                  <GreetPatronCheckout>Hello {0}.&lt;br&gt;Please begin checking out your books.</GreetPatronCheckout>
-                  <GreetPatronCheckin>Hello {0}.&lt;br&gt;Please begin checking in your books.</GreetPatronCheckin>
+                  <GreetPatronCheckout>Hello {0}.&lt;p&gt;Please begin checking out your books.</GreetPatronCheckout>
+                  <GreetPatronCheckin>Hello {0}.&lt;p&gt;Please begin checking out your books.</GreetPatronCheckin>
                   <CheckingPatronMessage>&lt;em&gt;Checking for barcode {0}.&lt;br&gt;Please wait...&lt;/em&gt;</CheckingPatronMessage>
-                  <InvalidPatronBarcode>&lt;strong&gt;The barcode entered, {0}, is not valid.&lt;/strong&gt;</InvalidPatronBarcode>
+                  <InvalidPatronBarcode>&lt;strong&gt;The barcode {0} is not valid.&lt;/strong&gt;</InvalidPatronBarcode>
                   <InvalidPatronPassword>&lt;strong&gt;The password entered is not valid.&lt;/strong&gt;</InvalidPatronPassword>
                   <PatronRetry>&lt;em&gt;Please confirm your borrower id.&lt;/em&gt;</PatronRetry>
-                  <PatronNetworkError>&lt;strong&gt;Your borrower id {0} was not recognised.&lt;br&gt;Please check and re-enter.&lt;br&gt;(This error may occur if there are network problems)&lt;/strong&gt;</PatronNetworkError>
-                  <InvalidPatronError>&lt;strong&gt;Account with id {0} could not be logged in - please check and re-enter.&lt;br&gt;&lt;br&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronError>
-                  <InvalidPatronPasswordError>&lt;strong&gt;Account with id {0} could not be logged in - please check and re-enter.&lt;br&gt;&lt;br&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronPasswordError>
-                  <BlockedPatronError>&lt;strong&gt;There appears to be an problem with your account - please contact a member of staff.&lt;br&gt;&lt;br&gt;The error reported by the server is: {0}.&lt;/strong&gt;</BlockedPatronError>
+                  <PatronNetworkError>&lt;strong&gt;Your borrower id {0} was not recognised.&lt;br&gt;Please check and re-enter.&lt;p&gt;(This error may occur if there are network problems)&lt;/strong&gt;</PatronNetworkError>
+                  <InvalidPatronError>&lt;strong&gt;Account with id {0} could not be logged in - please check and re-enter.&lt;p&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronError>
+                  <InvalidPatronPasswordError>&lt;strong&gt;Account with id {0} could not be logged in - please check and re-enter.&lt;p&gt;The error reported by the server is: {1}.&lt;/strong&gt;</InvalidPatronPasswordError>
+                  <BlockedPatronError>&lt;strong&gt;There appears to be an problem with your account - please contact a member of staff.&lt;p&gt;The error reported by the server is: {0}.&lt;/strong&gt;</BlockedPatronError>
                   <UnexpectedPatronError>&lt;strong&gt;An unexpected error occurred. Please contact a member of staff.&lt;/strong&gt;</UnexpectedPatronError>
                   <CheckoutPendingMessage>&lt;em&gt;Checking barcode {0}. Please wait...&lt;/em&gt;</CheckoutPendingMessage>
-                  <InvalidItemBarcode>&lt;strong&gt;The barcode entered, {0}, is not valid.&lt;/strong&gt;</InvalidItemBarcode>
+                  <InvalidItemBarcode>&lt;strong&gt;The barcode {0} is not valid.&lt;/strong&gt;</InvalidItemBarcode>
                   <CheckoutRetry>&lt;em&gt;Please re-enter item barcode.&lt;/em&gt;</CheckoutRetry>
                   <CheckOutSuccess>&lt;em&gt;Item {0} has been checked out.&lt;/em&gt;</CheckOutSuccess>
                   <DueDateMessage>Due date is {0}.</DueDateMessage>

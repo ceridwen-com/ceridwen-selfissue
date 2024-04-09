@@ -21,7 +21,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.FocusTraversalPolicy;
 import java.awt.event.ActionEvent;
@@ -262,6 +261,8 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
 
     private String PatronName;
 
+    private String PatronMessage;
+        
     private Boolean CheckInEnabled;
 
     public CheckOutPanel() {
@@ -272,11 +273,11 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             this.handler = handler;
             this.PatronID = PatronID;
             this.PatronPassword = PatronPassword;
-            this.CheckInEnabled = Configuration.getBoolProperty("Systems/Modes/EnableCheckIn");
+	    this.PatronMessage = (message == null) ? "" : message;
             this.PatronName = PatronName;
+            this.CheckInEnabled = Configuration.getBoolProperty("Systems/Modes/EnableCheckIn");
             this.ResetTimer = ResetTimer;
             this.jbInit();
-            this.PatronText.setText(Configuration.getMessage("GreetPatronCheckout", new String[] { this.PatronName, ((message == null) ? "" : message) }));
             ResetTimer.restart();
             this.enableEvents(AWTEvent.COMPONENT_EVENT_MASK);
             this.startItemIDReader();
@@ -373,7 +374,6 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.PatronText.setOpaque(true);
         this.PatronText.setRequestFocusEnabled(false);
         this.PatronText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/PatronText_ToolTipText"));
-        this.PatronText.setPreferredSize(new Dimension(Configuration.pt2Pixel(DefaultTextFont.getSize())*32, Configuration.pt2Pixel(DefaultTextFont.getSize())*2));
         this.PatronText.setEditable(false);
         HTMLEditorKit PatronTextHtml = new HTMLEditorKit();
         PatronTextHtml.getStyleSheet().addRule(
@@ -396,7 +396,6 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
         this.PatronText.setEditorKit(PatronTextHtml);
         this.PatronText.setContentType("text/html");        
-        this.PatronText.setText("");
         this.PatronText.setBorder(null);
         this.ResponseTextPanel.setLayout(this.ResponseTextBorderLayout);
         this.ResponseTextPanel.setOpaque(true);
@@ -443,14 +442,11 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.CheckoutText.setEditorKit(CheckoutTextHtml);
         this.CheckoutText.setContentType("text/html");
         this.CheckoutText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/CheckOutText_ToolTipText"));
-        this.CheckoutText.setText("");
         this.StatusText.setFont(StatusTextFont);
         this.StatusText.setForeground(StatusTextColour);
         this.StatusText.setBackground(BackgroundColour);
         this.StatusText.setOpaque(true);
-        this.StatusText.setPreferredSize(new Dimension(Configuration.pt2Pixel(StatusTextFont.getSize())*16, Configuration.pt2Pixel(StatusTextFont.getSize())));
         this.StatusText.setToolTipText(Configuration.getProperty("UI/CheckOutPanel/StatusText_ToolTipText"));
-        this.StatusText.setText("");
         this.StatusText.setRequestFocusEnabled(false);
         this.StatusText.setEditable(false);
         HTMLEditorKit StatusTextHtml = new HTMLEditorKit();
@@ -473,8 +469,8 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                 "color: " + Configuration.colorEncode(WarningTextColour) + "; " + 
                 "background-color: " + Configuration.colorEncode(BackgroundColour) + ";}");
         this.StatusText.setEditorKit(StatusTextHtml);
-		this.StatusText.setContentType("text/html");
-		this.add(this.NavigationPanel, BorderLayout.SOUTH);
+	this.StatusText.setContentType("text/html");
+	this.add(this.NavigationPanel, BorderLayout.SOUTH);
         this.NavigationPanel.add(this.CheckInButton, BorderLayout.WEST);
         this.NavigationPanel.add(this.NextButton, BorderLayout.EAST);
         this.add(this.InformationPanel, BorderLayout.CENTER);
@@ -489,6 +485,8 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
         this.ResponseTextPanel.add(this.CheckOutScrollPane, BorderLayout.CENTER);
         this.ResponseTextPanel.add(this.StatusText, BorderLayout.SOUTH);
         this.CheckOutScrollPane.getViewport().add(this.CheckoutText, null);
+        this.setPatronText(Configuration.getMessage("GreetPatronCheckout", new String[] { this.PatronName, this.PatronMessage }));
+        this.setStatusText("");
         CheckOutPanelFocusTraversalPolicy policy = new CheckOutPanelFocusTraversalPolicy();
         this.setFocusTraversalPolicy(policy);
         this.setFocusCycleRoot(true);
@@ -503,6 +501,18 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
                          this.CheckoutText.getText()
                          + "\r\n\r\n" + new Date());
         this.firePanelChange(new SelfIssuePanelEvent(this, PatronPanel.class));
+    }
+    
+    private void setPatronText(String patron) {
+        PatronText.setText("<p>" + patron + "&nbsp;"); // formatting fix!
+        PatronText.invalidate();
+        ResponseTextPanel.validate();        
+    }
+    
+    private void setStatusText(String status) {
+        StatusText.setText("<p>" + status + "&nbsp;"); // formatting fix!
+        StatusText.invalidate();
+        ResponseTextPanel.validate();
     }
     
     private void appendCheckoutText(String entry) {
@@ -576,7 +586,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
             if (!this.validateBarcode(request.getItemIdentifier(), Configuration.getProperty("UI/Validation/ItemBarcodeMask"))) {
                 throw new InvalidItemBarcode();
             }
-            this.StatusText.setText(Configuration.getMessage("CheckoutPendingMessage",
+            this.setStatusText(Configuration.getMessage("CheckoutPendingMessage",
                     new String[] { request.getItemIdentifier() }));
             try {
                 this.StatusText.paint(this.StatusText.getGraphics());
@@ -710,7 +720,7 @@ public class CheckOutPanel extends SelfIssuePanel implements IDReaderDeviceListe
 			                    Arrays.toString(ex.getStackTrace()), ex);
         }
         this.lastEnteredId = request.getItemIdentifier();
-        this.StatusText.setText(finalStatusText);
+        this.setStatusText(finalStatusText);
         this.BookField.setText("");
         this.BookField.requestFocus();
         this.BookField.setEditable(true);
