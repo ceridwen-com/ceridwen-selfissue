@@ -90,7 +90,8 @@ public class CharsetChooser extends AbstractSimpleVisualizer {
 	        		for (String alias: charset.aliases()) {
 	        			names.add(alias);
 	        		}
-	        	}		        	
+	        	}	
+                        chooser.addItem("");
 	        	for (String charset: names) {
 	        		chooser.addItem(charset);	        		
 	        	}

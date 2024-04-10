@@ -59,6 +59,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </list>
               </style>
        </component>
+       <component xpath="/SelfIssue/Admin/LoggingHandlers/LoggingHandler/Encoding">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.CharsetChooser" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/Systems/Loggers/Logger[list]">
               <style>
                      <list>
@@ -66,6 +71,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </list>
               </style>
        </component>
+       <component xpath="/SelfIssue/Systems/Loggers/Logger/Encoding">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.CharsetChooser" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/Systems/SIP/LoginPassword">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>

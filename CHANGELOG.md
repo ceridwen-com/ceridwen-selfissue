@@ -2,6 +2,7 @@
 Major UI overhaul
 Monitor scaling support
 Restructure configuration settings (config files not backwards compatible)
+Added and updated Loggers and LoggingHandlers
 
 **Version 2.7.0: 19/06/2019**
 Updated dependencies to latest versions
