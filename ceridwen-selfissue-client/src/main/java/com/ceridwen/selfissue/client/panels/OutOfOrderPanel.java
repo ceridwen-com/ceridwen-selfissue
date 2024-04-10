@@ -94,7 +94,7 @@ private BorderLayout borderLayout1 = new BorderLayout();
   StringBuffer command = new StringBuffer("");
   
   void OutOfOrderPanel_keyTyped(KeyEvent e){
-      if (Configuration.getBoolProperty("CommandInterface/AllowResetOutOfOrder")) {
+      if (Configuration.getBoolProperty("Admin/CommandInterface/AllowResetOutOfOrder")) {
 		  char ch = e.getKeyChar();
           switch (ch) {
               case '¦':
@@ -105,7 +105,7 @@ private BorderLayout borderLayout1 = new BorderLayout();
                       ResetConfirmation.setVisible(true);
                       if (ResetConfirmation.getPassword().equals(Configuration.Decrypt(
                               Configuration.getProperty(
-                                      "CommandInterface/SystemPassword")))) {
+                                      "Admin/CommandInterface/SystemPassword")))) {
                           SelfIssueFrame.setOnTop(true);
                           SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
                           this.firePanelChange(ev);
