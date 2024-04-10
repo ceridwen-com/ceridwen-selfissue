@@ -563,12 +563,12 @@ Messages support limited html formatting:
                   <xs:sequence>
                     <xs:element name="GreetPatronCheckout" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>{0} = patron name or barcode</xs:documentation>
+                        <xs:documentation>{0} = patron name or barcode; {1} = message from server</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="GreetPatronCheckin" type="xs:string">
                       <xs:annotation>
-                        <xs:documentation>{0} = patron name or barcode</xs:documentation>
+                        <xs:documentation>{0} = patron name or barcode; {1} = message from server</xs:documentation>
                       </xs:annotation>
                     </xs:element>
                     <xs:element name="CheckingPatronMessage" type="xs:string">
@@ -1349,6 +1349,36 @@ SyslogLogger - not used;
 WinEventLogger - WinEvent source.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
+                          <xs:element name="Formatter">
+                            <xs:annotation>
+                              <xs:documentation>Logger dependent setting (blank for default): 
+ConsoleLogger - Text or XML;
+FileLogger - Text or XML;
+MailLogger - not used;
+RestLogger - not used;
+SocketLogger - Text or XML;
+SyslogLogger - not used; 
+WinEventLogger - not used.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="java.util.logging.SimpleFormatter"/>
+                                <xs:enumeration value="java.util.logging.XMLFormatter"/>
+                              </xs:restriction>
+                            </xs:simpleType>                                                      
+                          </xs:element>
+                          <xs:element name="Encoding" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>Logger dependent setting (blank for default): 
+ConsoleLogger - charset;
+FileLogger - charset;
+MailLogger - not used;
+RestLogger - not used;
+SocketLogger - charset;
+SyslogLogger - not used; 
+WinEventLogger - not used.</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>                          
                           <xs:element name="ConnectionTimeout" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Time (seconds) to wait during initial connection</xs:documentation>
@@ -1611,6 +1641,36 @@ SyslogLoggingHandlerWrapper - not used;
 WinEventLoggingHandlerWrapper - WinEvent source.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
+                          <xs:element name="Formatter">
+                            <xs:annotation>
+                              <xs:documentation>Logger dependent setting (blank for default): 
+ConsoleLoggingHandlerWrapper - Text or XML;
+FileLoggingHandlerWrapper - Text or XML;
+MailLoggingHandlerWrapper - not used;
+RestLoggingHandlerWrapper - not used;
+SocketLoggingHandlerWrapper - Text or XML;
+SyslogLoggingHandlerWrapper - not used; 
+WinEventLoggingHandlerWrapper - not used.</xs:documentation>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="java.util.logging.SimpleFormatter"/>
+                                <xs:enumeration value="java.util.logging.XMLFormatter"/>
+                              </xs:restriction>
+                            </xs:simpleType>                                                      
+                          </xs:element>
+                          <xs:element name="Encoding" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>Logger dependent setting (blank for default): 
+ConsoleLoggingHandlerWrapper - charset;
+FileLoggingHandlerWrapper - charset;
+MailLoggingHandlerWrapper - not used;
+RestLoggingHandlerWrapper- not used;
+SocketLoggingHandlerWrapper - charset;
+SyslogLoggingHandlerWrapper - not used; 
+WinEventLoggingHandlerWrapper - not used.</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>                          
                           <xs:element name="ConnectionTimeout" type="xs:positiveInteger">
                             <xs:annotation>
                               <xs:documentation>Time (seconds) to wait during initial connection</xs:documentation>

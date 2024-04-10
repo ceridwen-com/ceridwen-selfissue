@@ -28,14 +28,13 @@ import org.w3c.dom.Node;
  */
 public class FileLoggingHandlerWrapper extends LoggingHandlerWrapper {
   @Override
-  public Handler getLoggingHandler(Node config) {
+  protected Handler getLoggingHandlerInstance(Node config) {
       Handler handler;
       try {
           handler = new FileHandler(this.getTarget(config));
       } catch (IOException | SecurityException ex) {
           handler = new ConsoleHandler();
       }
-    handler.setLevel(super.getLevel(config));
     return handler;
   }  
 }

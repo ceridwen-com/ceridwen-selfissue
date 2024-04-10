@@ -251,6 +251,8 @@
                         <SSL/>
                         <Target>c:/temp/selfissuelogger.log</Target>
                         <Source/>
+                        <Formatter/>
+                        <Encoding/>
                         <ConnectionTimeout>1</ConnectionTimeout>
                         <IdleTimeout>5</IdleTimeout>
                         <Spool>c:/temp/spools/logger1</Spool>
@@ -290,6 +292,8 @@
                         <SSL/>
                         <Target/>
                         <Source/>
+                        <Formatter/>
+                        <Encoding/>                        
                         <ConnectionTimeout/>
                         <IdleTimeout/>
                   </LoggingHandler>
@@ -300,6 +304,8 @@
                         <SSL/>
                         <Target>c:/temp/selfissue.log</Target>
                         <Source/>
+                        <Formatter/>
+                        <Encoding/>                        
                         <ConnectionTimeout/>
                         <IdleTimeout/>
                   </LoggingHandler>

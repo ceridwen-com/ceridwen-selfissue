@@ -22,11 +22,21 @@ import java.util.logging.Level;
 import org.w3c.dom.Node;
 
 import com.ceridwen.selfissue.client.config.Configuration;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Formatter;
 
 public abstract class LoggingHandlerWrapper {
-    public abstract Handler getLoggingHandler(Node config);
     
-    protected Level getLevel(Node config) {
+    public Handler getLoggingHandler(Node config) {
+        Handler handler = this.getLoggingHandlerInstance(config);
+        this.ConfigureHandler(config, handler);
+        return handler;
+    }
+    
+    protected abstract Handler getLoggingHandlerInstance(Node config);
+    
+    private Level getLevel(Node config) {
         if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("SEVERE")) {
             return java.util.logging.Level.SEVERE;
           } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("WARNING")) {
@@ -66,6 +76,34 @@ public abstract class LoggingHandlerWrapper {
     
     protected String getSource(Node config) {
         return Configuration.getSubProperty(config, "Source");
+    }
+    
+    private void setFormatter(Node config, Handler handler) {
+        String clazzName = Configuration.getSubProperty(config, "Formatter");
+        try {
+            if (clazzName != null && !clazzName.isBlank()) {
+                Formatter f = (Formatter) Class.forName(clazzName).
+                getDeclaredConstructor().newInstance();
+                handler.setFormatter(f);
+            }
+      } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException ex) {
+      }        
+    }
+    
+    private void setEncoding(Node config, Handler handler) {
+        String en = Configuration.getSubProperty(config, "Encoding"); 
+        try {
+            if (en != null && !en.isBlank()) {
+                 handler.setEncoding(en);
+            }
+        } catch (SecurityException | UnsupportedEncodingException ex) {            
+        } 
+    }
+    
+    private void ConfigureHandler(Node config, Handler handler) {
+        handler.setLevel(this.getLevel(config));
+        this.setEncoding(config, handler);
+        this.setFormatter(config, handler);
     }
     
     protected int getConnectionTimeout(Node config) {
