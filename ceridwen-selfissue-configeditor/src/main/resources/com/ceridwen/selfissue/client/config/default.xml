@@ -31,6 +31,8 @@
                   <ButtonText_Font>SansSerif</ButtonText_Font>
                   <ButtonText_Size>36</ButtonText_Size>
                   <ButtonBorder>true</ButtonBorder>
+                  <OutOfOrderText_Font>SansSerif</OutOfOrderText_Font>
+                  <OutOfOrderText_Size>112</OutOfOrderText_Size>                  
                   <VersionText_Font>Serif</VersionText_Font>
                   <VersionText_Size>12</VersionText_Size>
             </Styling>
@@ -54,6 +56,8 @@
                   <InputDisabledTextColour>204,204,255</InputDisabledTextColour>
                   <ButtonTextColour>51,0,153</ButtonTextColour>
                   <ButtonBackgroundColour>204,204,255</ButtonBackgroundColour>
+                  <OutOfOrderTextColour>153,0,0</OutOfOrderTextColour>
+                  <OutOfOrderBackgroundColour>234,234,255</OutOfOrderBackgroundColour>                  
                   <VersionTextColour>204,204,204</VersionTextColour>
             </Palette>
             <PatronPanel>

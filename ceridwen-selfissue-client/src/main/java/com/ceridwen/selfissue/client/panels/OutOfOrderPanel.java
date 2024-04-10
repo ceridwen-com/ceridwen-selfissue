@@ -73,19 +73,19 @@ private BorderLayout borderLayout1 = new BorderLayout();
 
   private void jbInit() throws Exception
   {     
-    Color BackgroundColour = Configuration.getBackgroundColour("BackgroundColour");  
-    Color WarningTextColour = Configuration.getForegroundColour("WarningTextColour");
-    Font  WarningTextFont = Configuration.getFont("WarningText");
+    Color OOOBackgroundColour = Configuration.getBackgroundColour("OutOfOrderBackgroundColour");  
+    Color OOOTextColour = Configuration.getForegroundColour("OutOfOrderTextColour");
+    Font  OOOTextFont = Configuration.getFont("OutOfOrderText");
 	  
     setLayout(borderLayout1);
     this.setOpaque(true);
-    this.setBackground(BackgroundColour);
-    jLabel1.setFont(WarningTextFont);
-    jLabel1.setForeground(WarningTextColour);
+    this.setBackground(OOOBackgroundColour);
+    jLabel1.setFont(OOOTextFont);
+    jLabel1.setForeground(OOOTextColour);
     jLabel1.setOpaque(false);
     jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
     jLabel1.setHorizontalTextPosition(SwingConstants.CENTER);
-    jLabel1.setText(Configuration.getProperty("UI/SelfIssue/OutOfOrder_Text"));
+    jLabel1.setText(Configuration.getProperty("UI/Advanced/OutOfOrderText"));
     add(jLabel1, java.awt.BorderLayout.CENTER);
     
     this.addKeyListener(new OutOfOrderPanel_keyAdapter(this));

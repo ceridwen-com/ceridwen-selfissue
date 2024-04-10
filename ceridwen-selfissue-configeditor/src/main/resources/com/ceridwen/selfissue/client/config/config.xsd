@@ -181,6 +181,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Show button border</xs:documentation>
                       </xs:annotation>
                     </xs:element>   
+                    <xs:element name="OutOfOrderText_Font" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Font for out of order text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="OutOfOrderText_Size" type="xs:nonNegativeInteger">
+                      <xs:annotation>
+                        <xs:documentation>Font size for out of order text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                                                             
                     <xs:element name="VersionText_Font" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Font for version text at bottom of window</xs:documentation>
@@ -295,6 +305,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <xs:documentation>Colour of buttons</xs:documentation>
                       </xs:annotation>
                     </xs:element>
+                    <xs:element name="OutOfOrderTextColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour for out of order text</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>   
+                    <xs:element name="OutOfOrderBackgroundColour" type="xs:string">
+                      <xs:annotation>
+                        <xs:documentation>Colour for out of order background</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>                                      
                     <xs:element name="VersionTextColour" type="xs:string">
                       <xs:annotation>
                         <xs:documentation>Colour for version text at bottom of window</xs:documentation>
