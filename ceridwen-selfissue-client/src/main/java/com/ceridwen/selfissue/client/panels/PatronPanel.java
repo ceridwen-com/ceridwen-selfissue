@@ -732,19 +732,19 @@ private static String strim(String string) {
   private boolean commandProcessor(String command) {
             switch (command) {
                 case "*Test Connection":
-                    if (Configuration.getBoolProperty("CommandInterface/AllowConnectionTest")) {
+                    if (Configuration.getBoolProperty("Admin/CommandInterface/AllowConnectionTest")) {
                         this.PatronText.setText(handler.checkStatus(0));
                         return true;
                     }             break;
                 case "*Shutdown System":
-                    if (Configuration.getBoolProperty("CommandInterface/AllowSystemShutdown")) {
+                    if (Configuration.getBoolProperty("Admin/CommandInterface/AllowSystemShutdown")) {
                         SelfIssueFrame.setOnTop(false);
                         PasswordDialog ShutdownConfirmation = new PasswordDialog("Please enter system password");
                         ShutdownConfirmation.clearPassword();
                         ShutdownConfirmation.setVisible(true);
                         if (ShutdownConfirmation.getPassword().equals(Configuration.Decrypt(
                                 Configuration.getProperty(
-                                        "CommandInterface/SystemPassword")))) {
+                                        "Admin/CommandInterface/SystemPassword")))) {
                             System.exit(0);
                         }
                         SelfIssueFrame.setOnTop(true);
@@ -758,7 +758,7 @@ private static String strim(String string) {
                     SelfIssueFrame.setOnTop(true);
                     return true;
                 case "*Check Systems":
-                    if (Configuration.getBoolProperty("CommandInterface/AllowSystemsCheck")) {
+                    if (Configuration.getBoolProperty("Admin/CommandInterface/AllowSystemsCheck")) {
                         StringBuilder data = new StringBuilder();
                         /*TODO
                         if (handler.getRFIDDeviceClass() != null) {
@@ -829,20 +829,20 @@ private static String strim(String string) {
                         return true;
                     }             break;
                 case "*Test Crash":
-                    if (Configuration.getBoolProperty("CommandInterface/AllowLogTest")) {
+                    if (Configuration.getBoolProperty("Admin/CommandInterface/AllowLogTest")) {
                         SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, PatronPanel.class);
                         this.firePanelChange(ev);
                         throw new java.lang.InternalError("Test");
                     }             break;
                 case "*Out Of Order":
-                    if (Configuration.getBoolProperty("CommandInterface/AllowOutOfOrder")) {
+                    if (Configuration.getBoolProperty("Admin/CommandInterface/AllowOutOfOrder")) {
                         SelfIssueFrame.setOnTop(false);
                         PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
                         OOOConfirmation.clearPassword();
                         OOOConfirmation.setVisible(true);
                         if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
                                 Configuration.getProperty(
-                                        "CommandInterface/SystemPassword")))) {
+                                        "Admin/CommandInterface/SystemPassword")))) {
                             SelfIssueFrame.setOnTop(true);
                             SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, OutOfOrderPanel.class);
                             this.firePanelChange(ev);
@@ -851,14 +851,14 @@ private static String strim(String string) {
                         return true;
                     }           break;
                 case "*Check In":
-                    if (Configuration.getBoolProperty("CommandInterface/AllowCheckIn")) {
+                    if (Configuration.getBoolProperty("Admin/CommandInterface/AllowCheckIn")) {
                         SelfIssueFrame.setOnTop(false);
                         PasswordDialog OOOConfirmation = new PasswordDialog("Please enter system password");
                         OOOConfirmation.clearPassword();
                         OOOConfirmation.setVisible(true);
                         if (OOOConfirmation.getPassword().equals(Configuration.Decrypt(
                                 Configuration.getProperty(
-                                        "CommandInterface/SystemPassword")))) {
+                                        "Admin/CommandInterface/SystemPassword")))) {
                             SelfIssueFrame.setOnTop(true);
                             SelfIssuePanelEvent ev = new SelfIssuePanelEvent(this, CheckInPanel.class);
                             ev.request = new PatronInformation();
@@ -871,20 +871,6 @@ private static String strim(String string) {
                 default:
                     break;
             }
-//    else if (command.startsWith("*Edit Configuration")) {
-//      if (Configuration.getBoolProperty("CommandInterface/AllowConfigurationEditor")) {
-//	      PasswordDialog EditorConfirmation = new PasswordDialog("Please enter system password");
-//	      EditorConfirmation.clearPassword();
-//	      EditorConfirmation.setVisible(true);
-//	      if (EditorConfirmation.getPassword().equals(Configuration.Decrypt(
-//	          Configuration.getProperty(
-//	              "CommandInterface/SystemPassword")))) {
-//	    	  			
-//	    	  			Editor.main(new String[]{});	    	  
-//	      }
-//	      return true;
-//      }
-//    }
     return false;
   }
 
