@@ -28,6 +28,7 @@ import javax.swing.JComponent;
 import com.ceridwen.circulation.SIP.messages.Message;
 import com.jaxfront.core.type.SimpleType;
 import com.jaxfront.swing.ui.beans.AbstractSimpleVisualizer;
+import java.util.Comparator;
 
 public class CharsetChooser extends AbstractSimpleVisualizer {
 	/**
@@ -84,18 +85,16 @@ public class CharsetChooser extends AbstractSimpleVisualizer {
 		{
 	        try {
 	        	SortedMap<String, Charset> charsets = Charset.availableCharsets();
-	        	TreeSet<String> names = new TreeSet<String>();
+	        	TreeSet<String> names = new TreeSet<String>(
+                            (String s1, String s2) -> s1.trim().compareToIgnoreCase(s2.trim()));
 	        	for (Charset charset: charsets.values()) {
 	        		names.add(charset.name());
-	        		for (String alias: charset.aliases()) {
-	        			names.add(alias);
-	        		}
 	        	}		        	
 	        	for (String charset: names) {
 	        		chooser.addItem(charset);	        		
 	        	}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		} catch (Exception e) {
+        		e.printStackTrace();
+		}
 		}		
 }
