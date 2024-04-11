@@ -25,11 +25,10 @@ import com.ceridwen.util.logging.SyslogLogHandler;
 public class SyslogLoggingHandlerWrapper extends LoggingHandlerWrapper {
 
     @Override
-    public Handler getLoggingHandler(Node config) {
+    protected Handler getLoggingHandlerInstance(Node config) {
         SyslogLogHandler handler = new SyslogLogHandler(
                 this.getHost(config),
                 this.getPort(config));
-        handler.setLevel(super.getLevel(config));
         handler.setThrottle(1, 15);
         return handler;
     }

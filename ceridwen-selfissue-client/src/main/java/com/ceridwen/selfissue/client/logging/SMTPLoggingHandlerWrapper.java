@@ -25,12 +25,11 @@ import com.ceridwen.util.logging.SMTPLogHandler;
 public class SMTPLoggingHandlerWrapper extends LoggingHandlerWrapper {
 
     @Override
-    public Handler getLoggingHandler(Node config) {
+    protected Handler getLoggingHandlerInstance(Node config) {
         SMTPLogHandler handler = new SMTPLogHandler(
                 this.getHost(config),
                 this.getSource(config),
                 this.getTarget(config));
-        handler.setLevel(super.getLevel(config));
         handler.setThrottle(1, 60);
         return handler;
     }

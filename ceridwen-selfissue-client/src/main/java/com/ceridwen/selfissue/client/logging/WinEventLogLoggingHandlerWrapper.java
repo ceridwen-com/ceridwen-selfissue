@@ -26,11 +26,10 @@ import org.w3c.dom.Node;
  */
 public class WinEventLogLoggingHandlerWrapper extends LoggingHandlerWrapper {
   @Override
-  public Handler getLoggingHandler(Node config) {
-    WinEventLogHandler handler = new WinEventLogHandler(
+  protected Handler getLoggingHandlerInstance(Node config) {
+        WinEventLogHandler handler = new WinEventLogHandler(
         this.getHost(config),
         this.getSource(config).isBlank()?"Ceridwen SelfIssue":this.getSource(config));
-    handler.setLevel(super.getLevel(config));
     return handler;
   }  
 }

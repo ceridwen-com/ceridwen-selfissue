@@ -28,9 +28,8 @@ import java.util.logging.ConsoleHandler;
  */
 public class ConsoleLoggingHandlerWrapper extends LoggingHandlerWrapper {
   @Override
-  public Handler getLoggingHandler(Node config) {
+  protected Handler getLoggingHandlerInstance(Node config) {
     ConsoleHandler handler = new ConsoleHandler();
-    handler.setLevel(super.getLevel(config));
     return handler;
   }  
 }

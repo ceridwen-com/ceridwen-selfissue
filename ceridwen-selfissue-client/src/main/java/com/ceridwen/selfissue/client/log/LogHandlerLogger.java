@@ -16,7 +16,11 @@
  */
 package com.ceridwen.selfissue.client.log;
 
+import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Formatter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -28,16 +32,48 @@ import org.w3c.dom.Node;
  */
 public abstract class LogHandlerLogger extends OnlineLogLogger {
     
+    String formatterClazzName;
+    String encoding;
+    
     @Override
     public void initialise(Node config, OutOfOrderInterface ooo) {
       super.initialise(config, ooo);
+      this.formatterClazzName = Configuration.getSubProperty(config, "Formatter");
+      this.encoding = Configuration.getSubProperty(config, "Encoding");
     }
     
     protected abstract Handler getHandler(String source);
+    
+    
+    private void setFormatter(Handler handler) {
+        try {
+            if (formatterClazzName != null && !formatterClazzName.isBlank()) {
+                Formatter f = (Formatter) Class.forName(formatterClazzName).
+                getDeclaredConstructor().newInstance();
+                handler.setFormatter(f);
+            }
+      } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException ex) {
+      }        
+    }
+    
+    private void setEncoding(Handler handler) { 
+        try {
+            if (this.encoding != null && !this.encoding.isBlank()) {
+                 handler.setEncoding(this.encoding);
+            }
+        } catch (SecurityException | UnsupportedEncodingException ex) {            
+        } 
+    }
+    
+    private void ConfigureHandler(Handler handler, Level level) {
+        handler.setLevel(level);
+        this.setEncoding(handler);
+        this.setFormatter(handler);
+    }    
 
     public synchronized boolean sendHandlerMessage(String source, Level level, String msg) {
         Handler handler = getHandler(source);
-        handler.setLevel(level);
+        this.ConfigureHandler(handler, level);
         LogRecord record = new LogRecord(level, msg);
         handler.publish(record);
         return true;

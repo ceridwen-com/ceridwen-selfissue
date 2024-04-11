@@ -25,12 +25,11 @@ import com.ceridwen.util.logging.RESTLogHandler;
 public class RESTLoggingHandlerWrapper extends LoggingHandlerWrapper {
 
     @Override
-    public Handler getLoggingHandler(Node config) {
+  protected Handler getLoggingHandlerInstance(Node config) {
         RESTLogHandler handler = new RESTLogHandler(
             (this.getSSL(config)?"https":"http") + "://" + this.getHost(config) + ":" + 
             ((this.getPort(config)==0)?(this.getSSL(config)?443:80):this.getPort(config)) + this.getTarget(config)
         );
-        handler.setLevel(super.getLevel(config));
         handler.setThrottle(1, 1);
         return handler;
     }
