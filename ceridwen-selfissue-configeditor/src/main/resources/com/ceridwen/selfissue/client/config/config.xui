@@ -91,6 +91,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/Systems/Loggers/Logger/Password">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>    
+       <component xpath="/SelfIssue/Admin/LoggingHandlers/LoggingHandler/Password">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>            
        <component xpath="/SelfIssue/Systems/SIP/CharsetEncoding">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.CharsetChooser" renderer="JAVASWING"></plugIn>

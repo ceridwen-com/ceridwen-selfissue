@@ -28,8 +28,12 @@ public class SMTPLoggingHandlerWrapper extends LoggingHandlerWrapper {
     protected Handler getLoggingHandlerInstance(Node config) {
         SMTPLogHandler handler = new SMTPLogHandler(
                 this.getHost(config),
+                this.getPort(config, 25),
                 this.getSource(config),
-                this.getTarget(config));
+                this.getTarget(config),
+                this.getSSL(config),
+                this.getUsername(config),
+                this.getPassword(config));
         handler.setThrottle(1, 60);
         return handler;
     }

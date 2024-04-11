@@ -18,6 +18,7 @@ package com.ceridwen.selfissue.client.log;
 
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Formatter;
@@ -42,8 +43,7 @@ public abstract class LogHandlerLogger extends OnlineLogLogger {
       this.encoding = Configuration.getSubProperty(config, "Encoding");
     }
     
-    protected abstract Handler getHandler(String source);
-    
+    protected abstract Handler getHandler(String source) throws IOException;  
     
     private void setFormatter(Handler handler) {
         try {
@@ -71,7 +71,7 @@ public abstract class LogHandlerLogger extends OnlineLogLogger {
         this.setFormatter(handler);
     }    
 
-    public synchronized boolean sendHandlerMessage(String source, Level level, String msg) {
+    public synchronized boolean sendHandlerMessage(String source, Level level, String msg) throws IOException {
         Handler handler = getHandler(source);
         this.ConfigureHandler(handler, level);
         LogRecord record = new LogRecord(level, msg);
@@ -81,6 +81,10 @@ public abstract class LogHandlerLogger extends OnlineLogLogger {
 
     @Override
     public boolean log(OnlineLogEvent event) { 
-      return this.sendHandlerMessage(source.isBlank()?"Ceridwen SelfIssue Logger":source, event.isActionRequired()?Level.WARNING:Level.INFO, this.getMessage(event));
+        try {
+            return this.sendHandlerMessage(source.isBlank()?"Ceridwen SelfIssue Logger":source, event.isActionRequired()?Level.WARNING:Level.INFO, this.getMessage(event));
+        } catch (IOException ex) {
+            return false;
+        }
     }
 }

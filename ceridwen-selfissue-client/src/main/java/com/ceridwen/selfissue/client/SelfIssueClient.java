@@ -77,7 +77,9 @@ public class SelfIssueClient {
         }
       } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException ex) {
         log.fatal("Could not register logging handler", ex);
-      }
+      } catch (IOException ex) {
+            Logger.getLogger(SelfIssueClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 	}
 

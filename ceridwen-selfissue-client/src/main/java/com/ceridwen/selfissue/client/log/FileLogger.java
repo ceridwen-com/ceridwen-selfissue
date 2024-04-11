@@ -28,12 +28,8 @@ import java.util.logging.Handler;
 public class FileLogger extends LogHandlerLogger {
 
     @Override
-    protected Handler getHandler(String source) {
-        try {
-            return new FileHandler(target);
-        } catch (IOException | SecurityException ex) {
-            return new ConsoleHandler();
-        }
+    protected Handler getHandler(String source) throws IOException {
+        return new FileHandler(target);
     }
 
 }
