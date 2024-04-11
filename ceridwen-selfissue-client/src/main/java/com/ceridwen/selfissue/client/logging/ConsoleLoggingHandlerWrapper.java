@@ -20,7 +20,6 @@ import java.util.logging.Handler;
 
 import org.w3c.dom.Node;
 
-import com.ceridwen.selfissue.client.config.Configuration;
 import java.util.logging.ConsoleHandler;
 
 /**
@@ -29,9 +28,8 @@ import java.util.logging.ConsoleHandler;
  */
 public class ConsoleLoggingHandlerWrapper extends LoggingHandlerWrapper {
   @Override
-  public Handler getLoggingHandler(Node item) {
+  protected Handler getLoggingHandlerInstance(Node config) {
     ConsoleHandler handler = new ConsoleHandler();
-    handler.setLevel(super.getLevel(item));
     return handler;
   }  
 }

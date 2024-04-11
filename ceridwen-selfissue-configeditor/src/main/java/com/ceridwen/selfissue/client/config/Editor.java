@@ -16,6 +16,7 @@
  */
 package com.ceridwen.selfissue.client.config;
 
+import com.ceridwen.util.io.NullOutputStream;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -23,7 +24,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -37,16 +37,17 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
-import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
 import com.jaxfront.core.dom.DOMBuilder;
 import com.jaxfront.core.dom.DirtyChangeEvent;
 import com.jaxfront.core.dom.DirtyChangeListener;
 import com.jaxfront.core.dom.Document;
+import com.jaxfront.core.dom.DocumentCreationException;
 import com.jaxfront.core.help.HelpEvent;
 import com.jaxfront.core.help.HelpListener;
 import com.jaxfront.core.images.SystemImages;
+import com.jaxfront.core.schema.SchemaCreationException;
 import com.jaxfront.core.schema.ValidationException;
 import com.jaxfront.core.ui.TypeVisualizerFactory;
 import com.jaxfront.core.util.JAXFrontProperties;
@@ -55,13 +56,13 @@ import com.jaxfront.core.util.URLHelper;
 import com.jaxfront.core.util.io.cache.XUICache;
 import com.jaxfront.swing.ui.editor.EditorPanel;
 import com.jaxfront.swing.ui.editor.ShowXMLDialog;
-import com.jgoodies.looks.HeaderStyle;
-import com.jgoodies.looks.Options;
+import java.util.Arrays;
+import javax.swing.JScrollPane;
+import javax.swing.JTextPane;
+import javax.swing.text.html.HTMLEditorKit;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-class NullOutputStream extends OutputStream {
-  @Override
-  public void write(int b) throws IOException {}
-}
 
 /*****************************************************************************************************************************************************
  * JAXFront Integration Example and use of the EditorPanel API.
@@ -88,16 +89,18 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 	private Document _currentDom;
 	private boolean isDirty = false;
 	private JPanel _centerPanel;
-    private JPanel _helpPanel;
-    private JSplitPane _splitPane;
+        private JScrollPane _helpPanel;
+        private JSplitPane _splitPane;
 	private EditorPanel _editor;
-	private String _currentLanguage = "en"; // english as default
+	private final String _currentLanguage = "en"; // english as default
 	private AbstractAction _defaultAction;
 	private AbstractAction _reloadAction;
 	private AbstractAction _saveAction;
 	private AbstractAction _previewAction;
 	private AbstractAction _printAction;
 	private AbstractAction _exitAction;
+        
+    private static final Log log = LogFactory.getLog(Editor.class);        
 
 	public Editor() {
 		super();
@@ -116,10 +119,12 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			initToolBar();
 			_centerPanel = new JPanel(new BorderLayout());
 			_centerPanel.setBorder(null);
-            _helpPanel = new JPanel();			
+            _helpPanel = new JScrollPane();	
+            _helpPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            _helpPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             _splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
             _splitPane.setDividerSize(4);
-            _splitPane.setDividerLocation(500);
+            _splitPane.setDividerLocation(550);
             _splitPane.setBorder(null);
             _splitPane.setTopComponent(_centerPanel);
             _splitPane.setBottomComponent(_helpPanel);
@@ -131,23 +136,21 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			_reloadAction.actionPerformed(new ActionEvent(this, 0, ""));
 		} catch (LicenseErrorException licEx) {
 			licEx.showLicenseDialog(this);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+                    Editor.log.fatal("Checkin Panel Failure: " + e.getMessage() + " - " +
+                        Arrays.toString(e.getStackTrace()));
 		}
 	}
 
 	public static void main(String[] args) {
-		try {
-			UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
-		} catch (Throwable t) {
-		}
-		System.setOut(new PrintStream((OutputStream)new NullOutputStream()));
+		System.setOut(new PrintStream(new NullOutputStream()));
 		new Editor();
 	}
 
 	private void initActions() {
 		_defaultAction = CursorController.createAction("Default", JAXFrontProperties.getImageIcon(SystemImages.ICON_NEW_FILE), this,
 			new AbstractAction() {
+                                @Override
 				public void actionPerformed(ActionEvent e) {
 					load(true);
 				}
@@ -155,6 +158,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 		);
 		_reloadAction = CursorController.createAction("Reload", JAXFrontProperties.getImageIcon(SystemImages.ICON_EDIT), this,
 			new AbstractAction() {	
+                                @Override
 				public void actionPerformed(ActionEvent e) {
 					load(false);
 				}
@@ -162,6 +166,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 		);
 		_saveAction = CursorController.createAction("Save", JAXFrontProperties.getImageIcon(SystemImages.ICON_SAVE_FILE), this,
 			new AbstractAction() {	
+                                @Override
 				public void actionPerformed(ActionEvent e) {
 					save();
 				}
@@ -169,6 +174,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 		);
 		_printAction = CursorController.createAction("Print PDF", JAXFrontProperties.getImageIcon(SystemImages.ICON_PDF), this,
 			new AbstractAction() {	
+                                @Override
 				public void actionPerformed(ActionEvent e) {
 					print();
 				}
@@ -176,12 +182,14 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 		);
 		_previewAction = CursorController.createAction("View XML", JAXFrontProperties.getImageIcon(SystemImages.ICON_EDIT_XML), this,
 			new AbstractAction() {	
+                                @Override
 				public void actionPerformed(ActionEvent e) {
 					serialize();
 				}
 			}
 		);
 		_exitAction = new AbstractAction("Exit", JAXFrontProperties.getImageIcon(SystemImages.ICON_CLOSE)) {
+                        @Override
 			public void actionPerformed(ActionEvent e) {
 				exit();
 			}
@@ -192,7 +200,6 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 
 	private void initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.putClientProperty(Options.HEADER_STYLE_KEY, HeaderStyle.BOTH);		
 		JMenu applicationMenu = new JMenu("Configuration");
 		applicationMenu.add(_reloadAction);
 		applicationMenu.add(_saveAction);
@@ -209,7 +216,6 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 
 	private void initToolBar() {
 		JToolBar toolBar = new JToolBar();
-		toolBar.putClientProperty(Options.HEADER_STYLE_KEY, HeaderStyle.BOTH);		
 		toolBar.add(_reloadAction);
 		toolBar.add(_saveAction);
 		toolBar.addSeparator();
@@ -256,7 +262,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			editorPanel.selectNode(lastSelectedType);
 		}
 		editorPanel.setBorder(null);
-        editorPanel.addHelpListener(this);
+                editorPanel.addHelpListener(this);
 		JPanel validationErrorPanel = new JPanel(new BorderLayout());
 		validationErrorPanel.setBorder(null);
 		editorPanel.setTargetMessageTable(validationErrorPanel);
@@ -276,16 +282,14 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			try {
 				_currentDom.saveAs(new File(xmlUrl.toURI()));
 				isDirty = false;
-			} catch (ValidationException e) {				
+			} catch (ValidationException | IOException | URISyntaxException e) {				
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+                             Editor.log.fatal("Checkin Panel Failure: " + e.getMessage() + " - " +
+                                Arrays.toString(e.getStackTrace()));
 			}
+            // TODO Auto-generated catch block
+            // TODO Auto-generated catch block
+            
 	}
 	
 	private void serialize() {
@@ -319,7 +323,7 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 //		URL xuiUrl = URLHelper.getUserURL("examples/purchaseOrder/po.xui");
 		URL url = URLHelper.getUserURL("com/ceridwen/selfissue/client/config/config.xsd");
 		URL xuiUrl = URLHelper.getUserURL("com/ceridwen/selfissue/client/config/config.xui");
-		URL xmlUrl = null;
+		URL xmlUrl;
 		if (defaultXml) {
 			xmlUrl = URLHelper.getUserURL("com/ceridwen/selfissue/client/config/default.xml");
 		} else { 
@@ -333,21 +337,21 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 			_currentDom.getGlobalDefinition().setLanguage(_currentLanguage);
 			if (_editor != null) _editor.selectNode((com.jaxfront.core.type.Type) null);
 			visualizeDOM();
-		} catch (Exception ex) {
-		}
+		} catch (DocumentCreationException | SchemaCreationException e) {
+                    Editor.log.fatal("Checkin Panel Failure: " + e.getMessage() + " - " +
+                        Arrays.toString(e.getStackTrace()));
+                }
 	}
 
+        @Override
     public void showHelp( HelpEvent event ) {
-        _helpPanel.removeAll();
         String helpText = event.getHelpID();
-        JTextArea helpLabel = new JTextArea(helpText);
+        JTextPane helpLabel = new JTextPane();        
+        helpLabel.setText(helpText);
         helpLabel.setEditable(false);
         helpLabel.setOpaque(false);
-        helpLabel.setLineWrap(true);
-        helpLabel.setWrapStyleWord(true);
-//        JLabel helpLabel = new JLabel(helpText);
-        helpLabel.setBounds(_helpPanel.getBounds());
-        _helpPanel.add(helpLabel, BorderLayout.CENTER);
+        helpLabel.setPreferredSize(_helpPanel.getSize());
+        _helpPanel.setViewportView(helpLabel);
         _helpPanel.updateUI();
     }
 
@@ -361,26 +365,33 @@ public class Editor extends JFrame implements WindowListener, HelpListener, Dirt
 		}
 	}
 	
+        @Override
 	public void windowActivated(WindowEvent e) {
 	}
 
+        @Override
 	public void windowClosed(WindowEvent e) {
 		exit();
 	}
 
+        @Override
 	public void windowClosing(WindowEvent e) {
 		exit();
 	}
 
+        @Override
 	public void windowDeactivated(WindowEvent e) {
 	}
 
+        @Override
 	public void windowDeiconified(WindowEvent e) {
 	}
 
+        @Override
 	public void windowIconified(WindowEvent e) {
 	}
 
+        @Override
 	public void windowOpened(WindowEvent e) {
 	}
 

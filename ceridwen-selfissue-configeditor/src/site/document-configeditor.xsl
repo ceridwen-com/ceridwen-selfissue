@@ -11,17 +11,17 @@
     <h2>SelfIssue Configuration Editor</h2>
     <p><xsl:value-of select="xs:annotation/xs:documentation[1]" /></p>
     <img src="images/{translate(@name,$upperCase,$smallCase)}.png" />
-    <p><xsl:value-of select="xs:annotation/xs:documentation[2]" /></p>
+    <p><xsl:copy-of select="xs:annotation/xs:documentation[2]" /></p>
     <xsl:apply-templates />
   </xsl:template>
 
-  <xsl:template match="xs:element[@name='UI']|xs:element[@name='Systems']">
+  <xsl:template match="xs:element[@name='UI']|xs:element[@name='Systems']|xs:element[@name='Admin']">
        <xsl:apply-templates mode="tabs"/>
   </xsl:template>
 
   <xsl:template match="xs:element">
        <h3><xsl:value-of select="@name"/></h3>
-       <p><xsl:value-of select="xs:annotation/xs:documentation" /></p>
+       <p><pre style="white-space: pre-wrap;"><xsl:value-of select="xs:annotation/xs:documentation" /></pre></p>
        <img src="images/{translate(@name,$upperCase,$smallCase)}.png" />
        <p><ul>
        <xsl:apply-templates select="*[position() &gt; 1]" mode="list"/>
@@ -30,7 +30,7 @@
 
   <xsl:template match="xs:element" mode="tabs">
     <h3><xsl:value-of select="../../../@name" /> - <xsl:value-of select="@name" /></h3>
-    <p><xsl:value-of select="xs:annotation/xs:documentation" /></p>
+    <p><pre style="white-space: pre-wrap;"><xsl:value-of select="xs:annotation/xs:documentation" /></pre></p>
     <img src="images/{translate(../../../@name,$upperCase,$smallCase)}-{translate(@name,$upperCase,$smallCase)}.png" />
     <p><ul>
     <xsl:apply-templates select="*[position() &gt; 1]" mode="list"/>
@@ -38,7 +38,7 @@
   </xsl:template>
 
   <xsl:template match="xs:documentation" mode="list">
-    <li><b><xsl:value-of select="../../@name"/></b>: <xsl:value-of select="text()" /></li>
+    <li><b><xsl:value-of select="../../@name"/></b>: <pre style="white-space: pre-wrap;"><xsl:value-of select="text()" /></pre></li>
   </xsl:template>
 
   <xsl:template match="xs:documentation" mode="tabs">

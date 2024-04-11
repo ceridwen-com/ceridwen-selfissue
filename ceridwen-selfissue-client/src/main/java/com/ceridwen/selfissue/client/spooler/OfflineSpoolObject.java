@@ -66,7 +66,7 @@ public class OfflineSpoolObject implements java.io.Serializable {
       } else {
         Date currentDate = new Date();
         long age = (currentDate.getTime() - this.added.getTime())/(60*60*1000);
-        if (age > Configuration.getIntProperty("Systems/Spooler/OverdueAgeWarn")) {
+        if (age > Configuration.getIntProperty("Systems/Spooler/OverdueAgeWarn", 24)) {
           this.stale = true;
           return true;
         } else {
@@ -93,7 +93,7 @@ public class OfflineSpoolObject implements java.io.Serializable {
       } else {
         Date currentDate = new Date();
         long age = (currentDate.getTime() - this.added.getTime())/(60*60*1000);
-        if (age > Configuration.getIntProperty("Systems/Spooler/OverdueAgeExpire")) {
+        if (age > Configuration.getIntProperty("Systems/Spooler/OverdueAgeExpire", 48)) {
           this.expired = true;
           return true;
         } else {

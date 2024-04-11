@@ -39,6 +39,13 @@ import org.xml.sax.SAXException;
 
 import com.ceridwen.selfissue.client.dialogs.ErrorDialog;
 import com.ceridwen.util.encryption.TEAAlgorithm;
+import com.gaborcselle.persistent.PersistentQueue;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.lang.reflect.InvocationTargetException;
+import com.ceridwen.util.collections.Queue;
+import java.io.Serializable;
 
 public class Configuration {
   private static Log log = LogFactory.getLog(Configuration.class);
@@ -130,15 +137,7 @@ public class Configuration {
         DocumentBuilder builder = getDocumentBuilder();
         document = builder.parse(getInputStream());
       }
-    } catch (IOException e) {
-      String message =
-          "DOMFactory, public static Document parse(File file): Cannot parse file: " + e.toString();
-      throw new Exception(message, e);
-    } catch (SAXException e) {
-      String message =
-          "DOMFactory, public static Document parse(File file): Cannot parse file: " + e.toString();
-      throw new Exception(message, e);
-    } catch (IllegalArgumentException e) {
+    } catch (IOException | SAXException | IllegalArgumentException e) {
       String message =
           "DOMFactory, public static Document parse(File file): Cannot parse file: " + e.toString();
       throw new Exception(message, e);
@@ -150,7 +149,7 @@ public class Configuration {
   private static InputStream getInputStream() {
     try {
       return LoadResource(CONFIGURATION_FILE).openConnection().getInputStream();
-    } catch (Exception ex) {
+    } catch (IOException ex) {
       return null;
     }
   }
@@ -190,7 +189,7 @@ public class Configuration {
       NodeList value = selectNodeList(parse().getFirstChild(),
                                     "//SelfIssue/" + key);
       if (value.getLength() == 0) {
-        System.err.println("**CONFIGURATION**  Empty key:" + key);
+        log.debug("**CONFIGURATION**  Empty key:" + key);
       }
 
       return value;
@@ -225,12 +224,17 @@ public class Configuration {
     }
   }
 
-  public static int getIntSubProperty(Node node, String key) {
+//  public static int getIntSubProperty(Node node, String key) {
+//    return Configuration.getIntSubProperty(node, key, 0);
+//}
+
+  
+  public static int getIntSubProperty(Node node, String key, int def) {
     try {
       return (Configuration.getSubProperty(node, key) == null) ? 0 :
           Integer.parseInt(Configuration.getSubProperty(node, key));
-    } catch (Exception ex) {
-      return 0;
+    } catch (NumberFormatException ex) {
+      return def;
     }
   }
   
@@ -248,16 +252,52 @@ public class Configuration {
          Configuration.getProperty(key).equalsIgnoreCase("1"));
   }
 
-  public static int getIntProperty(String key) {
+//  public static int getIntProperty(String key) {
+//      return Configuration.getIntProperty(key, 0);
+//  }  
+  
+  public static int getIntProperty(String key, int def) {
     try {
       return (Configuration.getProperty(key) == null) ? 0 :
           Integer.parseInt(Configuration.getProperty(key));
-    } catch (Exception ex) {
-      return 0;
+    } catch (NumberFormatException ex) {
+      return def;
     }
   }
   
-  private static Color getColour(String colour) {
+  public static <T extends Serializable> Queue<T> getPersistentQueue(String file) throws IOException {
+    try {   
+        return (Queue<T>)Class.forName(Configuration.getProperty("Systems/Spooler/PersistentQueueImplementation")).getConstructor(new Class[]{String.class}).newInstance(new Object[]{file});
+    } catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InstantiationException | NoSuchMethodException | SecurityException | InvocationTargetException ex) {
+        return new PersistentQueue<>(file);
+    }      
+  }
+  
+  private static double getScalingFactor() {
+    double mw = Configuration.getIntProperty("UI/Advanced/ReferenceMonitorWidth", 1920);
+    double mh = Configuration.getIntProperty("UI/Advanced/ReferenceMonitorHeight", 1200);
+    double hr = (double)Toolkit.getDefaultToolkit().getScreenSize().height/mh;
+    double wr = (double)Toolkit.getDefaultToolkit().getScreenSize().width/mw;
+    return Math.min(hr, wr);
+  }
+  
+  public static int getScaledPointSize(String key, int def) {
+      return (int)Math.round(Configuration.getIntProperty(key, def)*Configuration.getScalingFactor());
+  }
+
+  public static int getScaledPixelSize(String key, int def) {
+      return (int)Math.round(Configuration.getIntProperty(key, def)*Configuration.getScalingFactor());
+  }  
+  
+  public static int pt2Pixel(double pt) {
+    return (int)Math.round(pt*Toolkit.getDefaultToolkit().getScreenResolution()/72);     
+  }
+  
+  public static Font getFont(String key) {
+    return new java.awt.Font(Configuration.getProperty("UI/Styling/" + key + "_Font"), 1, Configuration.getScaledPointSize("UI/Styling/" + key + "_Size", 16));
+  }
+  
+  private static Color getColour(String colour, Color defaultColour) {
 	  try {
 		  String raw = Configuration.getProperty("UI/Palette/" + colour);
 		  String parsed[] = raw.split(",");		  
@@ -274,27 +314,21 @@ public class Configuration {
 			  b = Integer.parseInt(parsed[2]);
 		  }
 		  return new Color(r, g, b);
-	  } catch (Exception ex) {
-		  return null;
+	  } catch (NumberFormatException ex) {
+		  return defaultColour;
 	  }
   }
   
   public static Color getForegroundColour(String colour) {
-	  Color col = Configuration.getColour(colour);
-	  if (col != null) {
-		  return col;
-	  } else {
-		  return new Color(0xff, 0xff, 0xff);
-	  }
+	  return Configuration.getColour(colour, new Color(0xff, 0xff, 0xff));
   }
 
   public static Color getBackgroundColour(String colour) {
-	  Color col = Configuration.getColour(colour);
-	  if (col != null) {
-		  return col;
-	  } else {
-		  return new Color(0x00, 0x00, 0x00);
-	  }
+	  return Configuration.getColour(colour, new Color(0x00, 0x00, 0x00));
+  }
+
+  public static String colorEncode(Color colour) {
+      return String.format("#%06x", colour.getRGB() & 0x00FFFFFF);
   }
   
   public static String getMessage(String messageKey, String[] components) {
@@ -302,8 +336,7 @@ public class Configuration {
     if (pattern == null) {
       return null;
     }
-    String decodedPattern = pattern.replaceAll("\\^", "\r\n");
-    MessageFormat format = new MessageFormat(decodedPattern);
+    MessageFormat format = new MessageFormat(pattern);
     return format.format(components);
   }
   public static URL LoadResource(String path) {
@@ -329,7 +362,12 @@ public class Configuration {
     if (url == null) {
       return new ImageIcon();
     } else {
-      return new ImageIcon(url);
+      ImageIcon src = new ImageIcon(url);
+      double scaling = Configuration.getScalingFactor();
+      return new ImageIcon(src.getImage().getScaledInstance( 
+        (int)Math.round(src.getIconWidth()*scaling), 
+        (int)Math.round(src.getIconHeight()*scaling), 
+        Image.SCALE_SMOOTH));
     }
   }
 

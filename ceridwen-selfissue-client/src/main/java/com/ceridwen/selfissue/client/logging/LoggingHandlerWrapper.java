@@ -22,30 +22,96 @@ import java.util.logging.Level;
 import org.w3c.dom.Node;
 
 import com.ceridwen.selfissue.client.config.Configuration;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Formatter;
 
 public abstract class LoggingHandlerWrapper {
-    public abstract Handler getLoggingHandler(Node item);
     
-    protected Level getLevel(Node item) {
-        if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("SEVERE")) {
+    public Handler getLoggingHandler(Node config) {
+        Handler handler = this.getLoggingHandlerInstance(config);
+        this.ConfigureHandler(config, handler);
+        return handler;
+    }
+    
+    protected abstract Handler getLoggingHandlerInstance(Node config);
+    
+    private Level getLevel(Node config) {
+        if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("SEVERE")) {
             return java.util.logging.Level.SEVERE;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("WARNING")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("WARNING")) {
             return java.util.logging.Level.WARNING;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("INFO")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("INFO")) {
             return java.util.logging.Level.INFO;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("CONFIG")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("CONFIG")) {
             return java.util.logging.Level.CONFIG;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("FINE")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("FINE")) {
             return java.util.logging.Level.FINE;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("FINER")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("FINER")) {
             return java.util.logging.Level.FINER;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("FINEST")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("FINEST")) {
             return java.util.logging.Level.FINEST;
-          } else if (Configuration.getSubProperty(item, "level").equalsIgnoreCase("ALL")) {
+          } else if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("ALL")) {
             return java.util.logging.Level.ALL;
           } else {
             return java.util.logging.Level.OFF;
           }
+    }
+    
+    protected String getHost(Node config) {
+        return Configuration.getSubProperty(config, "Host");
+    }
+    
+    protected int getPort(Node config) {
+        return Configuration.getIntSubProperty(config, "Port", 80);
+    }
+    
+    protected boolean getSSL(Node config) {
+        return Configuration.getBoolSubProperty(config, "SSL");
+    }
+    
+    protected String getTarget(Node config) {
+        return Configuration.getSubProperty(config, "Target");
+    }
+    
+    protected String getSource(Node config) {
+        return Configuration.getSubProperty(config, "Source");
+    }
+    
+    private void setFormatter(Node config, Handler handler) {
+        String clazzName = Configuration.getSubProperty(config, "Formatter");
+        try {
+            if (clazzName != null && !clazzName.isBlank()) {
+                Formatter f = (Formatter) Class.forName(clazzName).
+                getDeclaredConstructor().newInstance();
+                handler.setFormatter(f);
+            }
+      } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException ex) {
+      }        
+    }
+    
+    private void setEncoding(Node config, Handler handler) {
+        String en = Configuration.getSubProperty(config, "Encoding"); 
+        try {
+            if (en != null && !en.isBlank()) {
+                 handler.setEncoding(en);
+            }
+        } catch (SecurityException | UnsupportedEncodingException ex) {            
+        } 
+    }
+    
+    private void ConfigureHandler(Node config, Handler handler) {
+        handler.setLevel(this.getLevel(config));
+        this.setEncoding(config, handler);
+        this.setFormatter(config, handler);
+    }
+    
+    protected int getConnectionTimeout(Node config) {
+        return Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
+    }
+    
+    protected int getIdleTimeout(Node config) {
+        return Configuration.getIntSubProperty(config, "IdleTimeout", 5);  
     }
 
 }

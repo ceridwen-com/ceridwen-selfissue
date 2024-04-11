@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.dialogs.ErrorDialog;
 import com.ceridwen.selfissue.client.logging.LoggingHandlerWrapper;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +42,7 @@ import java.util.logging.Logger;
  */
 
 public class SelfIssueClient {
-  private static Log log = LogFactory.getLog(SelfIssueClient.class);
+  private static final Log log = LogFactory.getLog(SelfIssueClient.class);
   
 	private static void checkExistingInstance() {
 		final int SOCKET_PORT = 61432;
@@ -55,21 +56,26 @@ public class SelfIssueClient {
       }
 	}
       
-	private static void initiateLogging() {
-    NodeList loggingHandlers = Configuration.getPropertyList("Logging/LoggingHandler");
+    private static void initiateLogging() {
+    NodeList loggingHandlers = Configuration.getPropertyList("Admin/LoggingHandlers/LoggingHandler");
     Logger rootLogger = java.util.logging.LogManager.getLogManager().getLogger("");
+    
+    for (Handler handler: rootLogger.getHandlers()) {
+        rootLogger.removeHandler(handler);
+    }
+    
     for (int i = 0; i < loggingHandlers.getLength(); i++) {
       LoggingHandlerWrapper loggingHandlerWrapper;
       try {
         loggingHandlerWrapper = (LoggingHandlerWrapper) Class.forName(
           Configuration.getSubProperty(loggingHandlers.item(i), "@class")).
-          newInstance();
+          getDeclaredConstructor().newInstance();
         Handler handler = loggingHandlerWrapper.getLoggingHandler(loggingHandlers.item(i));
         rootLogger.addHandler(handler);
         if (rootLogger.getLevel().intValue() > handler.getLevel().intValue()) {
           rootLogger.setLevel(handler.getLevel());
         }
-      } catch (Exception ex) {
+      } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException ex) {
         log.fatal("Could not register logging handler", ex);
       }
     }

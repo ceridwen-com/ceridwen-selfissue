@@ -47,18 +47,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </navigationTree>
               </style>
        </global>
-       <component xpath="/SelfIssue/CommandInterface/SystemPassword">
+       <component xpath="/SelfIssue/Admin/CommandInterface/SystemPassword">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/Logging/LoggingHandler[list]">
+       <component xpath="/SelfIssue/Admin/LoggingHandlers/LoggingHandler[list]">
               <style>
                      <list>
                             <tab/>
                      </list>
               </style>
        </component>
+       <component xpath="/SelfIssue/Admin/LoggingHandlers/LoggingHandler/Encoding">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.CharsetChooser" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/Systems/Loggers/Logger[list]">
               <style>
                      <list>
@@ -66,6 +71,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </list>
               </style>
        </component>
+       <component xpath="/SelfIssue/Systems/Loggers/Logger/Encoding">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.CharsetChooser" renderer="JAVASWING"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/Systems/SIP/LoginPassword">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.EncryptionVisualizer" renderer="JAVASWING"></plugIn>
@@ -240,14 +250,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      </plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/CheckInPanel/BooksIcon_Icon">
+       <component xpath="/SelfIssue/UI/CheckInPanel/BooksIcon">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="gif,png"/>
                      </plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/CheckOutPanel/BooksIcon_Icon">
+       <component xpath="/SelfIssue/UI/CheckOutPanel/BooksIcon">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="gif,png"/>
@@ -259,11 +269,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Palette/InputBackgroundColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/InputTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/InputBorderColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputSelectionColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputSelectedTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputCaretColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Palette/InputDisabledTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/UI/Palette/ButtonBackgroundColour">
               <style>
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Palette/LabelTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/UI/Palette/ButtonTextColour">
               <style>
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
@@ -274,12 +324,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Palette/StatusTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
        <component xpath="/SelfIssue/UI/Palette/InnerBorderColour">
               <style>
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Palette/SubTitleTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>       
        <component xpath="/SelfIssue/UI/Palette/OuterBorderColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/OutOfOrderTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/OutOfOrderBackgroundColour">
               <style>
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
@@ -304,35 +374,80 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/PatronPanel/CardIcon_Icon">
+       <component xpath="/SelfIssue/UI/PatronPanel/CardIcon">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="gif,png"/>
                      </plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/SelfIssue/LeftIcon_Icon">
+       <component xpath="/SelfIssue/UI/SelfIssue/LeftIcon">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="gif,png"/>
                      </plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/SelfIssue/LibraryText_Font">
+       <component xpath="/SelfIssue/UI/Styling/LookAndFeel">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.LAFChooser"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/SelfIssue/RightIcon">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
+                            <param type="String[]" value="gif,png"/>
+                     </plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Styling/TitleText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component> 
+       <component xpath="/SelfIssue/UI/Styling/SubTitleText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component>        
+       <component xpath="/SelfIssue/UI/Styling/DefaultText_Font">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
               </style>
        </component>
-       <component xpath="/SelfIssue/UI/SelfIssue/RightIcon_Icon">
-              <style>
-                     <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
-                            <param type="String[]" value="gif,png"/>
-                     </plugIn>
-              </style>
-       </component>
-       <component xpath="/SelfIssue/UI/SelfIssue/TitleText_Font">
+       <component xpath="/SelfIssue/UI/Styling/StatusText_Font">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Styling/WarningText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Styling/LabelText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Styling/OutOfOrderText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Styling/ButtonText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component>              
+       <component xpath="/SelfIssue/UI/Styling/InputText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Styling/VersionText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component> 
 </XUI>

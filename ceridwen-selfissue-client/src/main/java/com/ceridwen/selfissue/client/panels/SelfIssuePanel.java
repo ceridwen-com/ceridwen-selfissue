@@ -16,8 +16,7 @@
  */
 package com.ceridwen.selfissue.client.panels;
 
-import java.applet.Applet;
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import javax.swing.JPanel;
@@ -27,6 +26,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ceridwen.selfissue.client.config.Configuration;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * <p>Title: RTSI</p>
@@ -53,15 +58,15 @@ public class SelfIssuePanel extends JPanel {
 	 */
 	
 
-private static Log log = LogFactory.getLog(SelfIssuePanel.class);
+private static final Log log = LogFactory.getLog(SelfIssuePanel.class);
 
-  public static final boolean trustMode = Configuration.getBoolProperty("Modes/TrustMode");
-  public static final boolean allowOffline = Configuration.getBoolProperty("Modes/AllowOffline");
-  public static final boolean retryPatronWhenError = Configuration.getBoolProperty("Modes/RetryPatronWhenError");
-  public static final boolean retryItemWhenError = Configuration.getBoolProperty("Modes/RetryItemWhenError");
-  public static final boolean allowRenews = Configuration.getBoolProperty("Modes/AllowRenews");
+  public static final boolean trustMode = Configuration.getBoolProperty("Systems/Modes/TrustMode");
+  public static final boolean allowOffline = Configuration.getBoolProperty("Systems/Modes/AllowOffline");
+  public static final boolean retryPatronWhenError = Configuration.getBoolProperty("Systems/Modes/RetryPatronWhenError");
+  public static final boolean retryItemWhenError = Configuration.getBoolProperty("Systems/Modes/RetryItemWhenError");
+  public static final boolean allowRenews = Configuration.getBoolProperty("Systems/Modes/AllowRenews");
   public static final boolean useNoBlock = Configuration.getBoolProperty("Modes/UseNoBlock");
-  public static final boolean suppressSecurityFailureMessages = Configuration.getBoolProperty("Modes/SuppressSecurityFailureMessages");
+  public static final boolean suppressSecurityFailureMessages = Configuration.getBoolProperty("Systems/Modes/SuppressSecurityFailureMessages");
   /**@todo: find better name and functionality
    *
    */
@@ -78,24 +83,30 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   }
 
   void PlaySound(String sound) {
-    try {
-      String snd = Configuration.getProperty("UI/Audio/" + sound);
-      if (StringUtils.isEmpty(snd)) {
-        return;
-      }
-      Applet.newAudioClip(Configuration.LoadResource(snd)).play();
-    } catch (Exception ex) {
-      log.debug("Sound object not found");
+    if (Configuration.getBoolProperty("UI/Audio/AudioEnabled")) {
+        try {
+          String snd = Configuration.getProperty("UI/Audio/" + sound);
+          if (StringUtils.isEmpty(snd)) {
+            return;
+          }
+          AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Configuration.LoadResource(snd));
+          Clip clip = AudioSystem.getClip();
+          clip.open(audioInputStream);
+          clip.start();
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+          log.debug("Sound object not found");
+        }
     }
   }
 
-  private transient Vector<SelfIssuePanelListener> selfIssuePanelListeners;
+  private transient ArrayList<SelfIssuePanelListener> selfIssuePanelListeners;
   
   public synchronized void addSelfIssuePanelListener(SelfIssuePanelListener l) {
     @SuppressWarnings("unchecked")
-	  Vector<SelfIssuePanelListener> v = ((selfIssuePanelListeners == null)?new Vector<SelfIssuePanelListener>(2):(Vector<SelfIssuePanelListener>)selfIssuePanelListeners.clone());
+    ArrayList<SelfIssuePanelListener> v;
+    v = ((selfIssuePanelListeners == null)?new ArrayList<>(2):(ArrayList<SelfIssuePanelListener>)selfIssuePanelListeners.clone());
     if (!v.contains(l)) {
-      v.addElement(l);
+      v.add(l);
       selfIssuePanelListeners = v;
     }
   }
@@ -103,8 +114,9 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   public synchronized void removeSelfIssuePanelListener(SelfIssuePanelListener l) {
     if (selfIssuePanelListeners != null && selfIssuePanelListeners.contains(l)) {
       @SuppressWarnings("unchecked")
-	    Vector<SelfIssuePanelListener> v = (Vector<SelfIssuePanelListener>) selfIssuePanelListeners.clone();
-      v.removeElement(l);
+      ArrayList<SelfIssuePanelListener> v;
+      v = (ArrayList<SelfIssuePanelListener>) selfIssuePanelListeners.clone();
+      v.remove(l);
       selfIssuePanelListeners = v;
     }
   }
@@ -115,10 +127,11 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
   
   protected void firePanelChange(SelfIssuePanelEvent e) {
     if (selfIssuePanelListeners != null) {
-      Vector<SelfIssuePanelListener> listeners = selfIssuePanelListeners;
+      ArrayList<SelfIssuePanelListener> listeners;
+      listeners = selfIssuePanelListeners;
       int count = listeners.size();
       for (int i = 0; i < count; i++) {
-        ((SelfIssuePanelListener) listeners.elementAt(i)).PanelChange(e);
+        ((SelfIssuePanelListener) listeners.get(i)).PanelChange(e);
       }
     }
   }
@@ -127,7 +140,7 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
 	    if (StringUtils.isEmpty(s)) {
 	    	return "";
   		}
-	    StringBuffer sb = new StringBuffer();
+	    StringBuilder sb = new StringBuilder();
 	    int n = s.length();
 	    for (int i = 0; i < n ; i++) {
 	      char c = s.charAt(i);
@@ -281,10 +294,11 @@ private static Log log = LogFactory.getLog(SelfIssuePanel.class);
     process = in.replaceAll("<html>", "");
     process = process.replaceAll("<head>", "");
     process = process.replaceAll("<body>", "");
-    process = process.replaceAll("<p>", "");
-    process = process.replaceAll("<b>", "");
-    process = process.replaceAll("</b>", "");
-    process = process.replaceAll("</p>", "");
+    process = process.replaceAll("<p/>", "");
+    process = process.replaceAll("<p>[ \r\n]*</p>", "");
+    process = process.replaceAll("<p style=\"margin-top: 0\">[ \r\n]*</p>", "");    
+    process = process.replaceAll("<em>", "");
+    process = process.replaceAll("</em>", "");
     process = process.replaceAll("</body>", "");
     process = process.replaceAll("</head>", "");
     process = process.replaceAll("</html>", "");

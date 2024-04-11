@@ -19,18 +19,15 @@ package com.ceridwen.selfissue.client.log;
 
 import org.w3c.dom.Node;
 
-import com.ceridwen.selfissue.client.config.Configuration;
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
 import com.ceridwen.util.net.Syslog;
+import java.io.IOException;
 
 public class SyslogLogger extends OnlineLogLogger {
-    String host;
-    int port;
     
+    @Override
     public void initialise(Node config, OutOfOrderInterface ooo) {
-      super.initialise(config, ooo);
-      host = Configuration.getSubProperty(config, "Host");
-      port = Configuration.getIntSubProperty(config, "Port");      
+      super.initialise(config, ooo);    
     }
 
     public synchronized boolean sendSyslogMessage(String facility, int level, String msg) {
@@ -38,12 +35,13 @@ public class SyslogLogger extends OnlineLogLogger {
           Syslog.sendSyslog(host, port, facility, level , msg);
           return true;
       }
-      catch (Exception ex) {
+      catch (IOException ex) {
         return false;
       }
     }
 
+    @Override
     public boolean log(OnlineLogEvent event) {      
-      return this.sendSyslogMessage("SelfIssue", event.isActionRequired()?Syslog.LOG_ALERT:Syslog.LOG_INFO, this.getMessage(event));
+      return this.sendSyslogMessage(source.isBlank()?"SelfIssue":source, event.isActionRequired()?Syslog.LOG_ALERT:Syslog.LOG_INFO, this.getMessage(event));
     }
 }

@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <parent>
         <groupId>com.ceridwen.selfissue</groupId>
         <artifactId>ceridwen-selfissue</artifactId>
-        <version>2.7.0</version>
+        <version>2.8.0</version>
     </parent>
     <artifactId>ceridwen-selfissue-client</artifactId>
 
@@ -30,31 +30,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <properties>
         <jnlp.codebase>http://myserver/selfissue/jnlp/</jnlp.codebase>
         <netbeans.hint.license>gpl30</netbeans.hint.license>
-    </properties>
-	
-    <prerequisites>
-        <maven>3.9</maven>
-    </prerequisites> 
+    </properties> 
     
-	<dependencies>
+    <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>ceridwen-selfissue-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<compilerArgs>
-						<arg>--add-modules</arg>
-						<arg>java.smartcardio</arg>
-					</compilerArgs>
-				</configuration>
-			</plugin>		
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <compilerArgs>
+                        <arg>--add-modules</arg>
+                        <arg>java.smartcardio</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>		
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
