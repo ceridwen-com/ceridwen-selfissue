@@ -1323,7 +1323,7 @@ WinEventLogger - optional Windows host.</xs:documentation>
                           </xs:element>
                           <xs:element name="Port" type="xs:positiveInteger">
                             <xs:annotation>
-                              <xs:documentation>Logger dependent setting: <br/>
+                              <xs:documentation>Logger dependent setting:
 ConsoleLogger - not used;
 FileLogger - not used;
 MailLogger - STMP relay port;
