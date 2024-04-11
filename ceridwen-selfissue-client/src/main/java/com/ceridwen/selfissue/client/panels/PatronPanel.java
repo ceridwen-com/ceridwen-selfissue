@@ -546,6 +546,7 @@ public class PatronPanelFocusTraversalPolicy
                 if (trustMode &&
                         (!retryPatronWhenError ||
                         request.getPatronIdentifier().equals(lastEnteredId))) {
+                    response.setPersonalName(request.getPatronIdentifier());
                 } else {
                     throw new InvalidPatron();
                 }
