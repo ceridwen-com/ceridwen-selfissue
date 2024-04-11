@@ -344,6 +344,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
               </style>
        </component>
+       <component xpath="/SelfIssue/UI/Palette/OutOfOrderTextColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
+       <component xpath="/SelfIssue/UI/Palette/OutOfOrderBackgroundColour">
+              <style>
+                     <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
+              </style>
+       </component>
        <component xpath="/SelfIssue/UI/Palette/TitleBackgroundColour">
               <style>
                      <plugIn class="com.jaxfront.swing.ui.visualizers.SimpleTypeColorView"></plugIn>
@@ -376,11 +386,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                      <plugIn class="com.ceridwen.selfissue.client.config.FileChooser" renderer="JAVASWING">
                             <param type="String[]" value="gif,png"/>
                      </plugIn>
-              </style>
-       </component>
-       <component xpath="/SelfIssue/UI/Styles/LibraryText_Font">
-              <style>
-                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
               </style>
        </component>
        <component xpath="/SelfIssue/UI/Styling/LookAndFeel">
@@ -421,6 +426,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
               </style>
        </component>
        <component xpath="/SelfIssue/UI/Styling/LabelText_Font">
+              <style>
+                     <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
+              </style>
+       </component>       
+       <component xpath="/SelfIssue/UI/Styling/OutOfOrderText_Font">
               <style>
                      <plugIn class="com.ceridwen.selfissue.client.config.FontChooser"></plugIn>
               </style>
