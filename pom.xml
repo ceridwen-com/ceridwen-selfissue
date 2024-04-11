@@ -21,7 +21,7 @@
 
     <groupId>com.ceridwen.selfissue</groupId>
     <artifactId>ceridwen-selfissue</artifactId>
-    <version>282</version>
+    <version>283-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
