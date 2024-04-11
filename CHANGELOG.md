@@ -1,4 +1,4 @@
-**Version 2.8.1: 11/04/2024**
+**Version 2.8.2: 11/04/2024**
 Major UI overhaul
 Monitor scaling support
 Restructure configuration settings (config files not backwards compatible)
