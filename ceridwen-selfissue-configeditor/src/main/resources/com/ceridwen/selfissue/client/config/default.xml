@@ -203,7 +203,7 @@
                   <TerminalPassword/>
                   <SendEndPatronSession>false</SendEndPatronSession>
                   <RequirePatronPassword>false</RequirePatronPassword>
-                  <CharsetEncoding>cp850</CharsetEncoding>
+                  <CharsetEncoding>IBM437</CharsetEncoding>
                   <FieldOrdering>alphabetical</FieldOrdering>
             </SIP>
             <Modes>
