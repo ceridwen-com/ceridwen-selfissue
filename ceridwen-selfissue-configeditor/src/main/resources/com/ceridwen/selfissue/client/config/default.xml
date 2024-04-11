@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?jaxfront version=3.25;time=2024-04-09 17:37:16.321;xui=config.xui;xsd=config.xsd?>
+<?jaxfront version=3.25;time=2024-04-11 16:36:13.219;xui=config.xui;xsd=config.xsd?>
 <SelfIssue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="config.xsd">
       <UI>
             <SelfIssue>
@@ -32,7 +32,7 @@
                   <ButtonText_Size>36</ButtonText_Size>
                   <ButtonBorder>true</ButtonBorder>
                   <OutOfOrderText_Font>SansSerif</OutOfOrderText_Font>
-                  <OutOfOrderText_Size>112</OutOfOrderText_Size>                  
+                  <OutOfOrderText_Size>112</OutOfOrderText_Size>
                   <VersionText_Font>Serif</VersionText_Font>
                   <VersionText_Size>12</VersionText_Size>
             </Styling>
@@ -57,7 +57,7 @@
                   <ButtonTextColour>51,0,153</ButtonTextColour>
                   <ButtonBackgroundColour>204,204,255</ButtonBackgroundColour>
                   <OutOfOrderTextColour>153,0,0</OutOfOrderTextColour>
-                  <OutOfOrderBackgroundColour>234,234,255</OutOfOrderBackgroundColour>                  
+                  <OutOfOrderBackgroundColour>234,234,255</OutOfOrderBackgroundColour>
                   <VersionTextColour>204,204,204</VersionTextColour>
             </Palette>
             <PatronPanel>
@@ -255,10 +255,12 @@
                         <SSL/>
                         <Target>c:/temp/selfissuelogger.log</Target>
                         <Source/>
+                        <Username/>
+                        <Password/>
                         <Formatter/>
                         <Encoding/>
-                        <ConnectionTimeout>1</ConnectionTimeout>
-                        <IdleTimeout>5</IdleTimeout>
+                        <ConnectionTimeout/>
+                        <IdleTimeout/>
                         <Spool>c:/temp/spools/logger1</Spool>
                   </Logger>
             </Loggers>
@@ -296,8 +298,10 @@
                         <SSL/>
                         <Target/>
                         <Source/>
+                        <Username/>
+                        <Password/>
                         <Formatter/>
-                        <Encoding/>                        
+                        <Encoding/>
                         <ConnectionTimeout/>
                         <IdleTimeout/>
                   </LoggingHandler>
@@ -308,8 +312,10 @@
                         <SSL/>
                         <Target>c:/temp/selfissue.log</Target>
                         <Source/>
+                        <Username/>
+                        <Password/>
                         <Formatter/>
-                        <Encoding/>                        
+                        <Encoding/>
                         <ConnectionTimeout/>
                         <IdleTimeout/>
                   </LoggingHandler>
