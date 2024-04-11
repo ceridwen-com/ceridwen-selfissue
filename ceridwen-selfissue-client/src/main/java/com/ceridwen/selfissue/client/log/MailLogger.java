@@ -18,11 +18,14 @@ package com.ceridwen.selfissue.client.log;
 
 import java.text.SimpleDateFormat;
 
-import org.apache.commons.net.smtp.SMTPClient;
+import org.apache.commons.net.smtp.AuthenticatingSMTPClient;
 import org.w3c.dom.Node;
 
 import com.ceridwen.selfissue.client.core.OutOfOrderInterface;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class MailLogger extends OnlineLogLogger {
 
@@ -33,11 +36,32 @@ public class MailLogger extends OnlineLogLogger {
 
   public synchronized boolean sendSMTPMessage(String subject, String message) {
     try {
-      SMTPClient smtp = new SMTPClient();
-      smtp.connect(host);
+      AuthenticatingSMTPClient smtp = new AuthenticatingSMTPClient("TLS", false);
+      smtp.connect(host, port);
       smtp.setSoTimeout(idleTimeout);
+      
+        if (ssl) {
+            if (!smtp.elogin()) {
+                throw new IOException("EHLO failed on host " + host);
+            }
+            if (!smtp.execTLS()) {
+                throw new IOException("StartTLS failed on host " + host);
+            }
+        } else {
+            if (!smtp.login()) {
+                throw new IOException("HELO failed on host " + host);
+            }
+        }
 
-      if (smtp.login()) {
+        if (username != null && !username.isBlank()) {
+            if (!smtp.elogin()) {
+                throw new IOException("EHLO failed on host " + host);
+            }                
+            if (!smtp.auth(AuthenticatingSMTPClient.AUTH_METHOD.PLAIN, username, password)) {
+                throw new IOException("Authentication failed on host " + host);
+            }
+        }  
+
         if (!smtp.sendSimpleMessage(source,
                                     target,
                                     "From: " + source + "\r\n" +
@@ -46,18 +70,14 @@ public class MailLogger extends OnlineLogLogger {
                                     new SimpleDateFormat("E, d MMM yyyy HH:mm:ss Z").
                                     format(new java.util.Date()) + "\r\n" +
                                     "Subject: " + subject + "\r\n\r\n" + message)) {
-          return false;
+            throw new IOException("SMTP send failed on host " + host);
         }
-      }
-      else {
-        smtp.disconnect();
-        return false;
-      }
+
       smtp.logout();
       smtp.disconnect();
       return true;
     }
-    catch (IOException ex) {
+    catch (IOException | NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException ex) {
       return false;
     }
   }

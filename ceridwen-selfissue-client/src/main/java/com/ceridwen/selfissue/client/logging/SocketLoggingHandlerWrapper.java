@@ -17,7 +17,6 @@
 package com.ceridwen.selfissue.client.logging;
 
 import java.io.IOException;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.SocketHandler;
 import org.w3c.dom.Node;
@@ -28,13 +27,7 @@ import org.w3c.dom.Node;
  */
 public class SocketLoggingHandlerWrapper extends LoggingHandlerWrapper {
   @Override
-  protected Handler getLoggingHandlerInstance(Node config) {
-      Handler handler;
-      try {
-          handler = new SocketHandler(this.getHost(config), this.getPort(config));
-      } catch (IOException | SecurityException ex) {
-          handler = new ConsoleHandler();
-      }
-    return handler;
+  protected Handler getLoggingHandlerInstance(Node config) throws IOException {
+    return new SocketHandler(this.getHost(config), this.getPort(config,12345));
   }  
 }

@@ -49,6 +49,8 @@ public abstract class OnlineLogLogger implements SpoolerProcessor<OnlineLogEvent
   protected String source;
   protected int connectionTimeout;
   protected int idleTimeout;
+  protected String username;
+  protected String password;
 
   @Override
   public boolean process(OnlineLogEvent ev) {
@@ -100,8 +102,10 @@ public abstract class OnlineLogLogger implements SpoolerProcessor<OnlineLogEvent
     this.ssl = Configuration.getBoolSubProperty(config, "SSL");
     this.target = Configuration.getSubProperty(config, "Target");
     this.source = Configuration.getSubProperty(config, "Source");
-    this.connectionTimeout = Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
-    this.idleTimeout = Configuration.getIntSubProperty(config, "IdleTimeout", 5);    
+    this.username = Configuration.getSubProperty(config, "Username");
+    this.password = Configuration.Decrypt(Configuration.getSubProperty(config, "Password"));
+    this.connectionTimeout = 1000*Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
+    this.idleTimeout = 1000*Configuration.getIntSubProperty(config, "IdleTimeout", 5);    
   }
 
   public abstract boolean log(OnlineLogEvent event);

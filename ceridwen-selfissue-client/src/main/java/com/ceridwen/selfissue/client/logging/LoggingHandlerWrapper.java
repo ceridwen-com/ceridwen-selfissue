@@ -22,19 +22,20 @@ import java.util.logging.Level;
 import org.w3c.dom.Node;
 
 import com.ceridwen.selfissue.client.config.Configuration;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Formatter;
 
 public abstract class LoggingHandlerWrapper {
     
-    public Handler getLoggingHandler(Node config) {
+    public Handler getLoggingHandler(Node config) throws IOException{
         Handler handler = this.getLoggingHandlerInstance(config);
         this.ConfigureHandler(config, handler);
         return handler;
     }
     
-    protected abstract Handler getLoggingHandlerInstance(Node config);
+    protected abstract Handler getLoggingHandlerInstance(Node config) throws IOException;
     
     private Level getLevel(Node config) {
         if (Configuration.getSubProperty(config, "level").equalsIgnoreCase("SEVERE")) {
@@ -62,8 +63,8 @@ public abstract class LoggingHandlerWrapper {
         return Configuration.getSubProperty(config, "Host");
     }
     
-    protected int getPort(Node config) {
-        return Configuration.getIntSubProperty(config, "Port", 80);
+    protected int getPort(Node config, int d) {
+        return Configuration.getIntSubProperty(config, "Port", d);
     }
     
     protected boolean getSSL(Node config) {
@@ -77,6 +78,23 @@ public abstract class LoggingHandlerWrapper {
     protected String getSource(Node config) {
         return Configuration.getSubProperty(config, "Source");
     }
+    
+    protected String getUsername(Node config) {
+        return Configuration.getSubProperty(config, "Username");
+    }
+
+    protected String getPassword(Node config) {
+        return Configuration.Decrypt(Configuration.getSubProperty(config, "Password"));
+    } 
+    
+    protected int getConnectionTimeout(Node config) {
+        return 1000*Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
+    }
+    
+    protected int getIdleTimeout(Node config) {
+        return 1000*Configuration.getIntSubProperty(config, "IdleTimeout", 5);  
+    }
+
     
     private void setFormatter(Node config, Handler handler) {
         String clazzName = Configuration.getSubProperty(config, "Formatter");
@@ -105,13 +123,4 @@ public abstract class LoggingHandlerWrapper {
         this.setEncoding(config, handler);
         this.setFormatter(config, handler);
     }
-    
-    protected int getConnectionTimeout(Node config) {
-        return Configuration.getIntSubProperty(config, "ConnectionTimeout", 1);
-    }
-    
-    protected int getIdleTimeout(Node config) {
-        return Configuration.getIntSubProperty(config, "IdleTimeout", 5);  
-    }
-
 }

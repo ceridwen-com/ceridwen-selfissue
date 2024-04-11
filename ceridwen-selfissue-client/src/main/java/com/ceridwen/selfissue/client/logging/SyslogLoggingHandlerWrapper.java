@@ -28,7 +28,7 @@ public class SyslogLoggingHandlerWrapper extends LoggingHandlerWrapper {
     protected Handler getLoggingHandlerInstance(Node config) {
         SyslogLogHandler handler = new SyslogLogHandler(
                 this.getHost(config),
-                this.getPort(config));
+                this.getPort(config, 514));
         handler.setThrottle(1, 15);
         return handler;
     }

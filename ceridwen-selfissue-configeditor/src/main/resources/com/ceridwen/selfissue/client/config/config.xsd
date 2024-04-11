@@ -1338,7 +1338,7 @@ WinEventLogger - not used.</xs:documentation>
                               <xs:documentation>Logger dependent setting:
 ConsoleLogger - not used; 
 FileLogger - not used; 
-MailLogger - not used; 
+MailLogger - Use StartTLS; 
 RestLogger - use https; 
 SocketLogger - not used; 
 SyslogLogger - not used; 
@@ -1367,6 +1367,30 @@ RestLogger - not used;
 SocketLogger - not used;
 SyslogLogger - not used; 
 WinEventLogger - WinEvent source.</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="Username" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>Logger dependent setting: 
+ConsoleLogger - not used;
+FileLogger - not used;
+MailLogger - Username for mail relay;
+RestLogger - not used;
+SocketLogger - not used;
+SyslogLogger - not used; 
+WinEventLogger - not used.</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="Password" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>Logger dependent setting: 
+ConsoleLogger - not used;
+FileLogger - not used;
+MailLogger - Password for mail relay;
+RestLogger - not used;
+SocketLogger - not used;
+SyslogLogger - not used; 
+WinEventLogger - not used.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
                           <xs:element name="Formatter">
@@ -1630,7 +1654,7 @@ WinEventLoggingHandlerWrapper - not used.</xs:documentation>
                               <xs:documentation>LoggingHandler dependent setting:
 ConsoleLoggingHandlerWrapper - not used; 
 FileLoggingHandlerWrapper - not used; 
-MailLoggingHandlerWrapper - not used;
+MailLoggingHandlerWrapper - use StartTLS;
 RestLoggingHandlerWrapper - use https; 
 SocketLoggingHandlerWrapper - not used;
 SyslogLoggingHandlerWrapper - not used; 
@@ -1655,12 +1679,36 @@ WinEventLoggingHandlerWrapper - not used.</xs:documentation>
 ConsoleLoggingHandlerWrapper - not used; 
 FileLoggingHandlerWrapper - not used;
 MailLoggingHandlerWrapper - From e-mail address;
-RestLoggingHandlerWrapper- not used;
+RestLoggingHandlerWrapper - not used;
 SocketLoggingHandlerWrapper - not used;
 SyslogLoggingHandlerWrapper - not used;
 WinEventLoggingHandlerWrapper - WinEvent source.</xs:documentation>
                             </xs:annotation>
                           </xs:element>
+                          <xs:element name="Username" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>LoggingHandler dependent setting:
+ConsoleLoggingHandlerWrapper - not used; 
+FileLoggingHandlerWrapper - not used;
+MailLoggingHandlerWrapper - Username for relay;
+RestLoggingHandlerWrapper - not used;
+SocketLoggingHandlerWrapper - not used;
+SyslogLoggingHandlerWrapper - not used;
+WinEventLoggingHandlerWrapper - not used.</xs:documentation>
+                            </xs:annotation>
+                          </xs:element> 
+                          <xs:element name="Password" type="xs:string">
+                            <xs:annotation>
+                              <xs:documentation>LoggingHandler dependent setting:
+ConsoleLoggingHandlerWrapper - not used; 
+FileLoggingHandlerWrapper - not used;
+MailLoggingHandlerWrapper - Password for Relay;
+RestLoggingHandlerWrapper - not used;
+SocketLoggingHandlerWrapper - not used;
+SyslogLoggingHandlerWrapper - not used;
+WinEventLoggingHandlerWrapper - not used.</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>                                                   
                           <xs:element name="Formatter">
                             <xs:annotation>
                               <xs:documentation>Logger dependent setting (blank for default): 

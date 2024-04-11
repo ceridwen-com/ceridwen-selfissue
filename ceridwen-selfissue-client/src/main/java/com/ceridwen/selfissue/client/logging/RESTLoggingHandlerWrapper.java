@@ -28,7 +28,7 @@ public class RESTLoggingHandlerWrapper extends LoggingHandlerWrapper {
   protected Handler getLoggingHandlerInstance(Node config) {
         RESTLogHandler handler = new RESTLogHandler(
             (this.getSSL(config)?"https":"http") + "://" + this.getHost(config) + ":" + 
-            ((this.getPort(config)==0)?(this.getSSL(config)?443:80):this.getPort(config)) + this.getTarget(config)
+            this.getPort(config, this.getSSL(config)?443:80) + this.getTarget(config)
         );
         handler.setThrottle(1, 1);
         return handler;
