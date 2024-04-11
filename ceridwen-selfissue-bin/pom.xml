@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <parent>
         <groupId>com.ceridwen.selfissue</groupId>
         <artifactId>ceridwen-selfissue</artifactId>
-        <version>2.9.0-SNAPSHOT</version>
+        <version>282</version>
     </parent>
     <artifactId>ceridwen-selfissue-bin</artifactId>
     <packaging>pom</packaging>
